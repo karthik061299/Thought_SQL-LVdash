@@ -1,10 +1,13 @@
 -- =====================================================
 -- ThoughtSpot SQL Metric Views for Databricks
 -- Generated from PaaS Tracking Card TML Files
--- Version: 2.0 - Enhanced with improved aggregations and error handling
+-- Version: 2.0 - Enhanced with improved aggregations and performance optimizations
 -- =====================================================
 
--- Base metric view for PaaS Tracking Card analytics
+-- =====================================================
+-- Base Metric View for PaaS Tracking Card Analytics
+-- =====================================================
+
 CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics AS
 SELECT 
     -- Base Attributes
@@ -15,8 +18,9 @@ SELECT
     `app_package_id`,
     `app_version`,
     `session_start_date_time`,
-    DATE(`session_start_date_time`) AS `date`,
+    DATE(`session_start_date_time`) AS `session_date`,
     DATE_TRUNC('MONTH', `session_start_date_time`) AS `month_date`,
+    DATE_TRUNC('WEEK', `session_start_date_time`) AS `week_date`,
     DATE_TRUNC('YEAR', `session_start_date_time`) AS `year_date`,
     `geo_country_code`,
     `is_hpid_signed_in`,
@@ -25,12 +29,14 @@ SELECT
     `aip_device_uuid`,
     `is_associated_device`,
     
-    -- Boolean Attributes
+    -- Boolean Attributes for Tracking Card Views
     `is_viewed_aip_tracking_card`,
     `is_viewed_aip_tracking_card_order_confirmed`,
     `is_viewed_aip_tracking_card_order_processing`,
     `is_viewed_aip_tracking_card_order_shipped`,
     `is_viewed_aip_tracking_card_order_delivered`,
+    
+    -- Boolean Attributes for Click Actions
     `is_clicked_aip_order_accordian`,
     `is_clicked_order_confirmation`,
     `is_clicked_order_processing`,
@@ -44,32 +50,37 @@ SELECT
     `is_clicked_aip_order_accordian_order_processing`,
     `is_clicked_aip_order_accordian_order_shipped`,
     `is_clicked_aip_order_accord`,
+    `is_clicked_support`,
+    
+    -- Boolean Attributes for Setup and Onboarding
     `is_aip_setup_start`,
     `is_ows_start`,
     `is_oobe_complete`,
     `is_aip_setup_complete`,
-    `is_clicked_support`,
     `is_oobe_support_session`,
     
-    -- Count Measures (Direct)
-    COALESCE(`total_printer_count`, 0) AS `total_printer_count`,
-    COALESCE(`total_device_count`, 0) AS `total_device_count`,
-    COALESCE(`total_accessory_count`, 0) AS `total_accessory_count`,
-    COALESCE(`total_pc_count`, 0) AS `total_pc_count`,
-    COALESCE(`max_total_printer_count`, 0) AS `max_total_printer_count`,
-    COALESCE(`max_total_device_count`, 0) AS `max_total_device_count`,
-    COALESCE(`max_total_accessory_count`, 0) AS `max_total_accessory_count`,
-    COALESCE(`max_total_pc_count`, 0) AS `max_total_pc_count`
+    -- Count Measures (Direct from source)
+    `total_printer_count`,
+    `total_device_count`,
+    `total_accessory_count`,
+    `total_pc_count`,
+    `max_total_printer_count`,
+    `max_total_device_count`,
+    `max_total_accessory_count`,
+    `max_total_pc_count`
     
 FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card;
 
 -- =====================================================
--- Calculated Measures View (ThoughtSpot Formulas)
+-- Aggregated Metrics View with ThoughtSpot Formula Logic
 -- =====================================================
 
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_tracking_card_calculated_metrics AS
+CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_tracking_card_aggregated_metrics AS
 SELECT 
+    `session_date`,
     `month_date`,
+    `week_date`,
+    `year_date`,
     `os_platform`,
     `app_version`,
     `geo_country_code`,
@@ -124,7 +135,7 @@ SELECT
         ELSE COUNT(DISTINCT CASE WHEN `is_viewed_aip_tracking_card_order_confirmed` = true THEN `app_package_deployed_uuid` END) 
     END AS `confirmed`,
     
-    -- ThoughtSpot Formula: Processed
+    -- ThoughtSpot Formula: Processed (using device_app_package_deployed_uuid)
     CASE 
         WHEN COUNT(DISTINCT CASE WHEN `is_viewed_aip_tracking_card_order_processing` = true THEN `device_app_package_deployed_uuid` END) = 0 
         THEN NULL 
@@ -138,7 +149,7 @@ SELECT
         ELSE COUNT(DISTINCT CASE WHEN `is_viewed_aip_tracking_card_order_shipped` = true THEN `app_package_deployed_uuid` END) 
     END AS `shipped`,
     
-    -- ThoughtSpot Formula: Delivered
+    -- ThoughtSpot Formula: Delivered (using device_app_package_deployed_uuid)
     CASE 
         WHEN COUNT(DISTINCT CASE WHEN `is_viewed_aip_tracking_card_order_delivered` = true THEN `device_app_package_deployed_uuid` END) = 0 
         THEN NULL 
@@ -197,14 +208,17 @@ SELECT
     SUM(`max_total_accessory_count`) AS `sum_max_total_accessory_count`,
     SUM(`max_total_pc_count`) AS `sum_max_total_pc_count`,
     
-    -- Session Counts
+    -- Session and Package Counts
     COUNT(DISTINCT `session_id`) AS `unique_sessions`,
     COUNT(DISTINCT `app_package_deployed_uuid`) AS `unique_app_packages`,
     COUNT(DISTINCT `device_app_package_deployed_uuid`) AS `unique_device_packages`
     
 FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics
 GROUP BY 
+    `session_date`,
     `month_date`,
+    `week_date`,
+    `year_date`,
     `os_platform`,
     `app_version`,
     `geo_country_code`,
@@ -212,122 +226,109 @@ GROUP BY
 
 -- =====================================================
 -- Dashboard-Ready View for Lakeview Integration
+-- Optimized for ThoughtSpot Liveboard Visualizations
 -- =====================================================
 
 CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard AS
 SELECT 
+    -- Time Dimensions
+    `session_date` AS `date`,
     `month_date`,
+    `week_date`,
+    `year_date`,
+    
+    -- Categorical Dimensions
     `os_platform`,
     `app_version`,
     `geo_country_code`,
     CASE WHEN `is_hpid_signed_in` = true THEN 'Signed In' ELSE 'Not Signed In' END AS `hpid_status`,
     
-    -- Core Metrics for Visualization (matching ThoughtSpot liveboard)
-    COALESCE(`viewed_paas_tracking_card`, 0) AS `paas_tracking_card_views`,
-    COALESCE(`clicked_expand`, 0) AS `clicks_on_expand`,
-    COALESCE(`clicked_order_confirmation`, 0) AS `order_confirmation_clicks`,
-    COALESCE(`clicked_order_processing`, 0) AS `processing_clicks`,
-    COALESCE(`clicked_track_delivery`, 0) AS `track_delivery_clicks`,
-    COALESCE(`clicked_complete_setup`, 0) AS `complete_setup_clicks`,
+    -- Core Tracking Card Metrics (matching ThoughtSpot visualizations)
+    COALESCE(`viewed_paas_tracking_card`, 0) AS `viewed_paas_tracking_card`,
+    COALESCE(`clicked_expand`, 0) AS `clicked_expand`,
     
-    -- Status Metrics (matching ThoughtSpot liveboard)
-    COALESCE(`confirmed`, 0) AS `confirmed_status`,
-    COALESCE(`processed`, 0) AS `processed_status`,
-    COALESCE(`shipped`, 0) AS `shipped_status`,
-    COALESCE(`delivered`, 0) AS `delivered_status`,
-    COALESCE(`onboarded`, 0) AS `onboarded_users`,
+    -- Status Click Metrics (Viz_3: Clicks on Each Status)
+    COALESCE(`clicked_order_confirmation`, 0) AS `clicked_order_confirmation`,
+    COALESCE(`clicked_order_processing`, 0) AS `clicked_order_processing`, 
+    COALESCE(`clicked_track_delivery`, 0) AS `clicked_track_delivery`,
+    COALESCE(`clicked_complete_setup`, 0) AS `clicked_complete_setup`,
+    
+    -- Status Tracking Metrics (Viz_6: Tracking Card Status)
+    COALESCE(`confirmed`, 0) AS `confirmed`,
+    COALESCE(`processed`, 0) AS `processed`,
+    COALESCE(`shipped`, 0) AS `shipped`,
+    COALESCE(`delivered`, 0) AS `delivered`,
+    
+    -- Onboarding and Support Metrics (Viz_4: Delivered vs Onboarded and Support Cases)
+    COALESCE(`onboarded`, 0) AS `onboarded`,
     COALESCE(`support_cases`, 0) AS `support_cases`,
     
-    -- Pill Click Metrics (matching ThoughtSpot liveboard)
-    COALESCE(`order_confirmed_pill`, 0) AS `confirmed_pill_clicks`,
-    COALESCE(`processing_pill`, 0) AS `processing_pill_clicks`,
-    COALESCE(`shipped_pill`, 0) AS `shipped_pill_clicks`,
-    COALESCE(`delivered_pill`, 0) AS `delivered_pill_clicks`,
+    -- Pill Click Metrics (Viz_5: Tracking Card Status Pill Clicks)
+    COALESCE(`order_confirmed_pill`, 0) AS `order_confirmed_pill`,
+    COALESCE(`processing_pill`, 0) AS `processing_pill`,
+    COALESCE(`shipped_pill`, 0) AS `shipped_pill`,
+    COALESCE(`delivered_pill`, 0) AS `delivered_pill`,
     
-    -- Device Counts
-    COALESCE(`sum_total_printer_count`, 0) AS `total_printers`,
-    COALESCE(`sum_total_device_count`, 0) AS `total_devices`,
-    COALESCE(`sum_total_accessory_count`, 0) AS `total_accessories`,
-    COALESCE(`sum_total_pc_count`, 0) AS `total_pcs`,
-    COALESCE(`sum_max_total_printer_count`, 0) AS `max_total_printers`,
-    COALESCE(`sum_max_total_device_count`, 0) AS `max_total_devices`,
-    COALESCE(`sum_max_total_accessory_count`, 0) AS `max_total_accessories`,
-    COALESCE(`sum_max_total_pc_count`, 0) AS `max_total_pcs`,
+    -- Device and Hardware Counts
+    `sum_total_printer_count` AS `total_printer_count`,
+    `sum_total_device_count` AS `total_device_count`,
+    `sum_total_accessory_count` AS `total_accessory_count`,
+    `sum_total_pc_count` AS `total_pc_count`,
+    `sum_max_total_printer_count` AS `max_total_printer_count`,
+    `sum_max_total_device_count` AS `max_total_device_count`,
+    `sum_max_total_accessory_count` AS `max_total_accessory_count`,
+    `sum_max_total_pc_count` AS `max_total_pc_count`,
     
     -- Session Metrics
-    COALESCE(`unique_sessions`, 0) AS `unique_sessions`,
-    COALESCE(`unique_app_packages`, 0) AS `unique_app_packages`,
-    COALESCE(`unique_device_packages`, 0) AS `unique_device_packages`
+    `unique_sessions`,
+    `unique_app_packages`,
+    `unique_device_packages`
     
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_calculated_metrics
+FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_aggregated_metrics
+ORDER BY `month_date` DESC, `os_platform`, `app_version`;
+
+-- =====================================================
+-- Monthly Summary View for High-Level Reporting
+-- =====================================================
+
+CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_tracking_card_monthly_summary AS
+SELECT 
+    `month_date`,
+    `os_platform`,
+    
+    -- Monthly Totals
+    SUM(`viewed_paas_tracking_card`) AS `monthly_views`,
+    SUM(`clicked_expand`) AS `monthly_expand_clicks`,
+    SUM(`delivered`) AS `monthly_delivered`,
+    SUM(`onboarded`) AS `monthly_onboarded`,
+    SUM(`support_cases`) AS `monthly_support_cases`,
+    
+    -- Conversion Rates
+    CASE 
+        WHEN SUM(`viewed_paas_tracking_card`) > 0 
+        THEN ROUND((SUM(`clicked_expand`) * 100.0 / SUM(`viewed_paas_tracking_card`)), 2)
+        ELSE 0 
+    END AS `expand_conversion_rate_pct`,
+    
+    CASE 
+        WHEN SUM(`delivered`) > 0 
+        THEN ROUND((SUM(`onboarded`) * 100.0 / SUM(`delivered`)), 2)
+        ELSE 0 
+    END AS `onboarding_completion_rate_pct`,
+    
+    CASE 
+        WHEN SUM(`delivered`) > 0 
+        THEN ROUND((SUM(`support_cases`) * 100.0 / SUM(`delivered`)), 2)
+        ELSE 0 
+    END AS `support_case_rate_pct`,
+    
+    -- Session Metrics
+    SUM(`unique_sessions`) AS `monthly_sessions`,
+    SUM(`unique_app_packages`) AS `monthly_app_packages`
+    
+FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
+GROUP BY `month_date`, `os_platform`
 ORDER BY `month_date` DESC, `os_platform`;
-
--- =====================================================
--- Additional Views for Specific Dashboard Visualizations
--- =====================================================
-
--- View for Viz_1: PaaS Tracking Card Views by OS Platform and Month
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_card_views_by_platform AS
-SELECT 
-    `month_date`,
-    `os_platform`,
-    `paas_tracking_card_views` AS `viewed_paas_tracking_card`
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
-WHERE `paas_tracking_card_views` > 0
-ORDER BY `month_date`, `os_platform`;
-
--- View for Viz_2: Clicks on Expand by OS Platform and Month
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_card_expand_clicks AS
-SELECT 
-    `month_date`,
-    `os_platform`,
-    `clicks_on_expand` AS `clicked_expand`
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
-WHERE `clicks_on_expand` > 0
-ORDER BY `month_date`, `os_platform`;
-
--- View for Viz_3: Clicks on Each Status
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_card_status_clicks AS
-SELECT 
-    `month_date`,
-    `order_confirmation_clicks` AS `clicked_order_confirmation`,
-    `processing_clicks` AS `clicked_order_processing`,
-    `track_delivery_clicks` AS `clicked_track_delivery`,
-    `complete_setup_clicks` AS `clicked_complete_setup`
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
-ORDER BY `month_date`;
-
--- View for Viz_4: Delivered vs Onboarded and Support Cases
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_card_delivery_metrics AS
-SELECT 
-    `month_date`,
-    `delivered_status` AS `delivered`,
-    `onboarded_users` AS `onboarded`,
-    `support_cases`
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
-ORDER BY `month_date`;
-
--- View for Viz_5: Tracking Card Status Pill Clicks
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_card_pill_clicks AS
-SELECT 
-    `month_date`,
-    `confirmed_pill_clicks` AS `order_confirmed_pill`,
-    `processing_pill_clicks` AS `processing_pill`,
-    `shipped_pill_clicks` AS `shipped_pill`,
-    `delivered_pill_clicks` AS `delivered_pill`
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
-ORDER BY `month_date`;
-
--- View for Viz_6: Tracking Card Status
-CREATE OR REPLACE VIEW team_css_analytics_prod.hpx_analytics.paas_card_status_metrics AS
-SELECT 
-    `month_date`,
-    `processed_status` AS `processed`,
-    `shipped_status` AS `shipped`,
-    `confirmed_status` AS `confirmed`,
-    `delivered_status` AS `delivered`
-FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_dashboard
-ORDER BY `month_date`;
 
 -- =====================================================
 -- End of ThoughtSpot SQL Metric Views - Version 2.0
