@@ -1,0 +1,336 @@
+guid: 274eaa3d-2260-45c7-9afb-1991d6135039
+table:
+  name: paas_tracking_card
+  db: team_css_analytics_prod
+  schema: hpx_analytics
+  db_table: paas_tracking_card
+  connection:
+    name: dataos-prod-css-analytics
+    fqn: 19f20d79-6028-4ea1-8e5a-ee7e4f5a0ef8
+  columns:
+  - name: session_id
+    db_column_name: session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: app_package_deployed_uuid
+    db_column_name: app_package_deployed_uuid
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: os_platform
+    db_column_name: os_platform
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: app_name
+    db_column_name: app_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: app_package_id
+    db_column_name: app_package_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: app_version
+    db_column_name: app_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: session_start_date_time
+    db_column_name: session_start_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: DATE_TIME
+  - name: geo_country_code
+    db_column_name: geo_country_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: is_hpid_signed_in
+    db_column_name: is_hpid_signed_in
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: total_printer_count
+    db_column_name: total_printer_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: total_device_count
+    db_column_name: total_device_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: total_accessory_count
+    db_column_name: total_accessory_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: total_pc_count
+    db_column_name: total_pc_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: is_viewed_aip_tracking_card
+    db_column_name: is_viewed_aip_tracking_card
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_viewed_aip_tracking_card_order_confirmed
+    db_column_name: is_viewed_aip_tracking_card_order_confirmed
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_viewed_aip_tracking_card_order_processing
+    db_column_name: is_viewed_aip_tracking_card_order_processing
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_viewed_aip_tracking_card_order_shipped
+    db_column_name: is_viewed_aip_tracking_card_order_shipped
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_viewed_aip_tracking_card_order_delivered
+    db_column_name: is_viewed_aip_tracking_card_order_delivered
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_aip_order_accordian
+    db_column_name: is_clicked_aip_order_accordian
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_order_confirmation
+    db_column_name: is_clicked_order_confirmation
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_order_processing
+    db_column_name: is_clicked_order_processing
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_track_delivery
+    db_column_name: is_clicked_track_delivery
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_complete_setup
+    db_column_name: is_clicked_complete_setup
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_order_confirmation_pill
+    db_column_name: is_clicked_order_confirmation_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_order_processing_pill
+    db_column_name: is_clicked_order_processing_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_order_shipped_pill
+    db_column_name: is_clicked_order_shipped_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_order_delivered_pill
+    db_column_name: is_clicked_order_delivered_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: device_app_package_deployed_uuid
+    db_column_name: device_app_package_deployed_uuid
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: max_total_printer_count
+    db_column_name: max_total_printer_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: max_total_device_count
+    db_column_name: max_total_device_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: max_total_accessory_count
+    db_column_name: max_total_accessory_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: max_total_pc_count
+    db_column_name: max_total_pc_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT32
+  - name: associated_device_session_id
+    db_column_name: associated_device_session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: aip_device_uuid
+    db_column_name: aip_device_uuid
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: is_associated_device
+    db_column_name: is_associated_device
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_aip_order_accordian_order_processing
+    db_column_name: is_clicked_aip_order_accordian_order_processing
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_aip_order_accord
+    db_column_name: is_clicked_aip_order_accord
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_aip_setup_start
+    db_column_name: is_aip_setup_start
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_aip_order_accordian_order_confirmed
+    db_column_name: is_clicked_aip_order_accordian_order_confirmed
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_ows_start
+    db_column_name: is_ows_start
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_aip_order_accordian_order_shipped
+    db_column_name: is_clicked_aip_order_accordian_order_shipped
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_oobe_complete
+    db_column_name: is_oobe_complete
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_aip_setup_complete
+    db_column_name: is_aip_setup_complete
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_clicked_support
+    db_column_name: is_clicked_support
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  - name: is_oobe_support_session
+    db_column_name: is_oobe_support_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: BOOL
+  properties:
+    sage_config:
+      is_sage_enabled: false

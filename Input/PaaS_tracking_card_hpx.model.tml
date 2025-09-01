@@ -1,0 +1,448 @@
+guid: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+model:
+  name: PaaS_tracking_card_hpx
+  model_tables:
+  - name: paas_tracking_card
+    fqn: 274eaa3d-2260-45c7-9afb-1991d6135039
+  formulas:
+  - id: Clicked Complete Setup
+    name: Clicked Complete Setup
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_complete_setup] ,
+      [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_complete_setup] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Clicked Expand
+    name: Clicked Expand
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_aip_order_accordian]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_aip_order_accordian] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Clicked Order Confirmation
+    name: Clicked Order Confirmation
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_order_confirmation]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_order_confirmation] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Clicked Order Processing
+    name: Clicked Order Processing
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_order_processing]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_order_processing] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Clicked Track Delivery
+    name: Clicked Track Delivery
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_track_delivery] ,
+      [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_track_delivery] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Confirmed
+    name: Confirmed
+    expr: if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_confirmed]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_viewed_aip_tracking_card_order_confirmed] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Date
+    name: Date
+    expr: date ( [paas_tracking_card::session_start_date_time] )
+  - id: Delivered
+    name: Delivered
+    expr: if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_delivered]
+      , [paas_tracking_card::device_app_package_deployed_uuid] ) = 0 ) then null else
+      unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_delivered]
+      , [paas_tracking_card::device_app_package_deployed_uuid] )
+  - id: Delivered - Pill
+    name: Delivered - Pill
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_order_delivered_pill]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_order_delivered_pill] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Onboarded
+    name: Onboarded
+    expr: if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_delivered]
+      and [paas_tracking_card::is_aip_setup_complete] , [paas_tracking_card::app_package_deployed_uuid]
+      ) = 0 ) then null else unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_delivered]
+      and [paas_tracking_card::is_aip_setup_complete] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Order Confirmed - Pill
+    name: Order Confirmed - Pill
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_order_confirmation_pill]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_order_confirmation_pill] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Processed
+    name: Processed
+    expr: if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_processing]
+      , [paas_tracking_card::device_app_package_deployed_uuid] ) = 0 ) then null else
+      unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_processing]
+      , [paas_tracking_card::device_app_package_deployed_uuid] )
+  - id: Processing - Pill
+    name: Processing - Pill
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_order_processing_pill]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_order_processing_pill] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Shipped
+    name: Shipped
+    expr: if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_shipped]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_viewed_aip_tracking_card_order_shipped] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Shipped - Pill
+    name: Shipped - Pill
+    expr: if ( unique_count_if ( [paas_tracking_card::is_clicked_order_shipped_pill]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_clicked_order_shipped_pill] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  - id: Support Cases
+    name: Support Cases
+    expr: 'if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_delivered]
+      and [paas_tracking_card::is_oobe_support_session] , [paas_tracking_card::app_package_deployed_uuid]
+      ) = 0 ) then null else unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card_order_delivered]
+      and [paas_tracking_card::is_oobe_support_session] , [paas_tracking_card::app_package_deployed_uuid]
+      ) '
+  - id: Viewed PaaS Tracking Card
+    name: Viewed PaaS Tracking Card
+    expr: if ( unique_count_if ( [paas_tracking_card::is_viewed_aip_tracking_card]
+      , [paas_tracking_card::app_package_deployed_uuid] ) = 0 ) then null else unique_count_if
+      ( [paas_tracking_card::is_viewed_aip_tracking_card] , [paas_tracking_card::app_package_deployed_uuid]
+      )
+  columns:
+  - name: Is Viewed Aip Tracking Card Order Delivered
+    column_id: paas_tracking_card::is_viewed_aip_tracking_card_order_delivered
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Viewed PaaS Tracking Card
+    formula_id: Viewed PaaS Tracking Card
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Clicked Expand
+    formula_id: Clicked Expand
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Date
+    formula_id: Date
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Clicked Order Confirmation
+    formula_id: Clicked Order Confirmation
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Clicked Order Processing
+    formula_id: Clicked Order Processing
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Clicked Track Delivery
+    formula_id: Clicked Track Delivery
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Clicked Complete Setup
+    formula_id: Clicked Complete Setup
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Is Oobe Complete
+    column_id: paas_tracking_card::is_oobe_complete
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Aip Setup Complete
+    column_id: paas_tracking_card::is_aip_setup_complete
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Support
+    column_id: paas_tracking_card::is_clicked_support
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Aip Order Accord
+    column_id: paas_tracking_card::is_clicked_aip_order_accord
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Aip Order Accordian Order Confirmed
+    column_id: paas_tracking_card::is_clicked_aip_order_accordian_order_confirmed
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Ows Start
+    column_id: paas_tracking_card::is_ows_start
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Aip Order Accordian Order Processing
+    column_id: paas_tracking_card::is_clicked_aip_order_accordian_order_processing
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Oobe Support Session
+    column_id: paas_tracking_card::is_oobe_support_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Aip Setup Start
+    column_id: paas_tracking_card::is_aip_setup_start
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Aip Order Accordian Order Shipped
+    column_id: paas_tracking_card::is_clicked_aip_order_accordian_order_shipped
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Delivered
+    formula_id: Delivered
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Onboarded
+    formula_id: Onboarded
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Support Cases
+    formula_id: Support Cases
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Aip Device Uuid
+    column_id: paas_tracking_card::aip_device_uuid
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session Start Date Time
+    column_id: paas_tracking_card::session_start_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Max Total Printer Count
+    column_id: paas_tracking_card::max_total_printer_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Is Hpid Signed In
+    column_id: paas_tracking_card::is_hpid_signed_in
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Associated Device
+    column_id: paas_tracking_card::is_associated_device
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Total Accessory Count
+    column_id: paas_tracking_card::total_accessory_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Max Total Accessory Count
+    column_id: paas_tracking_card::max_total_accessory_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Is Viewed Aip Tracking Card
+    column_id: paas_tracking_card::is_viewed_aip_tracking_card
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Order Processing Pill
+    column_id: paas_tracking_card::is_clicked_order_processing_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Track Delivery
+    column_id: paas_tracking_card::is_clicked_track_delivery
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Order Shipped Pill
+    column_id: paas_tracking_card::is_clicked_order_shipped_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Package Deployed Uuid
+    column_id: paas_tracking_card::app_package_deployed_uuid
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Version
+    column_id: paas_tracking_card::app_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Viewed Aip Tracking Card Order Shipped
+    column_id: paas_tracking_card::is_viewed_aip_tracking_card_order_shipped
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Total Pc Count
+    column_id: paas_tracking_card::total_pc_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Total Device Count
+    column_id: paas_tracking_card::total_device_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Session Id
+    column_id: paas_tracking_card::session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Max Total Device Count
+    column_id: paas_tracking_card::max_total_device_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Geo Country Code
+    column_id: paas_tracking_card::geo_country_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Viewed Aip Tracking Card Order Confirmed
+    column_id: paas_tracking_card::is_viewed_aip_tracking_card_order_confirmed
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Viewed Aip Tracking Card Order Processing
+    column_id: paas_tracking_card::is_viewed_aip_tracking_card_order_processing
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Total Printer Count
+    column_id: paas_tracking_card::total_printer_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Is Clicked Order Processing
+    column_id: paas_tracking_card::is_clicked_order_processing
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Os Platform
+    column_id: paas_tracking_card::os_platform
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Package Id
+    column_id: paas_tracking_card::app_package_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Order Confirmation
+    column_id: paas_tracking_card::is_clicked_order_confirmation
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Order Delivered Pill
+    column_id: paas_tracking_card::is_clicked_order_delivered_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Complete Setup
+    column_id: paas_tracking_card::is_clicked_complete_setup
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Max Total Pc Count
+    column_id: paas_tracking_card::max_total_pc_count
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Associated Device Session Id
+    column_id: paas_tracking_card::associated_device_session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Order Confirmation Pill
+    column_id: paas_tracking_card::is_clicked_order_confirmation_pill
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Device App Package Deployed Uuid
+    column_id: paas_tracking_card::device_app_package_deployed_uuid
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Name
+    column_id: paas_tracking_card::app_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Clicked Aip Order Accordian
+    column_id: paas_tracking_card::is_clicked_aip_order_accordian
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Shipped
+    formula_id: Shipped
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Processed
+    formula_id: Processed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Confirmed
+    formula_id: Confirmed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Shipped - Pill
+    formula_id: Shipped - Pill
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Delivered - Pill
+    formula_id: Delivered - Pill
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Processing - Pill
+    formula_id: Processing - Pill
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Order Confirmed - Pill
+    formula_id: Order Confirmed - Pill
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  properties:
+    is_bypass_rls: false
+    join_progressive: true
+    sage_config:
+      is_sage_enabled: false

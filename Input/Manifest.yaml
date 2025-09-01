@@ -1,0 +1,32 @@
+object:
+- name: PaaS Tracking Card
+  filename: PaaS Tracking Card.liveboard.tml
+  status:
+    status_code: OK
+  type: liveboard
+  id: 9335cc96-a35c-4780-95f9-808f4966c066
+  dependency:
+  - name: PaaS_tracking_card_hpx
+    filename: PaaS_tracking_card_hpx.model.tml
+  - name: paas_tracking_card
+    filename: paas_tracking_card.table.tml
+  - name: dataos-prod-css-analytics
+    filename: dataos-prod-css-analytics.connection.tml
+- name: PaaS_tracking_card_hpx
+  filename: PaaS_tracking_card_hpx.model.tml
+  status:
+    status_code: OK
+  type: model
+  id: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+- name: paas_tracking_card
+  filename: paas_tracking_card.table.tml
+  status:
+    status_code: OK
+  type: table
+  id: 274eaa3d-2260-45c7-9afb-1991d6135039
+- name: dataos-prod-css-analytics
+  filename: dataos-prod-css-analytics.connection.tml
+  status:
+    status_code: OK
+  type: connection
+  id: 19f20d79-6028-4ea1-8e5a-ee7e4f5a0ef8

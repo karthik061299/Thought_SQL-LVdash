@@ -1,0 +1,17 @@
+guid: 19f20d79-6028-4ea1-8e5a-ee7e4f5a0ef8
+connection:
+  name: dataos-prod-css-analytics
+  type: RDBMS_DATABRICKS
+  authentication_type: SERVICE_ACCOUNT
+  properties:
+  - key: host
+    value: dataos-prod.cloud.databricks.com
+  - key: http_path
+    value: /sql/1.0/warehouses/085a22db860c4736
+  - key: user
+    value: token
+  - key: password
+    value: ""
+  - key: catalog
+    value: team_css_analytics_prod
+  description: thoughtspot connection for css analytics

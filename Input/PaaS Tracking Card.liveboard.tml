@@ -1,0 +1,377 @@
+guid: 9335cc96-a35c-4780-95f9-808f4966c066
+liveboard:
+  name: PaaS Tracking Card
+  visualizations:
+  - id: Viz_1
+    answer:
+      name: PaaS Tracking Card Views
+      tables:
+      - id: PaaS_tracking_card_hpx
+        name: PaaS_tracking_card_hpx
+        fqn: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+      search_query: "[Viewed PaaS Tracking Card] [Os Platform] [Date] [Date].monthly"
+      answer_columns:
+      - name: Month(Date)
+      - name: Os Platform
+      - name: Viewed PaaS Tracking Card
+      table:
+        table_columns:
+        - column_id: Month(Date)
+          show_headline: false
+        - column_id: Os Platform
+          show_headline: false
+        - column_id: Viewed PaaS Tracking Card
+          show_headline: false
+        ordered_column_ids:
+        - Os Platform
+        - Month(Date)
+        - Viewed PaaS Tracking Card
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Os Platform\",\"columnProperty\": {}},{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Viewed PaaS Tracking Card\",\"columnProperty\": {}}]}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Month(Date)
+        - column_id: Os Platform
+        - column_id: Viewed PaaS Tracking Card
+        axis_configs:
+        - x:
+          - Month(Date)
+          "y":
+          - Viewed PaaS Tracking Card
+          color:
+          - Os Platform
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"showStackedLabels\": false,\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"Os Platform\",\"columnProperty\": {}},{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Viewed PaaS Tracking Card\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}}],\"axisProperties\": [{\"id\": \"574bff1f-6495-4326-93e8-1f99edfb354b\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(Date)\"],\"name\": \"Date\"}},{\"id\": \"ba6d4347-ff90-45d0-9658-0138f8540383\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Viewed PaaS Tracking Card\"],\"name\": \"PaaS Tracking Card Views\",\"isOpposite\": false}}],\"seriesColors\": [{\"serieName\": \"Viewed PaaS Tracking Card\",\"color\": \"#FCC838\"},{\"serieName\": \"ios\",\"color\": \"#BEC6D0\"},{\"serieName\": \"android\",\"color\": \"#ABC7F9\"},{\"serieName\": \"macos\",\"color\": \"#D1C0FB\"}],\"systemSeriesColors\": [{\"serieName\": \"Viewed PaaS Tracking Card\",\"color\": \"#FCC838\"},{\"serieName\": \"android\",\"color\": \"#FCC838\"},{\"serieName\": \"macos\",\"color\": \"#48D1E0\"},{\"serieName\": \"ios\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: ee6fb607-76d9-4b25-be37-180f6f70c37d
+  - id: Viz_2
+    answer:
+      name: Clicks on Expand - PaaS Tracking Card
+      tables:
+      - id: PaaS_tracking_card_hpx
+        name: PaaS_tracking_card_hpx
+        fqn: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+      search_query: "[Clicked Expand] [Os Platform] [Date] [Date].monthly"
+      answer_columns:
+      - name: Clicked Expand
+      - name: Month(Date)
+      - name: Os Platform
+      table:
+        table_columns:
+        - column_id: Clicked Expand
+          show_headline: false
+        - column_id: Month(Date)
+          show_headline: false
+        - column_id: Os Platform
+          show_headline: false
+        ordered_column_ids:
+        - Os Platform
+        - Month(Date)
+        - Clicked Expand
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Os Platform\",\"columnProperty\": {}},{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Clicked Expand\",\"columnProperty\": {}}]}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Clicked Expand
+        - column_id: Month(Date)
+        - column_id: Os Platform
+        axis_configs:
+        - x:
+          - Month(Date)
+          "y":
+          - Clicked Expand
+          color:
+          - Os Platform
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"Os Platform\",\"columnProperty\": {}},{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Clicked Expand\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}}],\"axisProperties\": [{\"id\": \"d89bdbb7-b1dd-47d7-9ca4-f924f6fb8bd9\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(Date)\"],\"name\": \"Date\"}},{\"id\": \"a2428f63-43e2-48dc-8804-398236cb7fe5\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Clicked Expand\"],\"name\": \"Clicks on Expand\",\"isOpposite\": false}}],\"seriesColors\": [{\"serieName\": \"Clicked Expand\",\"color\": \"#747E8C\"},{\"serieName\": \"ios\",\"color\": \"#BEC6D0\"},{\"serieName\": \"android\",\"color\": \"#ABC7F9\"},{\"serieName\": \"macos\",\"color\": \"#D1C0FB\"}],\"systemSeriesColors\": [{\"serieName\": \"Clicked Expand\",\"color\": \"#747E8C\"},{\"serieName\": \"android\",\"color\": \"#FCC838\"},{\"serieName\": \"macos\",\"color\": \"#48D1E0\"},{\"serieName\": \"ios\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 0609e2b6-bca9-4026-9b2b-de856ef03f1d
+  - id: Viz_3
+    answer:
+      name: Clicks on Each Status - PaaS Tracking Card
+      tables:
+      - id: PaaS_tracking_card_hpx
+        name: PaaS_tracking_card_hpx
+        fqn: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+      search_query: "[Clicked Order Confirmation] [Clicked Order Processing] [Clicked Track Delivery] [Date] [Date].monthly [Clicked Complete Setup]"
+      answer_columns:
+      - name: Clicked Complete Setup
+        custom_name: Complete Setup
+      - name: Clicked Order Confirmation
+        custom_name: Order Confirmation
+      - name: Clicked Order Processing
+        custom_name: Processing
+      - name: Clicked Track Delivery
+        custom_name: Track Delivery
+      - name: Month(Date)
+      table:
+        table_columns:
+        - column_id: Clicked Complete Setup
+          show_headline: false
+        - column_id: Clicked Order Confirmation
+          show_headline: false
+        - column_id: Clicked Order Processing
+          show_headline: false
+        - column_id: Clicked Track Delivery
+          show_headline: false
+        - column_id: Month(Date)
+          show_headline: false
+        ordered_column_ids:
+        - Month(Date)
+        - Clicked Order Confirmation
+        - Clicked Order Processing
+        - Clicked Track Delivery
+        - Clicked Complete Setup
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Clicked Order Confirmation\",\"columnProperty\": {}},{\"columnId\": \"Clicked Order Processing\",\"columnProperty\": {}},{\"columnId\": \"Clicked Track Delivery\",\"columnProperty\": {}}]}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Clicked Complete Setup
+        - column_id: Clicked Order Confirmation
+        - column_id: Clicked Order Processing
+        - column_id: Clicked Track Delivery
+        - column_id: Month(Date)
+        axis_configs:
+        - x:
+          - Month(Date)
+          "y":
+          - Clicked Order Processing
+          - Clicked Track Delivery
+          - Clicked Order Confirmation
+          - Clicked Complete Setup
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"showStackedLabels\": false,\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Clicked Order Confirmation\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}},{\"columnId\": \"Clicked Order Processing\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}},{\"columnId\": \"Clicked Track Delivery\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}},{\"columnId\": \"Clicked Complete Setup\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}}],\"axisProperties\": [{\"id\": \"9cb9d218-745a-4fbb-88e7-4b440c0a0cf2\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(Date)\"]}},{\"id\": \"2eeba997-d8ce-4619-8abe-85eb3ca59307\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Clicked Order Processing\",\"Clicked Track Delivery\",\"Clicked Order Confirmation\",\"Clicked Complete Setup\"],\"name\": \"Clicks\",\"isOpposite\": false}}],\"seriesColors\": [{\"serieName\": \"Clicked Track Delivery\",\"color\": \"#BEC6D0\"},{\"serieName\": \"fd7f1925-ec9f-47d4-be58-5c6af7f88db4\",\"color\": \"#ABC7F9\"},{\"serieName\": \"Clicked Order Confirmation\",\"color\": \"#D1C0FB\"},{\"serieName\": \"Clicked Order Processing\",\"color\": \"#ABC7F9\"},{\"serieName\": \"Clicked Complete Setup\",\"color\": \"#FFCCB3\"}],\"systemSeriesColors\": [{\"serieName\": \"Clicked Track Delivery\",\"color\": \"#BEC6D0\"},{\"serieName\": \"fd7f1925-ec9f-47d4-be58-5c6af7f88db4\",\"color\": \"#ABC7F9\"},{\"serieName\": \"Clicked Order Confirmation\",\"color\": \"#D1C0FB\"},{\"serieName\": \"Clicked Order Processing\",\"color\": \"#8C62F5\"},{\"serieName\": \"Clicked Complete Setup\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 595f6461-07ca-4a50-89bc-d2b7310b0e00
+  - id: Viz_4
+    answer:
+      name: Delivered vs Onboarded and Support Cases
+      tables:
+      - id: PaaS_tracking_card_hpx
+        name: PaaS_tracking_card_hpx
+        fqn: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+      search_query: "[Date] [Date].monthly [Delivered] [Onboarded] [Support Cases]"
+      answer_columns:
+      - name: Delivered
+      - name: Month(Date)
+      - name: Onboarded
+      - name: Support Cases
+      table:
+        table_columns:
+        - column_id: Delivered
+          show_headline: false
+        - column_id: Month(Date)
+          show_headline: false
+        - column_id: Onboarded
+          show_headline: false
+        - column_id: Support Cases
+          show_headline: false
+        ordered_column_ids:
+        - Month(Date)
+        - Delivered
+        - Onboarded
+        - Support Cases
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}}]}"
+      chart:
+        type: LINE
+        chart_columns:
+        - column_id: Delivered
+        - column_id: Month(Date)
+        - column_id: Onboarded
+        - column_id: Support Cases
+        axis_configs:
+        - x:
+          - Month(Date)
+          "y":
+          - Delivered
+          - Onboarded
+          - Support Cases
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"markersEnabled\": true,\"pivotSummariesState\": {}},\"showStackedLabels\": false,\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Delivered\",\"columnProperty\": {}},{\"columnId\": \"Onboarded\",\"columnProperty\": {}},{\"columnId\": \"Support Cases\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"7df09994-b914-442d-9b69-6116ecf23df9\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Delivered\",\"Onboarded\",\"Support Cases\"],\"name\": \"Users/Apps\",\"isOpposite\": false}},{\"id\": \"e34f985f-b252-439c-bc63-1ab1e06acf05\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(Date)\"],\"name\": \"Date\"}}],\"seriesColors\": [{\"serieName\": \"e81defb2-ec17-434e-80b3-2cdc033906db\",\"color\": \"#BEC6D0\"},{\"serieName\": \"fd7f1925-ec9f-47d4-be58-5c6af7f88db4\",\"color\": \"#ABC7F9\"},{\"serieName\": \"257f55c0-894f-483a-a056-02d7c100a1f8\",\"color\": \"#D1C0FB\"},{\"serieName\": \"7af3a940-cbe6-4010-a6a7-b604c21a20f9\",\"color\": \"#ABC7F9\"},{\"serieName\": \"8aa48c1c-7a13-4f44-8777-e189a64dfbb0\",\"color\": \"#FDE9AF\"},{\"serieName\": \"Delivered\",\"color\": \"#2E75F0\"},{\"serieName\": \"Onboarded\",\"color\": \"#FF8142\"},{\"serieName\": \"Support Cases\",\"color\": \"#06BF7F\"}],\"systemSeriesColors\": [{\"serieName\": \"e81defb2-ec17-434e-80b3-2cdc033906db\",\"color\": \"#BEC6D0\"},{\"serieName\": \"fd7f1925-ec9f-47d4-be58-5c6af7f88db4\",\"color\": \"#ABC7F9\"},{\"serieName\": \"257f55c0-894f-483a-a056-02d7c100a1f8\",\"color\": \"#D1C0FB\"},{\"serieName\": \"7af3a940-cbe6-4010-a6a7-b604c21a20f9\",\"color\": \"#ABC7F9\"},{\"serieName\": \"8aa48c1c-7a13-4f44-8777-e189a64dfbb0\",\"color\": \"#FDE9AF\"},{\"serieName\": \"Delivered\",\"color\": \"#2E75F0\"},{\"serieName\": \"Onboarded\",\"color\": \"#48D1E0\"},{\"serieName\": \"Support Cases\",\"color\": \"#FCC838\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: eb03b2aa-1734-4686-9077-e522d5e3d73a
+  - id: Viz_5
+    answer:
+      name: Tracking Card Status Pill Clicks
+      tables:
+      - id: PaaS_tracking_card_hpx
+        name: PaaS_tracking_card_hpx
+        fqn: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+      search_query: "[Order Confirmed - Pill] [Processing - Pill] [Shipped - Pill] [Delivered - Pill] [Date] [Date].monthly"
+      answer_columns:
+      - name: Delivered - Pill
+        custom_name: Delivered
+      - name: Month(Date)
+      - name: Order Confirmed - Pill
+        custom_name: Order Confirmed
+      - name: Processing - Pill
+        custom_name: Processing
+      - name: Shipped - Pill
+        custom_name: Shipped
+      table:
+        table_columns:
+        - column_id: Delivered - Pill
+          show_headline: false
+        - column_id: Month(Date)
+          show_headline: false
+        - column_id: Order Confirmed - Pill
+          show_headline: false
+        - column_id: Processing - Pill
+          show_headline: false
+        - column_id: Shipped - Pill
+          show_headline: false
+        ordered_column_ids:
+        - Month(Date)
+        - Order Confirmed - Pill
+        - Processing - Pill
+        - Shipped - Pill
+        - Delivered - Pill
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Order Confirmed - Pill\",\"columnProperty\": {}},{\"columnId\": \"Processing - Pill\",\"columnProperty\": {}},{\"columnId\": \"Shipped - Pill\",\"columnProperty\": {}},{\"columnId\": \"Delivered - Pill\",\"columnProperty\": {}}]}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Delivered - Pill
+        - column_id: Month(Date)
+        - column_id: Order Confirmed - Pill
+        - column_id: Processing - Pill
+        - column_id: Shipped - Pill
+        axis_configs:
+        - x:
+          - Month(Date)
+          "y":
+          - Order Confirmed - Pill
+          - Processing - Pill
+          - Shipped - Pill
+          - Delivered - Pill
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Order Confirmed - Pill\",\"columnProperty\": {}},{\"columnId\": \"Processing - Pill\",\"columnProperty\": {}},{\"columnId\": \"Shipped - Pill\",\"columnProperty\": {}},{\"columnId\": \"Delivered - Pill\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"6872a882-2e06-4a01-84b8-9b0fee304c3f\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Order Confirmed - Pill\",\"Processing - Pill\",\"Shipped - Pill\",\"Delivered - Pill\"],\"name\": \"Clicks\",\"isOpposite\": false}},{\"id\": \"d0c4f8bf-5dfe-467a-bb0f-00a1a47d3ad6\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(Date)\"],\"name\": \"Date\"}}],\"seriesColors\": [{\"serieName\": \"Shipped - Pill\",\"color\": \"#FDE9AF\"},{\"serieName\": \"Processing - Pill\",\"color\": \"#ABC7F9\"},{\"serieName\": \"Order Confirmed - Pill\",\"color\": \"#D1C0FB\"},{\"serieName\": \"Delivered - Pill\",\"color\": \"#BEC6D0\"}],\"systemSeriesColors\": [{\"serieName\": \"Order Confirmed - Pill\",\"color\": \"#06BF7F\"},{\"serieName\": \"Processing - Pill\",\"color\": \"#FCC838\"},{\"serieName\": \"Shipped - Pill\",\"color\": \"#48D1E0\"},{\"serieName\": \"Delivered - Pill\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: a9afcb1c-e913-40c3-9dcd-572066618c01
+  - id: Viz_6
+    answer:
+      name: Tracking Card Status
+      tables:
+      - id: PaaS_tracking_card_hpx
+        name: PaaS_tracking_card_hpx
+        fqn: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+      search_query: "[Date] [Date].monthly [Processed] [Shipped] [Confirmed] [Delivered]"
+      answer_columns:
+      - name: Confirmed
+      - name: Delivered
+      - name: Month(Date)
+      - name: Processed
+      - name: Shipped
+      table:
+        table_columns:
+        - column_id: Confirmed
+          show_headline: false
+        - column_id: Delivered
+          show_headline: false
+        - column_id: Month(Date)
+          show_headline: false
+        - column_id: Processed
+          show_headline: false
+        - column_id: Shipped
+          show_headline: false
+        ordered_column_ids:
+        - Month(Date)
+        - Processed
+        - Shipped
+        - Confirmed
+        - Delivered
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Processed\",\"columnProperty\": {}},{\"columnId\": \"Shipped\",\"columnProperty\": {}},{\"columnId\": \"Confirmed\",\"columnProperty\": {}},{\"columnId\": \"Delivered\",\"columnProperty\": {}}]}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Confirmed
+        - column_id: Delivered
+        - column_id: Month(Date)
+        - column_id: Processed
+        - column_id: Shipped
+        axis_configs:
+        - x:
+          - Month(Date)
+          "y":
+          - Processed
+          - Shipped
+          - Confirmed
+          - Delivered
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"visibleSeriesNames\": [\"Processed\",\"Confirmed\",\"Delivered\",\"Shipped\"],\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"Month(Date)\",\"columnProperty\": {}},{\"columnId\": \"Processed\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}},{\"columnId\": \"Shipped\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}},{\"columnId\": \"Confirmed\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}},{\"columnId\": \"Delivered\",\"columnProperty\": {\"dataLabels\": true,\"customProps\": \"{\\\"advancedProperties\\\":{\\\"dataLabels\\\":{\\\"backgroundColor\\\":\\\"\\\",\\\"borderColor\\\":\\\"\\\",\\\"borderWidth\\\":\\\"\\\",\\\"filter\\\":{\\\"operator\\\":\\\"\\\",\\\"value\\\":\\\"\\\"},\\\"align\\\":\\\"center\\\",\\\"style\\\":{\\\"color\\\":\\\"#323946\\\",\\\"fontSize\\\":\\\"12\\\",\\\"boldFontWeight\\\":true,\\\"underlineTextDecoration\\\":false,\\\"italicFontStyle\\\":false},\\\"maxCharacters\\\":\\\"\\\"}}}\"}}],\"axisProperties\": [{\"id\": \"d2e3390e-d6bf-4ff1-a5ae-10ec66bece9a\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Processed\",\"Shipped\",\"Confirmed\",\"Delivered\"],\"name\": \"Status\",\"isOpposite\": false}},{\"id\": \"7f51dbb0-cd6c-49f3-a631-5251768ab2ff\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(Date)\"],\"name\": \"Date\"}}],\"seriesColors\": [{\"serieName\": \"Processed\",\"color\": \"#ABC7F9\"},{\"serieName\": \"Confirmed\",\"color\": \"#D1C0FB\"},{\"serieName\": \"Delivered\",\"color\": \"#BEC6D0\"},{\"serieName\": \"Shipped\",\"color\": \"#FDE9AF\"}],\"systemSeriesColors\": [{\"serieName\": \"Processed\",\"color\": \"#06BF7F\"},{\"serieName\": \"Shipped\",\"color\": \"#FCC838\"},{\"serieName\": \"Confirmed\",\"color\": \"#48D1E0\"},{\"serieName\": \"Delivered\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: c0f215d0-c19d-46a1-a2cf-e85f010294f7
+  filters:
+  - column:
+    - Date
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - Os Platform
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - App Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - Geo Country Code
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - Is Hpid Signed In
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  layout:
+    tiles:
+    - visualization_id: Viz_3
+      x: 0
+      "y": 14
+      height: 7
+      width: 6
+    - visualization_id: Viz_6
+      x: 0
+      "y": 7
+      height: 7
+      width: 6
+    - visualization_id: Viz_2
+      x: 6
+      "y": 0
+      height: 7
+      width: 6
+    - visualization_id: Viz_4
+      x: 6
+      "y": 7
+      height: 7
+      width: 6
+    - visualization_id: Viz_1
+      x: 0
+      "y": 0
+      height: 7
+      width: 6
+    - visualization_id: Viz_5
+      x: 6
+      "y": 14
+      height: 7
+      width: 6
+  ordered_chips:
+  - name: Date
+    type: FILTER
+  - name: Os Platform
+    type: FILTER
+  - name: App Version
+    type: FILTER
+  - name: Geo Country Code
+    type: FILTER
+  - name: Is Hpid Signed In
+    type: FILTER
