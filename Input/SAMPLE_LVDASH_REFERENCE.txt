@@ -1,0 +1,276 @@
+{
+  "datasets": [
+    {
+      "name": "ds_orders",
+      "displayName": "Orders Dataset",
+      "queryLines": [
+        "SELECT order_id, customer_id, order_date, total_amount, region FROM sales.orders"
+      ]
+    },
+    {
+      "name": "ds_customers",
+      "displayName": "Customers Dataset",
+      "queryLines": [
+        "SELECT customer_id, customer_name, segment, country FROM sales.customers"
+      ]
+    },
+    {
+      "name": "ds_products",
+      "displayName": "Products Dataset",
+      "queryLines": [
+        "SELECT product_id, product_name, category, sub_category, price FROM sales.products"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_overview",
+      "displayName": "📊 Executive Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "counter_total_sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_orders",
+                  "fields": [
+                    {
+                      "name": "sum(total_amount)",
+                      "expression": "SUM(`total_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_amount)",
+                  "displayName": "Total Sales"
+                }
+              },
+              "frame": {
+                "title": "Total Sales",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 3, "height": 2 }
+        },
+        {
+          "widget": {
+            "name": "bar_sales_by_region",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_orders",
+                  "fields": [
+                    { "name": "region", "expression": "`region`" },
+                    { "name": "sum(total_amount)", "expression": "SUM(`total_amount`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": { "fieldName": "region", "displayName": "Region", "scale": { "type": "categorical" } },
+                "y": { "fieldName": "sum(total_amount)", "displayName": "Sales", "scale": { "type": "quantitative" } }
+              },
+              "frame": {
+                "title": "Sales by Region",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 3, "y": 0, "width": 6, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "line_sales_over_time",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_orders",
+                  "fields": [
+                    { "name": "order_date", "expression": "`order_date`" },
+                    { "name": "sum(total_amount)", "expression": "SUM(`total_amount`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": { "fieldName": "order_date", "displayName": "Order Date", "scale": { "type": "temporal" } },
+                "y": { "fieldName": "sum(total_amount)", "displayName": "Sales", "scale": { "type": "quantitative" } }
+              },
+              "frame": {
+                "title": "Sales Trend Over Time",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 2, "width": 9, "height": 4 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "page_customers",
+      "displayName": "👥 Customers Insights",
+      "layout": [
+        {
+          "widget": {
+            "name": "pie_customers_by_segment",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_customers",
+                  "fields": [
+                    { "name": "segment", "expression": "`segment`" },
+                    { "name": "count(customer_id)", "expression": "COUNT(`customer_id`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": { "fieldName": "count(customer_id)", "displayName": "Customers", "scale": { "type": "quantitative" } },
+                "color": { "fieldName": "segment", "displayName": "Segment", "scale": { "type": "categorical" } },
+                "label": { "show": true }
+              },
+              "frame": {
+                "title": "Customers by Segment",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "table_top_customers",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_orders",
+                  "fields": [
+                    { "name": "customer_id", "expression": "`customer_id`" },
+                    { "name": "sum(total_amount)", "expression": "SUM(`total_amount`)" }
+                  ],
+                  "disaggregated": false,
+                  "limit": 10
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  { "fieldName": "customer_id", "displayName": "Customer ID" },
+                  { "fieldName": "sum(total_amount)", "displayName": "Total Spend" }
+                ]
+              },
+              "frame": {
+                "title": "Top 10 Customers by Spend",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 4, "y": 0, "width": 5, "height": 4 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "page_products",
+      "displayName": "📦 Product Analytics",
+      "layout": [
+        {
+          "widget": {
+            "name": "bar_products_by_category",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_products",
+                  "fields": [
+                    { "name": "category", "expression": "`category`" },
+                    { "name": "count(product_id)", "expression": "COUNT(`product_id`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": { "fieldName": "category", "displayName": "Category", "scale": { "type": "categorical" } },
+                "y": { "fieldName": "count(product_id)", "displayName": "Products", "scale": { "type": "quantitative" } }
+              },
+              "frame": {
+                "title": "Number of Products by Category",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 5, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "counter_avg_price",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_products",
+                  "fields": [
+                    { "name": "avg(price)", "expression": "AVG(`price`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": { "fieldName": "avg(price)", "displayName": "Avg Price" }
+              },
+              "frame": {
+                "title": "Average Product Price",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 5, "y": 0, "width": 3, "height": 2 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_LEFT"
+    }
+  }
+}
