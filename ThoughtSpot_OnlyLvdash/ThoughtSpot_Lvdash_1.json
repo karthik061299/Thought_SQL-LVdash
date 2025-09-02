@@ -1,0 +1,470 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "PaaS Tracking Card Dashboard",
+    "description": "Migrated from ThoughtSpot - PaaS Tracking Card Analytics",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["paas", "tracking", "analytics", "migration"]
+  },
+  "datasets": [
+    {
+      "name": "paas_tracking_card_final_metrics",
+      "displayName": "PaaS Tracking Card Final Metrics",
+      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_final_metrics"
+    },
+    {
+      "name": "paas_tracking_card_calculated_measures",
+      "displayName": "PaaS Tracking Card Calculated Measures",
+      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_calculated_measures"
+    }
+  ],
+  "pages": [
+    {
+      "name": "PaaS Tracking Card",
+      "displayName": "PaaS Tracking Card",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 21
+        }
+      },
+      "widgets": [
+        {
+          "name": "viz_1_paas_tracking_card_views",
+          "displayName": "PaaS Tracking Card Views",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 7
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "column",
+            "encodings": {
+              "x": {
+                "fieldName": "month",
+                "displayName": "Month",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fieldName": "viewed_paas_tracking_card",
+                "displayName": "Viewed PaaS Tracking Card",
+                "scale": {
+                  "type": "quantitative"
+                }
+              },
+              "color": {
+                "fieldName": "os_platform",
+                "displayName": "OS Platform",
+                "scale": {
+                  "type": "categorical"
+                }
+              }
+            },
+            "query": {
+              "datasetName": "paas_tracking_card_final_metrics",
+              "fields": [
+                {
+                  "name": "month",
+                  "expression": "month"
+                },
+                {
+                  "name": "os_platform",
+                  "expression": "os_platform"
+                },
+                {
+                  "name": "viewed_paas_tracking_card",
+                  "expression": "viewed_paas_tracking_card"
+                }
+              ],
+              "filters": []
+            }
+          }
+        },
+        {
+          "name": "viz_2_clicks_on_expand",
+          "displayName": "Clicks on Expand - PaaS Tracking Card",
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 7
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "column",
+            "encodings": {
+              "x": {
+                "fieldName": "month",
+                "displayName": "Month",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fieldName": "clicked_expand",
+                "displayName": "Clicked Expand",
+                "scale": {
+                  "type": "quantitative"
+                }
+              },
+              "color": {
+                "fieldName": "os_platform",
+                "displayName": "OS Platform",
+                "scale": {
+                  "type": "categorical"
+                }
+              }
+            },
+            "query": {
+              "datasetName": "paas_tracking_card_final_metrics",
+              "fields": [
+                {
+                  "name": "month",
+                  "expression": "month"
+                },
+                {
+                  "name": "os_platform",
+                  "expression": "os_platform"
+                },
+                {
+                  "name": "clicked_expand",
+                  "expression": "clicked_expand"
+                }
+              ],
+              "filters": []
+            }
+          }
+        },
+        {
+          "name": "viz_3_clicks_on_each_status",
+          "displayName": "Clicks on Each Status - PaaS Tracking Card",
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 6,
+            "height": 7
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "column",
+            "encodings": {
+              "x": {
+                "fieldName": "month",
+                "displayName": "Month",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fields": [
+                  {
+                    "fieldName": "clicked_order_confirmation",
+                    "displayName": "Order Confirmation"
+                  },
+                  {
+                    "fieldName": "clicked_order_processing",
+                    "displayName": "Processing"
+                  },
+                  {
+                    "fieldName": "clicked_track_delivery",
+                    "displayName": "Track Delivery"
+                  },
+                  {
+                    "fieldName": "clicked_complete_setup",
+                    "displayName": "Complete Setup"
+                  }
+                ],
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "query": {
+              "datasetName": "paas_tracking_card_final_metrics",
+              "fields": [
+                {
+                  "name": "month",
+                  "expression": "month"
+                },
+                {
+                  "name": "clicked_order_confirmation",
+                  "expression": "clicked_order_confirmation"
+                },
+                {
+                  "name": "clicked_order_processing",
+                  "expression": "clicked_order_processing"
+                },
+                {
+                  "name": "clicked_track_delivery",
+                  "expression": "clicked_track_delivery"
+                },
+                {
+                  "name": "clicked_complete_setup",
+                  "expression": "clicked_complete_setup"
+                }
+              ],
+              "filters": []
+            }
+          }
+        },
+        {
+          "name": "viz_4_delivered_vs_onboarded_support",
+          "displayName": "Delivered vs Onboarded and Support Cases",
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 7
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "line",
+            "encodings": {
+              "x": {
+                "fieldName": "month",
+                "displayName": "Month",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fields": [
+                  {
+                    "fieldName": "delivered",
+                    "displayName": "Delivered"
+                  },
+                  {
+                    "fieldName": "onboarded",
+                    "displayName": "Onboarded"
+                  },
+                  {
+                    "fieldName": "support_cases",
+                    "displayName": "Support Cases"
+                  }
+                ],
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "query": {
+              "datasetName": "paas_tracking_card_final_metrics",
+              "fields": [
+                {
+                  "name": "month",
+                  "expression": "month"
+                },
+                {
+                  "name": "delivered",
+                  "expression": "delivered"
+                },
+                {
+                  "name": "onboarded",
+                  "expression": "onboarded"
+                },
+                {
+                  "name": "support_cases",
+                  "expression": "support_cases"
+                }
+              ],
+              "filters": []
+            }
+          }
+        },
+        {
+          "name": "viz_5_tracking_card_status_pill_clicks",
+          "displayName": "Tracking Card Status Pill Clicks",
+          "position": {
+            "x": 6,
+            "y": 14,
+            "width": 6,
+            "height": 7
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "column",
+            "encodings": {
+              "x": {
+                "fieldName": "month",
+                "displayName": "Month",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fields": [
+                  {
+                    "fieldName": "order_confirmed_pill",
+                    "displayName": "Order Confirmed"
+                  },
+                  {
+                    "fieldName": "processing_pill",
+                    "displayName": "Processing"
+                  },
+                  {
+                    "fieldName": "shipped_pill",
+                    "displayName": "Shipped"
+                  },
+                  {
+                    "fieldName": "delivered_pill",
+                    "displayName": "Delivered"
+                  }
+                ],
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "query": {
+              "datasetName": "paas_tracking_card_final_metrics",
+              "fields": [
+                {
+                  "name": "month",
+                  "expression": "month"
+                },
+                {
+                  "name": "order_confirmed_pill",
+                  "expression": "order_confirmed_pill"
+                },
+                {
+                  "name": "processing_pill",
+                  "expression": "processing_pill"
+                },
+                {
+                  "name": "shipped_pill",
+                  "expression": "shipped_pill"
+                },
+                {
+                  "name": "delivered_pill",
+                  "expression": "delivered_pill"
+                }
+              ],
+              "filters": []
+            }
+          }
+        },
+        {
+          "name": "viz_6_tracking_card_status",
+          "displayName": "Tracking Card Status",
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 7
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "column",
+            "encodings": {
+              "x": {
+                "fieldName": "month",
+                "displayName": "Month",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fields": [
+                  {
+                    "fieldName": "processed",
+                    "displayName": "Processed"
+                  },
+                  {
+                    "fieldName": "shipped",
+                    "displayName": "Shipped"
+                  },
+                  {
+                    "fieldName": "confirmed",
+                    "displayName": "Confirmed"
+                  },
+                  {
+                    "fieldName": "delivered",
+                    "displayName": "Delivered"
+                  }
+                ],
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "query": {
+              "datasetName": "paas_tracking_card_final_metrics",
+              "fields": [
+                {
+                  "name": "month",
+                  "expression": "month"
+                },
+                {
+                  "name": "processed",
+                  "expression": "processed"
+                },
+                {
+                  "name": "shipped",
+                  "expression": "shipped"
+                },
+                {
+                  "name": "confirmed",
+                  "expression": "confirmed"
+                },
+                {
+                  "name": "delivered",
+                  "expression": "delivered"
+                }
+              ],
+              "filters": []
+            }
+          }
+        }
+      ],
+      "filters": [
+        {
+          "name": "date_filter",
+          "displayName": "Date",
+          "fieldName": "month",
+          "datasetName": "paas_tracking_card_final_metrics",
+          "filterType": "date_range",
+          "isRequired": false
+        },
+        {
+          "name": "os_platform_filter",
+          "displayName": "OS Platform",
+          "fieldName": "os_platform",
+          "datasetName": "paas_tracking_card_final_metrics",
+          "filterType": "multi_select",
+          "isRequired": false
+        },
+        {
+          "name": "app_version_filter",
+          "displayName": "App Version",
+          "fieldName": "app_version",
+          "datasetName": "paas_tracking_card_metrics",
+          "filterType": "multi_select",
+          "isRequired": false
+        },
+        {
+          "name": "geo_country_code_filter",
+          "displayName": "Geo Country Code",
+          "fieldName": "geo_country_code",
+          "datasetName": "paas_tracking_card_final_metrics",
+          "filterType": "multi_select",
+          "isRequired": false
+        },
+        {
+          "name": "is_hpid_signed_in_filter",
+          "displayName": "Is HPID Signed In",
+          "fieldName": "is_hpid_signed_in",
+          "datasetName": "paas_tracking_card_metrics",
+          "filterType": "boolean",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}
