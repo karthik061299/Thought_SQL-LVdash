@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "Top On Press Events - Bar Chart",
+    "description": "HPX Events Model with IIDE Table",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["thoughtspot-migration", "on-press-events", "bar-chart"]
+  },
+  "datasets": [
+    {
+      "name": "hpx_events_model",
+      "query": "SELECT control, SUM(clicks) AS total_clicks FROM team_css_analytics_prod.hpx_analytics.hpx_events_model WHERE control NOT LIKE '%testid%' AND ui_action = 'onpress' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
+    }
+  ],
+  "widgets": [
+    {
+      "id": "viz_7_top_onpress_events_bar",
+      "type": "bar_chart",
+      "title": "Top On Press Events",
+      "description": "Top 10 controls by total clicks",
+      "position": {
+        "x": 0,
+        "y": 12,
+        "width": 6,
+        "height": 4
+      },
+      "query": {
+        "dataset": "hpx_events_model",
+        "fields": [
+          {
+            "name": "control",
+            "type": "dimension"
+          },
+          {
+            "name": "total_clicks",
+            "type": "measure"
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "fieldName": "control",
+          "displayName": "Control",
+          "scale": {
+            "type": "categorical"
+          }
+        },
+        "y": {
+          "fieldName": "total_clicks",
+          "displayName": "Total Clicks",
+          "scale": {
+            "type": "quantitative"
+          }
+        }
+      },
+      "visualization": {
+        "type": "bar",
+        "properties": {
+          "orientation": "horizontal",
+          "colors": ["#0096D3"]
+        }
+      }
+    }
+  ],
+  "layout": {
+    "type": "grid",
+    "columns": 12,
+    "rows": 8
+  },
+  "filters": [
+    {
+      "field": "ui_action",
+      "operator": "=",
+      "value": "onpress"
+    }
+  ],
+  "parameters": []
+}
