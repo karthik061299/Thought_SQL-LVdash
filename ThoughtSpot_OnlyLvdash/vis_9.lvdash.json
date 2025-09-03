@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "0.5 HPX Retention",
+    "description": "Cohort Graph",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  "datasets": [
+    {
+      "name": "paas_tracking_card_metrics",
+      "displayName": "PaaS Tracking Card Metrics",
+      "query": "SELECT DATE_TRUNC('month', session_start_date_time) AS month_first_device_event_date_time, COUNT(DISTINCT aip_device_uuid) AS active_devices, ROUND((COUNT(DISTINCT aip_device_uuid) * 100.0) / FIRST_VALUE(COUNT(DISTINCT aip_device_uuid)) OVER (ORDER BY DATE_TRUNC('month', session_start_date_time)), 1) AS percent_devices_returning, DATEDIFF('month', MIN(session_start_date_time) OVER (PARTITION BY aip_device_uuid), session_start_date_time) AS months_since_first_use, os_platform AS session_type, DATEDIFF('week', MIN(session_start_date_time) OVER (PARTITION BY aip_device_uuid), session_start_date_time) AS weeks_since_first_use FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics WHERE session_start_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('month', session_start_date_time), aip_device_uuid, os_platform, session_start_date_time ORDER BY month_first_device_event_date_time, months_since_first_use"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Page 1",
+      "displayName": "HPX Retention Cohort Analysis",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 8,
+          "height": 6
+        }
+      },
+      "spec": {
+        "version": "3.0",
+        "encodings": {
+          "x": {
+            "fieldName": "month_first_device_event_date_time",
+            "displayName": "Month(First Device Event Date Time)",
+            "scale": {
+              "type": "temporal"
+            }
+          },
+          "y": {
+            "fieldName": "percent_devices_returning",
+            "displayName": "% Devices Returning",
+            "scale": {
+              "type": "quantitative"
+            }
+          },
+          "color": {
+            "fieldName": "months_since_first_use",
+            "displayName": "Months Since First Use",
+            "scale": {
+              "type": "quantitative"
+            }
+          }
+        },
+        "mark": {
+          "type": "rect",
+          "tooltip": true
+        },
+        "frame": {
+          "showTitle": true,
+          "title": "HPX Retention Cohort Analysis (Heatmap)"
+        }
+      },
+      "datasets": [
+        {
+          "name": "paas_tracking_card_metrics",
+          "displayName": "PaaS Tracking Card Metrics"
+        }
+      ]
+    }
+  ]
+}
