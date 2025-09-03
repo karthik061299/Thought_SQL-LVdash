@@ -1,71 +1,131 @@
 {
   "version": "1.0",
   "metadata": {
+    "dashboardId": "f31590bb-8c9a-4f06-80ba-a524e0609f2e",
     "name": "New Devices",
     "description": "HPX Events Model with IIDE Table",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z"
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "tags": ["ThoughtSpot Migration", "HPX Events", "New Devices"]
   },
   "datasets": [
     {
-      "name": "paas_tracking_card_metrics",
-      "displayName": "PaaS Tracking Card Metrics",
-      "query": "SELECT DATE_TRUNC('day', session_start_date_time) AS day_event_date_time, COUNT(DISTINCT aip_device_uuid) AS new_devices, SUM(COUNT(DISTINCT aip_device_uuid)) OVER (ORDER BY DATE_TRUNC('day', session_start_date_time)) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics GROUP BY DATE_TRUNC('day', session_start_date_time) ORDER BY day_event_date_time"
+      "id": "hpx_events_model",
+      "name": "HPX Events Model",
+      "query": "SELECT DATE_TRUNC('day', event_date_time) AS daily_event_date, SUM(new_devices) AS new_devices, SUM(cumulative_new_devices) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model GROUP BY DATE_TRUNC('day', event_date_time) ORDER BY daily_event_date"
     }
   ],
-  "pages": [
+  "widgets": [
     {
-      "name": "Page 1",
-      "displayName": "New Devices Analysis",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 6,
-          "height": 4
-        }
+      "id": "widget_1",
+      "type": "line_chart",
+      "title": "New Devices Trend",
+      "description": "Daily trend of New Devices and Cumulative New Devices",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 8
       },
-      "spec": {
-        "version": "3.0",
-        "encodings": {
-          "x": {
-            "fieldName": "day_event_date_time",
-            "displayName": "Daily Event Date",
-            "scale": {
-              "type": "temporal"
-            }
+      "query": {
+        "datasetId": "hpx_events_model",
+        "fields": [
+          {
+            "name": "daily_event_date",
+            "type": "dimension"
           },
-          "y": {
-            "fields": [
-              {
-                "fieldName": "new_devices",
-                "displayName": "New Devices"
-              },
-              {
-                "fieldName": "cumulative_new_devices",
-                "displayName": "Cumulative New Devices"
-              }
-            ],
-            "scale": {
-              "type": "quantitative"
-            }
+          {
+            "name": "new_devices",
+            "type": "measure"
+          },
+          {
+            "name": "cumulative_new_devices",
+            "type": "measure"
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "fieldName": "daily_event_date",
+          "displayName": "Daily Event Date",
+          "scale": {
+            "type": "temporal"
           }
         },
-        "mark": {
-          "type": "line",
-          "tooltip": true
+        "y": {
+          "fields": [
+            {
+              "fieldName": "new_devices",
+              "displayName": "New Devices",
+              "axis": "left"
+            },
+            {
+              "fieldName": "cumulative_new_devices",
+              "displayName": "Cumulative New Devices",
+              "axis": "right"
+            }
+          ],
+          "scale": {
+            "type": "quantitative"
+          }
         },
-        "frame": {
-          "showTitle": true,
-          "title": "New Devices and Cumulative New Devices Over Time"
+        "color": {
+          "fields": [
+            {
+              "fieldName": "new_devices",
+              "color": "#0096D3"
+            },
+            {
+              "fieldName": "cumulative_new_devices",
+              "color": "#BCBCBC"
+            }
+          ]
         }
       },
-      "datasets": [
-        {
-          "name": "paas_tracking_card_metrics",
-          "displayName": "PaaS Tracking Card Metrics"
+      "visualization": {
+        "type": "line",
+        "properties": {
+          "showLegend": true,
+          "legendPosition": "top",
+          "showDataLabels": false,
+          "lineStyle": "solid",
+          "markerSize": 4,
+          "dualAxis": true,
+          "axisConfiguration": {
+            "x": {
+              "title": "Daily Event Date",
+              "showTitle": true,
+              "showLabels": true
+            },
+            "y": {
+              "left": {
+                "title": "New Devices",
+                "showTitle": true,
+                "showLabels": true
+              },
+              "right": {
+                "title": "Cumulative New Devices",
+                "showTitle": true,
+                "showLabels": true
+              }
+            }
+          }
         }
-      ]
+      }
     }
-  ]
+  ],
+  "layout": {
+    "type": "grid",
+    "columns": 12,
+    "rows": 8
+  },
+  "filters": [],
+  "parameters": [],
+  "theme": {
+    "name": "default",
+    "colors": {
+      "primary": "#0096D3",
+      "secondary": "#BCBCBC"
+    }
+  }
 }
