@@ -10,17 +10,17 @@
   },
   "datasets": [
     {
-      "id": "hpx_events_model",
-      "name": "HPX Events Model",
-      "query": "SELECT DATE_TRUNC('day', event_date_time) AS daily_event_date, SUM(new_devices) AS new_devices, SUM(cumulative_new_devices) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model GROUP BY DATE_TRUNC('day', event_date_time) ORDER BY daily_event_date"
+      "name": "hpx_events_model",
+      "displayName": "HPX Events Model",
+      "query": "SELECT DATE_TRUNC('day', session_start_date_time) AS daily_event_date, SUM(total_device_count) AS new_devices, SUM(SUM(total_device_count)) OVER (ORDER BY DATE_TRUNC('day', session_start_date_time)) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics GROUP BY DATE_TRUNC('day', session_start_date_time) ORDER BY daily_event_date"
     }
   ],
   "widgets": [
     {
       "id": "widget_1",
-      "type": "line_chart",
-      "title": "New Devices Trend",
-      "description": "Daily trend of New Devices and Cumulative New Devices",
+      "type": "line",
+      "title": "New Devices",
+      "description": "Daily new devices with cumulative trend",
       "position": {
         "x": 0,
         "y": 0,
@@ -28,20 +28,11 @@
         "height": 8
       },
       "query": {
-        "datasetId": "hpx_events_model",
+        "dataset": "hpx_events_model",
         "fields": [
-          {
-            "name": "daily_event_date",
-            "type": "dimension"
-          },
-          {
-            "name": "new_devices",
-            "type": "measure"
-          },
-          {
-            "name": "cumulative_new_devices",
-            "type": "measure"
-          }
+          "daily_event_date",
+          "new_devices",
+          "cumulative_new_devices"
         ]
       },
       "encoding": {
@@ -57,26 +48,31 @@
             {
               "fieldName": "new_devices",
               "displayName": "New Devices",
+              "scale": {
+                "type": "quantitative"
+              },
               "axis": "left"
             },
             {
               "fieldName": "cumulative_new_devices",
               "displayName": "Cumulative New Devices",
+              "scale": {
+                "type": "quantitative"
+              },
               "axis": "right"
             }
-          ],
-          "scale": {
-            "type": "quantitative"
-          }
+          ]
         },
         "color": {
           "fields": [
             {
               "fieldName": "new_devices",
+              "displayName": "New Devices",
               "color": "#0096D3"
             },
             {
               "fieldName": "cumulative_new_devices",
+              "displayName": "Cumulative New Devices",
               "color": "#BCBCBC"
             }
           ]
@@ -87,29 +83,47 @@
         "properties": {
           "showLegend": true,
           "legendPosition": "top",
-          "showDataLabels": false,
-          "lineStyle": "solid",
-          "markerSize": 4,
+          "responsiveLayout": "auto",
           "dualAxis": true,
-          "axisConfiguration": {
-            "x": {
-              "title": "Daily Event Date",
-              "showTitle": true,
-              "showLabels": true
+          "axisConfigs": [
+            {
+              "id": "left_axis",
+              "type": "Y",
+              "linkedColumns": ["new_devices"],
+              "position": "left"
             },
-            "y": {
-              "left": {
-                "title": "New Devices",
-                "showTitle": true,
-                "showLabels": true
-              },
-              "right": {
-                "title": "Cumulative New Devices",
-                "showTitle": true,
-                "showLabels": true
-              }
+            {
+              "id": "right_axis",
+              "type": "Y",
+              "linkedColumns": ["cumulative_new_devices"],
+              "position": "right"
+            },
+            {
+              "id": "x_axis",
+              "type": "X",
+              "linkedColumns": ["daily_event_date"]
             }
-          }
+          ],
+          "seriesColors": [
+            {
+              "serieName": "New Devices",
+              "color": "#0096D3"
+            },
+            {
+              "serieName": "Cumulative New Devices",
+              "color": "#BCBCBC"
+            }
+          ]
+        }
+      },
+      "filters": [],
+      "interactions": {
+        "drill": {
+          "enabled": true,
+          "fields": ["daily_event_date"]
+        },
+        "crossFilter": {
+          "enabled": true
         }
       }
     }
@@ -119,13 +133,27 @@
     "columns": 12,
     "rows": 8
   },
-  "filters": [],
+  "filters": {
+    "global": []
+  },
   "parameters": [],
   "theme": {
     "name": "default",
     "colors": {
       "primary": "#0096D3",
       "secondary": "#BCBCBC"
+    }
+  },
+  "settings": {
+    "autoRefresh": {
+      "enabled": false,
+      "interval": 300
+    },
+    "responsive": true,
+    "exportOptions": {
+      "pdf": true,
+      "png": true,
+      "csv": true
     }
   }
 }
