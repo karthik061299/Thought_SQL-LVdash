@@ -1,0 +1,510 @@
+{
+  "datasets": [
+    {
+      "name": "ds_paas_tracking_card_views",
+      "displayName": "PaaS Tracking Card Views",
+      "queryLines": [
+        "SELECT month_date, os_platform, viewed_paas_tracking_card FROM team_css_analytics_prod.hpx_analytics.viz_paas_tracking_card_views"
+      ]
+    },
+    {
+      "name": "ds_expand_clicks",
+      "displayName": "Expand Clicks",
+      "queryLines": [
+        "SELECT month_date, os_platform, clicked_expand FROM team_css_analytics_prod.hpx_analytics.viz_expand_clicks"
+      ]
+    },
+    {
+      "name": "ds_status_clicks",
+      "displayName": "Status Clicks",
+      "queryLines": [
+        "SELECT month_date, complete_setup, order_confirmation, processing, track_delivery FROM team_css_analytics_prod.hpx_analytics.viz_status_clicks"
+      ]
+    },
+    {
+      "name": "ds_delivery_metrics",
+      "displayName": "Delivery Metrics",
+      "queryLines": [
+        "SELECT month_date, delivered, onboarded, support_cases FROM team_css_analytics_prod.hpx_analytics.viz_delivery_metrics"
+      ]
+    },
+    {
+      "name": "ds_pill_clicks",
+      "displayName": "Pill Clicks",
+      "queryLines": [
+        "SELECT month_date, order_confirmed, processing, shipped, delivered FROM team_css_analytics_prod.hpx_analytics.viz_pill_clicks"
+      ]
+    },
+    {
+      "name": "ds_status_overview",
+      "displayName": "Status Overview",
+      "queryLines": [
+        "SELECT month_date, confirmed, processed, shipped, delivered FROM team_css_analytics_prod.hpx_analytics.viz_status_overview"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_paas_tracking_card",
+      "displayName": "📊 PaaS Tracking Card Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "viz_paas_tracking_card_views",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_paas_tracking_card_views",
+                  "fields": [
+                    {
+                      "name": "month_date",
+                      "expression": "`month_date`"
+                    },
+                    {
+                      "name": "os_platform",
+                      "expression": "`os_platform`"
+                    },
+                    {
+                      "name": "viewed_paas_tracking_card",
+                      "expression": "`viewed_paas_tracking_card`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "viewed_paas_tracking_card",
+                  "displayName": "PaaS Tracking Card Views",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "os_platform",
+                  "displayName": "OS Platform",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "PaaS Tracking Card Views",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "viz_expand_clicks",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_expand_clicks",
+                  "fields": [
+                    {
+                      "name": "month_date",
+                      "expression": "`month_date`"
+                    },
+                    {
+                      "name": "os_platform",
+                      "expression": "`os_platform`"
+                    },
+                    {
+                      "name": "clicked_expand",
+                      "expression": "`clicked_expand`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "clicked_expand",
+                  "displayName": "Clicks on Expand",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "os_platform",
+                  "displayName": "OS Platform",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Clicks on Expand - PaaS Tracking Card",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "viz_status_clicks",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_status_clicks",
+                  "fields": [
+                    {
+                      "name": "month_date",
+                      "expression": "`month_date`"
+                    },
+                    {
+                      "name": "order_confirmation",
+                      "expression": "`order_confirmation`"
+                    },
+                    {
+                      "name": "processing",
+                      "expression": "`processing`"
+                    },
+                    {
+                      "name": "track_delivery",
+                      "expression": "`track_delivery`"
+                    },
+                    {
+                      "name": "complete_setup",
+                      "expression": "`complete_setup`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "order_confirmation",
+                      "displayName": "Order Confirmation"
+                    },
+                    {
+                      "fieldName": "processing",
+                      "displayName": "Processing"
+                    },
+                    {
+                      "fieldName": "track_delivery",
+                      "displayName": "Track Delivery"
+                    },
+                    {
+                      "fieldName": "complete_setup",
+                      "displayName": "Complete Setup"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Clicks on Each Status - PaaS Tracking Card",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "viz_delivery_metrics",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_delivery_metrics",
+                  "fields": [
+                    {
+                      "name": "month_date",
+                      "expression": "`month_date`"
+                    },
+                    {
+                      "name": "delivered",
+                      "expression": "`delivered`"
+                    },
+                    {
+                      "name": "onboarded",
+                      "expression": "`onboarded`"
+                    },
+                    {
+                      "name": "support_cases",
+                      "expression": "`support_cases`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "delivered",
+                      "displayName": "Delivered"
+                    },
+                    {
+                      "fieldName": "onboarded",
+                      "displayName": "Onboarded"
+                    },
+                    {
+                      "fieldName": "support_cases",
+                      "displayName": "Support Cases"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Delivered vs Onboarded and Support Cases",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "viz_pill_clicks",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_pill_clicks",
+                  "fields": [
+                    {
+                      "name": "month_date",
+                      "expression": "`month_date`"
+                    },
+                    {
+                      "name": "order_confirmed",
+                      "expression": "`order_confirmed`"
+                    },
+                    {
+                      "name": "processing",
+                      "expression": "`processing`"
+                    },
+                    {
+                      "name": "shipped",
+                      "expression": "`shipped`"
+                    },
+                    {
+                      "name": "delivered",
+                      "expression": "`delivered`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "order_confirmed",
+                      "displayName": "Order Confirmed"
+                    },
+                    {
+                      "fieldName": "processing",
+                      "displayName": "Processing"
+                    },
+                    {
+                      "fieldName": "shipped",
+                      "displayName": "Shipped"
+                    },
+                    {
+                      "fieldName": "delivered",
+                      "displayName": "Delivered"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Tracking Card Status Pill Clicks",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 14,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "viz_status_overview",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_status_overview",
+                  "fields": [
+                    {
+                      "name": "month_date",
+                      "expression": "`month_date`"
+                    },
+                    {
+                      "name": "processed",
+                      "expression": "`processed`"
+                    },
+                    {
+                      "name": "shipped",
+                      "expression": "`shipped`"
+                    },
+                    {
+                      "name": "confirmed",
+                      "expression": "`confirmed`"
+                    },
+                    {
+                      "name": "delivered",
+                      "expression": "`delivered`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "processed",
+                      "displayName": "Processed"
+                    },
+                    {
+                      "fieldName": "shipped",
+                      "displayName": "Shipped"
+                    },
+                    {
+                      "fieldName": "confirmed",
+                      "displayName": "Confirmed"
+                    },
+                    {
+                      "fieldName": "delivered",
+                      "displayName": "Delivered"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Tracking Card Status",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 6,
+            "height": 7
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_LEFT"
+    }
+  }
+}
