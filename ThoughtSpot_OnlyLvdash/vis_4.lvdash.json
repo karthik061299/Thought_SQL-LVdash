@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "Top On Press Events",
+    "description": "HPX Events Model with IIDE Table",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["thoughtspot-migration", "on-press-events", "stacked-column"]
+  },
+  "datasets": [
+    {
+      "name": "hpx_events_model",
+      "query": "SELECT DATE_TRUNC('day', event_date_time) AS day_event_date_time, control, SUM(clicks) AS total_clicks FROM team_css_analytics_prod.hpx_analytics.hpx_events_model WHERE event_date_time >= '2023-05-01' AND control NOT LIKE '%testid%' AND ui_action = 'onpress' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('day', event_date_time), control ORDER BY day_event_date_time, total_clicks DESC"
+    }
+  ],
+  "widgets": [
+    {
+      "id": "viz_4_top_onpress_events",
+      "type": "stacked_column_chart",
+      "title": "Top On Press Events",
+      "description": "Daily trend of top on press events by control",
+      "position": {
+        "x": 6,
+        "y": 4,
+        "width": 6,
+        "height": 4
+      },
+      "query": {
+        "dataset": "hpx_events_model",
+        "fields": [
+          {
+            "name": "day_event_date_time",
+            "type": "dimension"
+          },
+          {
+            "name": "control",
+            "type": "dimension"
+          },
+          {
+            "name": "total_clicks",
+            "type": "measure"
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "fieldName": "day_event_date_time",
+          "displayName": "Daily Event Date",
+          "scale": {
+            "type": "temporal"
+          }
+        },
+        "y": {
+          "fieldName": "total_clicks",
+          "displayName": "Total Clicks",
+          "scale": {
+            "type": "quantitative"
+          }
+        },
+        "color": {
+          "fieldName": "control",
+          "displayName": "Control",
+          "scale": {
+            "type": "categorical"
+          }
+        }
+      },
+      "visualization": {
+        "type": "stacked_column",
+        "properties": {
+          "showLegend": true,
+          "colors": ["#B094F8", "#56D3A8", "#06BF7F", "#FCD977", "#FCC838", "#82DFE9", "#48D1E0", "#71A1F4", "#2E75F0", "#BCBCBC"]
+        }
+      }
+    }
+  ],
+  "layout": {
+    "type": "grid",
+    "columns": 12,
+    "rows": 8
+  },
+  "filters": [
+    {
+      "field": "event_date_time",
+      "operator": ">=",
+      "value": "2023-05-01"
+    },
+    {
+      "field": "ui_action",
+      "operator": "=",
+      "value": "onpress"
+    }
+  ],
+  "parameters": []
+}
