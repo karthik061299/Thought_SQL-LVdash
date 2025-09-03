@@ -1,73 +1,71 @@
 {
   "version": "1.0",
   "metadata": {
-    "name": "Visualization 8",
+    "name": "Launch type Active Devices",
     "description": "HPX Events Model with IIDE Table",
     "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["thoughtspot-migration", "hpx-events"]
+    "created_at": "2024-01-01T00:00:00Z"
   },
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "query": "SELECT DATE_TRUNC('day', event_date_time) AS day_event_date_time, COUNT(*) AS event_count FROM team_css_analytics_prod.hpx_analytics.hpx_events_model GROUP BY DATE_TRUNC('day', event_date_time) ORDER BY day_event_date_time"
+      "name": "paas_tracking_card_metrics",
+      "displayName": "PaaS Tracking Card Metrics",
+      "query": "SELECT DATE_TRUNC('day', session_start_date_time) AS day_event_date_time, os_platform AS launch_type, COUNT(DISTINCT aip_device_uuid) AS active_devices FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics WHERE os_platform IS NOT NULL AND os_platform IN ('Automatic', 'Manual') GROUP BY DATE_TRUNC('day', session_start_date_time), os_platform ORDER BY day_event_date_time, launch_type"
     }
   ],
-  "widgets": [
+  "pages": [
     {
-      "id": "viz_8_events",
-      "type": "line_chart",
-      "title": "Event Trends",
-      "description": "Daily event count trends",
-      "position": {
-        "x": 6,
-        "y": 12,
-        "width": 6,
-        "height": 4
+      "name": "Page 1",
+      "displayName": "Launch type Active Devices Analysis",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
       },
-      "query": {
-        "dataset": "hpx_events_model",
-        "fields": [
-          {
-            "name": "day_event_date_time",
-            "type": "dimension"
+      "spec": {
+        "version": "3.0",
+        "encodings": {
+          "x": {
+            "fieldName": "day_event_date_time",
+            "displayName": "Daily Event Date",
+            "scale": {
+              "type": "temporal"
+            }
           },
-          {
-            "name": "event_count",
-            "type": "measure"
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "fieldName": "day_event_date_time",
-          "displayName": "Date",
-          "scale": {
-            "type": "temporal"
+          "y": {
+            "fieldName": "active_devices",
+            "displayName": "Total % Event ID",
+            "scale": {
+              "type": "quantitative"
+            }
+          },
+          "color": {
+            "fieldName": "launch_type",
+            "displayName": "Launch Type",
+            "scale": {
+              "type": "categorical"
+            }
           }
         },
-        "y": {
-          "fieldName": "event_count",
-          "displayName": "Event Count",
-          "scale": {
-            "type": "quantitative"
-          }
+        "mark": {
+          "type": "bar",
+          "tooltip": true,
+          "stacked": "normalize"
+        },
+        "frame": {
+          "showTitle": true,
+          "title": "Launch type Active Devices (Percentage Stacked)"
         }
       },
-      "visualization": {
-        "type": "line",
-        "properties": {
-          "showMarkers": true,
-          "colors": ["#2E75F0"]
+      "datasets": [
+        {
+          "name": "paas_tracking_card_metrics",
+          "displayName": "PaaS Tracking Card Metrics"
         }
-      }
+      ]
     }
-  ],
-  "layout": {
-    "type": "grid",
-    "columns": 12,
-    "rows": 8
-  },
-  "filters": [],
-  "parameters": []
+  ]
 }
