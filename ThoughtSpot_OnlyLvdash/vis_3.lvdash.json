@@ -4,75 +4,60 @@
     "name": "New Devices by Top 10 Countries",
     "description": "HPX Events Model with IIDE Table",
     "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["thoughtspot-migration", "new-devices", "pie-chart", "countries"]
+    "created_at": "2024-01-01T00:00:00Z"
   },
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "query": "SELECT geo_country_code, SUM(new_devices) AS new_devices, RANK() OVER (ORDER BY SUM(new_devices) DESC) AS f_rank FROM team_css_analytics_prod.hpx_analytics.hpx_events_model GROUP BY geo_country_code HAVING RANK() OVER (ORDER BY SUM(new_devices) DESC) <= 10 ORDER BY f_rank"
+      "name": "paas_tracking_card_metrics",
+      "displayName": "PaaS Tracking Card Metrics",
+      "query": "SELECT geo_country_code, COUNT(DISTINCT aip_device_uuid) AS new_devices, RANK() OVER (ORDER BY COUNT(DISTINCT aip_device_uuid) DESC) AS f_rank FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics GROUP BY geo_country_code HAVING RANK() OVER (ORDER BY COUNT(DISTINCT aip_device_uuid) DESC) <= 10 ORDER BY new_devices DESC"
     }
   ],
-  "widgets": [
+  "pages": [
     {
-      "id": "viz_3_new_devices_by_country",
-      "type": "pie_chart",
-      "title": "New Devices by Top 10 Countries",
-      "description": "Distribution of new devices across top 10 countries",
-      "position": {
-        "x": 0,
-        "y": 4,
-        "width": 6,
-        "height": 4
+      "name": "Page 1",
+      "displayName": "New Devices by Top 10 Countries",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
       },
-      "query": {
-        "dataset": "hpx_events_model",
-        "fields": [
-          {
-            "name": "geo_country_code",
-            "type": "dimension"
+      "spec": {
+        "version": "3.0",
+        "encodings": {
+          "x": {
+            "fieldName": "geo_country_code",
+            "displayName": "Geo Country Code",
+            "scale": {
+              "type": "categorical"
+            }
           },
-          {
-            "name": "new_devices",
-            "type": "measure"
-          },
-          {
-            "name": "f_rank",
-            "type": "dimension"
-          }
-        ]
-      },
-      "encoding": {
-        "theta": {
-          "fieldName": "new_devices",
-          "displayName": "New Devices",
-          "scale": {
-            "type": "quantitative"
+          "y": {
+            "fieldName": "new_devices",
+            "displayName": "New Devices",
+            "scale": {
+              "type": "quantitative"
+            }
           }
         },
-        "color": {
-          "fieldName": "geo_country_code",
-          "displayName": "Geo Country Code",
-          "scale": {
-            "type": "categorical"
-          }
+        "mark": {
+          "type": "arc",
+          "tooltip": true
+        },
+        "frame": {
+          "showTitle": true,
+          "title": "New Devices by Top 10 Countries"
         }
       },
-      "visualization": {
-        "type": "pie",
-        "properties": {
-          "showLabels": true,
-          "showLegend": true,
-          "colors": ["#2E75F0", "#B094F8", "#8C62F5", "#56D3A8", "#06BF7F", "#FCD977", "#FCC838", "#82DFE9", "#48D1E0", "#71A1F4", "#0096D3", "#BCBCBC"]
+      "datasets": [
+        {
+          "name": "paas_tracking_card_metrics",
+          "displayName": "PaaS Tracking Card Metrics"
         }
-      }
+      ]
     }
-  ],
-  "layout": {
-    "type": "grid",
-    "columns": 12,
-    "rows": 8
-  },
-  "filters": [],
-  "parameters": []
+  ]
 }
