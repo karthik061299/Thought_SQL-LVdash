@@ -1,16 +1,17 @@
 {
   "version": "1.0",
   "metadata": {
+    "dashboardId": "06df84cf-a788-4b2a-810a-100715952deb",
     "name": "Total Consented Devices",
     "description": "HPX Events Model with IIDE Table",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["hpx_events_model", "active_devices", "kpi"]
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "tags": ["hpx", "events", "devices"]
   },
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "name": "hpx_events_model_iide_dataset",
+      "displayName": "HPX Events Model IIDE",
       "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
@@ -38,7 +39,7 @@
           },
           "spec": {
             "version": "3.0",
-            "widgetType": "counter",
+            "widgetType": "kpi",
             "encodings": {
               "value": {
                 "fieldName": "active_devices_1",
@@ -57,7 +58,10 @@
             {
               "name": "main_query",
               "query": {
-                "datasetName": "hpx_events_model_dataset",
+                "version": "3.0",
+                "dataSource": {
+                  "name": "hpx_events_model_iide_dataset"
+                },
                 "fields": [
                   {
                     "name": "active_devices_1",
