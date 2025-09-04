@@ -1,22 +1,18 @@
 {
   "version": "1.0",
-  "metadata": {
-    "name": "Top On Press Events",
-    "description": "HPX Events Model with IIDE Table",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z"
-  },
+  "displayName": "Top On Press Events",
+  "description": "HPX Events Model with IIDE Table",
   "datasets": [
     {
-      "name": "paas_tracking_card_metrics",
-      "displayName": "PaaS Tracking Card Metrics",
-      "query": "SELECT DATE_TRUNC('day', session_start_date_time) AS day_event_date_time, app_name AS control, SUM(total_device_count) AS total_clicks FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics WHERE session_start_date_time >= '2023-05-01' AND app_name NOT LIKE '%testid%' AND app_name != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('day', session_start_date_time), app_name ORDER BY day_event_date_time, total_clicks DESC"
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND event_date_time >= '2023-05-01' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id'"
     }
   ],
   "pages": [
     {
-      "name": "Page 1",
-      "displayName": "Top On Press Events",
+      "name": "page_1",
+      "displayName": "Top On Press Events Dashboard",
       "layout": {
         "position": {
           "x": 0,
@@ -26,10 +22,37 @@
         }
       },
       "spec": {
-        "version": "3.0",
+        "version": "1.0",
+        "datasets": [
+          {
+            "name": "hpx_events_model_dataset",
+            "displayName": "HPX Events Model Dataset",
+            "query": "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(clicks) as total_clicks FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND event_date_time >= '2023-05-01' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY total_clicks DESC LIMIT 10"
+          }
+        ],
+        "fields": [
+          {
+            "name": "daily_event_date",
+            "datasetName": "hpx_events_model_dataset",
+            "displayName": "Daily Event Date",
+            "type": "temporal"
+          },
+          {
+            "name": "control",
+            "datasetName": "hpx_events_model_dataset", 
+            "displayName": "Control",
+            "type": "categorical"
+          },
+          {
+            "name": "total_clicks",
+            "datasetName": "hpx_events_model_dataset",
+            "displayName": "Total Clicks", 
+            "type": "quantitative"
+          }
+        ],
         "encodings": {
           "x": {
-            "fieldName": "day_event_date_time",
+            "fieldName": "daily_event_date",
             "displayName": "Daily Event Date",
             "scale": {
               "type": "temporal"
@@ -51,21 +74,65 @@
           }
         },
         "mark": {
-          "type": "bar",
-          "tooltip": true,
+          "type": "column",
           "stacked": true
         },
-        "frame": {
-          "showTitle": true,
-          "title": "Top On Press Events Over Time"
-        }
-      },
-      "datasets": [
-        {
-          "name": "paas_tracking_card_metrics",
-          "displayName": "PaaS Tracking Card Metrics"
-        }
-      ]
+        "title": "Top On Press Events",
+        "subtitle": "HPX Events Model with IIDE Table"
+      }
     }
-  ]
+  ],
+  "filters": [
+    {
+      "name": "date_filter",
+      "displayName": "Event Date Filter",
+      "fieldName": "event_date_time",
+      "datasetName": "hpx_events_model_dataset",
+      "condition": {
+        "op": ">=",
+        "values": ["2023-05-01"]
+      }
+    },
+    {
+      "name": "ui_action_filter",
+      "displayName": "UI Action Filter", 
+      "fieldName": "ui_action",
+      "datasetName": "hpx_events_model_dataset",
+      "condition": {
+        "op": "=",
+        "values": ["onpress"]
+      }
+    },
+    {
+      "name": "control_exclude_filter",
+      "displayName": "Control Exclude Filter",
+      "fieldName": "control",
+      "datasetName": "hpx_events_model_dataset", 
+      "condition": {
+        "op": "not contains",
+        "values": ["testid"]
+      }
+    },
+    {
+      "name": "control_exclude_welcome_filter",
+      "displayName": "Control Exclude Welcome Filter",
+      "fieldName": "control",
+      "datasetName": "hpx_events_model_dataset",
+      "condition": {
+        "op": "!=",
+        "values": ["welcome core navigationviewitem id"]
+      }
+    }
+  ],
+  "parameters": [],
+  "metadata": {
+    "sourceSystem": "ThoughtSpot",
+    "migrationVersion": "1.0",
+    "originalVizId": "bf836e7c-76b8-4a0e-9210-56a37e6ffc1a",
+    "originalTableId": "hpx_events_model",
+    "originalTableFqn": "d88e6611-f923-40db-aa86-d9013633b3cc",
+    "chartType": "STACKED_COLUMN",
+    "createdDate": "2024-01-01T00:00:00Z",
+    "lastModified": "2024-01-01T00:00:00Z"
+  }
 }
