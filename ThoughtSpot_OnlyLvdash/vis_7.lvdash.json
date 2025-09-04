@@ -2,138 +2,171 @@
   "version": "1.0",
   "metadata": {
     "name": "Top On Press Events",
-    "description": "HPX Events Model with IIDE Table - Bar chart showing top controls by total clicks for onpress events",
+    "description": "HPX Events Model with IIDE Table",
     "created_by": "ThoughtSpot Migration Agent",
     "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["hpx_events", "onpress", "controls", "clicks"]
+    "tags": ["hpx_events", "onpress", "controls"]
   },
   "datasets": [
     {
       "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
-      "query": "SELECT control, clicks, ui_action FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%'"
+      "query": "SELECT control, clicks FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%'"
     }
   ],
   "pages": [
     {
-      "name": "main_page",
-      "displayName": "Top On Press Events Dashboard",
+      "name": "page_1",
+      "displayName": "Top On Press Events",
       "layout": {
         "position": {
           "x": 0,
           "y": 0,
-          "width": 12,
-          "height": 8
+          "width": 6,
+          "height": 4
         }
       },
-      "spec": {
-        "version": "1.0",
-        "datasets": [
-          {
-            "name": "hpx_events_model_dataset",
-            "displayName": "HPX Events Model Dataset",
-            "query": "SELECT control AS Control, SUM(clicks) AS `Total Clicks` FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
-          }
-        ],
-        "fields": [
-          {
-            "name": "Control",
-            "displayName": "Control",
-            "dataType": "STRING",
-            "semanticType": "DIMENSION"
+      "widgets": [
+        {
+          "name": "top_onpress_events_chart",
+          "displayName": "Top On Press Events",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 4
           },
-          {
-            "name": "Total Clicks",
-            "displayName": "Total Clicks",
-            "dataType": "INTEGER",
-            "semanticType": "MEASURE"
-          }
-        ],
-        "encodings": {
-          "x": {
-            "fieldName": "Control",
-            "displayName": "Control",
-            "scale": {
-              "type": "categorical"
+          "spec": {
+            "version": "3.0",
+            "encodings": {
+              "x": {
+                "fieldName": "control",
+                "displayName": "Control",
+                "scale": {
+                  "type": "categorical"
+                }
+              },
+              "y": {
+                "fieldName": "clicks",
+                "displayName": "Total Clicks",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "mark": {
+              "type": "bar",
+              "properties": {
+                "color": "#0096D3"
+              }
+            },
+            "data": {
+              "dataset": "hpx_events_model_dataset"
+            },
+            "transform": [
+              {
+                "type": "aggregate",
+                "groupby": ["control"],
+                "fields": ["clicks"],
+                "ops": ["sum"],
+                "as": ["total_clicks"]
+              },
+              {
+                "type": "window",
+                "sort": [
+                  {
+                    "field": "total_clicks",
+                    "order": "descending"
+                  }
+                ],
+                "ops": ["row_number"],
+                "as": ["rank"]
+              },
+              {
+                "type": "filter",
+                "expr": "datum.rank <= 10"
+              }
+            ],
+            "config": {
+              "axis": {
+                "x": {
+                  "title": "Control",
+                  "labelAngle": -45
+                },
+                "y": {
+                  "title": "Total Clicks"
+                }
+              },
+              "legend": {
+                "show": false
+              },
+              "title": {
+                "text": "Top On Press Events",
+                "fontSize": 16,
+                "fontWeight": "bold"
+              }
             }
           },
-          "y": {
-            "fieldName": "Total Clicks",
-            "displayName": "Total Clicks",
-            "scale": {
-              "type": "quantitative"
+          "queries": [
+            {
+              "name": "main_query",
+              "query": {
+                "dataset": "hpx_events_model_dataset",
+                "fields": [
+                  {
+                    "name": "control",
+                    "expression": "control"
+                  },
+                  {
+                    "name": "total_clicks",
+                    "expression": "SUM(clicks)"
+                  }
+                ],
+                "filters": [
+                  {
+                    "column": "ui_action",
+                    "operator": "=",
+                    "values": ["onpress"]
+                  },
+                  {
+                    "column": "control",
+                    "operator": "NOT_CONTAINS",
+                    "values": ["testid"]
+                  }
+                ],
+                "sorts": [
+                  {
+                    "column": "total_clicks",
+                    "direction": "DESC"
+                  }
+                ],
+                "limit": 10
+              }
             }
-          }
-        },
-        "mark": {
-          "type": "bar",
-          "properties": {
-            "color": "#0096D3",
-            "opacity": 0.8
-          }
-        },
-        "title": {
-          "text": "Top On Press Events",
-          "subtitle": "Total clicks by control for onpress UI actions (excluding test controls)"
-        },
-        "axes": [
-          {
-            "orient": "bottom",
-            "scale": "x",
-            "title": "Control",
-            "labelAngle": -45,
-            "labelLimit": 100
-          },
-          {
-            "orient": "left",
-            "scale": "y",
-            "title": "Total Clicks",
-            "format": ".0f"
-          }
-        ],
-        "config": {
-          "view": {
-            "stroke": "transparent"
-          },
-          "axis": {
-            "domainWidth": 1,
-            "grid": true,
-            "gridColor": "#f0f0f0",
-            "gridOpacity": 0.5,
-            "labelFont": "Arial",
-            "labelFontSize": 10,
-            "titleFont": "Arial",
-            "titleFontSize": 12,
-            "titleFontWeight": "bold"
-          },
-          "legend": {
-            "labelFont": "Arial",
-            "labelFontSize": 10,
-            "titleFont": "Arial",
-            "titleFontSize": 11,
-            "titleFontWeight": "bold"
-          }
+          ]
         }
-      }
+      ]
     }
   ],
   "filters": [
     {
+      "name": "ui_action_filter",
+      "displayName": "UI Action Filter",
       "column": "ui_action",
-      "operator": "EQ",
-      "values": ["onpress"],
-      "displayName": "UI Action Filter"
+      "operator": "=",
+      "values": ["onpress"]
     },
     {
+      "name": "control_filter",
+      "displayName": "Control Filter",
       "column": "control",
       "operator": "NOT_CONTAINS",
-      "values": ["testid"],
-      "displayName": "Exclude Test Controls"
+      "values": ["testid"]
     }
   ],
   "parameters": [],
   "refresh": {
     "enabled": true,
-    "interval": "1h"
+    "interval": 3600
   }
 }
