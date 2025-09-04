@@ -1,159 +1,133 @@
 {
   "version": "1.0",
   "metadata": {
-    "dashboardId": "f31590bb-8c9a-4f06-80ba-a524e0609f2e",
     "name": "New Devices",
     "description": "HPX Events Model with IIDE Table",
-    "created": "2024-01-01T00:00:00Z",
-    "modified": "2024-01-01T00:00:00Z",
-    "tags": ["ThoughtSpot Migration", "HPX Events", "New Devices"]
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["hpx_events_model", "new_devices", "line_chart"]
   },
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "displayName": "HPX Events Model",
-      "query": "SELECT DATE_TRUNC('day', session_start_date_time) AS daily_event_date, SUM(total_device_count) AS new_devices, SUM(SUM(total_device_count)) OVER (ORDER BY DATE_TRUNC('day', session_start_date_time)) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics GROUP BY DATE_TRUNC('day', session_start_date_time) ORDER BY daily_event_date"
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "query": "SELECT DATE_TRUNC('DAY', event_date_time) AS day_event_date_time, SUM(new_devices_1) AS new_devices, SUM(SUM(new_devices_1)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time)) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY day_event_date_time"
     }
   ],
-  "widgets": [
+  "pages": [
     {
-      "id": "widget_1",
-      "type": "line",
-      "title": "New Devices",
-      "description": "Daily new devices with cumulative trend",
-      "position": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 8
+      "name": "New Devices Analysis",
+      "displayName": "New Devices Analysis",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
       },
-      "query": {
-        "dataset": "hpx_events_model",
-        "fields": [
-          "daily_event_date",
-          "new_devices",
-          "cumulative_new_devices"
-        ]
-      },
-      "encoding": {
-        "x": {
-          "fieldName": "daily_event_date",
-          "displayName": "Daily Event Date",
-          "scale": {
-            "type": "temporal"
+      "widgets": [
+        {
+          "name": "new_devices_line_chart",
+          "type": "line-chart",
+          "displayName": "New Devices",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 4
+          },
+          "spec": {
+            "version": "3.0",
+            "datasets": {
+              "hpx_events_model_dataset": {
+                "name": "hpx_events_model_dataset",
+                "displayName": "HPX Events Model Dataset"
+              }
+            },
+            "fields": {
+              "day_event_date_time": {
+                "name": "day_event_date_time",
+                "displayName": "Daily Event Date",
+                "datasetName": "hpx_events_model_dataset",
+                "schemaName": "day_event_date_time",
+                "type": "temporal"
+              },
+              "new_devices": {
+                "name": "new_devices",
+                "displayName": "New Devices",
+                "datasetName": "hpx_events_model_dataset",
+                "schemaName": "new_devices",
+                "type": "quantitative"
+              },
+              "cumulative_new_devices": {
+                "name": "cumulative_new_devices",
+                "displayName": "Cumulative New Devices",
+                "datasetName": "hpx_events_model_dataset",
+                "schemaName": "cumulative_new_devices",
+                "type": "quantitative"
+              }
+            },
+            "encodings": {
+              "x": {
+                "fieldName": "day_event_date_time",
+                "displayName": "Daily Event Date",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fields": [
+                  {
+                    "fieldName": "new_devices",
+                    "displayName": "New Devices"
+                  },
+                  {
+                    "fieldName": "cumulative_new_devices",
+                    "displayName": "Cumulative New Devices"
+                  }
+                ],
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "mark": {
+              "type": "line",
+              "properties": {
+                "strokeWidth": 2,
+                "interpolate": "linear"
+              }
+            },
+            "legend": {
+              "position": "top",
+              "orient": "horizontal"
+            },
+            "axes": [
+              {
+                "scale": "x",
+                "orient": "bottom",
+                "title": "Daily Event Date",
+                "labelAngle": -45,
+                "format": "%Y-%m-%d"
+              },
+              {
+                "scale": "y",
+                "orient": "left",
+                "title": "Count",
+                "grid": true
+              }
+            ],
+            "colors": {
+              "scheme": "category10",
+              "mapping": {
+                "New Devices": "#0096D3",
+                "Cumulative New Devices": "#BCBCBC"
+              }
+            }
           }
-        },
-        "y": {
-          "fields": [
-            {
-              "fieldName": "new_devices",
-              "displayName": "New Devices",
-              "scale": {
-                "type": "quantitative"
-              },
-              "axis": "left"
-            },
-            {
-              "fieldName": "cumulative_new_devices",
-              "displayName": "Cumulative New Devices",
-              "scale": {
-                "type": "quantitative"
-              },
-              "axis": "right"
-            }
-          ]
-        },
-        "color": {
-          "fields": [
-            {
-              "fieldName": "new_devices",
-              "displayName": "New Devices",
-              "color": "#0096D3"
-            },
-            {
-              "fieldName": "cumulative_new_devices",
-              "displayName": "Cumulative New Devices",
-              "color": "#BCBCBC"
-            }
-          ]
         }
-      },
-      "visualization": {
-        "type": "line",
-        "properties": {
-          "showLegend": true,
-          "legendPosition": "top",
-          "responsiveLayout": "auto",
-          "dualAxis": true,
-          "axisConfigs": [
-            {
-              "id": "left_axis",
-              "type": "Y",
-              "linkedColumns": ["new_devices"],
-              "position": "left"
-            },
-            {
-              "id": "right_axis",
-              "type": "Y",
-              "linkedColumns": ["cumulative_new_devices"],
-              "position": "right"
-            },
-            {
-              "id": "x_axis",
-              "type": "X",
-              "linkedColumns": ["daily_event_date"]
-            }
-          ],
-          "seriesColors": [
-            {
-              "serieName": "New Devices",
-              "color": "#0096D3"
-            },
-            {
-              "serieName": "Cumulative New Devices",
-              "color": "#BCBCBC"
-            }
-          ]
-        }
-      },
-      "filters": [],
-      "interactions": {
-        "drill": {
-          "enabled": true,
-          "fields": ["daily_event_date"]
-        },
-        "crossFilter": {
-          "enabled": true
-        }
-      }
+      ]
     }
-  ],
-  "layout": {
-    "type": "grid",
-    "columns": 12,
-    "rows": 8
-  },
-  "filters": {
-    "global": []
-  },
-  "parameters": [],
-  "theme": {
-    "name": "default",
-    "colors": {
-      "primary": "#0096D3",
-      "secondary": "#BCBCBC"
-    }
-  },
-  "settings": {
-    "autoRefresh": {
-      "enabled": false,
-      "interval": 300
-    },
-    "responsive": true,
-    "exportOptions": {
-      "pdf": true,
-      "png": true,
-      "csv": true
-    }
-  }
+  ]
 }
