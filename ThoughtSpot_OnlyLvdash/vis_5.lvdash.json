@@ -2,7 +2,7 @@
   "version": "1.0",
   "metadata": {
     "name": "Top Unique Screen Views (excl. Home/Welcome)",
-    "description": "HPX Events Model with IIDE Table",
+    "description": "HPX Events Model with IIDE Table - Stacked Column Chart showing unique screen views by day and screen type",
     "created_by": "ThoughtSpot Migration Agent",
     "created_at": "2024-01-01T00:00:00Z",
     "tags": ["hpx_events", "screen_views", "analytics"]
@@ -26,56 +26,93 @@
           "height": 8
         }
       },
-      "spec": {
-        "version": "1.0",
-        "datasets": [
-          {
-            "name": "hpx_events_model_dataset",
-            "displayName": "HPX Events Model Dataset",
-            "query": "SELECT DATE_TRUNC('DAY', event_date_time) as day_event_date_time, screen, SUM(unique_screen_views_1) as unique_screen_views FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY unique_screen_views DESC LIMIT 10"
-          }
-        ],
-        "fields": [
-          {
-            "name": "day_event_date_time",
-            "displayName": "Daily Event Date",
-            "dataType": "DATE",
-            "semanticType": "temporal"
+      "widgets": [
+        {
+          "name": "top_unique_screen_views_chart",
+          "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
           },
-          {
-            "name": "screen",
-            "displayName": "Screen",
-            "dataType": "STRING",
-            "semanticType": "nominal"
-          },
-          {
-            "name": "unique_screen_views",
-            "displayName": "Unique Screen Views",
-            "dataType": "NUMBER",
-            "semanticType": "quantitative"
-          }
-        ],
-        "encodings": {
-          "x": {
-            "fieldName": "day_event_date_time",
-            "displayName": "Daily Event Date",
-            "scale": {
-              "type": "temporal"
-            }
-          },
-          "y": {
-            "fieldName": "unique_screen_views",
-            "displayName": "Unique Screen Views",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          "color": {
-            "fieldName": "screen",
-            "displayName": "Screen",
-            "scale": {
-              "type": "categorical",
-              "range": [
+          "spec": {
+            "version": "3.0",
+            "widgetType": "column",
+            "encodings": {
+              "x": {
+                "fieldName": "event_date_time",
+                "displayName": "Daily Event Date",
+                "scale": {
+                  "type": "temporal"
+                }
+              },
+              "y": {
+                "fieldName": "unique_screen_views_1",
+                "displayName": "Unique Screen Views",
+                "scale": {
+                  "type": "quantitative"
+                }
+              },
+              "color": {
+                "fieldName": "screen",
+                "displayName": "Screen",
+                "scale": {
+                  "type": "categorical"
+                }
+              }
+            },
+            "mark": {
+              "type": "column",
+              "stacked": true
+            },
+            "query": {
+              "dataset": "hpx_events_model_dataset",
+              "disaggregated": false,
+              "fields": [
+                {
+                  "name": "event_date_time",
+                  "expression": "DATE_TRUNC('DAY', event_date_time)"
+                },
+                {
+                  "name": "screen",
+                  "expression": "screen"
+                },
+                {
+                  "name": "unique_screen_views_1",
+                  "expression": "SUM(unique_screen_views_1)"
+                }
+              ],
+              "filters": [
+                {
+                  "column": "ui_action",
+                  "operator": "EQ",
+                  "values": ["screendisplayed"]
+                },
+                {
+                  "column": "screen",
+                  "operator": "NOT_IN",
+                  "values": ["home", "welcome", "welcomecontainer", "welcome-core", "support"]
+                },
+                {
+                  "column": "event_date_time",
+                  "operator": "GTE",
+                  "values": ["2023-05-01"]
+                }
+              ],
+              "orderBy": [
+                {
+                  "column": "unique_screen_views_1",
+                  "direction": "DESC"
+                }
+              ],
+              "limit": 10
+            },
+            "conditionalFormatting": {
+              "rules": []
+            },
+            "colorPalette": {
+              "colors": [
                 "#FF8142",
                 "#56D3A8",
                 "#06BF7F",
@@ -90,40 +127,20 @@
               ]
             }
           }
-        },
-        "mark": {
-          "type": "bar",
-          "stacked": true
-        },
-        "title": {
-          "text": "Top Unique Screen Views (excl. Home/Welcome)",
-          "fontSize": 16,
-          "fontWeight": "bold"
-        },
-        "width": 800,
-        "height": 400
-      }
+        }
+      ]
     }
   ],
   "filters": [
     {
       "column": "event_date_time",
-      "condition": ">=",
-      "values": ["2023-05-01"]
-    },
-    {
-      "column": "ui_action",
-      "condition": "=",
-      "values": ["screendisplayed"]
+      "displayName": "Event Date Time",
+      "dataType": "DATE"
     },
     {
       "column": "screen",
-      "condition": "NOT IN",
-      "values": ["home", "welcome", "welcomecontainer", "welcome-core", "support"]
+      "displayName": "Screen",
+      "dataType": "VARCHAR"
     }
-  ],
-  "parameters": [],
-  "refresh_schedule": {
-    "enabled": false
-  }
+  ]
 }
