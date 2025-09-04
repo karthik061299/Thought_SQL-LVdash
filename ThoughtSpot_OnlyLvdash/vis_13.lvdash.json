@@ -1,0 +1,188 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "HPX First Use Behavior Flow",
+    "description": "Sankey Diagram as user moves between Screens 1 - 5",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["sankey", "user_flow", "behavior_analysis"]
+  },
+  "datasets": [
+    {
+      "name": "hpx_first_use_behavior_flow_dataset",
+      "displayName": "HPX First Use Behavior Flow Dataset",
+      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_first_use_behavior_flow_metric_view WHERE date >= '2023-05-01'"
+    }
+  ],
+  "pages": [
+    {
+      "name": "HPX First Use Behavior Flow Page",
+      "displayName": "HPX First Use Behavior Flow",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      },
+      "widgets": [
+        {
+          "name": "hpx_behavior_flow_sankey",
+          "type": "sankey",
+          "displayName": "HPX First Use Behavior Flow",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 4
+          },
+          "spec": {
+            "version": "1.0",
+            "widgetType": "sankey",
+            "encodings": {
+              "source": {
+                "fieldName": "screen_1",
+                "displayName": "Screen 1",
+                "scale": {
+                  "type": "categorical"
+                }
+              },
+              "target": {
+                "fieldName": "screen_2",
+                "displayName": "Screen 2",
+                "scale": {
+                  "type": "categorical"
+                }
+              },
+              "value": {
+                "fieldName": "devices",
+                "displayName": "Total Devices",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "sankeyLevels": [
+              {
+                "level": 1,
+                "source": "screen_1",
+                "target": "screen_2",
+                "value": "devices"
+              },
+              {
+                "level": 2,
+                "source": "screen_2",
+                "target": "screen_3",
+                "value": "devices"
+              },
+              {
+                "level": 3,
+                "source": "screen_3",
+                "target": "screen_4",
+                "value": "devices"
+              },
+              {
+                "level": 4,
+                "source": "screen_4",
+                "target": "screen_5",
+                "value": "devices"
+              }
+            ]
+          },
+          "queries": [
+            {
+              "name": "sankey_flow_query",
+              "query": {
+                "datasetName": "hpx_first_use_behavior_flow_dataset",
+                "fields": [
+                  {
+                    "name": "screen_1",
+                    "expression": "screen_1"
+                  },
+                  {
+                    "name": "screen_2", 
+                    "expression": "screen_2"
+                  },
+                  {
+                    "name": "screen_3",
+                    "expression": "screen_3"
+                  },
+                  {
+                    "name": "screen_4",
+                    "expression": "screen_4"
+                  },
+                  {
+                    "name": "screen_5",
+                    "expression": "screen_5"
+                  },
+                  {
+                    "name": "devices",
+                    "expression": "devices"
+                  }
+                ],
+                "filters": [
+                  {
+                    "column": "date",
+                    "operator": ">=",
+                    "values": ["2023-05-01"]
+                  },
+                  {
+                    "column": "screen_1",
+                    "operator": "=",
+                    "values": ["welcome_S1"]
+                  },
+                  {
+                    "column": "screen_2",
+                    "operator": "!=",
+                    "values": ["welcome_S2"]
+                  },
+                  {
+                    "column": "screen_3",
+                    "operator": "!=",
+                    "values": ["welcome_S3"]
+                  },
+                  {
+                    "column": "screen_4",
+                    "operator": "!=",
+                    "values": ["welcome_S4"]
+                  },
+                  {
+                    "column": "screen_5",
+                    "operator": "!=",
+                    "values": ["welcome_S5"]
+                  }
+                ],
+                "orderBy": [
+                  {
+                    "field": "devices",
+                    "direction": "desc"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Min1000",
+      "displayName": "Minimum Devices Threshold",
+      "type": "number",
+      "defaultValue": 1000,
+      "description": "Minimum number of devices to include in the flow analysis"
+    }
+  ],
+  "filters": [
+    {
+      "name": "date_filter",
+      "displayName": "Date Range",
+      "column": "date",
+      "type": "date",
+      "operator": ">=",
+      "defaultValue": "2023-05-01"
+    }
+  ]
+}
