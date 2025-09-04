@@ -2,75 +2,46 @@
   "version": "1.0",
   "metadata": {
     "name": "New Devices",
-    "description": "HPX Events Model with IIDE Table",
+    "description": "HPX Events Model with IIDE Table - Line chart showing New Devices and Cumulative New Devices over time",
     "created_by": "ThoughtSpot Migration Agent",
     "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["hpx_events_model", "new_devices", "line_chart"]
+    "tags": ["hpx_events", "devices", "analytics"]
   },
   "datasets": [
     {
       "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
-      "query": "SELECT DATE_TRUNC('DAY', event_date_time) AS day_event_date_time, SUM(new_devices_1) AS new_devices, SUM(SUM(new_devices_1)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time)) AS cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY day_event_date_time"
+      "query": "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date_time, SUM(new_devices_1) as new_devices, SUM(SUM(new_devices_1)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date_time"
     }
   ],
   "pages": [
     {
-      "name": "New Devices Analysis",
+      "name": "page_1",
       "displayName": "New Devices Analysis",
       "layout": {
         "position": {
           "x": 0,
           "y": 0,
-          "width": 6,
-          "height": 4
+          "width": 12,
+          "height": 8
         }
       },
       "widgets": [
         {
           "name": "new_devices_line_chart",
-          "type": "line-chart",
           "displayName": "New Devices",
           "position": {
             "x": 0,
             "y": 0,
-            "width": 6,
-            "height": 4
+            "width": 12,
+            "height": 8
           },
           "spec": {
             "version": "3.0",
-            "datasets": {
-              "hpx_events_model_dataset": {
-                "name": "hpx_events_model_dataset",
-                "displayName": "HPX Events Model Dataset"
-              }
-            },
-            "fields": {
-              "day_event_date_time": {
-                "name": "day_event_date_time",
-                "displayName": "Daily Event Date",
-                "datasetName": "hpx_events_model_dataset",
-                "schemaName": "day_event_date_time",
-                "type": "temporal"
-              },
-              "new_devices": {
-                "name": "new_devices",
-                "displayName": "New Devices",
-                "datasetName": "hpx_events_model_dataset",
-                "schemaName": "new_devices",
-                "type": "quantitative"
-              },
-              "cumulative_new_devices": {
-                "name": "cumulative_new_devices",
-                "displayName": "Cumulative New Devices",
-                "datasetName": "hpx_events_model_dataset",
-                "schemaName": "cumulative_new_devices",
-                "type": "quantitative"
-              }
-            },
+            "widgetType": "line-chart",
             "encodings": {
               "x": {
-                "fieldName": "day_event_date_time",
+                "fieldName": "daily_event_date_time",
                 "displayName": "Daily Event Date",
                 "scale": {
                   "type": "temporal"
@@ -80,52 +51,60 @@
                 "fields": [
                   {
                     "fieldName": "new_devices",
-                    "displayName": "New Devices"
+                    "displayName": "New Devices",
+                    "scale": {
+                      "type": "quantitative"
+                    }
                   },
                   {
                     "fieldName": "cumulative_new_devices",
-                    "displayName": "Cumulative New Devices"
+                    "displayName": "Cumulative New Devices",
+                    "scale": {
+                      "type": "quantitative"
+                    }
                   }
-                ],
-                "scale": {
-                  "type": "quantitative"
-                }
+                ]
               }
             },
             "mark": {
               "type": "line",
-              "properties": {
-                "strokeWidth": 2,
-                "interpolate": "linear"
-              }
+              "tooltip": true
             },
             "legend": {
-              "position": "top",
-              "orient": "horizontal"
+              "position": "top"
             },
             "axes": [
               {
-                "scale": "x",
-                "orient": "bottom",
-                "title": "Daily Event Date",
-                "labelAngle": -45,
-                "format": "%Y-%m-%d"
+                "channel": "x",
+                "title": "Daily Event Date"
               },
               {
-                "scale": "y",
-                "orient": "left",
-                "title": "Count",
-                "grid": true
+                "channel": "y",
+                "title": "Device Count",
+                "side": "left"
               }
             ],
             "colors": {
-              "scheme": "category10",
-              "mapping": {
-                "New Devices": "#0096D3",
-                "Cumulative New Devices": "#BCBCBC"
+              "scheme": {
+                "new_devices": "#0096D3",
+                "cumulative_new_devices": "#BCBCBC"
               }
             }
-          }
+          },
+          "queries": [
+            {
+              "name": "new_devices_query",
+              "query": {
+                "datasetName": "hpx_events_model_dataset",
+                "fields": [
+                  "daily_event_date_time",
+                  "new_devices",
+                  "cumulative_new_devices"
+                ],
+                "disaggregated": false
+              }
+            }
+          ]
         }
       ]
     }
