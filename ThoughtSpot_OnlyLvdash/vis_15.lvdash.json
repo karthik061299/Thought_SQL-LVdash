@@ -1,0 +1,318 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "Home Tile Views",
+    "description": "KPI dashboard showing home tile interaction metrics",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  "datasets": [
+    {
+      "name": "hpx_events_model_homepage_summary_dataset",
+      "displayName": "HPX Events Model Homepage Summary",
+      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Home Tile Views Dashboard",
+      "displayName": "Home Tile Views Dashboard",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 1200,
+          "height": 800
+        }
+      },
+      "widgets": [
+        {
+          "name": "home_tile_kpi",
+          "displayName": "Home Tile",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "home_tile",
+                "displayName": "Home Tile",
+                "scale": {
+                  "type": "categorical"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "unique_tile_views_kpi",
+          "displayName": "Unique Tile Views",
+          "position": {
+            "x": 220,
+            "y": 0,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "unique_tile_views",
+                "displayName": "Unique Tile Views",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "unique_tile_clicks_kpi",
+          "displayName": "Unique Tile Clicks",
+          "position": {
+            "x": 440,
+            "y": 0,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "unique_tile_clicks",
+                "displayName": "Unique Tile Clicks",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "unique_interstitial_views_kpi",
+          "displayName": "Unique Interstitial Views",
+          "position": {
+            "x": 660,
+            "y": 0,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "unique_interstitial_views",
+                "displayName": "Unique Interstitial Views",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "unique_interstitial_primary_button_clicks_kpi",
+          "displayName": "Unique Interstitial Primary Button Clicks",
+          "position": {
+            "x": 0,
+            "y": 170,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "unique_interstitial_primary_button_clicks",
+                "displayName": "Unique Interstitial Primary Button Clicks",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "unique_interstitial_secondary_button_clicks_kpi",
+          "displayName": "Unique Interstitial Secondary Button Clicks",
+          "position": {
+            "x": 220,
+            "y": 170,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "unique_interstitial_secondary_button_clicks",
+                "displayName": "Unique Interstitial Secondary Button Clicks",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "home_tile_clicked_vs_homepage_displayed_kpi",
+          "displayName": "% Home Tile Clicked Vs Homepage Displayed",
+          "position": {
+            "x": 440,
+            "y": 170,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "home_tile_clicked_vs_homepage_displayed",
+                "displayName": "% Home Tile Clicked Vs Homepage Displayed",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "primary_button_clicked_vs_tile_displayed_kpi",
+          "displayName": "% Primary Button Clicked Vs Tile Displayed",
+          "position": {
+            "x": 660,
+            "y": 170,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "primary_button_clicked_vs_tile_displayed",
+                "displayName": "% Primary Button Clicked Vs Tile Displayed",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "secondary_button_clicked_vs_tile_displayed_kpi",
+          "displayName": "% Secondary Button Clicked Vs Tile Displayed",
+          "position": {
+            "x": 0,
+            "y": 340,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "secondary_button_clicked_vs_tile_displayed",
+                "displayName": "% Secondary Button Clicked Vs Tile Displayed",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "primary_button_clicked_vs_interstitial_displayed_kpi",
+          "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
+          "position": {
+            "x": 220,
+            "y": 340,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "primary_button_clicked_vs_interstitial_displayed",
+                "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        },
+        {
+          "name": "secondary_button_clicked_vs_interstitial_displayed_kpi",
+          "displayName": "% Secondary Button Clicked Vs Interstitial Displayed",
+          "position": {
+            "x": 440,
+            "y": 340,
+            "width": 200,
+            "height": 150
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "kpi",
+            "encodings": {
+              "value": {
+                "fieldName": "secondary_button_clicked_vs_interstitial_displayed",
+                "displayName": "% Secondary Button Clicked Vs Interstitial Displayed",
+                "scale": {
+                  "type": "quantitative"
+                }
+              }
+            },
+            "frame": {
+              "datasetName": "hpx_events_model_homepage_summary_dataset"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
