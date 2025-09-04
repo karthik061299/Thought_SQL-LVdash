@@ -1,75 +1,109 @@
 {
   "version": "1.0",
   "metadata": {
+    "dashboardId": "8b00f1d5-fba7-451a-89ae-dbc1a50d1202",
     "name": "HPX CURR - Trendline",
     "description": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["HPX", "CURR", "Trendline", "Weekly Analysis"]
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "tags": ["HPX", "CURR", "Trendline"]
   },
   "datasets": [
     {
-      "name": "hpx_curr_dataset",
-      "displayName": "HPX CURR Dataset",
-      "query": "SELECT DATE_TRUNC('WEEK', week_active) AS week_active, AVG(curr) AS avg_curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active"
+      "id": "hpx_curr_dataset",
+      "name": "HPX_CURR",
+      "query": "SELECT week_active, curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view",
+      "schema": [
+        {
+          "name": "week_active",
+          "type": "DATE",
+          "displayName": "Week Active"
+        },
+        {
+          "name": "curr",
+          "type": "DOUBLE",
+          "displayName": "CURR"
+        }
+      ]
     }
   ],
-  "pages": [
+  "widgets": [
     {
-      "name": "page_1",
-      "displayName": "HPX CURR Trendline Page",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 6,
-          "height": 4
-        }
+      "id": "widget_1",
+      "type": "line_chart",
+      "title": "HPX CURR - Trendline",
+      "description": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 8
       },
-      "spec": {
-        "version": "1.0",
-        "datasets": [
-          {
-            "name": "hpx_curr_dataset",
-            "displayName": "HPX CURR Dataset",
-            "query": "SELECT DATE_TRUNC('WEEK', week_active) AS week_active, AVG(curr) AS avg_curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active"
-          }
-        ],
+      "query": {
+        "datasetId": "hpx_curr_dataset",
         "fields": [
+          "week_active",
+          "curr"
+        ],
+        "aggregations": [
           {
-            "name": "week_active",
-            "displayName": "Week Active",
-            "datasetName": "hpx_curr_dataset",
-            "type": "temporal"
-          },
-          {
-            "name": "avg_curr",
-            "displayName": "CURR",
-            "datasetName": "hpx_curr_dataset",
-            "type": "quantitative"
+            "field": "curr",
+            "function": "AVG",
+            "alias": "avg_curr"
           }
         ],
-        "encodings": {
-          "x": {
-            "fieldName": "week_active",
-            "displayName": "Week Active",
-            "scale": {
-              "type": "temporal"
-            }
-          },
-          "y": {
-            "fieldName": "avg_curr",
-            "displayName": "CURR",
-            "scale": {
-              "type": "quantitative"
-            }
+        "groupBy": ["week_active"],
+        "orderBy": [
+          {
+            "field": "week_active",
+            "direction": "ASC"
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "fieldName": "week_active",
+          "displayName": "Week Active",
+          "scale": {
+            "type": "temporal"
           }
         },
-        "mark": "line",
-        "title": "HPX CURR - Trendline",
-        "width": 600,
-        "height": 400
+        "y": {
+          "fieldName": "avg_curr",
+          "displayName": "CURR",
+          "scale": {
+            "type": "quantitative"
+          }
+        },
+        "color": {
+          "value": "#06BF7F"
+        }
+      },
+      "config": {
+        "showLegend": true,
+        "showTooltip": true,
+        "gridLines": {
+          "x": true,
+          "y": true
+        },
+        "axes": {
+          "x": {
+            "title": "Week Active",
+            "showTitle": true
+          },
+          "y": {
+            "title": "CURR",
+            "showTitle": true
+          }
+        }
       }
     }
-  ]
+  ],
+  "layout": {
+    "type": "grid",
+    "columns": 12,
+    "rows": 8
+  },
+  "filters": [],
+  "parameters": []
 }
