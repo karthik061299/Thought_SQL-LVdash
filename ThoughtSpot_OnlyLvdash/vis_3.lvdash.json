@@ -1,117 +1,105 @@
 {
   "version": "1.0",
   "metadata": {
-    "dashboardId": "fdf43755-1727-4009-8a03-a5eabfeb3cdc",
     "name": "New Devices by Top 10 Countries",
-    "description": "HPX Events Model with IIDE Table - Pie chart showing new devices distribution by top 10 countries",
-    "created": "2024-01-01T00:00:00Z",
-    "modified": "2024-01-01T00:00:00Z",
-    "tags": ["hpx_events", "geo_analysis", "device_metrics"]
+    "description": "HPX Events Model with IIDE Table",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["hpx_events_model", "geo_analysis", "device_metrics"]
   },
   "datasets": [
     {
-      "id": "hpx_events_model",
-      "name": "HPX Events Model Dataset",
-      "query": "SELECT geo_country_code, SUM(total_device_count) AS new_devices, RANK() OVER (ORDER BY SUM(total_device_count) DESC) AS f_rank FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics GROUP BY geo_country_code ORDER BY new_devices DESC LIMIT 10",
-      "catalog": "team_css_analytics_prod",
-      "schema": "hpx_analytics"
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "query": "SELECT geo_country_code, new_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
-  "widgets": [
+  "pages": [
     {
-      "id": "widget_1",
-      "name": "New Devices by Top 10 Countries",
-      "type": "pie",
-      "position": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 8
-      },
-      "query": {
-        "datasetId": "hpx_events_model",
-        "fields": [
-          {
-            "name": "geo_country_code",
-            "type": "dimension"
-          },
-          {
-            "name": "new_devices",
-            "type": "measure"
-          },
-          {
-            "name": "f_rank",
-            "type": "measure"
-          }
-        ],
-        "filters": [
-          {
-            "field": "f_rank",
-            "operator": "<=",
-            "value": 10
-          }
-        ]
-      },
-      "encoding": {
-        "angle": {
-          "fieldName": "new_devices",
-          "displayName": "New Devices",
-          "scale": {
-            "type": "quantitative"
-          }
-        },
-        "color": {
-          "fieldName": "geo_country_code",
-          "displayName": "Geo Country Code",
-          "scale": {
-            "type": "categorical",
-            "range": [
-              "#2E75F0", "#B094F8", "#8C62F5", "#56D3A8", "#06BF7F",
-              "#FCD977", "#FCC838", "#82DFE9", "#48D1E0", "#71A1F4",
-              "#0096D3", "#BCBCBC"
-            ]
-          }
+      "name": "page_1",
+      "displayName": "New Devices by Countries",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 8
         }
       },
-      "config": {
-        "showLegend": true,
-        "legendPosition": "right",
-        "showDataLabels": true,
-        "dataLabelFormat": "value",
-        "innerRadius": 0,
-        "outerRadius": 1,
-        "startAngle": 0,
-        "endAngle": 360,
-        "sortBy": "value",
-        "sortOrder": "desc"
-      },
-      "style": {
-        "colors": {
-          "australia": "#B094F8",
-          "brazil": "#8C62F5",
-          "canada": "#56D3A8",
-          "china": "#06BF7F",
-          "france": "#FCD977",
-          "india": "#FCC838",
-          "japan": "#82DFE9",
-          "mexico": "#48D1E0",
-          "united kingdom": "#71A1F4",
-          "united states": "#0096D3",
-          "other_countries": "#BCBCBC",
-          "germany": "#8C62F5"
+      "widgets": [
+        {
+          "name": "new_devices_by_countries_pie",
+          "displayName": "New Devices by Top 10 Countries",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          },
+          "spec": {
+            "version": "3.0",
+            "widgetType": "pie",
+            "encodings": {
+              "angle": {
+                "fieldName": "new_devices_1",
+                "displayName": "New Devices",
+                "scale": {
+                  "type": "quantitative"
+                }
+              },
+              "color": {
+                "fieldName": "geo_country_code",
+                "displayName": "Geo Country Code",
+                "scale": {
+                  "type": "categorical"
+                }
+              }
+            },
+            "frame": {
+              "showTitle": true,
+              "title": "New Devices by Top 10 Countries"
+            },
+            "controls": {
+              "legend": {
+                "isVisible": true,
+                "position": "right"
+              }
+            }
+          },
+          "queries": [
+            {
+              "name": "pie_chart_query",
+              "query": {
+                "version": "1.0",
+                "datasetName": "hpx_events_model_dataset",
+                "fields": [
+                  {
+                    "name": "geo_country_code",
+                    "expression": "geo_country_code"
+                  },
+                  {
+                    "name": "new_devices_1",
+                    "expression": "SUM(new_devices_1)"
+                  }
+                ],
+                "disaggregated": false,
+                "groupBy": [
+                  {
+                    "fieldName": "geo_country_code"
+                  }
+                ],
+                "orderBy": [
+                  {
+                    "fieldName": "new_devices_1",
+                    "direction": "DESC"
+                  }
+                ],
+                "limit": 10
+              }
+            }
+          ]
         }
-      }
+      ]
     }
-  ],
-  "layout": {
-    "type": "grid",
-    "columns": 12,
-    "rows": 8
-  },
-  "filters": [],
-  "parameters": [],
-  "refresh": {
-    "enabled": false,
-    "interval": 300
-  }
+  ]
 }
