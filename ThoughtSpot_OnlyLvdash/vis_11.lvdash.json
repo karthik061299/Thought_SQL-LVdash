@@ -1,0 +1,75 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "HPX CURR - Trendline",
+    "description": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["HPX", "CURR", "Trendline", "Weekly Analysis"]
+  },
+  "datasets": [
+    {
+      "name": "hpx_curr_dataset",
+      "displayName": "HPX CURR Dataset",
+      "query": "SELECT DATE_TRUNC('WEEK', week_active) AS week_active, AVG(curr) AS avg_curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_1",
+      "displayName": "HPX CURR Trendline Page",
+      "layout": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      },
+      "spec": {
+        "version": "1.0",
+        "datasets": [
+          {
+            "name": "hpx_curr_dataset",
+            "displayName": "HPX CURR Dataset",
+            "query": "SELECT DATE_TRUNC('WEEK', week_active) AS week_active, AVG(curr) AS avg_curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active"
+          }
+        ],
+        "fields": [
+          {
+            "name": "week_active",
+            "displayName": "Week Active",
+            "datasetName": "hpx_curr_dataset",
+            "type": "temporal"
+          },
+          {
+            "name": "avg_curr",
+            "displayName": "CURR",
+            "datasetName": "hpx_curr_dataset",
+            "type": "quantitative"
+          }
+        ],
+        "encodings": {
+          "x": {
+            "fieldName": "week_active",
+            "displayName": "Week Active",
+            "scale": {
+              "type": "temporal"
+            }
+          },
+          "y": {
+            "fieldName": "avg_curr",
+            "displayName": "CURR",
+            "scale": {
+              "type": "quantitative"
+            }
+          }
+        },
+        "mark": "line",
+        "title": "HPX CURR - Trendline",
+        "width": 600,
+        "height": 400
+      }
+    }
+  ]
+}
