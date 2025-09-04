@@ -1,70 +1,163 @@
 {
   "version": "1.0",
   "metadata": {
-    "name": "0.5 HPX Retention",
-    "description": "Cohort Graph",
+    "name": "HPX Retention",
+    "description": "Cohort Graph - HPX Retention Analysis",
     "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z"
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["retention", "cohort", "hpx"]
   },
   "datasets": [
     {
-      "name": "paas_tracking_card_metrics",
-      "displayName": "PaaS Tracking Card Metrics",
-      "query": "SELECT DATE_TRUNC('month', session_start_date_time) AS month_first_device_event_date_time, COUNT(DISTINCT aip_device_uuid) AS active_devices, ROUND((COUNT(DISTINCT aip_device_uuid) * 100.0) / FIRST_VALUE(COUNT(DISTINCT aip_device_uuid)) OVER (ORDER BY DATE_TRUNC('month', session_start_date_time)), 1) AS percent_devices_returning, DATEDIFF('month', MIN(session_start_date_time) OVER (PARTITION BY aip_device_uuid), session_start_date_time) AS months_since_first_use, os_platform AS session_type, DATEDIFF('week', MIN(session_start_date_time) OVER (PARTITION BY aip_device_uuid), session_start_date_time) AS weeks_since_first_use FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics WHERE session_start_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('month', session_start_date_time), aip_device_uuid, os_platform, session_start_date_time ORDER BY month_first_device_event_date_time, months_since_first_use"
+      "name": "hpx_retention_dataset",
+      "displayName": "HPX Retention Analytics",
+      "query": {
+        "datasetName": "team_css_analytics_prod.hpx_analytics.hpx_retention_good_metric_view",
+        "fields": [
+          {
+            "name": "first_device_event_date_time",
+            "expression": "DATE_TRUNC('MONTH', first_device_event_date_time)"
+          },
+          {
+            "name": "active_devices",
+            "expression": "active_devices"
+          },
+          {
+            "name": "months_since_first_use",
+            "expression": "months_since_first_use"
+          },
+          {
+            "name": "session_type",
+            "expression": "session_type"
+          },
+          {
+            "name": "weeks_since_first_use",
+            "expression": "weeks_since_first_use"
+          },
+          {
+            "name": "devices_returning_pct",
+            "expression": "(active_devices * 1.0) / (SUM(active_devices) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time))) * 100"
+          }
+        ],
+        "filters": [
+          {
+            "field": "first_device_event_date_time",
+            "operator": ">=",
+            "value": "2023-05-01"
+          }
+        ]
+      }
     }
   ],
-  "pages": [
+  "widgets": [
     {
-      "name": "Page 1",
-      "displayName": "HPX Retention Cohort Analysis",
-      "layout": {
+      "id": "widget_1",
+      "type": "pivot-table",
+      "title": "HPX Retention Cohort Analysis",
+      "description": "Pivot table showing device retention percentages by month and cohort",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 8
+      },
+      "spec": {
+        "version": "1.0",
+        "widgetType": "pivot-table",
+        "encodings": {
+          "rows": [
+            {
+              "fieldName": "first_device_event_date_time",
+              "displayName": "Month(First Device Event Date Time)",
+              "scale": {
+                "type": "temporal"
+              }
+            }
+          ],
+          "columns": [
+            {
+              "fieldName": "months_since_first_use",
+              "displayName": "Months Since First Use",
+              "scale": {
+                "type": "ordinal"
+              }
+            }
+          ],
+          "values": [
+            {
+              "fieldName": "devices_returning_pct",
+              "displayName": "% Devices Returning",
+              "scale": {
+                "type": "quantitative"
+              },
+              "format": {
+                "type": "percentage",
+                "decimals": 1
+              }
+            },
+            {
+              "fieldName": "active_devices",
+              "displayName": "Active Devices",
+              "scale": {
+                "type": "quantitative"
+              }
+            }
+          ]
+        },
+        "query": {
+          "datasetName": "hpx_retention_dataset",
+          "fields": [
+            "first_device_event_date_time",
+            "active_devices",
+            "months_since_first_use",
+            "session_type",
+            "weeks_since_first_use",
+            "devices_returning_pct"
+          ],
+          "filters": [
+            {
+              "field": "first_device_event_date_time",
+              "operator": ">=",
+              "value": "2023-05-01"
+            }
+          ]
+        },
+        "pivotConfig": {
+          "showRowTotals": false,
+          "showColumnTotals": false,
+          "showGrandTotals": false,
+          "heatmapEnabled": true,
+          "sortBy": {
+            "field": "first_device_event_date_time",
+            "direction": "asc"
+          }
+        }
+      }
+    }
+  ],
+  "layout": {
+    "gridSize": 12,
+    "widgets": [
+      {
+        "widgetId": "widget_1",
         "position": {
           "x": 0,
           "y": 0,
-          "width": 8,
-          "height": 6
+          "width": 12,
+          "height": 8
         }
-      },
-      "spec": {
-        "version": "3.0",
-        "encodings": {
-          "x": {
-            "fieldName": "month_first_device_event_date_time",
-            "displayName": "Month(First Device Event Date Time)",
-            "scale": {
-              "type": "temporal"
-            }
-          },
-          "y": {
-            "fieldName": "percent_devices_returning",
-            "displayName": "% Devices Returning",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          "color": {
-            "fieldName": "months_since_first_use",
-            "displayName": "Months Since First Use",
-            "scale": {
-              "type": "quantitative"
-            }
-          }
-        },
-        "mark": {
-          "type": "rect",
-          "tooltip": true
-        },
-        "frame": {
-          "showTitle": true,
-          "title": "HPX Retention Cohort Analysis (Heatmap)"
-        }
-      },
-      "datasets": [
-        {
-          "name": "paas_tracking_card_metrics",
-          "displayName": "PaaS Tracking Card Metrics"
-        }
-      ]
+      }
+    ]
+  },
+  "parameters": [],
+  "filters": [
+    {
+      "id": "date_filter",
+      "name": "Date Range Filter",
+      "field": "first_device_event_date_time",
+      "type": "date",
+      "defaultValue": "2023-05-01",
+      "operator": ">="
     }
   ]
 }
