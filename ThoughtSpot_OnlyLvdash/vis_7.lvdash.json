@@ -2,41 +2,63 @@
   "version": "1.0",
   "metadata": {
     "name": "Top On Press Events",
-    "description": "HPX Events Model with IIDE Table",
+    "description": "HPX Events Model with IIDE Table - Bar chart showing top controls by total clicks for onpress events",
     "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z"
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["hpx_events", "onpress", "controls", "clicks"]
   },
   "datasets": [
     {
-      "name": "paas_tracking_card_metrics",
-      "displayName": "PaaS Tracking Card Metrics",
-      "query": "SELECT app_name AS control, SUM(total_device_count) AS total_clicks FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics WHERE app_name NOT LIKE '%testid%' GROUP BY app_name ORDER BY total_clicks DESC LIMIT 10"
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "query": "SELECT control, clicks, ui_action FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%'"
     }
   ],
   "pages": [
     {
-      "name": "Page 1",
-      "displayName": "Top On Press Events Bar Chart",
+      "name": "main_page",
+      "displayName": "Top On Press Events Dashboard",
       "layout": {
         "position": {
           "x": 0,
           "y": 0,
-          "width": 6,
-          "height": 4
+          "width": 12,
+          "height": 8
         }
       },
       "spec": {
-        "version": "3.0",
+        "version": "1.0",
+        "datasets": [
+          {
+            "name": "hpx_events_model_dataset",
+            "displayName": "HPX Events Model Dataset",
+            "query": "SELECT control AS Control, SUM(clicks) AS `Total Clicks` FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
+          }
+        ],
+        "fields": [
+          {
+            "name": "Control",
+            "displayName": "Control",
+            "dataType": "STRING",
+            "semanticType": "DIMENSION"
+          },
+          {
+            "name": "Total Clicks",
+            "displayName": "Total Clicks",
+            "dataType": "INTEGER",
+            "semanticType": "MEASURE"
+          }
+        ],
         "encodings": {
           "x": {
-            "fieldName": "control",
+            "fieldName": "Control",
             "displayName": "Control",
             "scale": {
               "type": "categorical"
             }
           },
           "y": {
-            "fieldName": "total_clicks",
+            "fieldName": "Total Clicks",
             "displayName": "Total Clicks",
             "scale": {
               "type": "quantitative"
@@ -45,19 +67,73 @@
         },
         "mark": {
           "type": "bar",
-          "tooltip": true
+          "properties": {
+            "color": "#0096D3",
+            "opacity": 0.8
+          }
         },
-        "frame": {
-          "showTitle": true,
-          "title": "Top On Press Events"
+        "title": {
+          "text": "Top On Press Events",
+          "subtitle": "Total clicks by control for onpress UI actions (excluding test controls)"
+        },
+        "axes": [
+          {
+            "orient": "bottom",
+            "scale": "x",
+            "title": "Control",
+            "labelAngle": -45,
+            "labelLimit": 100
+          },
+          {
+            "orient": "left",
+            "scale": "y",
+            "title": "Total Clicks",
+            "format": ".0f"
+          }
+        ],
+        "config": {
+          "view": {
+            "stroke": "transparent"
+          },
+          "axis": {
+            "domainWidth": 1,
+            "grid": true,
+            "gridColor": "#f0f0f0",
+            "gridOpacity": 0.5,
+            "labelFont": "Arial",
+            "labelFontSize": 10,
+            "titleFont": "Arial",
+            "titleFontSize": 12,
+            "titleFontWeight": "bold"
+          },
+          "legend": {
+            "labelFont": "Arial",
+            "labelFontSize": 10,
+            "titleFont": "Arial",
+            "titleFontSize": 11,
+            "titleFontWeight": "bold"
+          }
         }
-      },
-      "datasets": [
-        {
-          "name": "paas_tracking_card_metrics",
-          "displayName": "PaaS Tracking Card Metrics"
-        }
-      ]
+      }
     }
-  ]
+  ],
+  "filters": [
+    {
+      "column": "ui_action",
+      "operator": "EQ",
+      "values": ["onpress"],
+      "displayName": "UI Action Filter"
+    },
+    {
+      "column": "control",
+      "operator": "NOT_CONTAINS",
+      "values": ["testid"],
+      "displayName": "Exclude Test Controls"
+    }
+  ],
+  "parameters": [],
+  "refresh": {
+    "enabled": true,
+    "interval": "1h"
+  }
 }
