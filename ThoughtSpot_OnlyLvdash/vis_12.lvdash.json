@@ -5,19 +5,19 @@
     "description": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
     "created_by": "ThoughtSpot Migration Agent",
     "created_at": "2024-01-01T00:00:00Z",
-    "updated_at": "2024-01-01T00:00:00Z",
+    "modified_at": "2024-01-01T00:00:00Z",
     "tags": ["HPX", "CURR", "Device Activity", "Weekly Analysis"]
   },
   "datasets": [
     {
       "name": "hpx_curr_dataset",
       "displayName": "HPX CURR Dataset",
-      "query": "SELECT week_active, previous_week_users_t14t20, last_week_users_t7t13, this_week_users_t0t6, curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view WHERE week_active >= '2023-05-01'"
+      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view"
     }
   ],
   "pages": [
     {
-      "name": "page_1",
+      "name": "HPX CURR Analysis",
       "displayName": "HPX CURR Analysis",
       "layout": {
         "position": {
@@ -30,7 +30,7 @@
       "widgets": [
         {
           "name": "hpx_curr_line_chart",
-          "displayName": "HPX CURR - Device Activity Trends",
+          "displayName": "HPX CURR - Device Activity Over Time",
           "position": {
             "x": 0,
             "y": 0,
@@ -39,6 +39,7 @@
           },
           "spec": {
             "version": "3.0",
+            "widgetType": "line",
             "encodings": {
               "x": {
                 "fieldName": "week_active",
@@ -50,6 +51,10 @@
               "y": {
                 "fields": [
                   {
+                    "fieldName": "curr",
+                    "displayName": "CURR"
+                  },
+                  {
                     "fieldName": "previous_week_users_t14t20",
                     "displayName": "Previous Week Users T14t20"
                   },
@@ -60,10 +65,6 @@
                   {
                     "fieldName": "this_week_users_t0t6",
                     "displayName": "This Week Users T0t6"
-                  },
-                  {
-                    "fieldName": "curr",
-                    "displayName": "CURR"
                   }
                 ],
                 "scale": {
@@ -71,58 +72,56 @@
                 }
               }
             },
-            "mark": {
-              "type": "line",
-              "tooltip": true
-            },
-            "frame": {
-              "showTitle": true,
-              "title": "HPX CURR - Device Activity Over Time"
-            }
-          },
-          "queries": [
-            {
-              "name": "hpx_curr_query",
-              "query": {
-                "datasetName": "hpx_curr_dataset",
-                "fields": [
-                  {
-                    "name": "week_active",
-                    "expression": "week_active"
-                  },
-                  {
-                    "name": "previous_week_users_t14t20",
-                    "expression": "previous_week_users_t14t20"
-                  },
-                  {
-                    "name": "last_week_users_t7t13",
-                    "expression": "last_week_users_t7t13"
-                  },
-                  {
-                    "name": "this_week_users_t0t6",
-                    "expression": "this_week_users_t0t6"
-                  },
-                  {
-                    "name": "curr",
-                    "expression": "curr"
-                  }
-                ],
-                "filters": [
-                  {
-                    "column": "week_active",
-                    "operator": ">=",
-                    "values": ["2023-05-01"]
-                  }
-                ],
-                "orderBy": [
-                  {
-                    "name": "week_active",
-                    "direction": "ASC"
-                  }
-                ]
+            "queries": [
+              {
+                "name": "hpx_curr_query",
+                "query": {
+                  "datasetName": "hpx_curr_dataset",
+                  "fields": [
+                    {
+                      "name": "week_active",
+                      "expression": "week_active"
+                    },
+                    {
+                      "name": "curr",
+                      "expression": "AVG(curr)"
+                    },
+                    {
+                      "name": "previous_week_users_t14t20",
+                      "expression": "SUM(previous_week_users_t14t20)"
+                    },
+                    {
+                      "name": "last_week_users_t7t13",
+                      "expression": "SUM(last_week_users_t7t13)"
+                    },
+                    {
+                      "name": "this_week_users_t0t6",
+                      "expression": "SUM(this_week_users_t0t6)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "column": "week_active",
+                      "operator": ">=",
+                      "values": ["2023-05-01"]
+                    }
+                  ],
+                  "orderBy": [
+                    {
+                      "column": "week_active",
+                      "direction": "ASC"
+                    }
+                  ]
+                }
               }
+            ],
+            "frameParams": {
+              "showTitle": true,
+              "title": "HPX CURR - Device Activity Analysis",
+              "showLegend": true,
+              "legendPosition": "right"
             }
-          ]
+          }
         },
         {
           "name": "hpx_curr_data_table",
@@ -135,87 +134,98 @@
           },
           "spec": {
             "version": "3.0",
+            "widgetType": "table",
             "encodings": {
               "columns": [
                 {
                   "fieldName": "week_active",
                   "displayName": "Week",
-                  "width": 115
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 {
                   "fieldName": "previous_week_users_t14t20",
                   "displayName": "Previous Week Users T14t20",
-                  "width": 116
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 {
                   "fieldName": "last_week_users_t7t13",
                   "displayName": "Last Week Users T7t13",
-                  "width": 107
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 {
                   "fieldName": "this_week_users_t0t6",
                   "displayName": "This Week Users T0t6",
-                  "width": 103
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 {
                   "fieldName": "curr",
                   "displayName": "CURR",
-                  "width": 100
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               ]
             },
-            "mark": {
-              "type": "table",
-              "showTableFooter": false
-            },
-            "frame": {
+            "queries": [
+              {
+                "name": "hpx_curr_table_query",
+                "query": {
+                  "datasetName": "hpx_curr_dataset",
+                  "fields": [
+                    {
+                      "name": "week_active",
+                      "expression": "week_active"
+                    },
+                    {
+                      "name": "previous_week_users_t14t20",
+                      "expression": "SUM(previous_week_users_t14t20)"
+                    },
+                    {
+                      "name": "last_week_users_t7t13",
+                      "expression": "SUM(last_week_users_t7t13)"
+                    },
+                    {
+                      "name": "this_week_users_t0t6",
+                      "expression": "SUM(this_week_users_t0t6)"
+                    },
+                    {
+                      "name": "curr",
+                      "expression": "AVG(curr)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "column": "week_active",
+                      "operator": ">=",
+                      "values": ["2023-05-01"]
+                    }
+                  ],
+                  "orderBy": [
+                    {
+                      "column": "week_active",
+                      "direction": "ASC"
+                    }
+                  ]
+                }
+              }
+            ],
+            "frameParams": {
               "showTitle": true,
-              "title": "HPX CURR - Detailed Data Table"
-            }
-          },
-          "queries": [
-            {
-              "name": "hpx_curr_table_query",
-              "query": {
-                "datasetName": "hpx_curr_dataset",
-                "fields": [
-                  {
-                    "name": "week_active",
-                    "expression": "week_active"
-                  },
-                  {
-                    "name": "previous_week_users_t14t20",
-                    "expression": "previous_week_users_t14t20"
-                  },
-                  {
-                    "name": "last_week_users_t7t13",
-                    "expression": "last_week_users_t7t13"
-                  },
-                  {
-                    "name": "this_week_users_t0t6",
-                    "expression": "this_week_users_t0t6"
-                  },
-                  {
-                    "name": "curr",
-                    "expression": "curr"
-                  }
-                ],
-                "filters": [
-                  {
-                    "column": "week_active",
-                    "operator": ">=",
-                    "values": ["2023-05-01"]
-                  }
-                ],
-                "orderBy": [
-                  {
-                    "name": "week_active",
-                    "direction": "ASC"
-                  }
-                ]
+              "title": "HPX CURR - Detailed Data Table",
+              "pagination": {
+                "enabled": true,
+                "pageSize": 50
               }
             }
-          ]
+          }
         }
       ]
     }
@@ -223,15 +233,12 @@
   "parameters": [],
   "filters": [
     {
-      "name": "week_filter",
-      "displayName": "Week Active Filter",
+      "name": "date_filter",
+      "displayName": "Date Range Filter",
       "column": "week_active",
-      "datasetName": "hpx_curr_dataset",
-      "filterType": "DATE_RANGE",
-      "defaultValue": {
-        "start": "2023-05-01",
-        "end": null
-      }
+      "dataType": "DATE",
+      "defaultValue": "2023-05-01",
+      "operator": ">="
     }
   ]
 }
