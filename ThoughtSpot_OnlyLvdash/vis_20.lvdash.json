@@ -1,0 +1,127 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "% Active Devices by Country (Top 10)",
+    "description": "Bar chart showing percentage of active devices by country, top 10 countries",
+    "created_by": "ThoughtSpot Migration Agent",
+    "created_at": "2024-01-01T00:00:00Z",
+    "tags": ["active_devices", "country", "percentage", "top10"]
+  },
+  "datasets": [
+    {
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "query": "SELECT geo_country_code, active_devices_1, (active_devices_1 * 100.0 / SUM(active_devices_1) OVER()) AS pct_active_devices_by_country, RANK() OVER (ORDER BY active_devices_1 DESC) AS active_devices_rank FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version NOT IN ('not a store release', 'other non-releases') AND event_date_time >= '2023-05-01' AND os_version IS NOT NULL GROUP BY geo_country_code, active_devices_1 ORDER BY active_devices_1 DESC LIMIT 10"
+    }
+  ],
+  "widgets": [
+    {
+      "name": "pct_active_devices_country_chart",
+      "type": "bar",
+      "displayName": "% Active Devices by Country (Top 10)",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 8
+      },
+      "spec": {
+        "version": "5.0",
+        "data": {
+          "name": "hpx_events_model_dataset"
+        },
+        "mark": {
+          "type": "bar",
+          "color": "#0096D3",
+          "tooltip": true
+        },
+        "encoding": {
+          "x": {
+            "fieldName": "geo_country_code",
+            "displayName": "Country",
+            "scale": {
+              "type": "categorical"
+            },
+            "axis": {
+              "title": "Country",
+              "labelAngle": -45
+            }
+          },
+          "y": {
+            "fieldName": "pct_active_devices_by_country",
+            "displayName": "% Active Devices by Country",
+            "scale": {
+              "type": "quantitative"
+            },
+            "axis": {
+              "title": "% Active Devices by Country",
+              "format": ".1%"
+            }
+          },
+          "color": {
+            "value": "#0096D3"
+          },
+          "tooltip": [
+            {
+              "fieldName": "geo_country_code",
+              "displayName": "Country"
+            },
+            {
+              "fieldName": "pct_active_devices_by_country",
+              "displayName": "% Active Devices by Country",
+              "format": ".1%"
+            },
+            {
+              "fieldName": "active_devices_1",
+              "displayName": "MAU"
+            }
+          ]
+        },
+        "config": {
+          "view": {
+            "stroke": "transparent"
+          },
+          "axis": {
+            "domainWidth": 1
+          }
+        }
+      },
+      "queries": [
+        {
+          "name": "main_query",
+          "query": "SELECT geo_country_code, active_devices_1, (active_devices_1 * 100.0 / SUM(active_devices_1) OVER()) AS pct_active_devices_by_country, RANK() OVER (ORDER BY active_devices_1 DESC) AS active_devices_rank FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version NOT IN ('not a store release', 'other non-releases') AND event_date_time >= '2023-05-01' AND os_version IS NOT NULL GROUP BY geo_country_code, active_devices_1 ORDER BY active_devices_1 DESC LIMIT 10"
+        }
+      ]
+    }
+  ],
+  "layout": {
+    "gridSize": 12,
+    "height": 8
+  },
+  "filters": [
+    {
+      "name": "app_version_filter",
+      "displayName": "App Version Filter",
+      "type": "exclude",
+      "field": "app_version",
+      "values": ["not a store release", "other non-releases"]
+    },
+    {
+      "name": "date_filter",
+      "displayName": "Event Date Filter",
+      "type": "date_range",
+      "field": "event_date_time",
+      "start_date": "2023-05-01"
+    },
+    {
+      "name": "os_version_filter",
+      "displayName": "OS Version Filter",
+      "type": "exclude_null",
+      "field": "os_version"
+    }
+  ],
+  "parameters": [],
+  "refresh_schedule": {
+    "enabled": false
+  }
+}
