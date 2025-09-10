@@ -1,105 +1,65 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "name": "New Devices by Top 10 Countries",
-    "description": "HPX Events Model with IIDE Table",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["hpx_events_model", "geo_analysis", "device_metrics"]
-  },
   "datasets": [
     {
       "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
-      "query": "SELECT geo_country_code, new_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+      "queryLines": [
+        "SELECT geo_country_code AS geo_country_code, SUM(new_devices_1) AS new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY geo_country_code ORDER BY new_devices DESC LIMIT 10"
+      ]
     }
   ],
   "pages": [
     {
       "name": "page_1",
-      "displayName": "New Devices by Countries",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 12,
-          "height": 8
-        }
-      },
-      "widgets": [
+      "displayName": "New Devices by Top 10 Countries",
+      "layout": [
         {
-          "name": "new_devices_by_countries_pie",
-          "displayName": "New Devices by Top 10 Countries",
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 12,
-            "height": 8
-          },
-          "spec": {
-            "version": "3.0",
-            "widgetType": "pie",
-            "encodings": {
-              "angle": {
-                "fieldName": "new_devices_1",
-                "displayName": "New Devices",
-                "scale": {
-                  "type": "quantitative"
+          "widget": {
+            "name": "new_devices_pie_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model_dataset",
+                  "fields": [
+                    { "name": "geo_country_code", "expression": "`geo_country_code`" },
+                    { "name": "new_devices", "expression": "`new_devices`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "x": {
+                  "fieldName": "geo_country_code",
+                  "displayName": "Geo Country Code",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "new_devices",
+                  "displayName": "New Devices",
+                  "scale": { "type": "quantitative" }
                 }
               },
-              "color": {
-                "fieldName": "geo_country_code",
-                "displayName": "Geo Country Code",
-                "scale": {
-                  "type": "categorical"
-                }
-              }
-            },
-            "frame": {
-              "showTitle": true,
-              "title": "New Devices by Top 10 Countries"
-            },
-            "controls": {
-              "legend": {
-                "isVisible": true,
-                "position": "right"
+              "frame": {
+                "title": "New Devices by Top 10 Countries",
+                "showTitle": true
               }
             }
           },
-          "queries": [
-            {
-              "name": "pie_chart_query",
-              "query": {
-                "version": "1.0",
-                "datasetName": "hpx_events_model_dataset",
-                "fields": [
-                  {
-                    "name": "geo_country_code",
-                    "expression": "geo_country_code"
-                  },
-                  {
-                    "name": "new_devices_1",
-                    "expression": "SUM(new_devices_1)"
-                  }
-                ],
-                "disaggregated": false,
-                "groupBy": [
-                  {
-                    "fieldName": "geo_country_code"
-                  }
-                ],
-                "orderBy": [
-                  {
-                    "fieldName": "new_devices_1",
-                    "direction": "DESC"
-                  }
-                ],
-                "limit": 10
-              }
-            }
-          ]
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
-  ]
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
