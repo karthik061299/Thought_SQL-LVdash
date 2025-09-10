@@ -1,109 +1,65 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "dashboardId": "8b00f1d5-fba7-451a-89ae-dbc1a50d1202",
-    "name": "HPX CURR - Trendline",
-    "description": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
-    "created": "2024-01-01T00:00:00Z",
-    "modified": "2024-01-01T00:00:00Z",
-    "tags": ["HPX", "CURR", "Trendline"]
-  },
   "datasets": [
     {
-      "id": "hpx_curr_dataset",
-      "name": "HPX_CURR",
-      "query": "SELECT week_active, curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view",
-      "schema": [
-        {
-          "name": "week_active",
-          "type": "DATE",
-          "displayName": "Week Active"
-        },
-        {
-          "name": "curr",
-          "type": "DOUBLE",
-          "displayName": "CURR"
-        }
+      "name": "hpx_curr_dataset",
+      "displayName": "HPX CURR Dataset",
+      "queryLines": [
+        "SELECT DATE_TRUNC('WEEK', week_active) as week_active_trunc, AVG(curr) as avg_curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active_trunc"
       ]
     }
   ],
-  "widgets": [
+  "pages": [
     {
-      "id": "widget_1",
-      "type": "line_chart",
-      "title": "HPX CURR - Trendline",
-      "description": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
-      "position": {
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 8
-      },
-      "query": {
-        "datasetId": "hpx_curr_dataset",
-        "fields": [
-          "week_active",
-          "curr"
-        ],
-        "aggregations": [
-          {
-            "field": "curr",
-            "function": "AVG",
-            "alias": "avg_curr"
-          }
-        ],
-        "groupBy": ["week_active"],
-        "orderBy": [
-          {
-            "field": "week_active",
-            "direction": "ASC"
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "fieldName": "week_active",
-          "displayName": "Week Active",
-          "scale": {
-            "type": "temporal"
-          }
-        },
-        "y": {
-          "fieldName": "avg_curr",
-          "displayName": "CURR",
-          "scale": {
-            "type": "quantitative"
-          }
-        },
-        "color": {
-          "value": "#06BF7F"
-        }
-      },
-      "config": {
-        "showLegend": true,
-        "showTooltip": true,
-        "gridLines": {
-          "x": true,
-          "y": true
-        },
-        "axes": {
-          "x": {
-            "title": "Week Active",
-            "showTitle": true
+      "name": "page_1",
+      "displayName": "HPX CURR - Trendline",
+      "layout": [
+        {
+          "widget": {
+            "name": "hpx_curr_trendline_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_curr_dataset",
+                  "fields": [
+                    { "name": "week_active_trunc", "expression": "`week_active_trunc`" },
+                    { "name": "avg_curr", "expression": "`avg_curr`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "week_active_trunc",
+                  "displayName": "Week Active",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fieldName": "avg_curr",
+                  "displayName": "CURR",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "HPX CURR - Trendline: % Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
+                "showTitle": true
+              }
+            }
           },
-          "y": {
-            "title": "CURR",
-            "showTitle": true
-          }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
   ],
-  "layout": {
-    "type": "grid",
-    "columns": 12,
-    "rows": 8
-  },
-  "filters": [],
-  "parameters": []
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
