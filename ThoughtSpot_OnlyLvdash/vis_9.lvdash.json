@@ -1,183 +1,97 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "name": "0.5 HPX Retention",
-    "description": "Cohort Graph",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["HPX", "Retention", "Cohort"]
-  },
   "datasets": [
     {
       "name": "hpx_retention_dataset",
-      "displayName": "HPX Retention Analytics",
-      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_retention_good_metric_view WHERE first_device_event_date_time >= '2023-05-01'"
+      "displayName": "HPX Retention Analytics Dataset",
+      "queryLines": [
+        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as month_first_device_event_date_time, months_since_first_use, session_type, weeks_since_first_use, SUM(active_devices) as active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time)) * 100 as devices_returning_percentage FROM team_css_analytics_prod.hpx_analytics.hpx_retention_good_metric_view WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type, weeks_since_first_use ORDER BY month_first_device_event_date_time, months_since_first_use"
+      ]
     }
   ],
   "pages": [
     {
-      "name": "HPX Retention Dashboard",
-      "displayName": "HPX Retention Dashboard",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 6,
-          "height": 8
-        }
-      },
-      "widgets": [
+      "name": "page_1",
+      "displayName": "HPX Retention Cohort Analysis",
+      "layout": [
         {
-          "name": "hpx_retention_pivot",
-          "type": "pivot-table",
-          "displayName": "0.5 HPX Retention",
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 6,
-            "height": 8
-          },
-          "spec": {
-            "version": "3.0",
-            "widgetType": "pivot-table",
-            "encodings": {
-              "rows": [
-                {
-                  "fieldName": "first_device_event_date_time",
-                  "displayName": "Month(First Device Event Date Time)",
-                  "scale": {
-                    "type": "temporal"
-                  },
-                  "timeUnit": "month"
-                }
-              ],
-              "columns": [
-                {
-                  "fieldName": "months_since_first_use",
-                  "displayName": "Months Since First Use",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                }
-              ],
-              "values": [
-                {
-                  "fieldName": "devices_returning_percentage",
-                  "displayName": "% Devices Returning",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "format": {
-                    "type": "percentage",
-                    "decimals": 1
-                  },
-                  "aggregation": "custom",
-                  "expression": "active_devices / LAG(active_devices) OVER (PARTITION BY first_device_event_date_time ORDER BY months_since_first_use)"
-                },
-                {
-                  "fieldName": "active_devices",
-                  "displayName": "Active Devices",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "aggregation": "sum"
-                }
-              ],
-              "color": [
-                {
-                  "fieldName": "months_since_first_use",
-                  "displayName": "Months Since First Use",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                {
-                  "fieldName": "session_type",
-                  "displayName": "Session Type",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                }
-              ]
-            },
-            "pivotConfig": {
-              "showRowTotals": false,
-              "showColumnTotals": false,
-              "showGrandTotals": false,
-              "heatmapOverlay": true,
-              "expandedRows": [],
-              "sortBy": {
-                "field": "first_device_event_date_time",
-                "order": "asc"
-              }
-            },
-            "filters": [
+          "widget": {
+            "name": "hpx_retention_pivot_table",
+            "queries": [
               {
-                "fieldName": "first_device_event_date_time",
-                "displayName": "First Device Event Date Time",
-                "operator": ">=",
-                "values": ["2023-05-01"],
-                "type": "date"
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_retention_dataset",
+                  "fields": [
+                    { "name": "month_first_device_event_date_time", "expression": "`month_first_device_event_date_time`" },
+                    { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
+                    { "name": "session_type", "expression": "`session_type`" },
+                    { "name": "weeks_since_first_use", "expression": "`weeks_since_first_use`" },
+                    { "name": "active_devices", "expression": "`active_devices`" },
+                    { "name": "devices_returning_percentage", "expression": "`devices_returning_percentage`" }
+                  ],
+                  "disaggregated": false
+                }
               }
-            ]
-          },
-          "queries": [
-            {
-              "name": "hpx_retention_query",
-              "query": {
-                "datasetName": "hpx_retention_dataset",
-                "disaggregated": false,
-                "fields": [
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "encodings": {
+                "rows": [
                   {
-                    "name": "first_device_event_date_time",
-                    "expression": "DATE_TRUNC('MONTH', first_device_event_date_time)"
+                    "fieldName": "month_first_device_event_date_time",
+                    "displayName": "Month (First Device Event Date Time)",
+                    "scale": { "type": "temporal" }
+                  }
+                ],
+                "columns": [
+                  {
+                    "fieldName": "months_since_first_use",
+                    "displayName": "Months Since First Use",
+                    "scale": { "type": "categorical" }
+                  }
+                ],
+                "values": [
+                  {
+                    "fieldName": "devices_returning_percentage",
+                    "displayName": "% Devices Returning",
+                    "scale": { "type": "quantitative" }
                   },
                   {
-                    "name": "months_since_first_use",
-                    "expression": "months_since_first_use"
-                  },
-                  {
-                    "name": "session_type",
-                    "expression": "session_type"
-                  },
-                  {
-                    "name": "weeks_since_first_use",
-                    "expression": "weeks_since_first_use"
-                  },
-                  {
-                    "name": "active_devices",
-                    "expression": "SUM(active_devices)"
-                  },
-                  {
-                    "name": "devices_returning_percentage",
-                    "expression": "(active_devices / LAG(active_devices) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time) ORDER BY months_since_first_use)) * 100"
+                    "fieldName": "active_devices",
+                    "displayName": "Active Devices",
+                    "scale": { "type": "quantitative" }
                   }
                 ],
                 "filters": [
                   {
-                    "column": "first_device_event_date_time",
-                    "operator": ">=",
-                    "values": ["2023-05-01"]
-                  }
-                ],
-                "orderBy": [
+                    "fieldName": "session_type",
+                    "displayName": "Session Type",
+                    "scale": { "type": "categorical" }
+                  },
                   {
-                    "column": "first_device_event_date_time",
-                    "direction": "asc"
+                    "fieldName": "weeks_since_first_use",
+                    "displayName": "Weeks Since First Use",
+                    "scale": { "type": "categorical" }
                   }
                 ]
+              },
+              "frame": {
+                "title": "HPX Retention Cohort Analysis - % Devices Returning",
+                "showTitle": true
               }
             }
-          ]
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
   ],
-  "parameters": [],
-  "layout": {
-    "gridOptions": {
-      "columnCount": 12,
-      "rowHeight": 80
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
     }
   }
 }
