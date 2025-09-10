@@ -1,160 +1,59 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "dashboardId": "06df84cf-a788-4b2a-810a-100715952deb",
-    "name": "Total Consented Devices",
-    "description": "HPX Events Model with IIDE Table",
-    "created": "2024-01-01T00:00:00Z",
-    "modified": "2024-01-01T00:00:00Z",
-    "tags": ["hpx", "events", "devices"]
-  },
   "datasets": [
     {
-      "name": "hpx_events_model_iide_dataset",
-      "displayName": "HPX Events Model IIDE",
-      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "queryLines": [
+        "SELECT SUM(active_devices_1) as total_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version IN ('2023.03.b', '2023.03.b-hotfix', '2023.04.a', '2023.04.b', '2023.05.a', '2023.06.a', '2023.07.a', '2023.07.b', '2023.08.a', '2023.09.a', '2023.09.a-hotfix 1', '2023.10.a', '2023.10.a-hotfix 1', '2023.12.a', '2024.01.a', '2024.02.a', '2024.02.a-hotfix', '2024.03.a', '2024.04.a', '2024.05.a', '2024.06.a', '2024.07.a-hotfix', '2024.08', '2024.09.a', 'feb2023_firststorefullversion', 'feb2023_firststoreversion') AND app_version NOT IN ('not a store release') AND event_date_time >= '2023-05-01' AND pc_type IN ('consumer', 'enterprise', 'premium', 'rpos', 'sbso', 'unknown', 'workstation') AND geo_country_code IN ('australia', 'brazil', 'canada', 'china', 'france', 'india', 'japan', 'mexico', 'other_countries', 'united kingdom', 'united states') AND geo_country_code IS NOT NULL"
+      ]
     }
   ],
   "pages": [
     {
-      "name": "Page 1",
-      "displayName": "Total Consented Devices Dashboard",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 12,
-          "height": 8
-        }
-      },
-      "widgets": [
+      "name": "page_1",
+      "displayName": "Total Consented Devices",
+      "layout": [
         {
-          "name": "total_consented_devices_kpi",
-          "displayName": "Total Consented Devices",
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 6,
-            "height": 4
-          },
-          "spec": {
-            "version": "3.0",
-            "widgetType": "kpi",
-            "encodings": {
-              "value": {
-                "fieldName": "active_devices_1",
-                "displayName": "Active Devices",
-                "scale": {
-                  "type": "quantitative"
+          "widget": {
+            "name": "total_consented_devices_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model_dataset",
+                  "fields": [
+                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                  ],
+                  "disaggregated": false
                 }
               }
-            },
-            "frame": {
-              "showTitle": true,
-              "title": "Total Consented Devices"
-            }
-          },
-          "queries": [
-            {
-              "name": "main_query",
-              "query": {
-                "version": "3.0",
-                "dataSource": {
-                  "name": "hpx_events_model_iide_dataset"
-                },
-                "fields": [
-                  {
-                    "name": "active_devices_1",
-                    "expression": "SUM(active_devices_1)"
-                  }
-                ],
-                "filters": [
-                  {
-                    "column": "app_version",
-                    "operator": "IN",
-                    "values": [
-                      "2023.03.b",
-                      "2023.03.b-hotfix",
-                      "2023.04.a",
-                      "2023.04.b",
-                      "2023.05.a",
-                      "2023.06.a",
-                      "2023.07.a",
-                      "2023.07.b",
-                      "2023.08.a",
-                      "2023.09.a",
-                      "2023.09.a-hotfix 1",
-                      "2023.10.a",
-                      "2023.10.a-hotfix 1",
-                      "2023.12.a",
-                      "2024.01.a",
-                      "2024.02.a",
-                      "2024.02.a-hotfix",
-                      "2024.03.a",
-                      "2024.04.a",
-                      "2024.05.a",
-                      "2024.06.a",
-                      "2024.07.a-hotfix",
-                      "2024.08",
-                      "2024.09.a",
-                      "feb2023_firststorefullversion",
-                      "feb2023_firststoreversion",
-                      "other non-releases"
-                    ]
-                  },
-                  {
-                    "column": "app_version",
-                    "operator": "NOT_IN",
-                    "values": [
-                      "not a store release",
-                      null
-                    ]
-                  },
-                  {
-                    "column": "event_date_time",
-                    "operator": ">=",
-                    "values": ["2023-05-01"]
-                  },
-                  {
-                    "column": "pc_type",
-                    "operator": "IN",
-                    "values": [
-                      "consumer",
-                      "enterprise",
-                      "premium",
-                      "rpos",
-                      "sbso",
-                      "unknown",
-                      "workstation"
-                    ]
-                  },
-                  {
-                    "column": "geo_country_code",
-                    "operator": "IN",
-                    "values": [
-                      "australia",
-                      "brazil",
-                      "canada",
-                      "china",
-                      "france",
-                      "india",
-                      "japan",
-                      "mexico",
-                      "other_countries",
-                      "united kingdom",
-                      "united states"
-                    ]
-                  },
-                  {
-                    "column": "geo_country_code",
-                    "operator": "IS_NOT_NULL"
-                  }
-                ]
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_active_devices",
+                  "displayName": "Active Devices",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Total Consented Devices",
+                "showTitle": true
               }
             }
-          ]
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
-  ]
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
