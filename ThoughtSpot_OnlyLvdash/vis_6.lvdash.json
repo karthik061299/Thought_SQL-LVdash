@@ -1,109 +1,65 @@
 {
-  "version": "1.0",
-  "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
-  "description": "HPX Events Model with IIDE Table",
   "datasets": [
     {
       "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
-      "query": "SELECT screen, unique_screen_views_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'screendisplayed' AND screen NOT IN ('home', 'support', 'welcome', 'welcome-core', 'welcomeContainer') AND screen IS NOT NULL AND event_date_time >= '2023-05-01' ORDER BY unique_screen_views_1 DESC LIMIT 10"
+      "queryLines": [
+        "SELECT screen AS screen, SUM(unique_screen_views_1) AS unique_screen_views FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'screendisplayed' AND screen IS NOT NULL AND screen NOT IN ('home', 'support', 'welcome', 'welcome-core', 'welcomeContainer') AND event_date_time >= '2023-05-01' GROUP BY screen ORDER BY unique_screen_views DESC LIMIT 10"
+      ]
     }
   ],
   "pages": [
     {
       "name": "page_1",
-      "displayName": "Top Unique Screen Views",
+      "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
       "layout": [
         {
           "widget": {
-            "name": "viz_6_widget",
-            "textbox_spec": null,
+            "name": "top_screen_views_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "dataset_name": "hpx_events_model_dataset",
-                  "disaggregated": false,
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
-                    {
-                      "name": "screen",
-                      "expression": "screen"
-                    },
-                    {
-                      "name": "unique_screen_views_1",
-                      "expression": "SUM(unique_screen_views_1)"
-                    }
+                    { "name": "screen", "expression": "`screen`" },
+                    { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
                   ],
-                  "filters": [
-                    {
-                      "column": "ui_action",
-                      "operator": "=",
-                      "values": ["screendisplayed"]
-                    },
-                    {
-                      "column": "screen",
-                      "operator": "NOT IN",
-                      "values": ["home", "support", "welcome", "welcome-core", "welcomeContainer"]
-                    },
-                    {
-                      "column": "screen",
-                      "operator": "IS NOT NULL",
-                      "values": []
-                    },
-                    {
-                      "column": "event_date_time",
-                      "operator": ">=",
-                      "values": ["2023-05-01"]
-                    }
-                  ],
-                  "order_by": [
-                    {
-                      "field": "unique_screen_views_1",
-                      "direction": "DESC"
-                    }
-                  ],
-                  "limit": 10
+                  "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": "3.0",
+              "version": 3,
               "widgetType": "bar",
               "encodings": {
                 "x": {
                   "fieldName": "screen",
                   "displayName": "Screen",
-                  "scale": {
-                    "type": "categorical"
-                  }
+                  "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "unique_screen_views_1",
+                  "fieldName": "unique_screen_views",
                   "displayName": "Unique Screen Views",
-                  "scale": {
-                    "type": "quantitative"
-                  }
+                  "scale": { "type": "quantitative" }
                 }
               },
-              "mark": "bar",
-              "color": {
-                "fieldName": "unique_screen_views_1",
-                "displayName": "Unique Screen Views",
-                "scale": {
-                  "type": "quantitative",
-                  "range": ["#0096D3"]
-                }
+              "frame": {
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
+                "showTitle": true
               }
             }
           },
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 6,
-            "height": 4
-          }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
-  ]
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
