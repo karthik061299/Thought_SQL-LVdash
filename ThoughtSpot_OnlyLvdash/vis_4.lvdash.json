@@ -1,133 +1,71 @@
 {
-  "version": "1.0",
-  "displayName": "Top On Press Events",
-  "description": "HPX Events Model with IIDE Table",
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
-      "query": "SELECT control AS `control`, DATE_TRUNC('DAY', event_date_time) AS `daily_event_date`, clicks AS `total_clicks` FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' AND control IS NOT NULL AND control NOT LIKE '%testid%' AND ui_action = 'onpress' AND control != 'welcome core navigationviewitem id'"
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Dataset",
+      "queryLines": [
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control as control, SUM(clicks) as total_clicks FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY total_clicks DESC LIMIT 10"
+      ]
     }
   ],
   "pages": [
     {
       "name": "page_1",
-      "displayName": "Top On Press Events Dashboard",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 6,
-          "height": 4
-        }
-      },
-      "widgets": [
+      "displayName": "Top On Press Events",
+      "layout": [
         {
-          "name": "top_onpress_events_chart",
-          "displayName": "Top On Press Events",
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 6,
-            "height": 4
-          },
           "widget": {
+            "name": "top_onpress_events_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset",
+                  "fields": [
+                    { "name": "control", "expression": "`control`" },
+                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
+                    { "name": "total_clicks", "expression": "`total_clicks`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
             "spec": {
-              "version": "3.0",
+              "version": 3,
               "widgetType": "column",
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
                   "displayName": "Daily Event Date",
-                  "scale": {
-                    "type": "temporal"
-                  }
+                  "scale": { "type": "temporal" }
                 },
                 "y": {
                   "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
-                  "scale": {
-                    "type": "quantitative"
-                  }
+                  "scale": { "type": "quantitative" }
                 },
                 "color": {
                   "fieldName": "control",
                   "displayName": "Control",
-                  "scale": {
-                    "type": "categorical"
-                  }
+                  "scale": { "type": "categorical" }
                 }
               },
-              "mark": {
-                "type": "column",
-                "stacked": true
-              },
-              "colorPalette": {
-                "paletteId": "default",
-                "colors": [
-                  "#B094F8",
-                  "#56D3A8",
-                  "#06BF7F",
-                  "#FCD977",
-                  "#FCC838",
-                  "#82DFE9",
-                  "#48D1E0",
-                  "#71A1F4",
-                  "#2E75F0",
-                  "#BCBCBC"
-                ]
-              },
-              "frameBy": [],
-              "filters": [
-                {
-                  "column": "event_date_time",
-                  "condition": ">=",
-                  "values": ["2023-05-01"]
-                },
-                {
-                  "column": "ui_action",
-                  "condition": "=",
-                  "values": ["onpress"]
-                },
-                {
-                  "column": "control",
-                  "condition": "NOT LIKE",
-                  "values": ["%testid%"]
-                },
-                {
-                  "column": "control",
-                  "condition": "!=",
-                  "values": ["welcome core navigationviewitem id"]
-                }
-              ],
-              "limit": 10
-            },
-            "queries": [
-              {
-                "name": "source_0",
-                "query": {
-                  "datasetName": "hpx_events_model_dataset",
-                  "fields": [
-                    {
-                      "name": "control",
-                      "expression": "control"
-                    },
-                    {
-                      "name": "daily_event_date",
-                      "expression": "DATE_TRUNC('DAY', event_date_time)"
-                    },
-                    {
-                      "name": "total_clicks",
-                      "expression": "SUM(clicks)"
-                    }
-                  ],
-                  "disaggregated": false
-                }
+              "frame": {
+                "title": "Top On Press Events - HPX Events Model with IIDE Table",
+                "showTitle": true
               }
-            ]
-          }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
-  ]
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
