@@ -1,63 +1,65 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "name": "Active Devices",
-    "description": "HPX Events Model with IIDE Table",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z"
-  },
   "datasets": [
     {
-      "name": "paas_tracking_card_metrics",
-      "displayName": "PaaS Tracking Card Metrics",
-      "query": "SELECT DATE_TRUNC('day', session_start_date_time) AS day_event_date_time, COUNT(DISTINCT aip_device_uuid) AS active_devices FROM team_css_analytics_prod.hpx_analytics.paas_tracking_card_metrics GROUP BY DATE_TRUNC('day', session_start_date_time) ORDER BY day_event_date_time"
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "queryLines": [
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date_time, COUNT(DISTINCT sys_sn_hash) as active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date_time"
+      ]
     }
   ],
   "pages": [
     {
-      "name": "Page 1",
-      "displayName": "Active Devices Analysis",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 6,
-          "height": 4
-        }
-      },
-      "spec": {
-        "version": "3.0",
-        "encodings": {
-          "x": {
-            "fieldName": "day_event_date_time",
-            "displayName": "Daily Event Date",
-            "scale": {
-              "type": "temporal"
+      "name": "page_1",
+      "displayName": "Active Devices Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "active_devices_line_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model_dataset",
+                  "fields": [
+                    { "name": "daily_event_date_time", "expression": "`daily_event_date_time`" },
+                    { "name": "active_devices_1", "expression": "`active_devices_1`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily_event_date_time",
+                  "displayName": "Daily Event Date",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fieldName": "active_devices_1",
+                  "displayName": "Active Devices",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Active Devices",
+                "showTitle": true
+              }
             }
           },
-          "y": {
-            "fieldName": "active_devices",
-            "displayName": "Active Devices",
-            "scale": {
-              "type": "quantitative"
-            }
-          }
-        },
-        "mark": {
-          "type": "line",
-          "tooltip": true
-        },
-        "frame": {
-          "showTitle": true,
-          "title": "Active Devices Over Time"
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      },
-      "datasets": [
-        {
-          "name": "paas_tracking_card_metrics",
-          "displayName": "PaaS Tracking Card Metrics"
-        }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
-  ]
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
