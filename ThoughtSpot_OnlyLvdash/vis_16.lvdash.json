@@ -1,30 +1,31 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_homepage_summary_dataset",
-      "displayName": "HPX Events Model Homepage Summary Dataset",
+      "name": "home_tile_metrics_dataset",
+      "displayName": "Home Tile Metrics Dataset",
       "queryLines": [
-        "SELECT home_tile, unique_tile_views, unique_tile_clicks, unique_interstitial_views, unique_interstitial_primary_button_clicks, unique_interstitial_secondary_button_clicks, home_tile_clicked_vs_homepage_displayed, primary_button_clicked_vs_tile_displayed, secondary_button_clicked_vs_tile_displayed, primary_button_clicked_vs_interstitial_displayed, secondary_button_clicked_vs_interstitial_displayed FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
+        "SELECT home_tile, SUM(unique_tile_views) as total_unique_tile_views, SUM(unique_tile_clicks) as total_unique_tile_clicks, SUM(unique_interstitial_views) as total_unique_interstitial_views, SUM(unique_interstitial_primary_button_clicks) as total_unique_interstitial_primary_button_clicks, SUM(unique_interstitial_secondary_button_clicks) as total_unique_interstitial_secondary_button_clicks, AVG(home_tile_clicked_vs_homepage_displayed) as avg_home_tile_clicked_vs_homepage_displayed, AVG(primary_button_clicked_vs_tile_displayed) as avg_primary_button_clicked_vs_tile_displayed, AVG(secondary_button_clicked_vs_tile_displayed) as avg_secondary_button_clicked_vs_tile_displayed, AVG(primary_button_clicked_vs_interstitial_displayed) as avg_primary_button_clicked_vs_interstitial_displayed, AVG(secondary_button_clicked_vs_interstitial_displayed) as avg_secondary_button_clicked_vs_interstitial_displayed FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view GROUP BY home_tile ORDER BY total_unique_tile_views DESC"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_1",
-      "displayName": "Home Tile Clicks Dashboard",
+      "displayName": "Home Tile Clicks Analytics",
       "layout": [
         {
           "widget": {
-            "name": "home_tile_clicks_kpi",
+            "name": "counter_unique_tile_views",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_homepage_summary_dataset",
+                  "datasetName": "home_tile_metrics_dataset",
                   "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "unique_tile_clicks", "expression": "`unique_tile_clicks`" },
-                    { "name": "home_tile_clicked_vs_homepage_displayed", "expression": "`home_tile_clicked_vs_homepage_displayed`" }
+                    {
+                      "name": "total_unique_tile_views",
+                      "expression": "SUM(`total_unique_tile_views`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -35,29 +36,68 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "unique_tile_clicks",
+                  "fieldName": "total_unique_tile_views",
+                  "displayName": "Unique Tile Views",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Total Unique Tile Views",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 3, "height": 2 }
+        },
+        {
+          "widget": {
+            "name": "counter_unique_tile_clicks",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_metrics_dataset",
+                  "fields": [
+                    {
+                      "name": "total_unique_tile_clicks",
+                      "expression": "SUM(`total_unique_tile_clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_unique_tile_clicks",
                   "displayName": "Unique Tile Clicks",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Home Tile Clicks",
+                "title": "Total Unique Tile Clicks",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 4, "height": 3 }
+          "position": { "x": 3, "y": 0, "width": 3, "height": 2 }
         },
         {
           "widget": {
-            "name": "home_tile_click_rate_kpi",
+            "name": "counter_home_tile_clicked_rate",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_homepage_summary_dataset",
+                  "datasetName": "home_tile_metrics_dataset",
                   "fields": [
-                    { "name": "home_tile_clicked_vs_homepage_displayed", "expression": "`home_tile_clicked_vs_homepage_displayed`" }
+                    {
+                      "name": "avg_home_tile_clicked_vs_homepage_displayed",
+                      "expression": "AVG(`avg_home_tile_clicked_vs_homepage_displayed`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -68,7 +108,7 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "home_tile_clicked_vs_homepage_displayed",
+                  "fieldName": "avg_home_tile_clicked_vs_homepage_displayed",
                   "displayName": "% Home Tile Clicked Vs Homepage Displayed",
                   "scale": { "type": "quantitative" }
                 }
@@ -79,18 +119,21 @@
               }
             }
           },
-          "position": { "x": 4, "y": 0, "width": 4, "height": 3 }
+          "position": { "x": 6, "y": 0, "width": 3, "height": 2 }
         },
         {
           "widget": {
-            "name": "primary_button_click_rate_kpi",
+            "name": "counter_unique_interstitial_views",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_homepage_summary_dataset",
+                  "datasetName": "home_tile_metrics_dataset",
                   "fields": [
-                    { "name": "primary_button_clicked_vs_interstitial_displayed", "expression": "`primary_button_clicked_vs_interstitial_displayed`" }
+                    {
+                      "name": "total_unique_interstitial_views",
+                      "expression": "SUM(`total_unique_interstitial_views`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -101,34 +144,104 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "primary_button_clicked_vs_interstitial_displayed",
-                  "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
+                  "fieldName": "total_unique_interstitial_views",
+                  "displayName": "Unique Interstitial Views",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "% Primary Button Clicked Vs Interstitial Displayed",
+                "title": "Total Unique Interstitial Views",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 8, "y": 0, "width": 4, "height": 3 }
+          "position": { "x": 9, "y": 0, "width": 3, "height": 2 }
         },
         {
           "widget": {
-            "name": "home_tile_summary_table",
+            "name": "counter_primary_button_clicks",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_homepage_summary_dataset",
+                  "datasetName": "home_tile_metrics_dataset",
+                  "fields": [
+                    {
+                      "name": "total_unique_interstitial_primary_button_clicks",
+                      "expression": "SUM(`total_unique_interstitial_primary_button_clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_unique_interstitial_primary_button_clicks",
+                  "displayName": "Unique Interstitial Primary Button Clicks",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Unique Interstitial Primary Button Clicks",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 2, "width": 3, "height": 2 }
+        },
+        {
+          "widget": {
+            "name": "counter_secondary_button_clicks",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_metrics_dataset",
+                  "fields": [
+                    {
+                      "name": "total_unique_interstitial_secondary_button_clicks",
+                      "expression": "SUM(`total_unique_interstitial_secondary_button_clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_unique_interstitial_secondary_button_clicks",
+                  "displayName": "Unique Interstitial Secondary Button Clicks",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Unique Interstitial Secondary Button Clicks",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 3, "y": 2, "width": 3, "height": 2 }
+        },
+        {
+          "widget": {
+            "name": "table_home_tile_breakdown",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_metrics_dataset",
                   "fields": [
                     { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "unique_tile_views", "expression": "`unique_tile_views`" },
-                    { "name": "unique_tile_clicks", "expression": "`unique_tile_clicks`" },
-                    { "name": "unique_interstitial_views", "expression": "`unique_interstitial_views`" },
-                    { "name": "unique_interstitial_primary_button_clicks", "expression": "`unique_interstitial_primary_button_clicks`" },
-                    { "name": "unique_interstitial_secondary_button_clicks", "expression": "`unique_interstitial_secondary_button_clicks`" }
+                    { "name": "total_unique_tile_views", "expression": "`total_unique_tile_views`" },
+                    { "name": "total_unique_tile_clicks", "expression": "`total_unique_tile_clicks`" },
+                    { "name": "avg_home_tile_clicked_vs_homepage_displayed", "expression": "`avg_home_tile_clicked_vs_homepage_displayed`" }
                   ],
                   "disaggregated": false
                 }
@@ -140,20 +253,18 @@
               "encodings": {
                 "columns": [
                   { "fieldName": "home_tile", "displayName": "Home Tile" },
-                  { "fieldName": "unique_tile_views", "displayName": "Unique Tile Views" },
-                  { "fieldName": "unique_tile_clicks", "displayName": "Unique Tile Clicks" },
-                  { "fieldName": "unique_interstitial_views", "displayName": "Unique Interstitial Views" },
-                  { "fieldName": "unique_interstitial_primary_button_clicks", "displayName": "Unique Interstitial Primary Button Clicks" },
-                  { "fieldName": "unique_interstitial_secondary_button_clicks", "displayName": "Unique Interstitial Secondary Button Clicks" }
+                  { "fieldName": "total_unique_tile_views", "displayName": "Unique Tile Views" },
+                  { "fieldName": "total_unique_tile_clicks", "displayName": "Unique Tile Clicks" },
+                  { "fieldName": "avg_home_tile_clicked_vs_homepage_displayed", "displayName": "% Home Tile Clicked Vs Homepage Displayed" }
                 ]
               },
               "frame": {
-                "title": "Home Tile Clicks Summary",
+                "title": "Home Tile Performance Breakdown",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 3, "width": 12, "height": 5 }
+          "position": { "x": 6, "y": 2, "width": 6, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
