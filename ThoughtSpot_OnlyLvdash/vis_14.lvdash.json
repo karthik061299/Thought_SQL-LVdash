@@ -1,413 +1,90 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "name": "Home Tile Interactions",
-    "description": "Analysis of home tile interactions including views, clicks, and conversion rates",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["home", "tiles", "interactions", "conversion"]
-  },
   "datasets": [
     {
-      "name": "hpx_events_model_homepage_summary",
-      "displayName": "HPX Events Model Homepage Summary",
-      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
+      "name": "home_tile_interactions_dataset",
+      "displayName": "Home Tile Interactions Dataset",
+      "queryLines": [
+        "SELECT home_tile AS `home_tile`, SUM(unique_tile_views) AS `total_unique_tile_views`, SUM(unique_tile_clicks) AS `total_unique_tile_clicks`, SUM(unique_interstitial_views) AS `total_unique_interstitial_views`, SUM(unique_interstitial_primary_button_clicks) AS `total_unique_interstitial_primary_button_clicks`, SUM(unique_interstitial_secondary_button_clicks) AS `total_unique_interstitial_secondary_button_clicks`, (SUM(unique_tile_clicks) / SUM(unique_tile_views)) AS `f_ctr`, (SUM(unique_interstitial_primary_button_clicks) / SUM(unique_tile_views)) AS `f_ctr_cta_primary`, (SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_tile_views)) AS `secondary_button_clicked_vs_tile_displayed`, (SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views)) AS `f_ctr_primary`, (SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views)) AS `f_ctr_secondary` FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view GROUP BY home_tile ORDER BY f_ctr_cta_primary DESC"
+      ]
     }
   ],
   "pages": [
     {
-      "name": "Home Tile Interactions Dashboard",
-      "displayName": "Home Tile Interactions Dashboard",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 6,
-          "height": 4
-        }
-      },
-      "spec": {
-        "version": "1.0",
-        "datasets": [
-          {
-            "name": "hpx_events_model_homepage_summary",
-            "displayName": "HPX Events Model Homepage Summary",
-            "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
-          }
-        ],
-        "fields": [
-          {
-            "name": "home_tile",
-            "displayName": "Home Tile",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "string",
-            "scale": {
-              "type": "categorical"
-            }
-          },
-          {
-            "name": "unique_tile_views",
-            "displayName": "Total Unique Tile Views",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_tile_clicks",
-            "displayName": "Total Unique Tile Clicks",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_interstitial_views",
-            "displayName": "Total Unique Interstitial Views",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_interstitial_primary_button_clicks",
-            "displayName": "Total Unique Interstitial Primary Button Clicks",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_interstitial_secondary_button_clicks",
-            "displayName": "Total Unique Interstitial Secondary Button Clicks",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "home_tile_clicked_vs_homepage_displayed",
-            "displayName": "% Home Tile Clicked vs Homepage Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "primary_button_clicked_vs_tile_displayed",
-            "displayName": "% Primary Button Clicked vs Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "secondary_button_clicked_vs_tile_displayed",
-            "displayName": "% Secondary Button Clicked vs Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "primary_button_clicked_vs_interstitial_displayed",
-            "displayName": "% Primary Button Clicked vs Interstitial Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "secondary_button_clicked_vs_interstitial_displayed",
-            "displayName": "% Secondary Button Clicked vs Interstitial Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          }
-        ],
-        "encodings": {
-          "x": {
-            "fieldName": "home_tile",
-            "displayName": "Home Tile",
-            "scale": {
-              "type": "categorical"
-            }
-          },
-          "y": {
-            "fields": [
+      "name": "page_1",
+      "displayName": "Home Tile Interactions",
+      "layout": [
+        {
+          "widget": {
+            "name": "home_tile_interactions_chart",
+            "queries": [
               {
-                "fieldName": "unique_tile_views",
-                "displayName": "Total Unique Tile Views"
-              },
-              {
-                "fieldName": "unique_tile_clicks",
-                "displayName": "Total Unique Tile Clicks"
-              },
-              {
-                "fieldName": "unique_interstitial_views",
-                "displayName": "Total Unique Interstitial Views"
-              },
-              {
-                "fieldName": "unique_interstitial_primary_button_clicks",
-                "displayName": "Total Unique Interstitial Primary Button Clicks"
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_interactions_dataset",
+                  "fields": [
+                    { "name": "home_tile", "expression": "`home_tile`" },
+                    { "name": "total_unique_tile_views", "expression": "`total_unique_tile_views`" },
+                    { "name": "total_unique_tile_clicks", "expression": "`total_unique_tile_clicks`" },
+                    { "name": "total_unique_interstitial_views", "expression": "`total_unique_interstitial_views`" },
+                    { "name": "total_unique_interstitial_primary_button_clicks", "expression": "`total_unique_interstitial_primary_button_clicks`" },
+                    { "name": "total_unique_interstitial_secondary_button_clicks", "expression": "`total_unique_interstitial_secondary_button_clicks`" },
+                    { "name": "f_ctr", "expression": "`f_ctr`" },
+                    { "name": "f_ctr_cta_primary", "expression": "`f_ctr_cta_primary`" },
+                    { "name": "secondary_button_clicked_vs_tile_displayed", "expression": "`secondary_button_clicked_vs_tile_displayed`" },
+                    { "name": "f_ctr_primary", "expression": "`f_ctr_primary`" },
+                    { "name": "f_ctr_secondary", "expression": "`f_ctr_secondary`" }
+                  ],
+                  "disaggregated": false
+                }
               }
             ],
-            "scale": {
-              "type": "quantitative"
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "home_tile",
+                  "displayName": "Home Tile",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "total_unique_tile_views",
+                      "displayName": "Total Unique Tile Views"
+                    },
+                    {
+                      "fieldName": "total_unique_tile_clicks",
+                      "displayName": "Total Unique Tile Clicks"
+                    },
+                    {
+                      "fieldName": "total_unique_interstitial_views",
+                      "displayName": "Total Unique Interstitial Views"
+                    },
+                    {
+                      "fieldName": "total_unique_interstitial_primary_button_clicks",
+                      "displayName": "Total Unique Interstitial Primary Button Clicks"
+                    }
+                  ],
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Home Tile Interactions Analysis",
+                "showTitle": true
+              }
             }
-          }
-        },
-        "mark": {
-          "type": "column",
-          "tooltip": true
-        },
-        "sort": [
-          {
-            "fieldName": "primary_button_clicked_vs_tile_displayed",
-            "direction": "desc"
-          }
-        ]
-      }
-    },
-    {
-      "name": "Home Tile Interactions Table",
-      "displayName": "Home Tile Interactions Table",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 4,
-          "width": 12,
-          "height": 6
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
-      },
-      "spec": {
-        "version": "1.0",
-        "datasets": [
-          {
-            "name": "hpx_events_model_homepage_summary",
-            "displayName": "HPX Events Model Homepage Summary",
-            "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
-          }
-        ],
-        "fields": [
-          {
-            "name": "home_tile",
-            "displayName": "Home Tile",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "string",
-            "scale": {
-              "type": "categorical"
-            }
-          },
-          {
-            "name": "unique_tile_views",
-            "displayName": "Total Unique Tile Views",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_tile_clicks",
-            "displayName": "Total Unique Tile Clicks",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_interstitial_views",
-            "displayName": "Total Unique Interstitial Views",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_interstitial_primary_button_clicks",
-            "displayName": "Total Unique Interstitial Primary Button Clicks",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "unique_interstitial_secondary_button_clicks",
-            "displayName": "Total Unique Interstitial Secondary Button Clicks",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            }
-          },
-          {
-            "name": "home_tile_clicked_vs_homepage_displayed",
-            "displayName": "% Home Tile Clicked vs Homepage Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "primary_button_clicked_vs_tile_displayed",
-            "displayName": "% Primary Button Clicked vs Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "secondary_button_clicked_vs_tile_displayed",
-            "displayName": "% Secondary Button Clicked vs Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "primary_button_clicked_vs_interstitial_displayed",
-            "displayName": "% Primary Button Clicked vs Interstitial Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          },
-          {
-            "name": "secondary_button_clicked_vs_interstitial_displayed",
-            "displayName": "% Secondary Button Clicked vs Interstitial Tile Displayed",
-            "datasetName": "hpx_events_model_homepage_summary",
-            "type": "number",
-            "scale": {
-              "type": "quantitative"
-            },
-            "format": {
-              "type": "percentage",
-              "decimals": 1
-            }
-          }
-        ],
-        "mark": {
-          "type": "table"
-        },
-        "columns": [
-          {
-            "fieldName": "home_tile",
-            "displayName": "Home Tile",
-            "width": 220
-          },
-          {
-            "fieldName": "unique_tile_views",
-            "displayName": "Total Unique Tile Views",
-            "width": 158
-          },
-          {
-            "fieldName": "unique_tile_clicks",
-            "displayName": "Total Unique Tile Clicks",
-            "width": 144
-          },
-          {
-            "fieldName": "unique_interstitial_views",
-            "displayName": "Total Unique Interstitial Views",
-            "width": 142
-          },
-          {
-            "fieldName": "unique_interstitial_primary_button_clicks",
-            "displayName": "Total Unique Interstitial Primary Button Clicks",
-            "width": 155
-          },
-          {
-            "fieldName": "unique_interstitial_secondary_button_clicks",
-            "displayName": "Total Unique Interstitial Secondary Button Clicks",
-            "width": 175
-          },
-          {
-            "fieldName": "home_tile_clicked_vs_homepage_displayed",
-            "displayName": "% Home Tile Clicked vs Homepage Displayed",
-            "width": 150
-          },
-          {
-            "fieldName": "primary_button_clicked_vs_tile_displayed",
-            "displayName": "% Primary Button Clicked vs Tile Displayed",
-            "width": 150
-          },
-          {
-            "fieldName": "secondary_button_clicked_vs_tile_displayed",
-            "displayName": "% Secondary Button Clicked vs Tile Displayed",
-            "width": 150
-          },
-          {
-            "fieldName": "primary_button_clicked_vs_interstitial_displayed",
-            "displayName": "% Primary Button Clicked vs Interstitial Tile Displayed",
-            "width": 150
-          },
-          {
-            "fieldName": "secondary_button_clicked_vs_interstitial_displayed",
-            "displayName": "% Secondary Button Clicked vs Interstitial Tile Displayed",
-            "width": 150
-          }
-        ],
-        "sort": [
-          {
-            "fieldName": "primary_button_clicked_vs_tile_displayed",
-            "direction": "desc"
-          }
-        ]
-      }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
-  ]
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
