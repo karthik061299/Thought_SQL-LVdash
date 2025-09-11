@@ -15,154 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "kpi_unique_tile_clicks",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_homepage_summary_dataset",
-                  "fields": [
-                    { "name": "unique_tile_clicks", "expression": "SUM(`unique_tile_clicks`)" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "unique_tile_clicks",
-                  "displayName": "Unique Tile Clicks",
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "Total Unique Tile Clicks",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 0, "y": 0, "width": 3, "height": 2 }
-        },
-        {
-          "widget": {
-            "name": "kpi_tile_views",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_homepage_summary_dataset",
-                  "fields": [
-                    { "name": "unique_tile_views", "expression": "SUM(`unique_tile_views`)" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "unique_tile_views",
-                  "displayName": "Unique Tile Views",
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "Total Unique Tile Views",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 3, "y": 0, "width": 3, "height": 2 }
-        },
-        {
-          "widget": {
-            "name": "kpi_click_rate",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_homepage_summary_dataset",
-                  "fields": [
-                    { "name": "home_tile_clicked_vs_homepage_displayed", "expression": "AVG(`home_tile_clicked_vs_homepage_displayed`)" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "home_tile_clicked_vs_homepage_displayed",
-                  "displayName": "% Home Tile Clicked Vs Homepage Displayed",
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "% Home Tile Clicked Vs Homepage Displayed",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 6, "y": 0, "width": 3, "height": 2 }
-        },
-        {
-          "widget": {
-            "name": "bar_home_tile_performance",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_homepage_summary_dataset",
-                  "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "unique_tile_clicks", "expression": "`unique_tile_clicks`" },
-                    { "name": "unique_tile_views", "expression": "`unique_tile_views`" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "bar",
-              "encodings": {
-                "x": {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile",
-                  "scale": { "type": "categorical" }
-                },
-                "y": {
-                  "fields": [
-                    {
-                      "fieldName": "unique_tile_clicks",
-                      "displayName": "Unique Tile Clicks"
-                    },
-                    {
-                      "fieldName": "unique_tile_views",
-                      "displayName": "Unique Tile Views"
-                    }
-                  ],
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "Home Tile Performance: Clicks vs Views",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 0, "y": 2, "width": 9, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "table_detailed_metrics",
+            "name": "home_tile_clicks_kpi",
             "queries": [
               {
                 "name": "main_query",
@@ -190,26 +43,26 @@
               "widgetType": "table",
               "encodings": {
                 "columns": [
-                  { "fieldName": "home_tile", "displayName": "Home Tile" },
-                  { "fieldName": "unique_tile_views", "displayName": "Unique Tile Views" },
-                  { "fieldName": "unique_tile_clicks", "displayName": "Unique Tile Clicks" },
-                  { "fieldName": "unique_interstitial_views", "displayName": "Unique Interstitial Views" },
-                  { "fieldName": "unique_interstitial_primary_button_clicks", "displayName": "Unique Interstitial Primary Button Clicks" },
-                  { "fieldName": "unique_interstitial_secondary_button_clicks", "displayName": "Unique Interstitial Secondary Button Clicks" },
-                  { "fieldName": "home_tile_clicked_vs_homepage_displayed", "displayName": "% Home Tile Clicked Vs Homepage Displayed" },
-                  { "fieldName": "primary_button_clicked_vs_tile_displayed", "displayName": "% Primary Button Clicked Vs Tile Displayed" },
-                  { "fieldName": "secondary_button_clicked_vs_tile_displayed", "displayName": "% Secondary Button Clicked Vs Tile Displayed" },
-                  { "fieldName": "primary_button_clicked_vs_interstitial_displayed", "displayName": "% Primary Button Clicked Vs Interstitial Displayed" },
-                  { "fieldName": "secondary_button_clicked_vs_interstitial_displayed", "displayName": "% Secondary Button Clicked Vs Interstitial Displayed" }
+                  { "fieldName": "home_tile", "displayName": "Home Tile", "scale": { "type": "categorical" } },
+                  { "fieldName": "home_tile_clicked_vs_homepage_displayed", "displayName": "% Home Tile Clicked Vs Homepage Displayed", "scale": { "type": "quantitative" } },
+                  { "fieldName": "primary_button_clicked_vs_interstitial_displayed", "displayName": "% Primary Button Clicked Vs Interstitial Displayed", "scale": { "type": "quantitative" } },
+                  { "fieldName": "primary_button_clicked_vs_tile_displayed", "displayName": "% Primary Button Clicked Vs Tile Displayed", "scale": { "type": "quantitative" } },
+                  { "fieldName": "secondary_button_clicked_vs_interstitial_displayed", "displayName": "% Secondary Button Clicked Vs Interstitial Displayed", "scale": { "type": "quantitative" } },
+                  { "fieldName": "secondary_button_clicked_vs_tile_displayed", "displayName": "% Secondary Button Clicked Vs Tile Displayed", "scale": { "type": "quantitative" } },
+                  { "fieldName": "unique_interstitial_primary_button_clicks", "displayName": "Unique Interstitial Primary Button Clicks", "scale": { "type": "quantitative" } },
+                  { "fieldName": "unique_interstitial_secondary_button_clicks", "displayName": "Unique Interstitial Secondary Button Clicks", "scale": { "type": "quantitative" } },
+                  { "fieldName": "unique_interstitial_views", "displayName": "Unique Interstitial Views", "scale": { "type": "quantitative" } },
+                  { "fieldName": "unique_tile_clicks", "displayName": "Unique Tile Clicks", "scale": { "type": "quantitative" } },
+                  { "fieldName": "unique_tile_views", "displayName": "Unique Tile Views", "scale": { "type": "quantitative" } }
                 ]
               },
               "frame": {
-                "title": "Detailed Home Tile Metrics",
+                "title": "Home Tile Clicks",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 6, "width": 12, "height": 6 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
