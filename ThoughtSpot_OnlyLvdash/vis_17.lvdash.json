@@ -1,356 +1,158 @@
 {
-  "version": "1.0",
-  "metadata": {
-    "name": "Home Tile Interactions CTR",
-    "description": "KPI dashboard showing home tile interaction metrics and click-through rates",
-    "created_by": "ThoughtSpot Migration Agent",
-    "created_at": "2024-01-01T00:00:00Z",
-    "tags": ["KPI", "Home Tile", "CTR", "Analytics"]
-  },
   "datasets": [
     {
-      "name": "hpx_events_model_homepage_summary_dataset",
-      "displayName": "HPX Events Model Homepage Summary",
-      "query": "SELECT * FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
+      "name": "home_tile_interactions_dataset",
+      "displayName": "Home Tile Interactions Dataset",
+      "queryLines": [
+        "SELECT home_tile, unique_tile_views, unique_tile_clicks, unique_interstitial_views, unique_interstitial_primary_button_clicks, unique_interstitial_secondary_button_clicks, home_tile_clicked_vs_homepage_displayed, primary_button_clicked_vs_tile_displayed, secondary_button_clicked_vs_tile_displayed, primary_button_clicked_vs_interstitial_displayed, secondary_button_clicked_vs_interstitial_displayed, SUM(unique_tile_clicks) / SUM(unique_tile_views) AS f_ctr FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view GROUP BY home_tile, unique_tile_views, unique_tile_clicks, unique_interstitial_views, unique_interstitial_primary_button_clicks, unique_interstitial_secondary_button_clicks, home_tile_clicked_vs_homepage_displayed, primary_button_clicked_vs_tile_displayed, secondary_button_clicked_vs_tile_displayed, primary_button_clicked_vs_interstitial_displayed, secondary_button_clicked_vs_interstitial_displayed ORDER BY unique_tile_views DESC"
+      ]
     }
   ],
   "pages": [
     {
-      "name": "Home Tile CTR Dashboard",
-      "displayName": "Home Tile CTR Dashboard",
-      "layout": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "width": 12,
-          "height": 8
-        }
-      },
-      "widgets": [
+      "name": "page_1",
+      "displayName": "Home Tile Interactions CTR",
+      "layout": [
         {
-          "name": "home_tile_ctr_kpi",
-          "type": "kpi",
-          "displayName": "Home Tile CTR",
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 3,
-            "height": 2
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "value": {
-                "fieldName": "unique_tile_clicks",
-                "displayName": "Unique Tile Clicks",
-                "scale": {
-                  "type": "quantitative"
+          "widget": {
+            "name": "home_tile_ctr_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_interactions_dataset",
+                  "fields": [
+                    { "name": "f_ctr", "expression": "`f_ctr`" }
+                  ],
+                  "disaggregated": false
                 }
               }
-            },
-            "encodings": {
-              "value": {
-                "fieldName": "unique_tile_clicks",
-                "displayName": "Unique Tile Clicks",
-                "scale": {
-                  "type": "quantitative"
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "f_ctr",
+                  "displayName": "Home Tile CTR",
+                  "scale": { "type": "quantitative" }
                 }
+              },
+              "frame": {
+                "title": "Home Tile Interactions CTR",
+                "showTitle": true
               }
             }
-          }
+          },
+          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
         },
         {
-          "name": "home_tile_views_kpi",
-          "type": "kpi",
-          "displayName": "Home Tile Views",
-          "position": {
-            "x": 3,
-            "y": 0,
-            "width": 3,
-            "height": 2
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "value": {
-                "fieldName": "unique_tile_views",
-                "displayName": "Unique Tile Views",
-                "scale": {
-                  "type": "quantitative"
+          "widget": {
+            "name": "home_tile_clicked_vs_homepage_displayed_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_interactions_dataset",
+                  "fields": [
+                    { "name": "home_tile_clicked_vs_homepage_displayed", "expression": "`home_tile_clicked_vs_homepage_displayed`" }
+                  ],
+                  "disaggregated": false
                 }
               }
-            },
-            "encodings": {
-              "value": {
-                "fieldName": "unique_tile_views",
-                "displayName": "Unique Tile Views",
-                "scale": {
-                  "type": "quantitative"
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "home_tile_ctr_percentage",
-          "type": "kpi",
-          "displayName": "Home Tile CTR %",
-          "position": {
-            "x": 6,
-            "y": 0,
-            "width": 3,
-            "height": 2
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "value": {
-                "fieldName": "home_tile_clicked_vs_homepage_displayed",
-                "displayName": "% Home Tile Clicked Vs Homepage Displayed",
-                "scale": {
-                  "type": "quantitative"
-                }
-              }
-            },
-            "encodings": {
-              "value": {
-                "fieldName": "home_tile_clicked_vs_homepage_displayed",
-                "displayName": "% Home Tile Clicked Vs Homepage Displayed",
-                "scale": {
-                  "type": "quantitative"
-                },
-                "format": {
-                  "type": "percentage",
-                  "decimals": 2
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "interstitial_views_kpi",
-          "type": "kpi",
-          "displayName": "Interstitial Views",
-          "position": {
-            "x": 9,
-            "y": 0,
-            "width": 3,
-            "height": 2
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "value": {
-                "fieldName": "unique_interstitial_views",
-                "displayName": "Unique Interstitial Views",
-                "scale": {
-                  "type": "quantitative"
-                }
-              }
-            },
-            "encodings": {
-              "value": {
-                "fieldName": "unique_interstitial_views",
-                "displayName": "Unique Interstitial Views",
-                "scale": {
-                  "type": "quantitative"
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "primary_button_ctr",
-          "type": "kpi",
-          "displayName": "Primary Button CTR %",
-          "position": {
-            "x": 0,
-            "y": 2,
-            "width": 3,
-            "height": 2
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "value": {
-                "fieldName": "primary_button_clicked_vs_interstitial_displayed",
-                "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
-                "scale": {
-                  "type": "quantitative"
-                }
-              }
-            },
-            "encodings": {
-              "value": {
-                "fieldName": "primary_button_clicked_vs_interstitial_displayed",
-                "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
-                "scale": {
-                  "type": "quantitative"
-                },
-                "format": {
-                  "type": "percentage",
-                  "decimals": 2
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "secondary_button_ctr",
-          "type": "kpi",
-          "displayName": "Secondary Button CTR %",
-          "position": {
-            "x": 3,
-            "y": 2,
-            "width": 3,
-            "height": 2
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "value": {
-                "fieldName": "secondary_button_clicked_vs_interstitial_displayed",
-                "displayName": "% Secondary Button Clicked Vs Interstitial Displayed",
-                "scale": {
-                  "type": "quantitative"
-                }
-              }
-            },
-            "encodings": {
-              "value": {
-                "fieldName": "secondary_button_clicked_vs_interstitial_displayed",
-                "displayName": "% Secondary Button Clicked Vs Interstitial Displayed",
-                "scale": {
-                  "type": "quantitative"
-                },
-                "format": {
-                  "type": "percentage",
-                  "decimals": 2
-                }
-              }
-            }
-          }
-        },
-        {
-          "name": "home_tile_breakdown_table",
-          "type": "table",
-          "displayName": "Home Tile Breakdown",
-          "position": {
-            "x": 6,
-            "y": 2,
-            "width": 6,
-            "height": 4
-          },
-          "spec": {
-            "version": "3.0",
-            "datasets": {
-              "primary": "hpx_events_model_homepage_summary_dataset"
-            },
-            "fields": {
-              "dimensions": [
-                {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                }
-              ],
-              "measures": [
-                {
-                  "fieldName": "unique_tile_views",
-                  "displayName": "Unique Tile Views",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                {
-                  "fieldName": "unique_tile_clicks",
-                  "displayName": "Unique Tile Clicks",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                {
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
                   "fieldName": "home_tile_clicked_vs_homepage_displayed",
                   "displayName": "% Home Tile Clicked Vs Homepage Displayed",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "format": {
-                    "type": "percentage",
-                    "decimals": 2
-                  }
+                  "scale": { "type": "quantitative" }
                 }
-              ]
-            },
-            "encodings": {
-              "columns": [
-                {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                {
-                  "fieldName": "unique_tile_views",
-                  "displayName": "Unique Tile Views",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                {
-                  "fieldName": "unique_tile_clicks",
-                  "displayName": "Unique Tile Clicks",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                {
-                  "fieldName": "home_tile_clicked_vs_homepage_displayed",
-                  "displayName": "% Home Tile Clicked Vs Homepage Displayed",
-                  "scale": {
-                    "type": "quantitative"
-                  },
-                  "format": {
-                    "type": "percentage",
-                    "decimals": 2
-                  }
-                }
-              ]
-            },
-            "query": {
-              "orderBy": [
-                {
-                  "fieldName": "unique_tile_views",
-                  "direction": "desc"
-                }
-              ]
+              },
+              "frame": {
+                "title": "% Home Tile Clicked Vs Homepage Displayed",
+                "showTitle": true
+              }
             }
-          }
+          },
+          "position": { "x": 6, "y": 0, "width": 6, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "primary_button_clicked_vs_interstitial_displayed_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_interactions_dataset",
+                  "fields": [
+                    { "name": "primary_button_clicked_vs_interstitial_displayed", "expression": "`primary_button_clicked_vs_interstitial_displayed`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "primary_button_clicked_vs_interstitial_displayed",
+                  "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "% Primary Button Clicked Vs Interstitial Displayed",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 4, "width": 6, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "primary_button_clicked_vs_tile_displayed_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "home_tile_interactions_dataset",
+                  "fields": [
+                    { "name": "primary_button_clicked_vs_tile_displayed", "expression": "`primary_button_clicked_vs_tile_displayed`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "primary_button_clicked_vs_tile_displayed",
+                  "displayName": "% Primary Button Clicked Vs Tile Displayed",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "% Primary Button Clicked Vs Tile Displayed",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 6, "y": 4, "width": 6, "height": 4 }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
     }
   ],
-  "filters": [],
-  "parameters": []
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
 }
