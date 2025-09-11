@@ -11,7 +11,7 @@
   "pages": [
     {
       "name": "page_1",
-      "displayName": "New Devices Overview",
+      "displayName": "New Devices",
       "layout": [
         {
           "widget": {
@@ -54,7 +54,7 @@
                 }
               },
               "frame": {
-                "title": "New Devices - Daily and Cumulative",
+                "title": "New Devices",
                 "showTitle": true
               }
             }
