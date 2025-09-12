@@ -1,29 +1,29 @@
 {
   "datasets": [
     {
-      "name": "hpx_curr_trendline_dataset",
-      "displayName": "HPX CURR Trendline Dataset",
+      "name": "hpx_curr_dataset",
+      "displayName": "HPX CURR Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('WEEK', week_active) as week_active, AVG(curr) as curr_avg FROM hpx_curr GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active"
+        "SELECT DATE_TRUNC('WEEK', week_active) as weekly_active, AVG(curr) as avg_curr FROM HPX_CURR GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_active"
       ]
     }
   ],
   "pages": [
     {
-      "name": "hpx_curr_trendline_page",
+      "name": "hpx_curr_page",
       "displayName": "HPX CURR - Trendline",
       "layout": [
         {
           "widget": {
-            "name": "hpx_curr_trendline_chart",
+            "name": "hpx_curr_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_curr_trendline_dataset",
+                  "datasetName": "hpx_curr_dataset",
                   "fields": [
-                    { "name": "week_active", "expression": "`week_active`" },
-                    { "name": "curr_avg", "expression": "`curr_avg`" }
+                    { "name": "weekly_active", "expression": "`weekly_active`" },
+                    { "name": "avg_curr", "expression": "`avg_curr`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,12 +34,12 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "week_active",
+                  "fieldName": "weekly_active",
                   "displayName": "Week Active",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "curr_avg",
+                  "fieldName": "avg_curr",
                   "displayName": "CURR",
                   "scale": { "type": "quantitative" }
                 }
