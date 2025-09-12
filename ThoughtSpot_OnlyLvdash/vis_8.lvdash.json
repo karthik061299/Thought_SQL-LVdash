@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "launch_type_active_devices_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "name": "launch_type_dataset",
+      "displayName": "Launch Type Active Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
       ]
     }
   ],
@@ -15,16 +15,16 @@
       "layout": [
         {
           "widget": {
-            "name": "launch_type_stacked_chart",
+            "name": "launch_type_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "launch_type_active_devices_dataset",
+                  "datasetName": "launch_type_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "launch_type", "expression": "`launch_type`" },
-                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                    { "name": "active_devices", "expression": "`active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,8 +40,8 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_active_devices",
-                  "displayName": "Total % Event ID",
+                  "fieldName": "active_devices",
+                  "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
