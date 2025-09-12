@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "hpx_version_adoption_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "displayName": "HPX Version Adoption Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, app_version, SUM(active_devices) as active_devices, (SUM(active_devices) * 100.0 / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time))) as pct_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY daily_event_date, app_version"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, app_version, SUM(active_devices) as sum_active_devices, (SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time))) * 100 as pct_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY daily_event_date, sum_active_devices DESC"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "version_adoption_line_chart",
+            "name": "hpx_version_adoption_line_chart",
             "queries": [
               {
                 "name": "main_query",
