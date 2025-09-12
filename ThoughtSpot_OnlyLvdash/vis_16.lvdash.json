@@ -4,7 +4,7 @@
       "name": "home_tile_clicks_dataset",
       "displayName": "Home Tile Clicks Dataset",
       "queryLines": [
-        "SELECT\n  home_tile,\n  SUM(unique_tile_views) as total_unique_tile_views,\n  SUM(unique_tile_clicks) as total_unique_tile_clicks,\n  SUM(unique_interstitial_views) as total_unique_interstitial_views,\n  SUM(unique_interstitial_primary_button_clicks) as total_unique_interstitial_primary_button_clicks,\n  SUM(unique_interstitial_secondary_button_clicks) as total_unique_interstitial_secondary_button_clicks,\n  SUM(unique_tile_clicks) / SUM(unique_tile_views) as home_tile_clicked_vs_homepage_displayed,\n  SUM(unique_interstitial_primary_button_clicks) / SUM(unique_tile_views) as primary_button_clicked_vs_tile_displayed,\n  SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_tile_views) as secondary_button_clicked_vs_tile_displayed,\n  SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_button_clicked_vs_interstitial_displayed,\n  SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views) as secondary_button_clicked_vs_interstitial_displayed\nFROM hpx_events_model_homepage_summary\nGROUP BY home_tile\nORDER BY total_unique_tile_views DESC"
+        "SELECT home_tile, SUM(unique_tile_clicks) as total_unique_tile_clicks FROM hpx_events_model_homepage_summary GROUP BY home_tile ORDER BY SUM(unique_tile_clicks) DESC LIMIT 1"
       ]
     }
   ],
@@ -15,14 +15,15 @@
       "layout": [
         {
           "widget": {
-            "name": "home_tile_clicks_kpi",
+            "name": "home_tile_clicks_counter",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
                   "datasetName": "home_tile_clicks_dataset",
                   "fields": [
-                    { "name": "total_unique_tile_clicks", "expression": "SUM(`total_unique_tile_clicks`)" }
+                    { "name": "home_tile", "expression": "`home_tile`" },
+                    { "name": "total_unique_tile_clicks", "expression": "`total_unique_tile_clicks`" }
                   ],
                   "disaggregated": false
                 }
@@ -32,13 +33,16 @@
               "version": 3,
               "widgetType": "counter",
               "encodings": {
-                "values": [
-                  {
-                    "fieldName": "total_unique_tile_clicks",
-                    "displayName": "Unique Tile Clicks",
-                    "scale": { "type": "quantitative" }
-                  }
-                ]
+                "value": {
+                  "fieldName": "total_unique_tile_clicks",
+                  "displayName": "Unique Tile Clicks",
+                  "scale": { "type": "quantitative" }
+                },
+                "subtitle": {
+                  "fieldName": "home_tile",
+                  "displayName": "Home Tile",
+                  "scale": { "type": "categorical" }
+                }
               },
               "frame": {
                 "title": "Home Tile Clicks",
