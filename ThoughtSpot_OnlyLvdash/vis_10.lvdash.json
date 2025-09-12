@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "total_consented_devices_dataset",
-      "displayName": "Total Consented Devices Dataset",
+      "name": "consented_devices_dataset",
+      "displayName": "Consented Devices Dataset",
       "queryLines": [
-        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'null') AND geo_country_code IS NOT NULL"
+        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'null') AND app_version IS NOT NULL AND geo_country_code IS NOT NULL"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
+      "name": "page_10",
       "displayName": "Total Consented Devices",
       "layout": [
         {
           "widget": {
-            "name": "total_consented_devices_counter",
+            "name": "consented_devices_counter",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "total_consented_devices_dataset",
+                  "datasetName": "consented_devices_dataset",
                   "fields": [
                     { "name": "total_active_devices", "expression": "`total_active_devices`" }
                   ],
@@ -44,7 +44,7 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
