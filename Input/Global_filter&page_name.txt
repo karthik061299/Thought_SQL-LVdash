@@ -1,0 +1,230 @@
+Global filter information from liveboard.tml
+filters:
+  - column:
+    - HPX Events::Event Time
+    is_mandatory: false
+    date_filter:
+      type: EXACT_DATE
+      date: 05/01/2023
+      oper: '>='
+    display_name: ""
+  - column:
+    - HPX Events::Geo Market
+    oper: in
+    values:
+    - greater asia
+    - "{null}"
+    - CENTRAL & EASTERN EUROPE
+    - GREATER CHINA
+    - INDIA SL & BL
+    - LATIN AMERICA
+    - NORTH AMERICA
+    - NORTHWEST EUROPE
+    - RUSSIA & BELARUS
+    - "SOUTHERN EUROPE, ME & AFRICA"
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::Geo Country
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::OS Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::App Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::PC Type
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::PC Model Name
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model::Geo Country Code
+    - hpx_events_model_homepage_summary::Geo Country Code
+    oper: not in
+    values:
+    - "{null}"
+    is_mandatory: false
+    is_single_value: false
+    display_name: Top 10 Country
+  - column:
+    - hpx_events_model::Event Date Time
+    - hpx_events_model_homepage_summary::Event Date Time
+    is_mandatory: false
+    date_filter:
+      type: EXACT_DATE
+      date: 05/01/2023
+      oper: '>='
+    display_name: ""
+  - column:
+    - hpx_events_model::App Version
+    - hpx_events_model_homepage_summary::App Version
+    oper: not in
+    values:
+    - "{null}"
+    - Not a Store Release
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model::Pc Type
+    - hpx_events_model_homepage_summary::Pc Type
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model_homepage_summary::Home Tile
+    - hpx_events_model::Home Tile
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+
+
+
+Page name with what visuals under that page name from liveboard.tml file :
+ 
+ 
+layout:
+    tabs:
+    - name: Executive Summary
+      description: ""
+      tiles:
+      - visualization_id: Viz_1
+        x: 0
+        "y": 0
+        height: 4
+        width: 6
+      - visualization_id: Viz_2
+        x: 0
+        "y": 4
+        height: 4
+        width: 6
+      - visualization_id: Viz_3
+        x: 6
+        "y": 4
+        height: 4
+        width: 6
+      - visualization_id: Viz_4
+        x: 0
+        "y": 8
+        height: 4
+        width: 6
+      - visualization_id: Viz_5
+        x: 6
+        "y": 8
+        height: 4
+        width: 6
+      - visualization_id: Viz_6
+        x: 6
+        "y": 12
+        height: 4
+        width: 6
+      - visualization_id: Viz_7
+        x: 0
+        "y": 12
+        height: 4
+        width: 6
+      - visualization_id: Viz_8
+        x: 8
+        "y": 0
+        height: 4
+        width: 4
+      - visualization_id: Viz_10
+        x: 6
+        "y": 0
+        height: 4
+        width: 2
+      id: b42b0877-5508-490a-9f58-e08e14be314e
+    - name: Homepage Summary
+      description: ""
+      tiles:
+      - visualization_id: Viz_14
+        x: 0
+        "y": 2
+        height: 8
+        width: 12
+      - visualization_id: Viz_15
+        x: 0
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_16
+        x: 2
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_17
+        x: 4
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_18
+        x: 6
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_19
+        x: 8
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_20
+        x: 0
+        "y": 10
+        height: 6
+        width: 6
+      - visualization_id: Viz_21
+        x: 6
+        "y": 10
+        height: 6
+        width: 6
+      id: 66fb0839-9874-46bb-a5cc-7a76fc0a69a5
+    - name: Retention
+      description: ""
+      tiles:
+      - visualization_id: Viz_9
+        x: 0
+        "y": 0
+        height: 8
+        width: 5
+      - visualization_id: Viz_22
+        x: 5
+        "y": 0
+        height: 8
+        width: 7
+      id: c6a79efc-5526-480d-b969-22ddad3327d2
+    - name: Behavior Flow
+      description: ""
+      tiles:
+      - visualization_id: Viz_13
+        x: 0
+        "y": 0
+        height: 7
+        width: 12
+      id: d057851e-fb46-4755-a310-52a5a0c6087d
+    - name: CURR
+      description: ""
+      tiles:
+      - visualization_id: Viz_11
+        x: 0
+        "y": 0
+        height: 6
+        width: 6
+      - visualization_id: Viz_12
+        x: 6
+        "y": 0
+        height: 6
+        width: 6
+      id: 3cc7db63-fcd8-42aa-b902-32f691844c50
