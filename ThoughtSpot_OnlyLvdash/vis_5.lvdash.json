@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "top_screen_views_dataset",
-      "displayName": "Top Screen Views Dataset",
+      "name": "top_unique_screen_views_dataset",
+      "displayName": "Top Unique Screen Views Dataset",
       "queryLines": [
-        "WITH top_screens AS (\n  SELECT\n    screen,\n    COUNT(DISTINCT device_id) as unique_screen_views,\n    RANK() OVER (ORDER BY COUNT(DISTINCT device_id) DESC) as screen_rank\n  FROM hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support')\n    AND ui_action = 'screendisplayed'\n  GROUP BY screen\n  HAVING screen_rank <= 10\n)\nSELECT\n  ts.screen,\n  DATE_TRUNC('DAY', e.event_date_time) as daily_event_date,\n  COUNT(DISTINCT e.device_id) as unique_screen_views\nFROM hpx_events_model e\nJOIN top_screens ts ON e.screen = ts.screen\nWHERE\n  e.event_date_time >= '2023-05-01'\n  AND e.ui_action = 'screendisplayed'\nGROUP BY ts.screen, DATE_TRUNC('DAY', e.event_date_time)\nORDER BY daily_event_date, unique_screen_views DESC"
+        "SELECT screen, DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY screen, DATE_TRUNC('DAY', event_date_time) ORDER BY SUM(unique_screen_views) DESC LIMIT 10"
       ]
     }
   ],
   "pages": [
     {
-      "name": "top_screen_views_page",
+      "name": "top_unique_screen_views_page",
       "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
       "layout": [
         {
           "widget": {
-            "name": "top_screen_views_chart",
+            "name": "top_unique_screen_views_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "top_screen_views_dataset",
+                  "datasetName": "top_unique_screen_views_dataset",
                   "fields": [
                     { "name": "screen", "expression": "`screen`" },
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
@@ -51,7 +51,7 @@
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views Over Time",
+                "title": "Top Unique Screen Views by Screen (excl. Home/Welcome)",
                 "showTitle": true
               }
             }
