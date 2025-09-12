@@ -4,7 +4,7 @@
       "name": "new_devices_by_country_dataset",
       "displayName": "New Devices by Country Dataset",
       "queryLines": [
-        "WITH ranked_countries AS (\n  SELECT geo_country_code, COUNT(DISTINCT CASE WHEN is_new_device = true THEN device_id END) as new_devices,\n  RANK() OVER (ORDER BY COUNT(DISTINCT CASE WHEN is_new_device = true THEN device_id END) DESC) as rank\n  FROM hpx_events_model\n  GROUP BY geo_country_code\n)\nSELECT geo_country_code, new_devices\nFROM ranked_countries\nWHERE rank <= 10\nORDER BY new_devices DESC"
+        "SELECT geo_country_code, SUM(new_devices) as new_devices FROM hpx_events_model GROUP BY geo_country_code ORDER BY SUM(new_devices) DESC LIMIT 10"
       ]
     }
   ],
@@ -33,15 +33,15 @@
               "version": 3,
               "widgetType": "pie",
               "encodings": {
+                "color": {
+                  "fieldName": "geo_country_code",
+                  "displayName": "Country Code",
+                  "scale": { "type": "categorical" }
+                },
                 "angle": {
                   "fieldName": "new_devices",
                   "displayName": "New Devices",
                   "scale": { "type": "quantitative" }
-                },
-                "color": {
-                  "fieldName": "geo_country_code",
-                  "displayName": "Country",
-                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
