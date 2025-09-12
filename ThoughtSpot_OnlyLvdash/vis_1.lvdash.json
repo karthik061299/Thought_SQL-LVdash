@@ -4,14 +4,14 @@
       "name": "hpx_events_dataset",
       "displayName": "HPX Events Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices_1) as total_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices) as active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
   "pages": [
     {
-      "name": "executive_summary",
-      "displayName": "Executive Summary",
+      "name": "page_1",
+      "displayName": "Active Devices Overview",
       "layout": [
         {
           "widget": {
@@ -23,7 +23,7 @@
                   "datasetName": "hpx_events_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                    { "name": "active_devices", "expression": "`active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_active_devices",
+                  "fieldName": "active_devices",
                   "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 }
@@ -50,40 +50,11 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
-      "filters": [
-        {
-          "fieldName": "event_date_time",
-          "displayName": "Event Date Time",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "geo_country_code",
-          "displayName": "Top 10 Country",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "app_version",
-          "displayName": "App Version",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "pc_type",
-          "displayName": "PC Type",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        }
-      ]
+      "filters": []
     }
   ],
   "uiSettings": {
