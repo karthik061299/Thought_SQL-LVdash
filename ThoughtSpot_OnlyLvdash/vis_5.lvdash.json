@@ -4,7 +4,7 @@
       "name": "top_screen_views_dataset",
       "displayName": "Top Unique Screen Views Dataset",
       "queryLines": [
-        "SELECT screen, DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY screen, DATE_TRUNC('DAY', event_date_time) ORDER BY SUM(unique_screen_views) DESC LIMIT 10"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY SUM(unique_screen_views) DESC LIMIT 100"
       ]
     }
   ],
@@ -22,8 +22,8 @@
                 "query": {
                   "datasetName": "top_screen_views_dataset",
                   "fields": [
-                    { "name": "screen", "expression": "`screen`" },
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
+                    { "name": "screen", "expression": "`screen`" },
                     { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
                   ],
                   "disaggregated": false
