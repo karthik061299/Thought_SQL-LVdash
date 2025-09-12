@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "top_on_press_events_dataset",
+      "name": "top_onpress_events_dataset",
       "displayName": "Top On Press Events Dataset",
       "queryLines": [
-        "SELECT control, DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(clicks) as total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY control, DATE_TRUNC('DAY', event_date_time) ORDER BY SUM(clicks) DESC, control LIMIT 100"
+        "WITH top_controls AS (\n  SELECT\n    control,\n    COUNT(*) as clicks,\n    RANK() OVER (ORDER BY COUNT(*) DESC) as rank\n  FROM hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND control NOT LIKE '%testid%'\n    AND ui_action = 'onpress'\n    AND control != 'welcome core navigationviewitem id'\n  GROUP BY control\n  ORDER BY clicks DESC\n  LIMIT 10\n)\nSELECT\n  tc.control,\n  DATE_TRUNC('DAY', e.event_date_time) as daily_event_date,\n  COUNT(*) as total_clicks\nFROM hpx_events_model e\nJOIN top_controls tc ON e.control = tc.control\nWHERE\n  e.event_date_time >= '2023-05-01'\n  AND e.ui_action = 'onpress'\nGROUP BY tc.control, DATE_TRUNC('DAY', e.event_date_time)\nORDER BY daily_event_date, total_clicks DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "top_on_press_events_page",
+      "name": "top_onpress_events_page",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_chart",
+            "name": "top_onpress_events_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "top_on_press_events_dataset",
+                  "datasetName": "top_onpress_events_dataset",
                   "fields": [
                     { "name": "control", "expression": "`control`" },
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
@@ -51,8 +51,11 @@
                 }
               },
               "frame": {
-                "title": "Top On Press Events by Day",
+                "title": "Top On Press Events Over Time",
                 "showTitle": true
+              },
+              "options": {
+                "stacking": "stack"
               }
             }
           },
