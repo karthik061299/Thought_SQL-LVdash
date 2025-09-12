@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "total_consented_devices_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "displayName": "Total Consented Devices Dataset",
       "queryLines": [
-        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release') AND app_version IS NOT NULL AND geo_country_code IS NOT NULL"
+        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version != 'not a store release' AND app_version IS NOT NULL AND geo_country_code IS NOT NULL AND pc_type IN ('consumer', 'enterprise', 'premium', 'rpos', 'sbso', 'unknown', 'workstation')"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "total_consented_devices_counter",
+            "name": "total_consented_devices_kpi",
             "queries": [
               {
                 "name": "main_query",
