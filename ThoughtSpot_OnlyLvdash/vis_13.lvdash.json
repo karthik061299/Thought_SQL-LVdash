@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "hpx_first_use_behavior_flow_dataset",
-      "displayName": "HPX First Use Behavior Flow",
+      "displayName": "HPX First Use Behavior Flow Dataset",
       "queryLines": [
-        "SELECT screen_1, screen_2, screen_3, screen_4, screen_5, devices FROM team_css_analytics_prod.hpx_analytics.hpx_first_use_behavior_flow_metric_view WHERE date >= '2023-05-01' AND screen_2 != 'welcome_S2' AND screen_3 != 'welcome_S3' AND screen_4 != 'welcome_S4' AND screen_5 != 'welcome_S5'"
+        "SELECT screen_1, screen_2, screen_3, screen_4, screen_5, SUM(devices) as total_devices FROM hpx_first_use_behavior_flow WHERE date >= '2023-05-01' AND screen_1 = 'welcome_S1' AND screen_2 != 'welcome_S2' AND screen_3 != 'welcome_S3' AND screen_4 != 'welcome_S4' AND screen_5 != 'welcome_S5' GROUP BY screen_1, screen_2, screen_3, screen_4, screen_5"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "user_flow_sankey_diagram",
+            "name": "hpx_first_use_behavior_flow_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -27,7 +27,7 @@
                     { "name": "screen_3", "expression": "`screen_3`" },
                     { "name": "screen_4", "expression": "`screen_4`" },
                     { "name": "screen_5", "expression": "`screen_5`" },
-                    { "name": "devices", "expression": "`devices`" }
+                    { "name": "total_devices", "expression": "`total_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -38,20 +38,19 @@
               "widgetType": "sankey",
               "encodings": {
                 "value": { 
-                  "fieldName": "devices", 
-                  "displayName": "Total Devices",
-                  "scale": { "type": "quantitative" }
+                  "fieldName": "total_devices", 
+                  "displayName": "Total Devices" 
                 },
                 "stages": [
-                  { "fieldName": "screen_1", "displayName": "Screen 1", "scale": { "type": "categorical" } },
-                  { "fieldName": "screen_2", "displayName": "Screen 2", "scale": { "type": "categorical" } },
-                  { "fieldName": "screen_3", "displayName": "Screen 3", "scale": { "type": "categorical" } },
-                  { "fieldName": "screen_4", "displayName": "Screen 4", "scale": { "type": "categorical" } },
-                  { "fieldName": "screen_5", "displayName": "Screen 5", "scale": { "type": "categorical" } }
+                  { "fieldName": "screen_1", "displayName": "Screen 1" },
+                  { "fieldName": "screen_2", "displayName": "Screen 2" },
+                  { "fieldName": "screen_3", "displayName": "Screen 3" },
+                  { "fieldName": "screen_4", "displayName": "Screen 4" },
+                  { "fieldName": "screen_5", "displayName": "Screen 5" }
                 ]
               },
               "frame": {
-                "title": "User Flow Between Screens",
+                "title": "HPX First Use Behavior Flow",
                 "showTitle": true
               }
             }
