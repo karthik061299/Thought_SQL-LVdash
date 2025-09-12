@@ -4,7 +4,7 @@
       "name": "home_tile_secondary_ctr_dataset",
       "displayName": "Home Tile Secondary CTR Dataset",
       "queryLines": [
-        "SELECT\n  SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views) as secondary_ctr\nFROM\n  hpx_events_model_homepage_summary"
+        "SELECT SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views) as ctr_secondary FROM hpx_events_model_homepage_summary"
       ]
     }
   ],
@@ -15,14 +15,14 @@
       "layout": [
         {
           "widget": {
-            "name": "home_tile_secondary_ctr_kpi",
+            "name": "home_tile_secondary_ctr_counter",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
                   "datasetName": "home_tile_secondary_ctr_dataset",
                   "fields": [
-                    { "name": "secondary_ctr", "expression": "`secondary_ctr`" }
+                    { "name": "ctr_secondary", "expression": "`ctr_secondary`" }
                   ],
                   "disaggregated": false
                 }
@@ -33,71 +33,20 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "secondary_ctr",
-                  "displayName": "Secondary Button CTR",
+                  "fieldName": "ctr_secondary",
+                  "displayName": "Secondary CTR",
                   "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "decimals": 1 }
+                  "format": "PERCENTAGE"
                 }
               },
               "frame": {
-                "title": "Secondary Button Click-Through Rate",
-                "showTitle": true
+                "title": "Home Tile Secondary CTR",
+                "showTitle": true,
+                "subtitle": "Secondary Button Click-Through Rate (Secondary Clicks / Interstitial Views)"
               }
             }
           },
           "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "home_tile_secondary_ctr_by_tile",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "home_tile_secondary_ctr_dataset",
-                  "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "total_unique_interstitial_views", "expression": "`total_unique_interstitial_views`" },
-                    { "name": "total_unique_interstitial_secondary_button_clicks", "expression": "`total_unique_interstitial_secondary_button_clicks`" },
-                    { "name": "secondary_ctr", "expression": "`total_unique_interstitial_secondary_button_clicks` / `total_unique_interstitial_views`" }
-                  ],
-                  "disaggregated": false,
-                  "groupBy": ["home_tile"],
-                  "orderBy": [{ "fieldName": "total_unique_interstitial_views", "direction": "DESC" }]
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "table",
-              "columns": [
-                {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile"
-                },
-                {
-                  "fieldName": "total_unique_interstitial_views",
-                  "displayName": "Unique Interstitial Views",
-                  "format": { "type": "number", "decimals": 0 }
-                },
-                {
-                  "fieldName": "total_unique_interstitial_secondary_button_clicks",
-                  "displayName": "Unique Secondary Button Clicks",
-                  "format": { "type": "number", "decimals": 0 }
-                },
-                {
-                  "fieldName": "secondary_ctr",
-                  "displayName": "Secondary Button CTR",
-                  "format": { "type": "percent", "decimals": 1 }
-                }
-              ],
-              "frame": {
-                "title": "Secondary Button CTR by Home Tile",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 0, "y": 4, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
