@@ -4,7 +4,7 @@
       "name": "hpx_retention_dataset",
       "displayName": "HPX Retention Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event_date, months_since_first_use, session_type, SUM(active_devices) as active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time)) as devices_returning_pct FROM HPX_Retention_CSS_Analytics WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type ORDER BY monthly_first_device_event_date, months_since_first_use, session_type"
+        "SELECT\n  DATE_TRUNC('MONTH', first_device_event_time) as first_device_event_month,\n  months_since_first_use,\n  COUNT(DISTINCT device_id) as active_devices,\n  COUNT(DISTINCT device_id) / FIRST_VALUE(COUNT(DISTINCT device_id)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_time) ORDER BY months_since_first_use) as pct_devices_returning\nFROM HPX_Retention_CSS_Analytics\nWHERE\n  first_device_event_time >= '2023-05-01'\nGROUP BY DATE_TRUNC('MONTH', first_device_event_time), months_since_first_use\nORDER BY first_device_event_month, months_since_first_use"
       ]
     }
   ],
@@ -22,11 +22,10 @@
                 "query": {
                   "datasetName": "hpx_retention_dataset",
                   "fields": [
-                    { "name": "monthly_first_device_event_date", "expression": "`monthly_first_device_event_date`" },
+                    { "name": "first_device_event_month", "expression": "`first_device_event_month`" },
                     { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
-                    { "name": "session_type", "expression": "`session_type`" },
                     { "name": "active_devices", "expression": "`active_devices`" },
-                    { "name": "devices_returning_pct", "expression": "`devices_returning_pct`" }
+                    { "name": "pct_devices_returning", "expression": "`pct_devices_returning`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,45 +33,46 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "pivot_table",
+              "widgetType": "pivot",
               "encodings": {
                 "rows": [
                   {
-                    "fieldName": "monthly_first_device_event_date",
-                    "displayName": "Month(First Device Event Date Time)"
+                    "fieldName": "first_device_event_month",
+                    "displayName": "First Device Event Month",
+                    "scale": { "type": "temporal" }
                   }
                 ],
                 "columns": [
                   {
                     "fieldName": "months_since_first_use",
-                    "displayName": "Months Since First Use"
+                    "displayName": "Months Since First Use",
+                    "scale": { "type": "quantitative" }
                   }
                 ],
                 "values": [
                   {
-                    "fieldName": "devices_returning_pct",
+                    "fieldName": "pct_devices_returning",
                     "displayName": "% Devices Returning",
-                    "format": {
-                      "type": "percent",
-                      "decimalPlaces": 1
-                    }
+                    "scale": { "type": "quantitative" },
+                    "format": { "type": "percentage", "precision": 1 }
                   }
                 ],
                 "color": {
-                  "fieldName": "devices_returning_pct",
+                  "fieldName": "pct_devices_returning",
                   "displayName": "% Devices Returning",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "HPX Retention by Cohort",
+                "title": "Device Retention by Cohort",
                 "showTitle": true
               },
               "options": {
-                "showHeatmap": true,
-                "showColumnTotals": false,
                 "showRowTotals": false,
-                "showGrandTotals": false
+                "showColumnTotals": false,
+                "showRowGrandTotals": false,
+                "showColumnGrandTotals": false,
+                "heatmap": true
               }
             }
           },
