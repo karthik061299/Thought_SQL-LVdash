@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "countries_new_devices_dataset",
+      "name": "countries_dataset",
       "displayName": "HPX Events Model with IIDE Table",
       "queryLines": [
         "SELECT geo_country_code, SUM(new_devices) as total_new_devices FROM hpx_events_model WHERE RANK() OVER (ORDER BY SUM(new_devices) DESC) <= 10 GROUP BY geo_country_code ORDER BY total_new_devices DESC"
@@ -20,7 +20,7 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "countries_new_devices_dataset",
+                  "datasetName": "countries_dataset",
                   "fields": [
                     { "name": "geo_country_code", "expression": "`geo_country_code`" },
                     { "name": "total_new_devices", "expression": "`total_new_devices`" }
