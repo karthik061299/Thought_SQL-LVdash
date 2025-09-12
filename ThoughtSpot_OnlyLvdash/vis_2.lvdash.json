@@ -1,30 +1,39 @@
 {
   "datasets": [
     {
-      "name": "new_devices_dataset",
+      "name": "ds_new_devices",
       "displayName": "New Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, COUNT(DISTINCT CASE WHEN is_new_device = true THEN device_id END) as new_devices, SUM(COUNT(DISTINCT CASE WHEN is_new_device = true THEN device_id END)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(new_devices_1) as new_devices, SUM(SUM(new_devices_1)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
   "pages": [
     {
-      "name": "new_devices_page",
-      "displayName": "New Devices",
+      "name": "executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "new_devices_chart",
+            "name": "new_devices_line_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "new_devices_dataset",
+                  "datasetName": "ds_new_devices",
                   "fields": [
-                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "new_devices", "expression": "`new_devices`" },
-                    { "name": "cumulative_new_devices", "expression": "`cumulative_new_devices`" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "`daily_event_date`"
+                    },
+                    {
+                      "name": "new_devices",
+                      "expression": "`new_devices`"
+                    },
+                    {
+                      "name": "cumulative_new_devices",
+                      "expression": "`cumulative_new_devices`"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -37,7 +46,9 @@
                 "x": {
                   "fieldName": "daily_event_date",
                   "displayName": "Daily Event Date",
-                  "scale": { "type": "temporal" }
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
                   "fields": [
@@ -50,7 +61,9 @@
                       "displayName": "Cumulative New Devices"
                     }
                   ],
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
@@ -59,7 +72,12 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
