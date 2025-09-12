@@ -1,31 +1,31 @@
 {
   "datasets": [
     {
-      "name": "hpx_new_version_adoption_dataset",
-      "displayName": "HPX New Version Adoption Dataset",
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, app_version, SUM(active_devices) as active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time)) as pct_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY daily_event_date, app_version"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, app_version, SUM(active_devices_1) as active_devices, SUM(active_devices_1) / SUM(SUM(active_devices_1)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time)) as pct_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY daily_event_date, app_version"
       ]
     }
   ],
   "pages": [
     {
-      "name": "hpx_new_version_adoption_page",
-      "displayName": "HPX New Version Adoption",
+      "name": "retention_page",
+      "displayName": "Retention",
       "layout": [
         {
           "widget": {
-            "name": "hpx_new_version_adoption_chart",
+            "name": "hpx_new_version_adoption_line",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_new_version_adoption_dataset",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "app_version", "expression": "`app_version`" },
-                    { "name": "active_devices", "expression": "`active_devices`" },
-                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" }
+                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" },
+                    { "name": "active_devices", "expression": "`active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -43,8 +43,7 @@
                 "y": {
                   "fieldName": "pct_active_devices",
                   "displayName": "% Active Devices",
-                  "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "precision": 2 }
+                  "scale": { "type": "quantitative" }
                 },
                 "color": {
                   "fieldName": "app_version",
@@ -58,7 +57,7 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": { "x": 5, "y": 0, "width": 7, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
