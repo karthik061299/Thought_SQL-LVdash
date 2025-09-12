@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_screen_views_bar",
+            "name": "screen_views_bar_chart",
             "queries": [
               {
                 "name": "main_query",
