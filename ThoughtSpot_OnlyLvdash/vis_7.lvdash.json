@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_bar",
+            "name": "top_onpress_bar_chart",
             "queries": [
               {
                 "name": "main_query",
