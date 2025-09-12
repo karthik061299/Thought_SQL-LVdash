@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "name": "top_onpress_controls_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "name": "top_onpress_bar_dataset",
+      "displayName": "Top On Press Events Bar Dataset",
       "queryLines": [
         "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
       ]
@@ -15,12 +15,12 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_controls_bar_chart",
+            "name": "top_onpress_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "top_onpress_controls_dataset",
+                  "datasetName": "top_onpress_bar_dataset",
                   "fields": [
                     { "name": "control", "expression": "`control`" },
                     { "name": "total_clicks", "expression": "`total_clicks`" }
