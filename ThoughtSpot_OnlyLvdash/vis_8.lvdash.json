@@ -41,8 +41,11 @@
                 },
                 "y": {
                   "fieldName": "active_devices",
-                  "displayName": "Total % Event ID",
-                  "scale": { "type": "quantitative" }
+                  "displayName": "Active Devices",
+                  "scale": { "type": "quantitative" },
+                  "axis": {
+                    "format": "PERCENTAGE"
+                  }
                 },
                 "color": {
                   "fieldName": "launch_type",
@@ -51,11 +54,11 @@
                 }
               },
               "frame": {
-                "title": "Launch type Active Devices",
+                "title": "Launch Type Active Devices Over Time",
                 "showTitle": true
               },
               "options": {
-                "stackType": "PERCENT"
+                "stackedPercentage": true
               }
             }
           },
