@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "hpx_first_use_behavior_flow_dataset",
-      "displayName": "HPX First Use Behavior Flow Dataset",
+      "displayName": "HPX First Use Behavior Flow",
       "queryLines": [
-        "SELECT\n  screen_1,\n  screen_2,\n  screen_3,\n  screen_4,\n  screen_5,\n  COUNT(DISTINCT device_id) as total_devices\nFROM hpx_first_use_behavior_flow\nWHERE\n  date >= '2023-05-01'\n  AND screen_1 = 'welcome_S1'\n  AND screen_2 != 'welcome_S2'\n  AND screen_3 != 'welcome_S3'\n  AND screen_4 != 'welcome_S4'\n  AND screen_5 != 'welcome_S5'\nGROUP BY\n  screen_1, screen_2, screen_3, screen_4, screen_5\nORDER BY\n  total_devices DESC"
+        "SELECT screen_1, screen_2, screen_3, screen_4, screen_5, devices FROM team_css_analytics_prod.hpx_analytics.hpx_first_use_behavior_flow_metric_view WHERE date >= '2023-05-01' AND screen_2 != 'welcome_S2' AND screen_3 != 'welcome_S3' AND screen_4 != 'welcome_S4' AND screen_5 != 'welcome_S5'"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_first_use_behavior_flow_sankey",
+            "name": "user_flow_sankey_diagram",
             "queries": [
               {
                 "name": "main_query",
@@ -27,31 +27,31 @@
                     { "name": "screen_3", "expression": "`screen_3`" },
                     { "name": "screen_4", "expression": "`screen_4`" },
                     { "name": "screen_5", "expression": "`screen_5`" },
-                    { "name": "total_devices", "expression": "`total_devices`" }
+                    { "name": "devices", "expression": "`devices`" }
                   ],
                   "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": 3,
+              "version": 1,
               "widgetType": "sankey",
               "encodings": {
-                "nodes": [
+                "value": { 
+                  "fieldName": "devices", 
+                  "displayName": "Total Devices",
+                  "scale": { "type": "quantitative" }
+                },
+                "stages": [
                   { "fieldName": "screen_1", "displayName": "Screen 1", "scale": { "type": "categorical" } },
                   { "fieldName": "screen_2", "displayName": "Screen 2", "scale": { "type": "categorical" } },
                   { "fieldName": "screen_3", "displayName": "Screen 3", "scale": { "type": "categorical" } },
                   { "fieldName": "screen_4", "displayName": "Screen 4", "scale": { "type": "categorical" } },
                   { "fieldName": "screen_5", "displayName": "Screen 5", "scale": { "type": "categorical" } }
-                ],
-                "size": {
-                  "fieldName": "total_devices",
-                  "displayName": "Total Devices",
-                  "scale": { "type": "quantitative" }
-                }
+                ]
               },
               "frame": {
-                "title": "HPX First Use Behavior Flow",
+                "title": "User Flow Between Screens",
                 "showTitle": true
               }
             }
