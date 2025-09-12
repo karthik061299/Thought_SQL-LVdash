@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "name": "unique_screen_views_dataset",
+      "displayName": "Unique Screen Views Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen as screen, SUM(unique_screen_views_1) as unique_screen_views FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC LIMIT 10"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC"
       ]
     }
   ],
@@ -15,12 +15,12 @@
       "layout": [
         {
           "widget": {
-            "name": "unique_screen_views_chart",
+            "name": "unique_screen_views_stacked_column",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "unique_screen_views_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "screen", "expression": "`screen`" },
@@ -32,11 +32,11 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "column",
+              "widgetType": "bar",
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
-                  "displayName": "Daily Event Date",
+                  "displayName": "Monthly Event Date",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
