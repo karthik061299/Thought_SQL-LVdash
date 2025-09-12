@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "launch_type_active_devices_stacked_chart",
+            "name": "launch_type_devices_chart",
             "queries": [
               {
                 "name": "main_query",
