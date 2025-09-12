@@ -4,7 +4,7 @@
       "name": "home_tile_interactions_ctr_dataset",
       "displayName": "Home Tile Interactions CTR Dataset",
       "queryLines": [
-        "SELECT\n  SUM(unique_tile_clicks) / SUM(unique_tile_views) as ctr\nFROM\n  hpx_events_model_homepage_summary"
+        "SELECT SUM(unique_tile_clicks) / SUM(unique_tile_views) as ctr FROM hpx_events_model_homepage_summary"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "home_tile_interactions_ctr_kpi",
+            "name": "home_tile_interactions_ctr_counter",
             "queries": [
               {
                 "name": "main_query",
@@ -34,70 +34,19 @@
               "encodings": {
                 "value": {
                   "fieldName": "ctr",
-                  "displayName": "Click-Through Rate",
+                  "displayName": "CTR",
                   "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "decimals": 2 }
+                  "format": "PERCENTAGE"
                 }
               },
               "frame": {
-                "title": "Overall Home Tile CTR",
-                "showTitle": true
+                "title": "Home Tile Interactions CTR",
+                "showTitle": true,
+                "subtitle": "Click-Through Rate (Clicks / Views)"
               }
             }
           },
           "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "home_tile_interactions_ctr_by_tile",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "home_tile_interactions_ctr_dataset",
-                  "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "total_unique_tile_views", "expression": "`total_unique_tile_views`" },
-                    { "name": "total_unique_tile_clicks", "expression": "`total_unique_tile_clicks`" },
-                    { "name": "ctr", "expression": "`total_unique_tile_clicks` / `total_unique_tile_views`" }
-                  ],
-                  "disaggregated": false,
-                  "groupBy": ["home_tile"],
-                  "orderBy": [{ "fieldName": "total_unique_tile_views", "direction": "DESC" }]
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "table",
-              "columns": [
-                {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile"
-                },
-                {
-                  "fieldName": "total_unique_tile_views",
-                  "displayName": "Unique Tile Views",
-                  "format": { "type": "number", "decimals": 0 }
-                },
-                {
-                  "fieldName": "total_unique_tile_clicks",
-                  "displayName": "Unique Tile Clicks",
-                  "format": { "type": "number", "decimals": 0 }
-                },
-                {
-                  "fieldName": "ctr",
-                  "displayName": "CTR",
-                  "format": { "type": "percent", "decimals": 2 }
-                }
-              ],
-              "frame": {
-                "title": "CTR by Home Tile",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 0, "y": 4, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
