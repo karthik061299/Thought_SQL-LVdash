@@ -4,7 +4,7 @@
       "name": "hpx_first_use_behavior_flow_dataset",
       "displayName": "HPX First Use Behavior Flow Dataset",
       "queryLines": [
-        "SELECT screen_1, screen_2, screen_3, screen_4, screen_5, SUM(devices) as total_devices FROM hpx_first_use_behavior_flow WHERE date >= '2023-05-01' AND screen_1 = 'welcome_S1' AND screen_2 != 'welcome_S2' AND screen_3 != 'welcome_S3' AND screen_4 != 'welcome_S4' AND screen_5 != 'welcome_S5' GROUP BY screen_1, screen_2, screen_3, screen_4, screen_5"
+        "SELECT\n  screen_1,\n  screen_2,\n  screen_3,\n  screen_4,\n  screen_5,\n  SUM(devices) as total_devices\nFROM\n  hpx_first_use_behavior_flow\nWHERE\n  date >= '2023-05-01'\n  AND screen_1 = 'welcome_S1'\n  AND screen_2 != 'welcome_S2'\n  AND screen_3 != 'welcome_S3'\n  AND screen_4 != 'welcome_S4'\n  AND screen_5 != 'welcome_S5'\nGROUP BY\n  screen_1, screen_2, screen_3, screen_4, screen_5"
       ]
     }
   ],
