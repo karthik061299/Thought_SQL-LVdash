@@ -1,30 +1,30 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "name": "active_devices_by_country_dataset",
+      "displayName": "Active Devices by Country Dataset",
       "queryLines": [
-        "SELECT geo_country_code, SUM(active_devices_1) as total_active_devices, (SUM(active_devices_1) * 100.0 / SUM(SUM(active_devices_1)) OVER ()) as pct_active_devices_by_country, RANK() OVER (ORDER BY SUM(active_devices_1) DESC) as device_rank FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version NOT IN ('not a store release', 'other non-releases') AND event_date_time >= '2023-05-01' AND os_version IS NOT NULL GROUP BY geo_country_code HAVING RANK() OVER (ORDER BY SUM(active_devices_1) DESC) <= 10 ORDER BY SUM(active_devices_1) DESC"
+        "WITH country_devices AS (SELECT geo_country_code, SUM(active_devices) as mau, SUM(active_devices) / SUM(SUM(active_devices)) OVER () as pct_active_devices, RANK() OVER (ORDER BY SUM(active_devices) DESC) as rank FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'other non-releases') AND os_version IS NOT NULL GROUP BY geo_country_code) SELECT geo_country_code, mau, pct_active_devices FROM country_devices WHERE rank <= 10 ORDER BY mau DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
-      "displayName": "Active Devices by Country Analysis",
+      "name": "active_devices_by_country_page",
+      "displayName": "% Active Devices by Country (Top 10)",
       "layout": [
         {
           "widget": {
-            "name": "active_devices_by_country_bar",
+            "name": "active_devices_by_country_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "active_devices_by_country_dataset",
                   "fields": [
                     { "name": "geo_country_code", "expression": "`geo_country_code`" },
-                    { "name": "pct_active_devices_by_country", "expression": "`pct_active_devices_by_country`" },
-                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" },
+                    { "name": "mau", "expression": "`mau`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,14 +40,43 @@
                   "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "pct_active_devices_by_country",
+                  "fieldName": "pct_active_devices",
                   "displayName": "% Active Devices by Country",
+                  "format": {
+                    "type": "percent",
+                    "decimalPlaces": 1
+                  },
                   "scale": { "type": "quantitative" }
-                }
+                },
+                "tooltip": [
+                  {
+                    "fieldName": "geo_country_code",
+                    "displayName": "Country"
+                  },
+                  {
+                    "fieldName": "pct_active_devices",
+                    "displayName": "% Active Devices by Country",
+                    "format": {
+                      "type": "percent",
+                      "decimalPlaces": 1
+                    }
+                  },
+                  {
+                    "fieldName": "mau",
+                    "displayName": "MAU",
+                    "format": {
+                      "type": "number",
+                      "decimalPlaces": 0
+                    }
+                  }
+                ]
               },
               "frame": {
                 "title": "% Active Devices by Country (Top 10)",
                 "showTitle": true
+              },
+              "options": {
+                "showDataLabels": true
               }
             }
           },
