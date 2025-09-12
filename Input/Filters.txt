@@ -1,0 +1,93 @@
+Global filter information from liveboard.tml
+filters:
+  - column:
+    - HPX Events::Event Time
+    is_mandatory: false
+    date_filter:
+      type: EXACT_DATE
+      date: 05/01/2023
+      oper: '>='
+    display_name: ""
+  - column:
+    - HPX Events::Geo Market
+    oper: in
+    values:
+    - greater asia
+    - "{null}"
+    - CENTRAL & EASTERN EUROPE
+    - GREATER CHINA
+    - INDIA SL & BL
+    - LATIN AMERICA
+    - NORTH AMERICA
+    - NORTHWEST EUROPE
+    - RUSSIA & BELARUS
+    - "SOUTHERN EUROPE, ME & AFRICA"
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::Geo Country
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::OS Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::App Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::PC Type
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::PC Model Name
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model::Geo Country Code
+    - hpx_events_model_homepage_summary::Geo Country Code
+    oper: not in
+    values:
+    - "{null}"
+    is_mandatory: false
+    is_single_value: false
+    display_name: Top 10 Country
+  - column:
+    - hpx_events_model::Event Date Time
+    - hpx_events_model_homepage_summary::Event Date Time
+    is_mandatory: false
+    date_filter:
+      type: EXACT_DATE
+      date: 05/01/2023
+      oper: '>='
+    display_name: ""
+  - column:
+    - hpx_events_model::App Version
+    - hpx_events_model_homepage_summary::App Version
+    oper: not in
+    values:
+    - "{null}"
+    - Not a Store Release
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model::Pc Type
+    - hpx_events_model_homepage_summary::Pc Type
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model_homepage_summary::Home Tile
+    - hpx_events_model::Home Tile
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+
