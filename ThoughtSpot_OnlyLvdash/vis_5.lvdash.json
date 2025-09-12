@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "top_screen_views_dataset",
-      "displayName": "Top Unique Screen Views Dataset",
+      "displayName": "Top Screen Views Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY DATE_TRUNC('DAY', event_date_time), screen QUALIFY RANK() OVER (PARTITION BY NULL ORDER BY SUM(unique_screen_views) DESC) <= 10 ORDER BY daily_event_date, unique_screen_views DESC"
+        "WITH filtered_screens AS (SELECT screen, DATE_TRUNC('DAY', event_date_time) as daily_event_date, COUNT(DISTINCT session_id) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY screen, DATE_TRUNC('DAY', event_date_time)), ranked_screens AS (SELECT screen, SUM(unique_screen_views) as total_views, RANK() OVER (ORDER BY SUM(unique_screen_views) DESC) as screen_rank FROM filtered_screens GROUP BY screen) SELECT fs.screen, fs.daily_event_date, fs.unique_screen_views FROM filtered_screens fs JOIN ranked_screens rs ON fs.screen = rs.screen WHERE rs.screen_rank <= 10 ORDER BY fs.daily_event_date, rs.total_views DESC"
       ]
     }
   ],
@@ -22,8 +22,8 @@
                 "query": {
                   "datasetName": "top_screen_views_dataset",
                   "fields": [
-                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "screen", "expression": "`screen`" },
+                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
                   ],
                   "disaggregated": false
@@ -51,7 +51,7 @@
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views (excl. Home/Welcome) Over Time",
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
                 "showTitle": true
               }
             }
