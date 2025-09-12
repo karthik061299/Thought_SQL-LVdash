@@ -4,7 +4,7 @@
       "name": "hpx_curr_data_table_dataset",
       "displayName": "HPX CURR Data Table Dataset",
       "queryLines": [
-        "SELECT\n  DATE_TRUNC('WEEK', week_active) as weekly_active,\n  AVG(curr) as curr_avg,\n  SUM(this_week_users_t0t6) as total_this_week_users,\n  SUM(last_week_users_t7t13) as total_last_week_users,\n  SUM(previous_week_users_t14t20) as total_previous_week_users\nFROM HPX_CURR\nWHERE\n  week_active >= '2023-05-01'\nGROUP BY DATE_TRUNC('WEEK', week_active)\nORDER BY weekly_active"
+        "SELECT DATE_TRUNC('WEEK', week_active) as weekly_active, AVG(curr) as curr, SUM(this_week_users_t0t6) as this_week_users_t0t6, SUM(last_week_users_t7t13) as last_week_users_t7t13, SUM(previous_week_users_t14t20) as previous_week_users_t14t20 FROM HPX_CURR WHERE week_active >= '2023-05-01' GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_active"
       ]
     }
   ],
@@ -23,10 +23,10 @@
                   "datasetName": "hpx_curr_data_table_dataset",
                   "fields": [
                     { "name": "weekly_active", "expression": "`weekly_active`" },
-                    { "name": "curr_avg", "expression": "`curr_avg`" },
-                    { "name": "total_this_week_users", "expression": "`total_this_week_users`" },
-                    { "name": "total_last_week_users", "expression": "`total_last_week_users`" },
-                    { "name": "total_previous_week_users", "expression": "`total_previous_week_users`" }
+                    { "name": "curr", "expression": "`curr`" },
+                    { "name": "this_week_users_t0t6", "expression": "`this_week_users_t0t6`" },
+                    { "name": "last_week_users_t7t13", "expression": "`last_week_users_t7t13`" },
+                    { "name": "previous_week_users_t14t20", "expression": "`previous_week_users_t14t20`" }
                   ],
                   "disaggregated": false
                 }
@@ -35,33 +35,35 @@
             "spec": {
               "version": 3,
               "widgetType": "table",
-              "columns": [
-                {
-                  "fieldName": "weekly_active",
-                  "displayName": "Week",
-                  "format": { "type": "date" }
-                },
-                {
-                  "fieldName": "total_previous_week_users",
-                  "displayName": "Previous Week Users T14t20",
-                  "format": { "type": "number", "precision": 0 }
-                },
-                {
-                  "fieldName": "total_last_week_users",
-                  "displayName": "Last Week Users T7t13",
-                  "format": { "type": "number", "precision": 0 }
-                },
-                {
-                  "fieldName": "total_this_week_users",
-                  "displayName": "This Week Users T0t6",
-                  "format": { "type": "number", "precision": 0 }
-                },
-                {
-                  "fieldName": "curr_avg",
-                  "displayName": "CURR",
-                  "format": { "type": "number", "precision": 2 }
-                }
-              ],
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "weekly_active",
+                    "displayName": "Week",
+                    "scale": { "type": "temporal" }
+                  },
+                  {
+                    "fieldName": "previous_week_users_t14t20",
+                    "displayName": "Previous Week Users T14t20",
+                    "scale": { "type": "quantitative" }
+                  },
+                  {
+                    "fieldName": "last_week_users_t7t13",
+                    "displayName": "Last Week Users T7t13",
+                    "scale": { "type": "quantitative" }
+                  },
+                  {
+                    "fieldName": "this_week_users_t0t6",
+                    "displayName": "This Week Users T0t6",
+                    "scale": { "type": "quantitative" }
+                  },
+                  {
+                    "fieldName": "curr",
+                    "displayName": "CURR",
+                    "scale": { "type": "quantitative" }
+                  }
+                ]
+              },
               "frame": {
                 "title": "HPX CURR - Data Table",
                 "showTitle": true
