@@ -4,7 +4,7 @@
       "name": "hpx_curr_data_table_dataset",
       "displayName": "HPX CURR Data Table Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('WEEK', week_active) as weekly_active, AVG(curr) as avg_curr, SUM(this_week_users_t0t6) as total_this_week_users, SUM(last_week_users_t7t13) as total_last_week_users, SUM(previous_week_users_t14t20) as total_previous_week_users FROM HPX_CURR WHERE week_active >= '2023-05-01' GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_active"
+        "SELECT DATE_TRUNC('WEEK', week_active) as week_active, SUM(previous_week_users_t14t20) as total_previous_week_users_t14t20, SUM(last_week_users_t7t13) as total_last_week_users_t7t13, SUM(this_week_users_t0t6) as total_this_week_users_t0t6, AVG(curr) as f_curr FROM HPX_CURR WHERE week_active >= '2023-05-01' GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY week_active"
       ]
     }
   ],
@@ -22,11 +22,11 @@
                 "query": {
                   "datasetName": "hpx_curr_data_table_dataset",
                   "fields": [
-                    { "name": "weekly_active", "expression": "`weekly_active`" },
-                    { "name": "total_previous_week_users", "expression": "`total_previous_week_users`" },
-                    { "name": "total_last_week_users", "expression": "`total_last_week_users`" },
-                    { "name": "total_this_week_users", "expression": "`total_this_week_users`" },
-                    { "name": "avg_curr", "expression": "`avg_curr`" }
+                    { "name": "week_active", "expression": "`week_active`" },
+                    { "name": "total_previous_week_users_t14t20", "expression": "`total_previous_week_users_t14t20`" },
+                    { "name": "total_last_week_users_t7t13", "expression": "`total_last_week_users_t7t13`" },
+                    { "name": "total_this_week_users_t0t6", "expression": "`total_this_week_users_t0t6`" },
+                    { "name": "f_curr", "expression": "`f_curr`" }
                   ],
                   "disaggregated": false
                 }
@@ -35,41 +35,34 @@
             "spec": {
               "version": 3,
               "widgetType": "table",
-              "encodings": {
-                "columns": [
-                  {
-                    "fieldName": "weekly_active",
-                    "displayName": "Week",
-                    "scale": { "type": "temporal" }
-                  },
-                  {
-                    "fieldName": "total_previous_week_users",
-                    "displayName": "Previous Week Users T14t20",
-                    "scale": { "type": "quantitative" },
-                    "format": { "type": "number", "precision": 0 }
-                  },
-                  {
-                    "fieldName": "total_last_week_users",
-                    "displayName": "Last Week Users T7t13",
-                    "scale": { "type": "quantitative" },
-                    "format": { "type": "number", "precision": 0 }
-                  },
-                  {
-                    "fieldName": "total_this_week_users",
-                    "displayName": "This Week Users T0t6",
-                    "scale": { "type": "quantitative" },
-                    "format": { "type": "number", "precision": 0 }
-                  },
-                  {
-                    "fieldName": "avg_curr",
-                    "displayName": "CURR",
-                    "scale": { "type": "quantitative" },
-                    "format": { "type": "number", "precision": 2 }
-                  }
-                ]
-              },
+              "columns": [
+                {
+                  "fieldName": "week_active",
+                  "displayName": "Week Active"
+                },
+                {
+                  "fieldName": "total_previous_week_users_t14t20",
+                  "displayName": "Previous Week Users T14t20",
+                  "format": "NUMBER"
+                },
+                {
+                  "fieldName": "total_last_week_users_t7t13",
+                  "displayName": "Last Week Users T7t13",
+                  "format": "NUMBER"
+                },
+                {
+                  "fieldName": "total_this_week_users_t0t6",
+                  "displayName": "This Week Users T0t6",
+                  "format": "NUMBER"
+                },
+                {
+                  "fieldName": "f_curr",
+                  "displayName": "CURR",
+                  "format": "PERCENTAGE"
+                }
+              ],
               "frame": {
-                "title": "HPX CURR - Data Table",
+                "title": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
                 "showTitle": true
               }
             }
