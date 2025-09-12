@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "name": "top_screens_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "name": "screen_views_bar_dataset",
+      "displayName": "Screen Views Bar Dataset",
       "queryLines": [
         "SELECT screen, SUM(unique_screen_views) as total_unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND screen IS NOT NULL GROUP BY screen ORDER BY total_unique_screen_views DESC LIMIT 10"
       ]
@@ -15,12 +15,12 @@
       "layout": [
         {
           "widget": {
-            "name": "top_screens_bar_chart",
+            "name": "screen_views_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "top_screens_dataset",
+                  "datasetName": "screen_views_bar_dataset",
                   "fields": [
                     { "name": "screen", "expression": "`screen`" },
                     { "name": "total_unique_screen_views", "expression": "`total_unique_screen_views`" }
