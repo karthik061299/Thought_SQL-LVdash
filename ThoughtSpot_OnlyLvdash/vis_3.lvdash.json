@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "country_pie_chart",
+            "name": "country_devices_pie_chart",
             "queries": [
               {
                 "name": "main_query",
