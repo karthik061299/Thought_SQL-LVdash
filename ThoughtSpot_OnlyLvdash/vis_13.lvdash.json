@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_first_use_behavior_flow_chart",
+            "name": "hpx_first_use_behavior_flow_sankey",
             "queries": [
               {
                 "name": "main_query",
@@ -50,7 +50,7 @@
                 ]
               },
               "frame": {
-                "title": "HPX First Use Behavior Flow",
+                "title": "Sankey Diagram as user moves between Screens 1 - 5",
                 "showTitle": true
               }
             }
