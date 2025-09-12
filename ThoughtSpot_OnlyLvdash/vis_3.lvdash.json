@@ -33,15 +33,15 @@
               "version": 3,
               "widgetType": "pie",
               "encodings": {
-                "color": {
-                  "fieldName": "geo_country_code",
-                  "displayName": "Country",
-                  "scale": { "type": "categorical" }
-                },
                 "angle": {
                   "fieldName": "new_devices",
                   "displayName": "New Devices",
                   "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "geo_country_code",
+                  "displayName": "Country Code",
+                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
