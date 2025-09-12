@@ -4,7 +4,7 @@
       "name": "top_onpress_events_dataset",
       "displayName": "Top OnPress Events Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(total_clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' AND event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY daily_event_date, total_clicks DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY daily_event_date, total_clicks DESC"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_chart",
+            "name": "onpress_events_chart",
             "queries": [
               {
                 "name": "main_query",
