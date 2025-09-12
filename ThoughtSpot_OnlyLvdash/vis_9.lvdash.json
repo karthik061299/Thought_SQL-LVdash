@@ -4,7 +4,7 @@
       "name": "hpx_retention_dataset",
       "displayName": "HPX Retention Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event, active_devices, (active_devices / SUM(active_devices) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time))) * 100 as pct_devices_returning, months_since_first_use, session_type, weeks_since_first_use FROM hpx_retention_css_analytics WHERE first_device_event_date_time >= '2023-05-01' ORDER BY monthly_first_device_event, months_since_first_use"
+        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event, months_since_first_use, session_type, weeks_since_first_use, SUM(active_devices) as active_devices, AVG(percent_devices_returning) as percent_devices_returning FROM hpx_retention_css_analytics WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type, weeks_since_first_use ORDER BY monthly_first_device_event, months_since_first_use"
       ]
     }
   ],
@@ -24,10 +24,10 @@
                   "fields": [
                     { "name": "monthly_first_device_event", "expression": "`monthly_first_device_event`" },
                     { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
-                    { "name": "pct_devices_returning", "expression": "`pct_devices_returning`" },
-                    { "name": "active_devices", "expression": "`active_devices`" },
                     { "name": "session_type", "expression": "`session_type`" },
-                    { "name": "weeks_since_first_use", "expression": "`weeks_since_first_use`" }
+                    { "name": "weeks_since_first_use", "expression": "`weeks_since_first_use`" },
+                    { "name": "active_devices", "expression": "`active_devices`" },
+                    { "name": "percent_devices_returning", "expression": "`percent_devices_returning`" }
                   ],
                   "disaggregated": false
                 }
@@ -47,20 +47,20 @@
                     "displayName": "Months Since First Use"
                   },
                   {
-                    "fieldName": "pct_devices_returning",
-                    "displayName": "% Devices Returning"
-                  },
-                  {
-                    "fieldName": "active_devices",
-                    "displayName": "Active Devices"
-                  },
-                  {
                     "fieldName": "session_type",
                     "displayName": "Session Type"
                   },
                   {
                     "fieldName": "weeks_since_first_use",
                     "displayName": "Weeks Since First Use"
+                  },
+                  {
+                    "fieldName": "active_devices",
+                    "displayName": "Active Devices"
+                  },
+                  {
+                    "fieldName": "percent_devices_returning",
+                    "displayName": "% Devices Returning"
                   }
                 ]
               },
