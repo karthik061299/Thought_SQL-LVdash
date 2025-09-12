@@ -4,7 +4,7 @@
       "name": "home_tile_clicks_dataset",
       "displayName": "Home Tile Clicks Dataset",
       "queryLines": [
-        "SELECT home_tile, SUM(unique_tile_views) as total_unique_tile_views, SUM(unique_tile_clicks) as total_unique_tile_clicks, SUM(unique_interstitial_views) as total_unique_interstitial_views, SUM(unique_interstitial_primary_button_clicks) as total_unique_interstitial_primary_button_clicks, SUM(unique_interstitial_secondary_button_clicks) as total_unique_interstitial_secondary_button_clicks, SUM(unique_tile_clicks) / SUM(unique_screen_views) as home_tile_clicked_vs_homepage_displayed, SUM(unique_interstitial_primary_button_clicks) / SUM(unique_tile_views) as primary_button_clicked_vs_tile_displayed, SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_tile_views) as secondary_button_clicked_vs_tile_displayed, SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_button_clicked_vs_interstitial_displayed, SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views) as secondary_button_clicked_vs_interstitial_displayed FROM hpx_events_model_homepage_summary GROUP BY home_tile ORDER BY total_unique_tile_views DESC"
+        "SELECT\n  home_tile,\n  SUM(unique_tile_views) as total_unique_tile_views,\n  SUM(unique_tile_clicks) as total_unique_tile_clicks,\n  SUM(unique_interstitial_views) as total_unique_interstitial_views,\n  SUM(unique_interstitial_primary_button_clicks) as total_unique_interstitial_primary_button_clicks,\n  SUM(unique_interstitial_secondary_button_clicks) as total_unique_interstitial_secondary_button_clicks,\n  SUM(unique_tile_clicks) / SUM(unique_tile_views) as home_tile_clicked_vs_homepage_displayed,\n  SUM(unique_interstitial_primary_button_clicks) / SUM(unique_tile_views) as primary_button_clicked_vs_tile_displayed,\n  SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_tile_views) as secondary_button_clicked_vs_tile_displayed,\n  SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_button_clicked_vs_interstitial_displayed,\n  SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views) as secondary_button_clicked_vs_interstitial_displayed\nFROM\n  hpx_events_model_homepage_summary\nGROUP BY\n  home_tile\nORDER BY\n  total_unique_tile_views DESC"
       ]
     }
   ],
@@ -82,86 +82,56 @@
                 {
                   "fieldName": "total_unique_tile_views",
                   "displayName": "Unique Tile Views",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_unique_tile_clicks",
                   "displayName": "Unique Tile Clicks",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_unique_interstitial_views",
                   "displayName": "Unique Interstitial Views",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_unique_interstitial_primary_button_clicks",
                   "displayName": "Unique Interstitial Primary Button Clicks",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_unique_interstitial_secondary_button_clicks",
                   "displayName": "Unique Interstitial Secondary Button Clicks",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "home_tile_clicked_vs_homepage_displayed",
                   "displayName": "% Home Tile Clicked Vs Homepage Displayed",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  }
+                  "format": { "type": "percent", "decimals": 1 }
                 },
                 {
                   "fieldName": "primary_button_clicked_vs_tile_displayed",
                   "displayName": "% Primary Button Clicked Vs Tile Displayed",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  }
+                  "format": { "type": "percent", "decimals": 1 }
                 },
                 {
                   "fieldName": "secondary_button_clicked_vs_tile_displayed",
                   "displayName": "% Secondary Button Clicked Vs Tile Displayed",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  }
+                  "format": { "type": "percent", "decimals": 1 }
                 },
                 {
                   "fieldName": "primary_button_clicked_vs_interstitial_displayed",
                   "displayName": "% Primary Button Clicked Vs Interstitial Displayed",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  }
+                  "format": { "type": "percent", "decimals": 1 }
                 },
                 {
                   "fieldName": "secondary_button_clicked_vs_interstitial_displayed",
                   "displayName": "% Secondary Button Clicked Vs Interstitial Displayed",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  }
+                  "format": { "type": "percent", "decimals": 1 }
                 }
               ],
               "frame": {
-                "title": "Home Tile Clicks by Tile",
+                "title": "Home Tile Clicks Details",
                 "showTitle": true
               }
             }
