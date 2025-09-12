@@ -4,7 +4,7 @@
       "name": "total_consented_devices_dataset",
       "displayName": "Total Consented Devices Dataset",
       "queryLines": [
-        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', NULL) AND pc_type IN ('consumer', 'enterprise', 'premium', 'rpos', 'sbso', 'unknown', 'workstation', NULL) AND geo_country_code IS NOT NULL"
+        "SELECT SUM(active_devices) as total_active_devices\nFROM hpx_events_model\nWHERE event_date_time >= '2023-05-01'\nAND app_version NOT IN ('not a store release', NULL)\nAND geo_country_code IS NOT NULL"
       ]
     }
   ],
