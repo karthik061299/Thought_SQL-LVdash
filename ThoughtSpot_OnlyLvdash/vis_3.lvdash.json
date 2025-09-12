@@ -4,7 +4,7 @@
       "name": "new_devices_by_country_dataset",
       "displayName": "New Devices by Country Dataset",
       "queryLines": [
-        "SELECT geo_country_code, SUM(CASE WHEN is_new_device = true THEN 1 ELSE 0 END) as new_devices FROM hpx_events_model GROUP BY geo_country_code ORDER BY new_devices DESC LIMIT 10"
+        "SELECT geo_country_code, SUM(new_devices) as new_devices FROM hpx_events_model GROUP BY geo_country_code ORDER BY SUM(new_devices) DESC LIMIT 10"
       ]
     }
   ],
@@ -35,7 +35,7 @@
               "encodings": {
                 "color": {
                   "fieldName": "geo_country_code",
-                  "displayName": "Country",
+                  "displayName": "Geo Country Code",
                   "scale": { "type": "categorical" }
                 },
                 "angle": {
