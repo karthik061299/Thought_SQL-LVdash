@@ -41,7 +41,7 @@
                 },
                 "y": {
                   "fieldName": "active_devices",
-                  "displayName": "Active Devices",
+                  "displayName": "Total % Event ID",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
@@ -53,6 +53,9 @@
               "frame": {
                 "title": "Launch type Active Devices",
                 "showTitle": true
+              },
+              "options": {
+                "stackType": "PERCENT"
               }
             }
           },
