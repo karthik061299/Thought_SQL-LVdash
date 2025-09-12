@@ -1,29 +1,30 @@
 {
   "datasets": [
     {
-      "name": "hpx_version_adoption_dataset",
-      "displayName": "HPX Version Adoption Dataset",
+      "name": "hpx_new_version_adoption_dataset",
+      "displayName": "HPX New Version Adoption Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, app_version, SUM(active_devices) as total_active_devices, (SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time))) * 100 as pct_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY daily_event_date, total_active_devices DESC"
+        "SELECT\n  DATE_TRUNC('DAY', event_date_time) as daily_event_date,\n  app_version,\n  SUM(active_devices) as active_devices,\n  SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time)) as pct_active_devices\nFROM\n  hpx_events_model\nGROUP BY\n  DATE_TRUNC('DAY', event_date_time), app_version\nORDER BY\n  daily_event_date, app_version"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
+      "name": "hpx_new_version_adoption_page",
       "displayName": "HPX New Version Adoption",
       "layout": [
         {
           "widget": {
-            "name": "hpx_version_adoption_chart",
+            "name": "hpx_new_version_adoption_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_version_adoption_dataset",
+                  "datasetName": "hpx_new_version_adoption_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "app_version", "expression": "`app_version`" },
+                    { "name": "active_devices", "expression": "`active_devices`" },
                     { "name": "pct_active_devices", "expression": "`pct_active_devices`" }
                   ],
                   "disaggregated": false
@@ -42,7 +43,8 @@
                 "y": {
                   "fieldName": "pct_active_devices",
                   "displayName": "% Active Devices",
-                  "scale": { "type": "quantitative" }
+                  "scale": { "type": "quantitative" },
+                  "format": { "type": "percent", "decimals": 2 }
                 },
                 "color": {
                   "fieldName": "app_version",
@@ -52,7 +54,8 @@
               },
               "frame": {
                 "title": "HPX New Version Adoption",
-                "showTitle": true
+                "showTitle": true,
+                "subtitle": "HPX Events Model with IIDE Table"
               }
             }
           },
