@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "name": "active_devices_dataset",
+      "displayName": "Active Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices) as active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices) as sum_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -15,15 +15,15 @@
       "layout": [
         {
           "widget": {
-            "name": "active_devices_chart",
+            "name": "active_devices_line_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset",
+                  "datasetName": "active_devices_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "active_devices", "expression": "`active_devices`" }
+                    { "name": "sum_active_devices", "expression": "`sum_active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,13 +39,13 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "active_devices",
+                  "fieldName": "sum_active_devices",
                   "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Active Devices",
+                "title": "Active Devices Over Time",
                 "showTitle": true
               }
             }
