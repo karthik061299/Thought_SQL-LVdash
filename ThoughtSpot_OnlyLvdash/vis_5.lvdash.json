@@ -4,7 +4,7 @@
       "name": "top_unique_screen_views_dataset",
       "displayName": "Top Unique Screen Views Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, COUNT(DISTINCT device_id) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, COUNT(DISTINCT event_id) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY COUNT(DISTINCT event_id) DESC LIMIT 10"
       ]
     }
   ],
