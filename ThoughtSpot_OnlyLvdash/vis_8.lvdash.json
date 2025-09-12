@@ -2,7 +2,7 @@
   "datasets": [
     {
       "name": "launch_type_dataset",
-      "displayName": "Launch Type Active Devices Dataset",
+      "displayName": "Launch Type Dataset",
       "queryLines": [
         "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
       ]
@@ -10,12 +10,12 @@
   ],
   "pages": [
     {
-      "name": "page_1",
+      "name": "page_8",
       "displayName": "Launch type Active Devices",
       "layout": [
         {
           "widget": {
-            "name": "launch_type_chart",
+            "name": "launch_type_stacked_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -41,7 +41,7 @@
                 },
                 "y": {
                   "fieldName": "active_devices",
-                  "displayName": "Active Devices",
+                  "displayName": "Total % Event ID",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
