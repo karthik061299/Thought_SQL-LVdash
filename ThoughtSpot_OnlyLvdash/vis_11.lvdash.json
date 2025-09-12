@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "name": "hpx_curr_trendline_dataset",
-      "displayName": "HPX CURR Trendline Dataset",
+      "name": "hpx_curr_dataset",
+      "displayName": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6",
       "queryLines": [
         "SELECT DATE_TRUNC('WEEK', week_active) as weekly_week_active, AVG(curr) as f_curr FROM hpx_curr GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_week_active"
       ]
@@ -15,12 +15,12 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_curr_trendline_chart",
+            "name": "hpx_curr_trendline",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_curr_trendline_dataset",
+                  "datasetName": "hpx_curr_dataset",
                   "fields": [
                     { "name": "weekly_week_active", "expression": "`weekly_week_active`" },
                     { "name": "f_curr", "expression": "`f_curr`" }
