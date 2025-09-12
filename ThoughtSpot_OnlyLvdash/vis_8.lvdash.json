@@ -4,7 +4,7 @@
       "name": "launch_type_active_devices_dataset",
       "displayName": "Launch Type Active Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as sum_active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
       ]
     }
   ],
@@ -24,7 +24,7 @@
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "launch_type", "expression": "`launch_type`" },
-                    { "name": "sum_active_devices", "expression": "`sum_active_devices`" }
+                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,8 +40,8 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "sum_active_devices",
-                  "displayName": "Total % Event ID",
+                  "fieldName": "total_active_devices",
+                  "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
@@ -51,7 +51,7 @@
                 }
               },
               "frame": {
-                "title": "Launch type Active Devices",
+                "title": "Active Devices by Launch Type Over Time",
                 "showTitle": true
               }
             }
