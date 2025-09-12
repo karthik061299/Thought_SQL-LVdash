@@ -4,7 +4,7 @@
       "name": "total_consented_devices_dataset",
       "displayName": "Total Consented Devices Dataset",
       "queryLines": [
-        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE app_version NOT IN ('not a store release') AND app_version IS NOT NULL AND event_date_time >= '2023-05-01' AND pc_type IN ('consumer', 'enterprise', 'premium', 'rpos', 'sbso', 'unknown', 'workstation') AND geo_country_code IN ('australia', 'brazil', 'canada', 'china', 'france', 'india', 'japan', 'mexico', 'other_countries', 'united kingdom', 'united states') AND geo_country_code IS NOT NULL"
+        "SELECT SUM(active_devices) as total_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'null') AND app_version IS NOT NULL AND geo_country_code IS NOT NULL"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "total_consented_devices_counter",
+            "name": "total_consented_devices_kpi",
             "queries": [
               {
                 "name": "main_query",
@@ -44,7 +44,7 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
