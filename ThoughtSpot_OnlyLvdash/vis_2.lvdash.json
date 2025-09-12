@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "new_devices_line_chart",
+            "name": "new_devices_chart",
             "queries": [
               {
                 "name": "main_query",
