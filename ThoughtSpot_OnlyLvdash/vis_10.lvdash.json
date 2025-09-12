@@ -4,7 +4,7 @@
       "name": "total_consented_devices_dataset",
       "displayName": "Total Consented Devices Dataset",
       "queryLines": [
-        "SELECT\n  COUNT(DISTINCT device_id) as active_devices\nFROM hpx_events_model\nWHERE\n  event_date_time >= '2023-05-01'\n  AND app_version NOT IN ('not a store release', NULL)\n  AND geo_country_code IS NOT NULL\n  AND pc_type IN ('consumer', 'enterprise', 'premium', 'rpos', 'sbso', 'unknown', 'workstation', NULL)"
+        "SELECT SUM(active_devices) as active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', NULL) AND geo_country_code IS NOT NULL"
       ]
     }
   ],
@@ -32,13 +32,11 @@
               "version": 3,
               "widgetType": "counter",
               "encodings": {
-                "values": [
-                  {
-                    "fieldName": "active_devices",
-                    "displayName": "Active Devices",
-                    "scale": { "type": "quantitative" }
-                  }
-                ]
+                "value": {
+                  "fieldName": "active_devices",
+                  "displayName": "Active Devices",
+                  "scale": { "type": "quantitative" }
+                }
               },
               "frame": {
                 "title": "Total Consented Devices",
