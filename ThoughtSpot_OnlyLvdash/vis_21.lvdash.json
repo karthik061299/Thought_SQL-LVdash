@@ -1,29 +1,29 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "name": "active_devices_by_appversion_dataset",
+      "displayName": "Active Devices by App Version Dataset",
       "queryLines": [
-        "SELECT app_version, SUM(active_devices_1) as total_active_devices, (SUM(active_devices_1) * 100.0 / SUM(SUM(active_devices_1)) OVER ()) as pct_active_devices_by_appversion FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version IS NOT NULL AND app_version NOT IN ('Not a Store Release', 'other non-releases') AND event_date_time >= '2023-05-01' AND os_version IS NOT NULL GROUP BY app_version ORDER BY pct_active_devices_by_appversion DESC"
+        "SELECT app_version, SUM(active_devices) as total_active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER () as pct_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'other non-releases') AND os_version IS NOT NULL GROUP BY app_version ORDER BY pct_active_devices DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "homepage_summary_page",
-      "displayName": "Homepage Summary",
+      "name": "active_devices_by_appversion_page",
+      "displayName": "% Active Devices by Appversion",
       "layout": [
         {
           "widget": {
-            "name": "pct_active_devices_by_appversion_chart",
+            "name": "active_devices_by_appversion_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "active_devices_by_appversion_dataset",
                   "fields": [
                     { "name": "app_version", "expression": "`app_version`" },
-                    { "name": "pct_active_devices_by_appversion", "expression": "`pct_active_devices_by_appversion`" }
+                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,56 +34,34 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "pct_active_devices_by_appversion",
-                  "displayName": "% Active Devices By Appversion",
-                  "scale": { "type": "quantitative" }
-                },
-                "y": {
                   "fieldName": "app_version",
                   "displayName": "App Version",
                   "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "pct_active_devices",
+                  "displayName": "% Active Devices By Appversion",
+                  "format": {
+                    "type": "percent",
+                    "decimalPlaces": 1
+                  },
+                  "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
                 "title": "% Active Devices by App Version",
                 "showTitle": true
+              },
+              "options": {
+                "showDataLabels": true
               }
             }
           },
-          "position": { "x": 6, "y": 10, "width": 6, "height": 6 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
-      "filters": [
-        {
-          "fieldName": "event_date_time",
-          "displayName": "Event Date Time",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "geo_country_code",
-          "displayName": "Top 10 Country",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "app_version",
-          "displayName": "App Version",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "pc_type",
-          "displayName": "PC Type",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        }
-      ]
+      "filters": []
     }
   ],
   "uiSettings": {
