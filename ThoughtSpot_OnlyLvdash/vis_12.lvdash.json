@@ -4,7 +4,7 @@
       "name": "hpx_curr_data_table_dataset",
       "displayName": "HPX CURR Data Table Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('WEEK', week_active) as weekly_active, SUM(previous_week_users_t14t20) as total_previous_week_users, SUM(last_week_users_t7t13) as total_last_week_users, SUM(this_week_users_t0t6) as total_this_week_users, AVG(curr) as avg_curr FROM HPX_CURR WHERE week_active >= '2023-05-01' GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_active"
+        "SELECT\n  DATE_TRUNC('WEEK', week_active) as week_active,\n  AVG(curr) as avg_curr,\n  SUM(this_week_users_t0t6) as total_this_week_users,\n  SUM(last_week_users_t7t13) as total_last_week_users,\n  SUM(previous_week_users_t14t20) as total_previous_week_users\nFROM\n  HPX_CURR\nWHERE\n  week_active >= '2023-05-01'\nGROUP BY\n  DATE_TRUNC('WEEK', week_active)\nORDER BY\n  week_active"
       ]
     }
   ],
@@ -22,11 +22,11 @@
                 "query": {
                   "datasetName": "hpx_curr_data_table_dataset",
                   "fields": [
-                    { "name": "weekly_active", "expression": "`weekly_active`" },
-                    { "name": "total_previous_week_users", "expression": "`total_previous_week_users`" },
-                    { "name": "total_last_week_users", "expression": "`total_last_week_users`" },
+                    { "name": "week_active", "expression": "`week_active`" },
+                    { "name": "avg_curr", "expression": "`avg_curr`" },
                     { "name": "total_this_week_users", "expression": "`total_this_week_users`" },
-                    { "name": "avg_curr", "expression": "`avg_curr`" }
+                    { "name": "total_last_week_users", "expression": "`total_last_week_users`" },
+                    { "name": "total_previous_week_users", "expression": "`total_previous_week_users`" }
                   ],
                   "disaggregated": false
                 }
@@ -37,43 +37,29 @@
               "widgetType": "table",
               "columns": [
                 {
-                  "fieldName": "weekly_active",
+                  "fieldName": "week_active",
                   "displayName": "Week",
-                  "format": {
-                    "type": "date"
-                  }
+                  "format": { "type": "date" }
                 },
                 {
                   "fieldName": "total_previous_week_users",
                   "displayName": "Previous Week Users T14t20",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_last_week_users",
                   "displayName": "Last Week Users T7t13",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_this_week_users",
                   "displayName": "This Week Users T0t6",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "avg_curr",
                   "displayName": "CURR",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 2
-                  }
+                  "format": { "type": "number", "decimals": 2 }
                 }
               ],
               "frame": {
