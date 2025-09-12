@@ -4,7 +4,7 @@
       "name": "home_tile_primary_ctr_dataset",
       "displayName": "Home Tile Primary CTR Dataset",
       "queryLines": [
-        "SELECT\n  SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_ctr\nFROM\n  hpx_events_model_homepage_summary"
+        "SELECT SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as ctr_primary FROM hpx_events_model_homepage_summary"
       ]
     }
   ],
@@ -15,14 +15,14 @@
       "layout": [
         {
           "widget": {
-            "name": "home_tile_primary_ctr_kpi",
+            "name": "home_tile_primary_ctr_counter",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
                   "datasetName": "home_tile_primary_ctr_dataset",
                   "fields": [
-                    { "name": "primary_ctr", "expression": "`primary_ctr`" }
+                    { "name": "ctr_primary", "expression": "`ctr_primary`" }
                   ],
                   "disaggregated": false
                 }
@@ -33,71 +33,20 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "primary_ctr",
-                  "displayName": "Primary Button CTR",
+                  "fieldName": "ctr_primary",
+                  "displayName": "Primary CTR",
                   "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "decimals": 1 }
+                  "format": "PERCENTAGE"
                 }
               },
               "frame": {
-                "title": "Primary Button Click-Through Rate",
-                "showTitle": true
+                "title": "Home Tile Primary CTR",
+                "showTitle": true,
+                "subtitle": "Primary Button Click-Through Rate (Primary Clicks / Interstitial Views)"
               }
             }
           },
           "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "home_tile_primary_ctr_by_tile",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "home_tile_primary_ctr_dataset",
-                  "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "total_unique_interstitial_views", "expression": "`total_unique_interstitial_views`" },
-                    { "name": "total_unique_interstitial_primary_button_clicks", "expression": "`total_unique_interstitial_primary_button_clicks`" },
-                    { "name": "primary_ctr", "expression": "`total_unique_interstitial_primary_button_clicks` / `total_unique_interstitial_views`" }
-                  ],
-                  "disaggregated": false,
-                  "groupBy": ["home_tile"],
-                  "orderBy": [{ "fieldName": "total_unique_interstitial_views", "direction": "DESC" }]
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "table",
-              "columns": [
-                {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile"
-                },
-                {
-                  "fieldName": "total_unique_interstitial_views",
-                  "displayName": "Unique Interstitial Views",
-                  "format": { "type": "number", "decimals": 0 }
-                },
-                {
-                  "fieldName": "total_unique_interstitial_primary_button_clicks",
-                  "displayName": "Unique Primary Button Clicks",
-                  "format": { "type": "number", "decimals": 0 }
-                },
-                {
-                  "fieldName": "primary_ctr",
-                  "displayName": "Primary Button CTR",
-                  "format": { "type": "percent", "decimals": 1 }
-                }
-              ],
-              "frame": {
-                "title": "Primary Button CTR by Home Tile",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 0, "y": 4, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
