@@ -4,7 +4,7 @@
       "name": "new_devices_dataset",
       "displayName": "New Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, COUNT(DISTINCT CASE WHEN is_new_device = TRUE THEN device_id END) as new_devices, SUM(COUNT(DISTINCT CASE WHEN is_new_device = TRUE THEN device_id END)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(new_devices) as new_devices, SUM(SUM(new_devices)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -43,19 +43,18 @@
                   "fields": [
                     {
                       "fieldName": "new_devices",
-                      "displayName": "New Devices",
-                      "scale": { "type": "quantitative" }
+                      "displayName": "New Devices"
                     },
                     {
                       "fieldName": "cumulative_new_devices",
-                      "displayName": "Cumulative New Devices",
-                      "scale": { "type": "quantitative" }
+                      "displayName": "Cumulative New Devices"
                     }
-                  ]
+                  ],
+                  "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "New Devices",
+                "title": "New Devices and Cumulative New Devices Over Time",
                 "showTitle": true
               }
             }
