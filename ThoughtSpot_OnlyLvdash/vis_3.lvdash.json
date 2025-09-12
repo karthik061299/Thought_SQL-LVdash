@@ -4,7 +4,7 @@
       "name": "new_devices_by_country_dataset",
       "displayName": "New Devices by Country Dataset",
       "queryLines": [
-        "WITH ranked_countries AS (\n  SELECT geo_country_code, SUM(new_devices) as total_new_devices, \n  RANK() OVER (ORDER BY SUM(new_devices) DESC) as country_rank\n  FROM hpx_events_model\n  GROUP BY geo_country_code\n)\nSELECT geo_country_code, total_new_devices\nFROM ranked_countries\nWHERE country_rank <= 10\nORDER BY total_new_devices DESC"
+        "WITH ranked_countries AS (\n  SELECT geo_country_code, COUNT(DISTINCT CASE WHEN is_new_device = true THEN device_id END) as new_devices,\n  RANK() OVER (ORDER BY COUNT(DISTINCT CASE WHEN is_new_device = true THEN device_id END) DESC) as country_rank\n  FROM hpx_events_model\n  GROUP BY geo_country_code\n)\nSELECT geo_country_code, new_devices\nFROM ranked_countries\nWHERE country_rank <= 10\nORDER BY new_devices DESC"
       ]
     }
   ],
@@ -23,7 +23,7 @@
                   "datasetName": "new_devices_by_country_dataset",
                   "fields": [
                     { "name": "geo_country_code", "expression": "`geo_country_code`" },
-                    { "name": "total_new_devices", "expression": "`total_new_devices`" }
+                    { "name": "new_devices", "expression": "`new_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "categorical" }
                 },
                 "angle": {
-                  "fieldName": "total_new_devices",
+                  "fieldName": "new_devices",
                   "displayName": "New Devices",
                   "scale": { "type": "quantitative" }
                 }
