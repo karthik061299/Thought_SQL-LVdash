@@ -4,7 +4,7 @@
       "name": "top_screen_views_by_screen_dataset",
       "displayName": "Top Screen Views by Screen Dataset",
       "queryLines": [
-        "SELECT\n  screen,\n  COUNT(DISTINCT device_id) as unique_screen_views\nFROM hpx_events_model\nWHERE\n  event_date_time >= '2023-05-01'\n  AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support')\n  AND screen IS NOT NULL\n  AND ui_action = 'screendisplayed'\nGROUP BY screen\nORDER BY unique_screen_views DESC\nLIMIT 10"
+        "SELECT\n  screen,\n  COUNT(DISTINCT session_id) as unique_screen_views\nFROM hpx_events_model\nWHERE\n  event_date_time >= '2023-05-01'\n  AND ui_action = 'screendisplayed'\n  AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support')\n  AND screen IS NOT NULL\nGROUP BY screen\nORDER BY unique_screen_views DESC\nLIMIT 10"
       ]
     }
   ],
@@ -45,7 +45,7 @@
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views by Screen (excl. Home/Welcome)",
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
                 "showTitle": true
               }
             }
