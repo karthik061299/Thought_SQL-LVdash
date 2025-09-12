@@ -4,7 +4,7 @@
       "name": "top_on_press_events_dataset",
       "displayName": "Top On Press Events Dataset",
       "queryLines": [
-        "SELECT control, DATE_TRUNC('DAY', event_date_time) as daily_event_date, COUNT(*) as total_clicks\nFROM hpx_events_model\nWHERE event_date_time >= '2023-05-01'\nAND ui_action = 'onpress'\nAND control NOT LIKE '%testid%'\nAND control != 'welcome core navigationviewitem id'\nGROUP BY control, DATE_TRUNC('DAY', event_date_time)\nHAVING control IN (\n  SELECT control\n  FROM (\n    SELECT control, COUNT(*) as click_count,\n    RANK() OVER (ORDER BY COUNT(*) DESC) as control_rank\n    FROM hpx_events_model\n    WHERE ui_action = 'onpress'\n    AND control NOT LIKE '%testid%'\n    GROUP BY control\n  ) ranked_controls\n  WHERE control_rank <= 10\n)\nORDER BY daily_event_date, total_clicks DESC"
+        "SELECT control, DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(clicks) as total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND control NOT LIKE '%testid%' AND ui_action = 'onpress' AND control != 'welcome core navigationviewitem id' GROUP BY control, DATE_TRUNC('DAY', event_date_time) ORDER BY SUM(clicks) DESC LIMIT 10"
       ]
     }
   ],
