@@ -4,7 +4,7 @@
       "name": "top_on_press_events_dataset",
       "displayName": "Top On Press Events Dataset",
       "queryLines": [
-        "WITH filtered_events AS (SELECT control, DATE_TRUNC('DAY', event_date_time) as daily_event_date, COUNT(*) as clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY control, DATE_TRUNC('DAY', event_date_time)), ranked_controls AS (SELECT control, SUM(clicks) as total_clicks, RANK() OVER (ORDER BY SUM(clicks) DESC) as control_rank FROM filtered_events GROUP BY control) SELECT fe.control, fe.daily_event_date, fe.clicks FROM filtered_events fe JOIN ranked_controls rc ON fe.control = rc.control WHERE rc.control_rank <= 10 ORDER BY fe.daily_event_date, rc.total_clicks DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, COUNT(*) as total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND control NOT LIKE '%testid%' AND ui_action = 'onpress' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY COUNT(*) DESC"
       ]
     }
   ],
@@ -22,9 +22,9 @@
                 "query": {
                   "datasetName": "top_on_press_events_dataset",
                   "fields": [
-                    { "name": "control", "expression": "`control`" },
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "clicks", "expression": "`clicks`" }
+                    { "name": "control", "expression": "`control`" },
+                    { "name": "total_clicks", "expression": "`total_clicks`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,7 +40,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "clicks",
+                  "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
                   "scale": { "type": "quantitative" }
                 },
