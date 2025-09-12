@@ -1,31 +1,31 @@
 {
   "datasets": [
     {
-      "name": "hpx_curr_dataset",
-      "displayName": "HPX CURR Dataset",
+      "name": "hpx_curr_data_table_dataset",
+      "displayName": "HPX CURR Data Table Dataset",
       "queryLines": [
-        "SELECT week_active, previous_week_users_t14t20, last_week_users_t7t13, this_week_users_t0t6, AVG(curr) as avg_curr FROM team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view WHERE week_active >= '2023-05-01' GROUP BY week_active, previous_week_users_t14t20, last_week_users_t7t13, this_week_users_t0t6 ORDER BY week_active"
+        "SELECT DATE_TRUNC('WEEK', week_active) as weekly_active, SUM(previous_week_users_t14t20) as total_previous_week_users, SUM(last_week_users_t7t13) as total_last_week_users, SUM(this_week_users_t0t6) as total_this_week_users, AVG(curr) as avg_curr FROM HPX_CURR WHERE week_active >= '2023-05-01' GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_active"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
-      "displayName": "HPX CURR - Data Analysis",
+      "name": "hpx_curr_data_table_page",
+      "displayName": "HPX CURR - Data Table",
       "layout": [
         {
           "widget": {
-            "name": "hpx_curr_line_chart",
+            "name": "hpx_curr_data_table",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_curr_dataset",
+                  "datasetName": "hpx_curr_data_table_dataset",
                   "fields": [
-                    { "name": "week_active", "expression": "`week_active`" },
-                    { "name": "previous_week_users_t14t20", "expression": "`previous_week_users_t14t20`" },
-                    { "name": "last_week_users_t7t13", "expression": "`last_week_users_t7t13`" },
-                    { "name": "this_week_users_t0t6", "expression": "`this_week_users_t0t6`" },
+                    { "name": "weekly_active", "expression": "`weekly_active`" },
+                    { "name": "total_previous_week_users", "expression": "`total_previous_week_users`" },
+                    { "name": "total_last_week_users", "expression": "`total_last_week_users`" },
+                    { "name": "total_this_week_users", "expression": "`total_this_week_users`" },
                     { "name": "avg_curr", "expression": "`avg_curr`" }
                   ],
                   "disaggregated": false
@@ -34,38 +34,52 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "line",
-              "encodings": {
-                "x": {
-                  "fieldName": "week_active",
-                  "displayName": "Week Active",
-                  "scale": { "type": "temporal" }
+              "widgetType": "table",
+              "columns": [
+                {
+                  "fieldName": "weekly_active",
+                  "displayName": "Week",
+                  "format": {
+                    "type": "date"
+                  }
                 },
-                "y": {
-                  "fields": [
-                    {
-                      "fieldName": "previous_week_users_t14t20",
-                      "displayName": "Previous Week Users T14t20"
-                    },
-                    {
-                      "fieldName": "last_week_users_t7t13",
-                      "displayName": "Last Week Users T7t13"
-                    },
-                    {
-                      "fieldName": "this_week_users_t0t6",
-                      "displayName": "This Week Users T0t6"
-                    },
-                    {
-                      "fieldName": "avg_curr",
-                      "displayName": "Average CURR"
-                    }
-                  ],
-                  "scale": { "type": "quantitative" }
+                {
+                  "fieldName": "total_previous_week_users",
+                  "displayName": "Previous Week Users T14t20",
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": 0
+                  }
+                },
+                {
+                  "fieldName": "total_last_week_users",
+                  "displayName": "Last Week Users T7t13",
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": 0
+                  }
+                },
+                {
+                  "fieldName": "total_this_week_users",
+                  "displayName": "This Week Users T0t6",
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": 0
+                  }
+                },
+                {
+                  "fieldName": "avg_curr",
+                  "displayName": "CURR",
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": 2
+                  }
                 }
-              },
+              ],
               "frame": {
-                "title": "HPX CURR - Weekly User Activity Analysis",
-                "showTitle": true
+                "title": "HPX CURR - Data Table",
+                "showTitle": true,
+                "subtitle": "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6"
               }
             }
           },
