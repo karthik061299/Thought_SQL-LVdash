@@ -4,7 +4,7 @@
       "name": "active_devices_dataset",
       "displayName": "Active Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices) as total_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices) as active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "active_devices_line_chart",
+            "name": "active_devices_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -23,7 +23,7 @@
                   "datasetName": "active_devices_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                    { "name": "active_devices", "expression": "`active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_active_devices",
+                  "fieldName": "active_devices",
                   "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 }
