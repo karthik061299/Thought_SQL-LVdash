@@ -10,12 +10,12 @@
   ],
   "pages": [
     {
-      "name": "page_1",
-      "displayName": "New Devices",
+      "name": "page_2",
+      "displayName": "New Devices Overview",
       "layout": [
         {
           "widget": {
-            "name": "new_devices_chart",
+            "name": "new_devices_line_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -54,7 +54,7 @@
                 }
               },
               "frame": {
-                "title": "New Devices and Cumulative New Devices",
+                "title": "New Devices",
                 "showTitle": true
               }
             }
