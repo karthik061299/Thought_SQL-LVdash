@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "top_onpress_events_dataset",
-      "displayName": "Top OnPress Events Dataset",
+      "displayName": "Top On Press Events Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(clicks) as sum_total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY daily_event_date, sum_total_clicks DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY daily_event_date, total_clicks DESC"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_stacked_column",
+            "name": "top_onpress_stacked_column_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -24,7 +24,7 @@
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "control", "expression": "`control`" },
-                    { "name": "sum_total_clicks", "expression": "`sum_total_clicks`" }
+                    { "name": "total_clicks", "expression": "`total_clicks`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,7 +40,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "sum_total_clicks",
+                  "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
                   "scale": { "type": "quantitative" }
                 },
