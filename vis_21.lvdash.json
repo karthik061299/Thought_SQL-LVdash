@@ -1,0 +1,94 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "queryLines": [
+        "SELECT app_version, (COUNT(DISTINCT sys_sn_hash) * 100.0 / SUM(COUNT(DISTINCT sys_sn_hash)) OVER ()) AS percentage_active_devices_by_appversion FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version IS NOT NULL AND app_version NOT IN ('Not a Store Release', 'other non-releases') AND event_date_time >= '2023-05-01' AND os_version IS NOT NULL GROUP BY app_version ORDER BY percentage_active_devices_by_appversion DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "homepage_summary",
+      "displayName": "Homepage Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "active_devices_by_appversion_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model_dataset",
+                  "fields": [
+                    { "name": "app_version", "expression": "`app_version`" },
+                    { "name": "percentage_active_devices_by_appversion", "expression": "`percentage_active_devices_by_appversion`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "app_version",
+                  "displayName": "App Version",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "percentage_active_devices_by_appversion",
+                  "displayName": "% Active Devices By Appversion",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "% Active Devices by Appversion",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 6, "y": 10, "width": 6, "height": 6 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": [
+        {
+          "fieldName": "event_date_time",
+          "displayName": "Event Date Time",
+          "type": "FILTER",
+          "isMandatory": false,
+          "isSingleValue": false
+        },
+        {
+          "fieldName": "app_version",
+          "displayName": "App Version",
+          "type": "FILTER",
+          "isMandatory": false,
+          "isSingleValue": false
+        },
+        {
+          "fieldName": "geo_country_code",
+          "displayName": "Top 10 Country",
+          "type": "FILTER",
+          "isMandatory": false,
+          "isSingleValue": false
+        },
+        {
+          "fieldName": "pc_type",
+          "displayName": "PC Type",
+          "type": "FILTER",
+          "isMandatory": false,
+          "isSingleValue": false
+        }
+      ]
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
