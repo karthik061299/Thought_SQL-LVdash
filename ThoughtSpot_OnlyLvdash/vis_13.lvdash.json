@@ -4,18 +4,18 @@
       "name": "hpx_first_use_behavior_flow_dataset",
       "displayName": "HPX First Use Behavior Flow Dataset",
       "queryLines": [
-        "SELECT screen_1, screen_2, screen_3, screen_4, screen_5, SUM(devices) as total_devices FROM team_css_analytics_prod.hpx_analytics.hpx_first_use_behavior_flow_metric_view WHERE date >= '2023-05-01' AND screen_2 != 'welcome_S2' AND screen_3 != 'welcome_S3' AND screen_4 != 'welcome_S4' AND screen_5 != 'welcome_S5' GROUP BY screen_1, screen_2, screen_3, screen_4, screen_5"
+        "SELECT screen_1, screen_2, screen_3, screen_4, screen_5, SUM(devices) as total_devices FROM team_css_analytics_prod.hpx_analytics.hpx_first_use_behavior_flow_metric_view WHERE date >= '2023-05-01' AND screen_1 LIKE '%welcome_S1%' AND screen_2 != 'welcome_S2' AND screen_3 != 'welcome_S3' AND screen_4 != 'welcome_S4' AND screen_5 != 'welcome_S5' GROUP BY screen_1, screen_2, screen_3, screen_4, screen_5"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
-      "displayName": "HPX First Use Behavior Flow",
+      "name": "behavior_flow_page",
+      "displayName": "Behavior Flow",
       "layout": [
         {
           "widget": {
-            "name": "sankey_behavior_flow",
+            "name": "hpx_first_use_behavior_flow_sankey",
             "queries": [
               {
                 "name": "main_query",
@@ -65,12 +65,12 @@
                 ]
               },
               "frame": {
-                "title": "HPX First Use Behavior Flow - Sankey Diagram",
+                "title": "HPX First Use Behavior Flow",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 7 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
