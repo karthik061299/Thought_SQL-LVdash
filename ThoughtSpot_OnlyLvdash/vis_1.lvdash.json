@@ -2,7 +2,7 @@
   "datasets": [
     {
       "name": "hpx_events_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "displayName": "HPX Events Dataset",
       "queryLines": [
         "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(active_devices) as total_active_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
