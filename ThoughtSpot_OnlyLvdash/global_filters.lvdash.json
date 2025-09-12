@@ -1,439 +1,521 @@
 {
-  "name": "global_filter_001",
+  "name": "global_filter_dashboard",
   "displayName": "Global Filters",
-  "layout": [
+  "datasets": [
     {
-      "widget": {
-        "name": "event_time_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "event_time",
-                  "expression": "`event_time`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-date-picker",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "event_time",
-                "displayName": "Event Time",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_event_time"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          },
-          "selection": {
-            "defaultSelection": {
-              "values": {
-                "dataType": "DATETIME",
-                "values": [
-                  {
-                    "value": "2023-05-01T00:00:00.000"
-                  }
-                ]
-              }
-            }
-          }
-        }
-      },
-      "position": {
-        "x": 0,
-        "y": 0,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "geo_market_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "geo_market",
-                  "expression": "`geo_market`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "geo_market",
-                "displayName": "Geo Market",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_geo_market"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          },
-          "selection": {
-            "defaultSelection": {
-              "values": {
-                "dataType": "STRING",
-                "values": [
-                  {"value": "greater asia"},
-                  {"value": null},
-                  {"value": "CENTRAL & EASTERN EUROPE"},
-                  {"value": "GREATER CHINA"},
-                  {"value": "INDIA SL & BL"},
-                  {"value": "LATIN AMERICA"},
-                  {"value": "NORTH AMERICA"},
-                  {"value": "NORTHWEST EUROPE"},
-                  {"value": "RUSSIA & BELARUS"},
-                  {"value": "SOUTHERN EUROPE, ME & AFRICA"}
-                ]
-              }
-            }
-          }
-        }
-      },
-      "position": {
-        "x": 6,
-        "y": 0,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "geo_country_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "geo_country",
-                  "expression": "`geo_country`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "geo_country",
-                "displayName": "Geo Country",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_geo_country"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          }
-        }
-      },
-      "position": {
-        "x": 0,
-        "y": 2,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "os_version_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "os_version",
-                  "expression": "`os_version`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "os_version",
-                "displayName": "OS Version",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_os_version"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          }
-        }
-      },
-      "position": {
-        "x": 6,
-        "y": 2,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "app_version_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "app_version",
-                  "expression": "`app_version`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "app_version",
-                "displayName": "App Version",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_app_version"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          },
-          "selection": {
-            "defaultSelection": {
-              "values": {
-                "dataType": "STRING",
-                "values": [
-                  {"value": "Not a Store Release", "exclude": true},
-                  {"value": null, "exclude": true}
-                ]
-              }
-            }
-          }
-        }
-      },
-      "position": {
-        "x": 0,
-        "y": 4,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "pc_type_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "pc_type",
-                  "expression": "`pc_type`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "pc_type",
-                "displayName": "PC Type",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_pc_type"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          }
-        }
-      },
-      "position": {
-        "x": 6,
-        "y": 4,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "pc_model_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "pc_model_name",
-                  "expression": "`pc_model_name`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "pc_model_name",
-                "displayName": "PC Model Name",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_pc_model_name"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          }
-        }
-      },
-      "position": {
-        "x": 0,
-        "y": 6,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "country_code_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "geo_country_code",
-                  "expression": "`geo_country_code`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "geo_country_code",
-                "displayName": "Top 10 Country",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_geo_country_code"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          },
-          "selection": {
-            "defaultSelection": {
-              "values": {
-                "dataType": "STRING",
-                "values": [
-                  {"value": null, "exclude": true}
-                ]
-              }
-            }
-          }
-        }
-      },
-      "position": {
-        "x": 6,
-        "y": 6,
-        "width": 6,
-        "height": 2
-      }
-    },
-    {
-      "widget": {
-        "name": "home_tile_filter",
-        "queries": [
-          {
-            "name": "main_query",
-            "query": {
-              "datasetName": "hpx_events_dataset",
-              "fields": [
-                {
-                  "name": "home_tile",
-                  "expression": "`home_tile`"
-                }
-              ],
-              "disaggregated": false
-            }
-          }
-        ],
-        "spec": {
-          "version": 2,
-          "widgetType": "filter-dropdown",
-          "encodings": {
-            "fields": [
-              {
-                "fieldName": "home_tile",
-                "displayName": "Home Tile",
-                "queryName": "dashboards/hpx_events_dashboard/datasets/hpx_events_dataset_home_tile"
-              }
-            ]
-          },
-          "frame": {
-            "showTitle": true
-          }
-        }
-      },
-      "position": {
-        "x": 0,
-        "y": 8,
-        "width": 6,
-        "height": 2
-      }
+      "name": "example_dataset",
+      "displayName": "Example Dataset",
+      "queryLines": [
+        "SELECT event_time, geo_market, geo_country, os_version, app_version, pc_type, pc_model_name, geo_country_code, event_date_time, home_tile FROM ex_schema.ex_table"
+      ]
     }
   ],
-  "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+  "pages": [
+    {
+      "name": "global_filters_page",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "event_time_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "event_time",
+                      "expression": "`event_time`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-date-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "event_time",
+                    "displayName": "Event Time",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_event_time"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Event Time"
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "DATETIME",
+                    "values": [
+                      {
+                        "value": "2023-05-01T00:00:00.000",
+                        "operator": ">="
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "geo_market_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "geo_market",
+                      "expression": "`geo_market`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "geo_market",
+                    "displayName": "Geo Market",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_geo_market"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Geo Market"
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {"value": "greater asia"},
+                      {"value": null},
+                      {"value": "CENTRAL & EASTERN EUROPE"},
+                      {"value": "GREATER CHINA"},
+                      {"value": "INDIA SL & BL"},
+                      {"value": "LATIN AMERICA"},
+                      {"value": "NORTH AMERICA"},
+                      {"value": "NORTHWEST EUROPE"},
+                      {"value": "RUSSIA & BELARUS"},
+                      {"value": "SOUTHERN EUROPE, ME & AFRICA"}
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "geo_country_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "geo_country",
+                      "expression": "`geo_country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "geo_country",
+                    "displayName": "Geo Country",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_geo_country"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Geo Country"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "os_version_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "os_version",
+                      "expression": "`os_version`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "os_version",
+                    "displayName": "OS Version",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_os_version"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "OS Version"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "app_version_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "app_version",
+                      "expression": "`app_version`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "app_version",
+                    "displayName": "App Version",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_app_version"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "App Version"
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {"value": "Not a Store Release", "excluded": true},
+                      {"value": null, "excluded": true}
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "pc_type_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "pc_type",
+                      "expression": "`pc_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "pc_type",
+                    "displayName": "PC Type",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_pc_type"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "PC Type"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 4,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "pc_model_name_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "pc_model_name",
+                      "expression": "`pc_model_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "pc_model_name",
+                    "displayName": "PC Model Name",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_pc_model_name"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "PC Model Name"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "geo_country_code_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "geo_country_code",
+                      "expression": "`geo_country_code`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "geo_country_code",
+                    "displayName": "Top 10 Country",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_geo_country_code"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Top 10 Country"
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {"value": null, "excluded": true}
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "event_date_time_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "event_date_time",
+                      "expression": "`event_date_time`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-date-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "event_date_time",
+                    "displayName": "Event Date Time",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_event_date_time"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Event Date Time"
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "DATETIME",
+                    "values": [
+                      {
+                        "value": "2023-05-01T00:00:00.000",
+                        "operator": ">="
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "home_tile_filter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "example_dataset",
+                  "fields": [
+                    {
+                      "name": "home_tile",
+                      "expression": "`home_tile`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-list",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "home_tile",
+                    "displayName": "Home Tile",
+                    "queryName": "dashboards/global_filter_dashboard/datasets/example_dataset_home_tile"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Home Tile"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "filters": []
+    }
+  ],
   "uiSettings": {
     "theme": {
       "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
