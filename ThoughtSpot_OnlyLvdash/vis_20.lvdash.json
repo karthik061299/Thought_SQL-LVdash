@@ -4,7 +4,7 @@
       "name": "active_devices_by_country_dataset",
       "displayName": "Active Devices by Country Dataset",
       "queryLines": [
-        "WITH ranked_countries AS (\n  SELECT\n    geo_country_code,\n    SUM(active_devices) as total_active_devices,\n    SUM(active_devices) / SUM(SUM(active_devices)) OVER () as pct_active_devices,\n    RANK() OVER (ORDER BY SUM(active_devices) DESC) as country_rank\n  FROM\n    hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND app_version NOT IN ('not a store release', 'other non-releases')\n    AND os_version IS NOT NULL\n  GROUP BY\n    geo_country_code\n)\nSELECT\n  geo_country_code,\n  total_active_devices as mau,\n  pct_active_devices,\n  country_rank\nFROM\n  ranked_countries\nWHERE\n  country_rank <= 10\nORDER BY\n  mau DESC"
+        "SELECT geo_country_code, COUNT(DISTINCT device_id) as active_devices, COUNT(DISTINCT device_id) / SUM(COUNT(DISTINCT device_id)) OVER () as pct_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'other non-releases') AND os_version IS NOT NULL GROUP BY geo_country_code ORDER BY active_devices DESC LIMIT 10"
       ]
     }
   ],
@@ -23,9 +23,8 @@
                   "datasetName": "active_devices_by_country_dataset",
                   "fields": [
                     { "name": "geo_country_code", "expression": "`geo_country_code`" },
-                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" },
-                    { "name": "mau", "expression": "`mau`" },
-                    { "name": "country_rank", "expression": "`country_rank`" }
+                    { "name": "active_devices", "expression": "`active_devices`" },
+                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -44,7 +43,9 @@
                   "fieldName": "pct_active_devices",
                   "displayName": "% Active Devices by Country",
                   "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "decimals": 1 }
+                  "axis": {
+                    "format": "PERCENTAGE"
+                  }
                 }
               },
               "frame": {
@@ -52,7 +53,7 @@
                 "showTitle": true
               },
               "options": {
-                "showDataLabels": true
+                "dataLabels": true
               }
             }
           },
