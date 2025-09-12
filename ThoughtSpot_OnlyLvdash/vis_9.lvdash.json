@@ -4,13 +4,13 @@
       "name": "hpx_retention_dataset",
       "displayName": "HPX Retention Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_date, months_since_first_use, session_type, weeks_since_first_use, SUM(active_devices) as total_active_devices, AVG(percent_devices_returning) as avg_percent_devices_returning FROM hpx_retention_css_analytics WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type, weeks_since_first_use ORDER BY monthly_first_device_date, months_since_first_use"
+        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event, months_since_first_use, session_type, weeks_since_first_use, SUM(active_devices) as total_active_devices, AVG(percent_devices_returning) as avg_percent_devices_returning FROM hpx_retention_css_analytics WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type, weeks_since_first_use ORDER BY monthly_first_device_event, months_since_first_use"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_9",
+      "name": "page_1",
       "displayName": "0.5 HPX Retention",
       "layout": [
         {
@@ -22,7 +22,7 @@
                 "query": {
                   "datasetName": "hpx_retention_dataset",
                   "fields": [
-                    { "name": "monthly_first_device_date", "expression": "`monthly_first_device_date`" },
+                    { "name": "monthly_first_device_event", "expression": "`monthly_first_device_event`" },
                     { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
                     { "name": "session_type", "expression": "`session_type`" },
                     { "name": "weeks_since_first_use", "expression": "`weeks_since_first_use`" },
@@ -39,7 +39,7 @@
               "encodings": {
                 "columns": [
                   {
-                    "fieldName": "monthly_first_device_date",
+                    "fieldName": "monthly_first_device_event",
                     "displayName": "Month(First Device Event Date Time)"
                   },
                   {
