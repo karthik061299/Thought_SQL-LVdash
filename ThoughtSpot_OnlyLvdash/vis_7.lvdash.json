@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "top_onpress_controls_dataset",
-      "displayName": "Top OnPress Controls Dataset",
+      "displayName": "Top On Press Controls Dataset",
       "queryLines": [
-        "SELECT control, SUM(clicks) as sum_total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY sum_total_clicks DESC LIMIT 10"
+        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
       ]
     }
   ],
@@ -23,7 +23,7 @@
                   "datasetName": "top_onpress_controls_dataset",
                   "fields": [
                     { "name": "control", "expression": "`control`" },
-                    { "name": "sum_total_clicks", "expression": "`sum_total_clicks`" }
+                    { "name": "total_clicks", "expression": "`total_clicks`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "sum_total_clicks",
+                  "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
                   "scale": { "type": "quantitative" }
                 }
