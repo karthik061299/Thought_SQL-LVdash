@@ -4,7 +4,7 @@
       "name": "new_devices_dataset",
       "displayName": "New Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(new_devices) as new_devices, SUM(SUM(new_devices)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, SUM(new_devices) as sum_new_devices, SUM(SUM(new_devices)) OVER (ORDER BY DATE_TRUNC('DAY', event_date_time) ROWS UNBOUNDED PRECEDING) as cumulative_new_devices FROM hpx_events_model GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -23,7 +23,7 @@
                   "datasetName": "new_devices_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "new_devices", "expression": "`new_devices`" },
+                    { "name": "sum_new_devices", "expression": "`sum_new_devices`" },
                     { "name": "cumulative_new_devices", "expression": "`cumulative_new_devices`" }
                   ],
                   "disaggregated": false
@@ -42,7 +42,7 @@
                 "y": {
                   "fields": [
                     {
-                      "fieldName": "new_devices",
+                      "fieldName": "sum_new_devices",
                       "displayName": "New Devices"
                     },
                     {
@@ -54,7 +54,7 @@
                 }
               },
               "frame": {
-                "title": "New Devices and Cumulative New Devices Over Time",
+                "title": "New Devices and Cumulative New Devices",
                 "showTitle": true
               }
             }
