@@ -4,7 +4,7 @@
       "name": "launch_type_active_devices_dataset",
       "displayName": "Launch Type Active Devices Dataset",
       "queryLines": [
-        "SELECT\n  DATE_TRUNC('DAY', event_date_time) as daily_event_date,\n  launch_type,\n  COUNT(DISTINCT device_id) as active_devices\nFROM hpx_events_model\nWHERE\n  launch_type IS NOT NULL\nGROUP BY\n  DATE_TRUNC('DAY', event_date_time),\n  launch_type\nORDER BY\n  daily_event_date,\n  launch_type"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date"
       ]
     }
   ],
