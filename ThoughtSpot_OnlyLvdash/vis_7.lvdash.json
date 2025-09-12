@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "top_on_press_events_summary_dataset",
-      "displayName": "Top On Press Events Summary Dataset",
+      "name": "top_on_press_events_by_control_dataset",
+      "displayName": "Top On Press Events by Control Dataset",
       "queryLines": [
-        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
+        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE control NOT LIKE '%testid%' AND ui_action = 'onpress' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
       ]
     }
   ],
   "pages": [
     {
-      "name": "top_on_press_events_summary_page",
+      "name": "top_on_press_events_by_control_page",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_summary_chart",
+            "name": "top_on_press_events_by_control_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "top_on_press_events_summary_dataset",
+                  "datasetName": "top_on_press_events_by_control_dataset",
                   "fields": [
                     { "name": "control", "expression": "`control`" },
                     { "name": "total_clicks", "expression": "`total_clicks`" }
@@ -33,19 +33,19 @@
               "version": 3,
               "widgetType": "bar",
               "encodings": {
-                "y": {
+                "x": {
                   "fieldName": "control",
                   "displayName": "Control",
                   "scale": { "type": "categorical" }
                 },
-                "x": {
+                "y": {
                   "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Top On Press Events",
+                "title": "Top On Press Events by Control",
                 "showTitle": true
               }
             }
