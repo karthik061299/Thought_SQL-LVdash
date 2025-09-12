@@ -4,7 +4,7 @@
       "name": "top_on_press_events_by_control_dataset",
       "displayName": "Top On Press Events by Control Dataset",
       "queryLines": [
-        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
+        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
       ]
     }
   ],
@@ -45,7 +45,7 @@
                 }
               },
               "frame": {
-                "title": "Top On Press Events",
+                "title": "Top On Press Events by Control",
                 "showTitle": true
               }
             }
