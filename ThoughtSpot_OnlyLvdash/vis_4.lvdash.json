@@ -4,7 +4,7 @@
       "name": "top_on_press_events_dataset",
       "displayName": "Top On Press Events Dataset",
       "queryLines": [
-        "WITH top_controls AS (\n  SELECT\n    control,\n    COUNT(*) as clicks,\n    RANK() OVER (ORDER BY COUNT(*) DESC) as control_rank\n  FROM hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND control NOT LIKE '%testid%'\n    AND ui_action = 'onpress'\n    AND control != 'welcome core navigationviewitem id'\n  GROUP BY control\n  HAVING COUNT(*) > 0\n)\nSELECT\n  CASE\n    WHEN control_rank <= 10 THEN control\n    ELSE 'Other'\n  END as control,\n  DATE_TRUNC('DAY', event_date_time) as daily_event_date,\n  COUNT(*) as total_clicks\nFROM hpx_events_model\nJOIN top_controls USING (control)\nWHERE\n  event_date_time >= '2023-05-01'\n  AND ui_action = 'onpress'\n  AND control != 'welcome core navigationviewitem id'\nGROUP BY\n  CASE WHEN control_rank <= 10 THEN control ELSE 'Other' END,\n  DATE_TRUNC('DAY', event_date_time)\nORDER BY\n  daily_event_date,\n  total_clicks DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(clicks) as total_clicks\nFROM hpx_events_model\nWHERE event_date_time >= '2023-05-01'\n  AND control NOT LIKE '%testid%'\n  AND ui_action = 'onpress'\n  AND control != 'welcome core navigationviewitem id'\nGROUP BY DATE_TRUNC('DAY', event_date_time), control\nORDER BY daily_event_date, SUM(clicks) DESC"
       ]
     }
   ],
@@ -22,8 +22,8 @@
                 "query": {
                   "datasetName": "top_on_press_events_dataset",
                   "fields": [
-                    { "name": "control", "expression": "`control`" },
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
+                    { "name": "control", "expression": "`control`" },
                     { "name": "total_clicks", "expression": "`total_clicks`" }
                   ],
                   "disaggregated": false
