@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "name": "countries_new_devices_dataset",
-      "displayName": "New Devices by Countries Dataset",
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Model with IIDE Table",
       "queryLines": [
         "SELECT geo_country_code, SUM(new_devices) as total_new_devices FROM hpx_events_model GROUP BY geo_country_code ORDER BY total_new_devices DESC LIMIT 10"
       ]
@@ -15,12 +15,12 @@
       "layout": [
         {
           "widget": {
-            "name": "countries_pie_chart",
+            "name": "new_devices_by_country_pie",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "countries_new_devices_dataset",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
                     { "name": "geo_country_code", "expression": "`geo_country_code`" },
                     { "name": "total_new_devices", "expression": "`total_new_devices`" }
