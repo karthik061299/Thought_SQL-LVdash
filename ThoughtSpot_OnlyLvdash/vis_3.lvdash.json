@@ -4,7 +4,7 @@
       "name": "new_devices_by_country_dataset",
       "displayName": "New Devices by Country Dataset",
       "queryLines": [
-        "SELECT geo_country_code, SUM(new_devices) as new_devices FROM hpx_events_model GROUP BY geo_country_code ORDER BY SUM(new_devices) DESC LIMIT 10"
+        "WITH ranked_countries AS (SELECT geo_country_code, COUNT(DISTINCT device_id) as new_devices, RANK() OVER (ORDER BY COUNT(DISTINCT device_id) DESC) as country_rank FROM hpx_events_model WHERE is_new_device = true GROUP BY geo_country_code) SELECT geo_country_code, new_devices FROM ranked_countries WHERE country_rank <= 10 UNION ALL SELECT 'Other Countries' as geo_country_code, SUM(new_devices) as new_devices FROM ranked_countries WHERE country_rank > 10"
       ]
     }
   ],
