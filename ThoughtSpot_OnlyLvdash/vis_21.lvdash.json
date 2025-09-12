@@ -4,7 +4,7 @@
       "name": "active_devices_by_appversion_dataset",
       "displayName": "Active Devices by Appversion Dataset",
       "queryLines": [
-        "SELECT\n  app_version,\n  SUM(active_devices) as total_active_devices,\n  SUM(active_devices) / SUM(SUM(active_devices)) OVER () as pct_active_devices\nFROM\n  hpx_events_model\nWHERE\n  event_date_time >= '2023-05-01'\n  AND app_version NOT IN ('not a store release', 'other non-releases')\n  AND os_version IS NOT NULL\nGROUP BY\n  app_version\nORDER BY\n  pct_active_devices DESC"
+        "WITH app_version_devices AS (\n  SELECT\n    app_version,\n    COUNT(DISTINCT device_id) as active_devices\n  FROM hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND app_version NOT IN ('not a store release', 'other non-releases')\n    AND os_version IS NOT NULL\n  GROUP BY app_version\n),\ntotal_devices AS (\n  SELECT COUNT(DISTINCT device_id) as total_active_devices\n  FROM hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND app_version NOT IN ('not a store release', 'other non-releases')\n    AND os_version IS NOT NULL\n)\nSELECT\n  avd.app_version,\n  avd.active_devices / td.total_active_devices as pct_active_devices_by_appversion\nFROM app_version_devices avd, total_devices td\nORDER BY pct_active_devices_by_appversion DESC"
       ]
     }
   ],
@@ -23,8 +23,7 @@
                   "datasetName": "active_devices_by_appversion_dataset",
                   "fields": [
                     { "name": "app_version", "expression": "`app_version`" },
-                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" },
-                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                    { "name": "pct_active_devices_by_appversion", "expression": "`pct_active_devices_by_appversion`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,10 +39,10 @@
                   "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "pct_active_devices",
+                  "fieldName": "pct_active_devices_by_appversion",
                   "displayName": "% Active Devices By Appversion",
                   "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "decimals": 1 }
+                  "format": { "type": "percentage", "precision": 1 }
                 }
               },
               "frame": {
