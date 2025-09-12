@@ -4,7 +4,7 @@
       "name": "hpx_retention_dataset",
       "displayName": "HPX Retention Dataset",
       "queryLines": [
-        "SELECT\n  DATE_TRUNC('MONTH', first_device_event_time) as first_device_event_month,\n  months_since_first_use,\n  COUNT(DISTINCT device_id) as active_devices,\n  COUNT(DISTINCT device_id) / FIRST_VALUE(COUNT(DISTINCT device_id)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_time) ORDER BY months_since_first_use) as pct_devices_returning\nFROM HPX_Retention_CSS_Analytics\nWHERE\n  first_device_event_time >= '2023-05-01'\nGROUP BY DATE_TRUNC('MONTH', first_device_event_time), months_since_first_use\nORDER BY first_device_event_month, months_since_first_use"
+        "SELECT\n  DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event_date,\n  months_since_first_use,\n  session_type,\n  COUNT(DISTINCT device_id) as active_devices,\n  COUNT(DISTINCT device_id) / FIRST_VALUE(COUNT(DISTINCT device_id)) OVER (\n    PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time)\n    ORDER BY months_since_first_use\n    ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING\n  ) as pct_devices_returning\nFROM HPX_Retention_CSS_Analytics\nWHERE\n  first_device_event_date_time >= '2023-05-01'\nGROUP BY\n  DATE_TRUNC('MONTH', first_device_event_date_time),\n  months_since_first_use,\n  session_type\nORDER BY\n  monthly_first_device_event_date,\n  months_since_first_use"
       ]
     }
   ],
@@ -22,8 +22,9 @@
                 "query": {
                   "datasetName": "hpx_retention_dataset",
                   "fields": [
-                    { "name": "first_device_event_month", "expression": "`first_device_event_month`" },
+                    { "name": "monthly_first_device_event_date", "expression": "`monthly_first_device_event_date`" },
                     { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
+                    { "name": "session_type", "expression": "`session_type`" },
                     { "name": "active_devices", "expression": "`active_devices`" },
                     { "name": "pct_devices_returning", "expression": "`pct_devices_returning`" }
                   ],
@@ -33,12 +34,12 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "pivot",
+              "widgetType": "pivotTable",
               "encodings": {
                 "rows": [
                   {
-                    "fieldName": "first_device_event_month",
-                    "displayName": "First Device Event Month",
+                    "fieldName": "monthly_first_device_event_date",
+                    "displayName": "Monthly First Device Event Date",
                     "scale": { "type": "temporal" }
                   }
                 ],
@@ -54,7 +55,7 @@
                     "fieldName": "pct_devices_returning",
                     "displayName": "% Devices Returning",
                     "scale": { "type": "quantitative" },
-                    "format": { "type": "percentage", "precision": 1 }
+                    "format": { "type": "percent", "precision": 1 }
                   }
                 ],
                 "color": {
@@ -64,15 +65,8 @@
                 }
               },
               "frame": {
-                "title": "Device Retention by Cohort",
+                "title": "0.5 HPX Retention",
                 "showTitle": true
-              },
-              "options": {
-                "showRowTotals": false,
-                "showColumnTotals": false,
-                "showRowGrandTotals": false,
-                "showColumnGrandTotals": false,
-                "heatmap": true
               }
             }
           },
