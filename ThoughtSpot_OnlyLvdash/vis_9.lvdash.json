@@ -4,7 +4,7 @@
       "name": "hpx_retention_dataset",
       "displayName": "HPX Retention Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event_date, months_since_first_use, session_type, weeks_since_first_use, SUM(active_devices) as active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time)) as devices_returning_pct FROM HPX_Retention_CSS_Analytics WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type, weeks_since_first_use ORDER BY monthly_first_device_event_date, months_since_first_use"
+        "SELECT DATE_TRUNC('MONTH', first_device_event_date_time) as monthly_first_device_event_date, months_since_first_use, session_type, SUM(active_devices) as active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_date_time)) as devices_returning_pct FROM HPX_Retention_CSS_Analytics WHERE first_device_event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_date_time), months_since_first_use, session_type ORDER BY monthly_first_device_event_date, months_since_first_use"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_retention_pivot_table",
+            "name": "hpx_retention_table",
             "queries": [
               {
                 "name": "main_query",
@@ -25,7 +25,6 @@
                     { "name": "monthly_first_device_event_date", "expression": "`monthly_first_device_event_date`" },
                     { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
                     { "name": "session_type", "expression": "`session_type`" },
-                    { "name": "weeks_since_first_use", "expression": "`weeks_since_first_use`" },
                     { "name": "active_devices", "expression": "`active_devices`" },
                     { "name": "devices_returning_pct", "expression": "`devices_returning_pct`" }
                   ],
@@ -55,9 +54,15 @@
                   {
                     "fieldName": "devices_returning_pct",
                     "displayName": "% Devices Returning",
-                    "scale": { "type": "quantitative" }
+                    "scale": { "type": "quantitative" },
+                    "format": { "type": "percent", "precision": 1 }
                   }
-                ]
+                ],
+                "color": {
+                  "fieldName": "devices_returning_pct",
+                  "displayName": "% Devices Returning",
+                  "scale": { "type": "quantitative" }
+                }
               },
               "frame": {
                 "title": "0.5 HPX Retention",
