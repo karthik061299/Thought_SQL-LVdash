@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "top_on_press_events_by_control_dataset",
-      "displayName": "Top On Press Events By Control Dataset",
+      "displayName": "Top On Press Events by Control Dataset",
       "queryLines": [
-        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE control NOT LIKE '%testid%' AND ui_action = 'onpress' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
+        "SELECT control, SUM(clicks) as total_clicks\nFROM hpx_events_model\nWHERE control NOT LIKE '%testid%'\nAND ui_action = 'onpress'\nGROUP BY control\nORDER BY total_clicks DESC\nLIMIT 10"
       ]
     }
   ],
