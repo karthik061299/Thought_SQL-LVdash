@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "unique_screen_views_dataset",
-      "displayName": "Top Unique Screen Views Dataset",
+      "name": "screen_views_dataset",
+      "displayName": "Screen Views Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE ui_action = 'screendisplayed' AND event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
+      "name": "page_5",
       "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
       "layout": [
         {
           "widget": {
-            "name": "unique_screen_views_chart",
+            "name": "screen_views_stacked_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "unique_screen_views_dataset",
+                  "datasetName": "screen_views_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "screen", "expression": "`screen`" },
@@ -36,7 +36,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
-                  "displayName": "Daily Event Date",
+                  "displayName": "Monthly Event Date",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
