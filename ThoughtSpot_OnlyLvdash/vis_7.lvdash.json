@@ -4,7 +4,7 @@
       "name": "top_onpress_summary_dataset",
       "displayName": "Top OnPress Summary Dataset",
       "queryLines": [
-        "SELECT control, SUM(total_clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
+        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_summary_chart",
+            "name": "onpress_summary_chart",
             "queries": [
               {
                 "name": "main_query",
