@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "top_on_press_events_by_control_dataset",
+      "name": "top_onpress_events_by_control_dataset",
       "displayName": "Top On Press Events by Control Dataset",
       "queryLines": [
-        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
+        "SELECT\n  control,\n  COUNT(*) as total_clicks\nFROM hpx_events_model\nWHERE\n  control NOT LIKE '%testid%'\n  AND ui_action = 'onpress'\nGROUP BY control\nORDER BY total_clicks DESC\nLIMIT 10"
       ]
     }
   ],
   "pages": [
     {
-      "name": "top_on_press_events_by_control_page",
+      "name": "top_onpress_events_by_control_page",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_by_control_chart",
+            "name": "top_onpress_events_by_control_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "top_on_press_events_by_control_dataset",
+                  "datasetName": "top_onpress_events_by_control_dataset",
                   "fields": [
                     { "name": "control", "expression": "`control`" },
                     { "name": "total_clicks", "expression": "`total_clicks`" }
