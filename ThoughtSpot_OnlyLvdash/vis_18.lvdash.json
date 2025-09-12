@@ -4,7 +4,7 @@
       "name": "home_tile_primary_ctr_dataset",
       "displayName": "Home Tile Primary CTR Dataset",
       "queryLines": [
-        "SELECT SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_ctr FROM hpx_events_model_homepage_summary"
+        "SELECT\n  SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_ctr\nFROM\n  hpx_events_model_homepage_summary"
       ]
     }
   ],
@@ -35,15 +35,12 @@
                 "value": {
                   "fieldName": "primary_ctr",
                   "displayName": "Primary Button CTR",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  },
-                  "scale": { "type": "quantitative" }
+                  "scale": { "type": "quantitative" },
+                  "format": { "type": "percent", "decimals": 1 }
                 }
               },
               "frame": {
-                "title": "Home Tile Primary Button CTR",
+                "title": "Primary Button Click-Through Rate",
                 "showTitle": true
               }
             }
@@ -52,7 +49,7 @@
         },
         {
           "widget": {
-            "name": "home_tile_primary_ctr_table",
+            "name": "home_tile_primary_ctr_by_tile",
             "queries": [
               {
                 "name": "main_query",
@@ -62,12 +59,11 @@
                     { "name": "home_tile", "expression": "`home_tile`" },
                     { "name": "total_unique_interstitial_views", "expression": "`total_unique_interstitial_views`" },
                     { "name": "total_unique_interstitial_primary_button_clicks", "expression": "`total_unique_interstitial_primary_button_clicks`" },
-                    { "name": "primary_ctr", "expression": "`primary_ctr`" }
+                    { "name": "primary_ctr", "expression": "`total_unique_interstitial_primary_button_clicks` / `total_unique_interstitial_views`" }
                   ],
                   "disaggregated": false,
-                  "queryLines": [
-                    "SELECT home_tile, SUM(unique_interstitial_views) as total_unique_interstitial_views, SUM(unique_interstitial_primary_button_clicks) as total_unique_interstitial_primary_button_clicks, SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as primary_ctr FROM hpx_events_model_homepage_summary GROUP BY home_tile ORDER BY total_unique_interstitial_views DESC"
-                  ]
+                  "groupBy": ["home_tile"],
+                  "orderBy": [{ "fieldName": "total_unique_interstitial_views", "direction": "DESC" }]
                 }
               }
             ],
@@ -82,30 +78,21 @@
                 {
                   "fieldName": "total_unique_interstitial_views",
                   "displayName": "Unique Interstitial Views",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "total_unique_interstitial_primary_button_clicks",
-                  "displayName": "Unique Interstitial Primary Button Clicks",
-                  "format": {
-                    "type": "number",
-                    "decimalPlaces": 0
-                  }
+                  "displayName": "Unique Primary Button Clicks",
+                  "format": { "type": "number", "decimals": 0 }
                 },
                 {
                   "fieldName": "primary_ctr",
                   "displayName": "Primary Button CTR",
-                  "format": {
-                    "type": "percent",
-                    "decimalPlaces": 1
-                  }
+                  "format": { "type": "percent", "decimals": 1 }
                 }
               ],
               "frame": {
-                "title": "Home Tile Primary Button CTR by Tile",
+                "title": "Primary Button CTR by Home Tile",
                 "showTitle": true
               }
             }
