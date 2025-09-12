@@ -4,7 +4,7 @@
       "name": "hpx_retention_dataset",
       "displayName": "HPX Retention Dataset",
       "queryLines": [
-        "WITH base_data AS (\n  SELECT\n    DATE_TRUNC('MONTH', first_device_event_date_time) as first_month,\n    months_since_first_use,\n    session_type,\n    SUM(active_devices) as active_devices\n  FROM\n    HPX_Retention_CSS_Analytics\n  WHERE\n    first_device_event_date_time >= '2023-05-01'\n  GROUP BY\n    DATE_TRUNC('MONTH', first_device_event_date_time),\n    months_since_first_use,\n    session_type\n)\n\nSELECT\n  first_month,\n  months_since_first_use,\n  session_type,\n  active_devices,\n  active_devices / SUM(active_devices) OVER (PARTITION BY first_month) as devices_returning_pct\nFROM\n  base_data\nORDER BY\n  first_month,\n  months_since_first_use"
+        "SELECT DATE_TRUNC('MONTH', first_device_event_time) as month_first_device_event_time, months_since_first_use, COUNT(DISTINCT device_id) as active_devices, COUNT(DISTINCT device_id) / SUM(COUNT(DISTINCT device_id)) OVER (PARTITION BY DATE_TRUNC('MONTH', first_device_event_time)) as pct_devices_returning FROM hpx_retention_css_analytics WHERE first_device_event_time >= '2023-05-01' GROUP BY DATE_TRUNC('MONTH', first_device_event_time), months_since_first_use ORDER BY month_first_device_event_time, months_since_first_use"
       ]
     }
   ],
@@ -15,18 +15,17 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_retention_pivot",
+            "name": "hpx_retention_pivot_table",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
                   "datasetName": "hpx_retention_dataset",
                   "fields": [
-                    { "name": "first_month", "expression": "`first_month`" },
+                    { "name": "month_first_device_event_time", "expression": "`month_first_device_event_time`" },
                     { "name": "months_since_first_use", "expression": "`months_since_first_use`" },
-                    { "name": "session_type", "expression": "`session_type`" },
                     { "name": "active_devices", "expression": "`active_devices`" },
-                    { "name": "devices_returning_pct", "expression": "`devices_returning_pct`" }
+                    { "name": "pct_devices_returning", "expression": "`pct_devices_returning`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,38 +33,30 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "pivot_table",
+              "widgetType": "pivotTable",
               "encodings": {
                 "rows": [
                   {
-                    "fieldName": "first_month",
-                    "displayName": "Month(First Device Event Date Time)",
-                    "scale": { "type": "temporal" }
+                    "fieldName": "month_first_device_event_time",
+                    "displayName": "Month First Device Event Time"
                   }
                 ],
                 "columns": [
                   {
                     "fieldName": "months_since_first_use",
-                    "displayName": "Months Since First Use",
-                    "scale": { "type": "categorical" }
+                    "displayName": "Months Since First Use"
                   }
                 ],
                 "values": [
                   {
-                    "fieldName": "devices_returning_pct",
+                    "fieldName": "pct_devices_returning",
                     "displayName": "% Devices Returning",
-                    "scale": { "type": "quantitative" },
-                    "format": { "type": "percent", "decimals": 1 }
+                    "format": "PERCENTAGE"
                   }
-                ],
-                "color": {
-                  "fieldName": "months_since_first_use",
-                  "displayName": "Months Since First Use",
-                  "scale": { "type": "categorical" }
-                }
+                ]
               },
               "frame": {
-                "title": "Device Retention by Cohort",
+                "title": "0.5 HPX Retention",
                 "showTitle": true
               },
               "options": {
