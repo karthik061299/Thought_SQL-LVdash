@@ -1,29 +1,29 @@
 {
   "datasets": [
     {
-      "name": "hpx_curr_dataset",
-      "displayName": "HPX CURR Dataset",
+      "name": "hpx_curr_trendline_dataset",
+      "displayName": "HPX CURR Trendline Dataset",
       "queryLines": [
-        "SELECT\n  DATE_TRUNC('WEEK', week_active) as weekly_active,\n  AVG(curr) as curr_avg\nFROM HPX_CURR\nGROUP BY DATE_TRUNC('WEEK', week_active)\nORDER BY weekly_active"
+        "SELECT DATE_TRUNC('WEEK', week_active) as weekly_active, AVG(curr) as curr FROM HPX_CURR GROUP BY DATE_TRUNC('WEEK', week_active) ORDER BY weekly_active"
       ]
     }
   ],
   "pages": [
     {
-      "name": "hpx_curr_page",
+      "name": "hpx_curr_trendline_page",
       "displayName": "HPX CURR - Trendline",
       "layout": [
         {
           "widget": {
-            "name": "hpx_curr_chart",
+            "name": "hpx_curr_trendline_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_curr_dataset",
+                  "datasetName": "hpx_curr_trendline_dataset",
                   "fields": [
                     { "name": "weekly_active", "expression": "`weekly_active`" },
-                    { "name": "curr_avg", "expression": "`curr_avg`" }
+                    { "name": "curr", "expression": "`curr`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "curr_avg",
+                  "fieldName": "curr",
                   "displayName": "CURR",
                   "scale": { "type": "quantitative" }
                 }
