@@ -4,7 +4,7 @@
       "name": "top_screen_views_dataset",
       "displayName": "Top Screen Views Dataset",
       "queryLines": [
-        "WITH top_screens AS (\n  SELECT\n    screen,\n    COUNT(DISTINCT session_id) as unique_screen_views,\n    RANK() OVER (ORDER BY COUNT(DISTINCT session_id) DESC) as screen_rank\n  FROM hpx_events_model\n  WHERE\n    event_date_time >= '2023-05-01'\n    AND ui_action = 'screendisplayed'\n    AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support')\n  GROUP BY screen\n  HAVING COUNT(DISTINCT session_id) > 0\n)\nSELECT\n  CASE\n    WHEN screen_rank <= 10 THEN screen\n    ELSE 'Other'\n  END as screen,\n  DATE_TRUNC('DAY', event_date_time) as daily_event_date,\n  COUNT(DISTINCT session_id) as unique_screen_views\nFROM hpx_events_model\nJOIN top_screens USING (screen)\nWHERE\n  event_date_time >= '2023-05-01'\n  AND ui_action = 'screendisplayed'\n  AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support')\nGROUP BY\n  CASE WHEN screen_rank <= 10 THEN screen ELSE 'Other' END,\n  DATE_TRUNC('DAY', event_date_time)\nORDER BY\n  daily_event_date,\n  unique_screen_views DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views\nFROM hpx_events_model\nWHERE event_date_time >= '2023-05-01'\n  AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support')\n  AND ui_action = 'screendisplayed'\nGROUP BY DATE_TRUNC('DAY', event_date_time), screen\nORDER BY daily_event_date, SUM(unique_screen_views) DESC"
       ]
     }
   ],
@@ -22,8 +22,8 @@
                 "query": {
                   "datasetName": "top_screen_views_dataset",
                   "fields": [
-                    { "name": "screen", "expression": "`screen`" },
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
+                    { "name": "screen", "expression": "`screen`" },
                     { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
                   ],
                   "disaggregated": false
