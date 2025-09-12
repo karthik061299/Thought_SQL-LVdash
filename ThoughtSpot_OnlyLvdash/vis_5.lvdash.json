@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset",
-      "displayName": "HPX Events Model with IIDE Table",
+      "name": "unique_screen_views_dataset",
+      "displayName": "Top Unique Screen Views Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as sum_unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, sum_unique_screen_views DESC"
       ]
     }
   ],
@@ -15,16 +15,16 @@
       "layout": [
         {
           "widget": {
-            "name": "unique_screen_views_chart",
+            "name": "unique_screen_views_stacked_column_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset",
+                  "datasetName": "unique_screen_views_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "screen", "expression": "`screen`" },
-                    { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
+                    { "name": "sum_unique_screen_views", "expression": "`sum_unique_screen_views`" }
                   ],
                   "disaggregated": false
                 }
@@ -36,11 +36,11 @@
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
-                  "displayName": "Daily Event Date",
+                  "displayName": "Monthly Event Date",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "unique_screen_views",
+                  "fieldName": "sum_unique_screen_views",
                   "displayName": "Unique Screen Views",
                   "scale": { "type": "quantitative" }
                 },
