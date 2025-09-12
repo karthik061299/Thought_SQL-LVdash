@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "name": "screen_views_bar_dataset",
+      "displayName": "Screen Views Bar Dataset",
       "queryLines": [
-        "SELECT screen AS screen, SUM(unique_screen_views_1) AS unique_screen_views FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'screendisplayed' AND screen IS NOT NULL AND screen NOT IN ('home', 'support', 'welcome', 'welcome-core', 'welcomeContainer') AND event_date_time >= '2023-05-01' GROUP BY screen ORDER BY unique_screen_views DESC LIMIT 10"
+        "SELECT screen, SUM(unique_screen_views) as total_unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND screen IS NOT NULL GROUP BY screen ORDER BY total_unique_screen_views DESC LIMIT 10"
       ]
     }
   ],
@@ -15,15 +15,15 @@
       "layout": [
         {
           "widget": {
-            "name": "top_screen_views_bar_chart",
+            "name": "screen_views_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "screen_views_bar_dataset",
                   "fields": [
                     { "name": "screen", "expression": "`screen`" },
-                    { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
+                    { "name": "total_unique_screen_views", "expression": "`total_unique_screen_views`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "unique_screen_views",
+                  "fieldName": "total_unique_screen_views",
                   "displayName": "Unique Screen Views",
                   "scale": { "type": "quantitative" }
                 }
