@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "launch_type_devices_dataset",
-      "displayName": "Launch Type Devices Dataset",
+      "name": "launch_type_active_devices_dataset",
+      "displayName": "Launch Type Active Devices Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as total_pct_event_id FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL AND launch_type IN ('Automatic', 'Manual') GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
       ]
     }
   ],
@@ -15,16 +15,16 @@
       "layout": [
         {
           "widget": {
-            "name": "launch_type_devices_stacked_chart",
+            "name": "launch_type_active_devices_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "launch_type_devices_dataset",
+                  "datasetName": "launch_type_active_devices_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "launch_type", "expression": "`launch_type`" },
-                    { "name": "total_pct_event_id", "expression": "`total_pct_event_id`" }
+                    { "name": "active_devices", "expression": "`active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,7 +40,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_pct_event_id",
+                  "fieldName": "active_devices",
                   "displayName": "Total % Event ID",
                   "scale": { "type": "quantitative" }
                 },
