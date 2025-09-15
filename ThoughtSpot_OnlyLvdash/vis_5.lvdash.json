@@ -1,30 +1,39 @@
 {
   "datasets": [
     {
-      "name": "unique_screen_views_dataset",
-      "displayName": "Unique Screen Views Dataset",
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as total_unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, total_unique_screen_views DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as day_event_date_time, screen, SUM(unique_screen_views_1) as unique_screen_views FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY unique_screen_views DESC LIMIT 10"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_5",
-      "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
+      "name": "executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "unique_screen_views_bar_chart",
+            "name": "top_unique_screen_views_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "unique_screen_views_dataset",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
-                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "screen", "expression": "`screen`" },
-                    { "name": "total_unique_screen_views", "expression": "`total_unique_screen_views`" }
+                    {
+                      "name": "day_event_date_time",
+                      "expression": "`day_event_date_time`"
+                    },
+                    {
+                      "name": "screen",
+                      "expression": "`screen`"
+                    },
+                    {
+                      "name": "unique_screen_views",
+                      "expression": "`unique_screen_views`"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -35,28 +44,39 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_event_date",
+                  "fieldName": "day_event_date_time",
                   "displayName": "Daily Event Date",
-                  "scale": { "type": "temporal" }
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
-                  "fieldName": "total_unique_screen_views",
+                  "fieldName": "unique_screen_views",
                   "displayName": "Unique Screen Views",
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 "color": {
                   "fieldName": "screen",
                   "displayName": "Screen",
-                  "scale": { "type": "categorical" }
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views by Screen Over Time",
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
