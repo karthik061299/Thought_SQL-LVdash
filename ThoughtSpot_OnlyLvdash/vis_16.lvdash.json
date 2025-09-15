@@ -1,47 +1,47 @@
 {
   "datasets": [
     {
-      "name": "home_tile_clicks_dataset",
-      "displayName": "Home Tile Clicks Dataset",
+      "name": "ds_homepage_summary",
+      "displayName": "Homepage Summary Dataset",
       "queryLines": [
-        "SELECT home_tile, SUM(unique_tile_clicks) as total_unique_tile_clicks FROM hpx_events_model_homepage_summary GROUP BY home_tile ORDER BY SUM(unique_tile_clicks) DESC LIMIT 1"
+        "SELECT home_tile, SUM(unique_tile_clicks) as total_unique_tile_clicks, SUM(home_tile_clicked_vs_homepage_displayed) as total_home_tile_clicked_vs_homepage_displayed FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view GROUP BY home_tile ORDER BY total_unique_tile_clicks DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "home_tile_clicks_page",
-      "displayName": "Home Tile Clicks",
+      "name": "page_homepage_summary",
+      "displayName": "Homepage Summary",
       "layout": [
         {
           "widget": {
-            "name": "home_tile_clicks_counter",
+            "name": "counter_home_tile_clicks",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "home_tile_clicks_dataset",
+                  "datasetName": "ds_homepage_summary",
                   "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "total_unique_tile_clicks", "expression": "`total_unique_tile_clicks`" }
+                    {
+                      "name": "home_tile",
+                      "expression": "`home_tile`"
+                    },
+                    {
+                      "name": "total_home_tile_clicked_vs_homepage_displayed",
+                      "expression": "`total_home_tile_clicked_vs_homepage_displayed`"
+                    }
                   ],
                   "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": 3,
+              "version": 2,
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "total_unique_tile_clicks",
-                  "displayName": "Unique Tile Clicks",
-                  "scale": { "type": "quantitative" }
-                },
-                "subtitle": {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile",
-                  "scale": { "type": "categorical" }
+                  "fieldName": "total_home_tile_clicked_vs_homepage_displayed",
+                  "displayName": "% Home Tile Clicked Vs Homepage Displayed"
                 }
               },
               "frame": {
@@ -50,7 +50,12 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
