@@ -1,17 +1,17 @@
 {
   "datasets": [
     {
-      "name": "home_tile_primary_ctr_dataset",
-      "displayName": "Home Tile Primary CTR Dataset",
+      "name": "ds_homepage_summary",
+      "displayName": "Homepage Summary Dataset",
       "queryLines": [
-        "SELECT home_tile, SUM(unique_interstitial_primary_button_clicks) as total_unique_interstitial_primary_button_clicks, SUM(unique_interstitial_views) as total_unique_interstitial_views, SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) as ctr_primary FROM hpx_events_model_homepage_summary GROUP BY home_tile ORDER BY SUM(unique_interstitial_primary_button_clicks) / SUM(unique_interstitial_views) DESC LIMIT 1"
+        "SELECT home_tile, primary_button_clicked_vs_interstitial_displayed, unique_interstitial_primary_button_clicks, unique_interstitial_views FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
       ]
     }
   ],
   "pages": [
     {
-      "name": "home_tile_primary_ctr_page",
-      "displayName": "Home Tile Primary CTR",
+      "name": "homepage_summary_page",
+      "displayName": "Homepage Summary",
       "layout": [
         {
           "widget": {
@@ -20,29 +20,24 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "home_tile_primary_ctr_dataset",
+                  "datasetName": "ds_homepage_summary",
                   "fields": [
-                    { "name": "home_tile", "expression": "`home_tile`" },
-                    { "name": "ctr_primary", "expression": "`ctr_primary`" }
+                    {
+                      "name": "primary_button_clicked_vs_interstitial_displayed",
+                      "expression": "`primary_button_clicked_vs_interstitial_displayed`"
+                    }
                   ],
                   "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": 3,
+              "version": 2,
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "ctr_primary",
-                  "displayName": "Primary Button CTR",
-                  "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "precision": 1 }
-                },
-                "subtitle": {
-                  "fieldName": "home_tile",
-                  "displayName": "Home Tile",
-                  "scale": { "type": "categorical" }
+                  "fieldName": "primary_button_clicked_vs_interstitial_displayed",
+                  "displayName": "Home Tile Primary CTR"
                 }
               },
               "frame": {
@@ -51,7 +46,7 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
+          "position": { "x": 6, "y": 0, "width": 2, "height": 2 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
