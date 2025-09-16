@@ -1,17 +1,17 @@
 {
   "datasets": [
     {
-      "name": "total_consented_devices_dataset",
-      "displayName": "Total Consented Devices Dataset",
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
       "queryLines": [
-        "SELECT SUM(active_devices) as active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', NULL) AND geo_country_code IS NOT NULL"
+        "SELECT COUNT(DISTINCT sys_sn_hash) AS active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE app_version != 'not a store release' AND app_version IS NOT NULL AND event_date_time >= '2023-05-01' AND geo_country_code IS NOT NULL AND geo_country_code != 'null'"
       ]
     }
   ],
   "pages": [
     {
-      "name": "total_consented_devices_page",
-      "displayName": "Total Consented Devices",
+      "name": "executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
@@ -20,22 +20,24 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "total_consented_devices_dataset",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
-                    { "name": "active_devices", "expression": "`active_devices`" }
+                    {
+                      "name": "active_devices",
+                      "expression": "`active_devices`"
+                    }
                   ],
                   "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": 3,
+              "version": 2,
               "widgetType": "counter",
               "encodings": {
                 "value": {
                   "fieldName": "active_devices",
-                  "displayName": "Active Devices",
-                  "scale": { "type": "quantitative" }
+                  "displayName": "Total Consented Devices"
                 }
               },
               "frame": {
@@ -44,7 +46,12 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 4 }
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
