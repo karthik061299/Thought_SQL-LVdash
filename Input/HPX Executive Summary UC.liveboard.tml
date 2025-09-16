@@ -1,0 +1,2160 @@
+guid: 079a7bdb-2a55-40cc-8ab6-01d8d8acf229
+liveboard:
+  name: HPX Executive Summary UC
+  description: 0.5 Appversions of myHP (events model IIDE based)
+  visualizations:
+  - id: Viz_1
+    answer:
+      name: Active Devices
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Active Devices] [Event Date Time] [Event Date Time].daily"
+      answer_columns:
+      - name: Active Devices
+      - name: Day(Event Date Time)
+        custom_name: Daily Event Date
+      table:
+        table_columns:
+        - column_id: Active Devices
+          show_headline: false
+        - column_id: Day(Event Date Time)
+          show_headline: false
+        ordered_column_ids:
+        - Day(Event Date Time)
+        - Active Devices
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: LINE
+        chart_columns:
+        - column_id: Active Devices
+        - column_id: Day(Event Date Time)
+        axis_configs:
+        - x:
+          - Day(Event Date Time)
+          "y":
+          - Active Devices
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Day(Event Date Time)\",\"columnProperty\": {}},{\"columnId\": \"Active Devices\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"be6c7967-12c0-4b80-bf8f-1b9a11219228\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Active Devices\"],\"isOpposite\": false}},{\"id\": \"826e0fe4-cd1f-4076-bd7c-87b7a9f1958f\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Day(Event Date Time)\"]}}],\"seriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#06BF7F\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 6a545a25-9cac-433c-bd33-8e09070877b5
+  - id: Viz_2
+    answer:
+      name: New Devices
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[New Devices] [Cumulative New Devices] [Event Date Time] [Event Date Time].daily"
+      answer_columns:
+      - name: Cumulative New Devices
+      - name: Day(Event Date Time)
+        custom_name: Daily Event Date
+      - name: New Devices
+      table:
+        table_columns:
+        - column_id: Cumulative New Devices
+          show_headline: false
+        - column_id: Day(Event Date Time)
+          show_headline: false
+        - column_id: New Devices
+          show_headline: false
+        ordered_column_ids:
+        - Day(Event Date Time)
+        - New Devices
+        - Cumulative New Devices
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: LINE
+        chart_columns:
+        - column_id: Cumulative New Devices
+        - column_id: Day(Event Date Time)
+        - column_id: New Devices
+        axis_configs:
+        - x:
+          - Day(Event Date Time)
+          "y":
+          - New Devices
+          - Cumulative New Devices
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"legendPosition\": \"TOP_LEGEND\"},\"columnProperties\": [{\"columnId\": \"New Devices\",\"columnProperty\": {}},{\"columnId\": \"Cumulative New Devices\",\"columnProperty\": {}},{\"columnId\": \"Day(Event Date Time)\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"1cac0f01-9fad-4558-ba7e-bfb2273a0be9\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"New Devices\"],\"isOpposite\": false}},{\"id\": \"e1c03ace-2968-4dff-89ea-a903ab2e2668\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Cumulative New Devices\"],\"isOpposite\": true}},{\"id\": \"982449e4-9a10-4417-983a-b4511ee95a6e\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Day(Event Date Time)\"]}}],\"seriesColors\": [{\"serieName\": \"New Devices\",\"color\": \"#0096D3\"},{\"serieName\": \"Cumulative New Devices\",\"color\": \"#BCBCBC\"}],\"systemSeriesColors\": [{\"serieName\": \"New Devices\",\"color\": \"#2E75F0\"},{\"serieName\": \"Cumulative New Devices\",\"color\": \"#48D1E0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: f31590bb-8c9a-4f06-80ba-a524e0609f2e
+  - id: Viz_3
+    answer:
+      name: New Devices by Top 10 Countries
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      formulas:
+      - id: f_rank
+        name: f_rank
+        expr: "rank ( [New Devices] , 'DESC' )"
+        properties:
+          column_type: ATTRIBUTE
+        was_auto_generated: false
+      search_query: "[Geo Country Code] [New Devices] [f_rank] [f_rank].1 [f_rank].10 [f_rank].2 [f_rank].3 [f_rank].4 [f_rank].5 [f_rank].6 [f_rank].7 [f_rank].8 [f_rank].9"
+      answer_columns:
+      - name: Geo Country Code
+      - name: New Devices
+      - name: f_rank
+      table:
+        table_columns:
+        - column_id: Geo Country Code
+          show_headline: false
+        - column_id: New Devices
+          show_headline: false
+        - column_id: f_rank
+          show_headline: false
+        ordered_column_ids:
+        - Geo Country Code
+        - f_rank
+        - New Devices
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: PIE
+        chart_columns:
+        - column_id: Geo Country Code
+        - column_id: New Devices
+        - column_id: f_rank
+        axis_configs:
+        - x:
+          - Geo Country Code
+          "y":
+          - New Devices
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}},\"showStackedLabels\": true,\"allLabels\": true},\"columnProperties\": [{\"columnId\": \"Geo Country Code\",\"columnProperty\": {}},{\"columnId\": \"New Devices\",\"columnProperty\": {\"dataLabels\": true}}],\"axisProperties\": [{\"id\": \"bbb23359-3051-4beb-9194-a212b18e411d\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"New Devices\"],\"isOpposite\": false}},{\"id\": \"73d4dbaa-8e48-419e-9b33-3909660944a3\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Geo Country Code\"]}}],\"seriesColors\": [{\"serieName\": \"New Devices\",\"color\": \"#2E75F0\"},{\"serieName\": \"australia\",\"color\": \"#B094F8\"},{\"serieName\": \"brazil\",\"color\": \"#8C62F5\"},{\"serieName\": \"canada\",\"color\": \"#56D3A8\"},{\"serieName\": \"china\",\"color\": \"#06BF7F\"},{\"serieName\": \"france\",\"color\": \"#FCD977\"},{\"serieName\": \"india\",\"color\": \"#FCC838\"},{\"serieName\": \"japan\",\"color\": \"#82DFE9\"},{\"serieName\": \"mexico\",\"color\": \"#48D1E0\"},{\"serieName\": \"united kingdom\",\"color\": \"#71A1F4\"},{\"serieName\": \"united states\",\"color\": \"#0096D3\"},{\"serieName\": \"other_countries\",\"color\": \"#BCBCBC\"}],\"systemSeriesColors\": [{\"serieName\": \"New Devices\",\"color\": \"#2E75F0\"},{\"serieName\": \"australia\",\"color\": \"#B094F8\"},{\"serieName\": \"brazil\",\"color\": \"#8C62F5\"},{\"serieName\": \"canada\",\"color\": \"#56D3A8\"},{\"serieName\": \"china\",\"color\": \"#06BF7F\"},{\"serieName\": \"france\",\"color\": \"#FCD977\"},{\"serieName\": \"india\",\"color\": \"#FCC838\"},{\"serieName\": \"japan\",\"color\": \"#82DFE9\"},{\"serieName\": \"mexico\",\"color\": \"#48D1E0\"},{\"serieName\": \"united kingdom\",\"color\": \"#71A1F4\"},{\"serieName\": \"united states\",\"color\": \"#0096D3\"},{\"serieName\": \"other_countries\",\"color\": \"#BCBCBC\"},{\"serieName\": \"germany\",\"color\": \"#8C62F5\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: fdf43755-1727-4009-8a03-a5eabfeb3cdc
+  - id: Viz_4
+    answer:
+      name: Top On Press Events
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Clicks] [Control] [Event Date Time] on or after '05/01/2023' [Control] in ( [Control] not contains 'testid' [Ui Action] = 'onpress' [Control] top 10 [Clicks] ) [Event Date Time] [Event Date Time].daily [Control] != 'welcome core navigationviewitem id'"
+      answer_columns:
+      - name: Control
+      - name: Day(Event Date Time)
+        custom_name: Daily Event Date
+      - name: Total Clicks
+      table:
+        table_columns:
+        - column_id: Control
+          show_headline: false
+        - column_id: Day(Event Date Time)
+          show_headline: false
+        - column_id: Total Clicks
+          show_headline: false
+        ordered_column_ids:
+        - Control
+        - Day(Event Date Time)
+        - Total Clicks
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Control
+        - column_id: Day(Event Date Time)
+        - column_id: Total Clicks
+        axis_configs:
+        - x:
+          - Day(Event Date Time)
+          "y":
+          - Total Clicks
+          color:
+          - Control
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"visibleSeriesNames\": [\"controlyourpc section viewallcontrols link\",\"pcdevice core navigationviewitem id\",\"pcdevicepage featurecard support core\",\"pchardware core navigationviewitem id\",\"profile avatar\",\"settings core navigationviewitem id\",\"strictlynecessarynotice snnview continuebtn\",\"support core navigationviewitem id\",\"navigator togglepanebutton\",\"welcome core navigationviewitem id\"],\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Control\",\"columnProperty\": {}},{\"columnId\": \"Total Clicks\",\"columnProperty\": {}},{\"columnId\": \"Day(Event Date Time)\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"e5488450-c03d-476d-8dd9-b41117815157\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Clicks\"],\"isOpposite\": false}},{\"id\": \"a56776a0-2c4f-4241-9d1b-9bba8ccabdcc\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Day(Event Date Time)\"]}}],\"seriesColors\": [{\"serieName\": \"controlyourpc section viewallcontrols link\",\"color\": \"#B094F8\"},{\"serieName\": \"pcdevice core navigationviewitem id\",\"color\": \"#56D3A8\"},{\"serieName\": \"pcdevicepage featurecard support core\",\"color\": \"#06BF7F\"},{\"serieName\": \"pchardware core navigationviewitem id\",\"color\": \"#FCD977\"},{\"serieName\": \"profile avatar\",\"color\": \"#FCC838\"},{\"serieName\": \"settings core navigationviewitem id\",\"color\": \"#82DFE9\"},{\"serieName\": \"strictlynecessarynotice snnview continuebtn\",\"color\": \"#48D1E0\"},{\"serieName\": \"support core navigationviewitem id\",\"color\": \"#71A1F4\"},{\"serieName\": \"welcome core navigationviewitem id\",\"color\": \"#2E75F0\"},{\"serieName\": \"navigator togglepanebutton\",\"color\": \"#BCBCBC\"}],\"systemSeriesColors\": [{\"serieName\": \"controlyourpc section viewallcontrols link\",\"color\": \"#B094F8\"},{\"serieName\": \"navigator togglepanebutton\",\"color\": \"#8C62F5\"},{\"serieName\": \"pcdevice core navigationviewitem id\",\"color\": \"#56D3A8\"},{\"serieName\": \"pcdevicepage featurecard support core\",\"color\": \"#06BF7F\"},{\"serieName\": \"pchardware core navigationviewitem id\",\"color\": \"#FCD977\"},{\"serieName\": \"profile avatar\",\"color\": \"#FCC838\"},{\"serieName\": \"settings core navigationviewitem id\",\"color\": \"#82DFE9\"},{\"serieName\": \"strictlynecessarynotice snnview continuebtn\",\"color\": \"#48D1E0\"},{\"serieName\": \"support core navigationviewitem id\",\"color\": \"#71A1F4\"},{\"serieName\": \"welcome core navigationviewitem id\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: bf836e7c-76b8-4a0e-9210-56a37e6ffc1a
+  - id: Viz_5
+    answer:
+      name: Top Unique Screen Views (excl. Home/Welcome)
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Unique Screen Views] [Screen] [Event Date Time] [Event Date Time].daily [Event Date Time] on or after '05/01/2023' [Screen] in ( [Screen] != 'home' [Screen] != 'welcome' [Screen] != 'welcomecontainer' [Screen] != 'welcome-core' [Screen] != 'support' [Ui Action] = 'screendisplayed' [Screen] top 10 [Unique Screen Views] )"
+      answer_columns:
+      - name: Day(Event Date Time)
+        custom_name: Monthly Event Date
+      - name: Screen
+      - name: Unique Screen Views
+      table:
+        table_columns:
+        - column_id: Day(Event Date Time)
+          show_headline: false
+        - column_id: Screen
+          show_headline: false
+        - column_id: Unique Screen Views
+          show_headline: false
+        ordered_column_ids:
+        - Screen
+        - Day(Event Date Time)
+        - Unique Screen Views
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Day(Event Date Time)
+        - column_id: Screen
+        - column_id: Unique Screen Views
+        axis_configs:
+        - x:
+          - Day(Event Date Time)
+          "y":
+          - Unique Screen Views
+          color:
+          - Screen
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Screen\",\"columnProperty\": {}},{\"columnId\": \"Day(Event Date Time)\",\"columnProperty\": {}},{\"columnId\": \"Unique Screen Views\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"8ac10ad1-d317-4dd7-8f96-43e22ccc645c\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Unique Screen Views\"],\"isOpposite\": false}},{\"id\": \"c62467d0-9c36-4d31-bb50-0626c0bcfc66\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Day(Event Date Time)\"],\"name\": \"Daily Event Date\"}}],\"seriesColors\": [{\"serieName\": \"Unique Screen Views\",\"color\": \"#FF8142\"},{\"serieName\": \"devicesupport\",\"color\": \"#56D3A8\"},{\"serieName\": \"supportdiagnostics\",\"color\": \"#06BF7F\"},{\"serieName\": \"supporthome\",\"color\": \"#FCD977\"},{\"serieName\": \"supportroot\",\"color\": \"#FCC838\"},{\"serieName\": \"pcdevice-core\",\"color\": \"#82DFE9\"},{\"serieName\": \"settings-core\",\"color\": \"#48D1E0\"},{\"serieName\": \"support-core\",\"color\": \"#71A1F4\"},{\"serieName\": \"app startup registration\",\"color\": \"#BCBCBC\"},{\"serieName\": \"welcomecontainer\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"Unique Screen Views\",\"color\": \"#FF8142\"},{\"serieName\": \"devicesupport\",\"color\": \"#56D3A8\"},{\"serieName\": \"supportdiagnostics\",\"color\": \"#06BF7F\"},{\"serieName\": \"supporthome\",\"color\": \"#FCD977\"},{\"serieName\": \"supportroot\",\"color\": \"#FCC838\"},{\"serieName\": \"pcdevice-core\",\"color\": \"#82DFE9\"},{\"serieName\": \"settings-core\",\"color\": \"#48D1E0\"},{\"serieName\": \"support-core\",\"color\": \"#71A1F4\"},{\"serieName\": \"app startup registration\",\"color\": \"#BCBCBC\"},{\"serieName\": \"welcomecontainer\",\"color\": \"#0096D3\"},{\"serieName\": \"device\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 8a038a48-90e2-466d-a9d0-15edfea8db2b
+  - id: Viz_6
+    answer:
+      name: Top Unique Screen Views (excl. Home/Welcome)
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Unique Screen Views] by [Screen] [Ui Action] = 'screendisplayed' [Screen] top 10 [Unique Screen Views] sort by [Unique Screen Views] descending [Event Date Time] on or after '05/01/2023' [Screen] != [Screen].home [Screen].support [Screen].welcome [Screen].welcome-core [Screen].welcomeContainer [Screen].{Null}"
+      answer_columns:
+      - name: Screen
+      - name: Unique Screen Views
+      table:
+        table_columns:
+        - column_id: Screen
+          show_headline: false
+        - column_id: Unique Screen Views
+          show_headline: false
+        ordered_column_ids:
+        - Screen
+        - Unique Screen Views
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: BAR
+        chart_columns:
+        - column_id: Screen
+        - column_id: Unique Screen Views
+        axis_configs:
+        - x:
+          - Screen
+          "y":
+          - Unique Screen Views
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Screen\",\"columnProperty\": {}},{\"columnId\": \"Unique Screen Views\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"4dc4dc92-b792-47b5-9aae-adbf77e3cf0a\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Unique Screen Views\"],\"isOpposite\": false}},{\"id\": \"6324dfc6-e623-4ab7-a780-8fc855c8d380\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Screen\"]}}],\"seriesColors\": [{\"serieName\": \"Unique Screen Views\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"Unique Screen Views\",\"color\": \"#747E8C\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 93e844af-fb21-44af-870a-8e395667bfa1
+  - id: Viz_7
+    answer:
+      name: Top On Press Events
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Clicks] [Control] [Control] not contains 'testid' [Ui Action] = 'onpress' top 10"
+      answer_columns:
+      - name: Control
+      - name: Total Clicks
+      table:
+        table_columns:
+        - column_id: Control
+          show_headline: false
+        - column_id: Total Clicks
+          show_headline: false
+        ordered_column_ids:
+        - Control
+        - Total Clicks
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: BAR
+        chart_columns:
+        - column_id: Control
+        - column_id: Total Clicks
+        axis_configs:
+        - x:
+          - Control
+          "y":
+          - Total Clicks
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Control\",\"columnProperty\": {}},{\"columnId\": \"Total Clicks\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"5a1164e6-e1b0-45c3-9484-5e12c3ef78ce\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Clicks\"],\"isOpposite\": false}},{\"id\": \"fd73ed20-e517-49ba-89f9-7c6cd62dd899\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Control\"]}}],\"seriesColors\": [{\"serieName\": \"Total Clicks\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"Total Clicks\",\"color\": \"#8C62F5\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 160a4594-08c1-4104-af96-1e449452572a
+  - id: Viz_8
+    answer:
+      name: Launch type Active Devices
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Active Devices] [Event Date Time] [Event Date Time].daily [Launch Type] [Launch Type].Automatic [Launch Type].Manual [Launch Type].{Null} [Launch Type] != '{Null}'"
+      answer_columns:
+      - name: Active Devices
+        custom_name: Total % Event ID
+      - name: Day(Event Date Time)
+        custom_name: Daily Event Date
+      - name: Launch Type
+      table:
+        table_columns:
+        - column_id: Active Devices
+          show_headline: false
+        - column_id: Day(Event Date Time)
+          show_headline: false
+        - column_id: Launch Type
+          show_headline: false
+        ordered_column_ids:
+        - Day(Event Date Time)
+        - Launch Type
+        - Active Devices
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: STACKED_COLUMN
+        chart_columns:
+        - column_id: Active Devices
+        - column_id: Day(Event Date Time)
+        - column_id: Launch Type
+        axis_configs:
+        - x:
+          - Day(Event Date Time)
+          "y":
+          - Active Devices
+          color:
+          - Launch Type
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"isStackedAsPercent\": true,\"stackedAsPercentFormat\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 0.0},\"isCategoryEditable\": false},\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Day(Event Date Time)\",\"columnProperty\": {}},{\"columnId\": \"Active Devices\",\"columnProperty\": {}},{\"columnId\": \"Launch Type\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"9cbfc54e-370d-4aa1-ac9f-d5d8787614ae\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Active Devices\"],\"isOpposite\": false}},{\"id\": \"793c6c4f-4c4b-450f-8fd6-b2ebfd1ff3dd\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Day(Event Date Time)\"]}}],\"seriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#0096D3\"},{\"serieName\": \"automatic\",\"color\": \"#BCBCBC\"},{\"serieName\": \"manual\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#0096D3\"},{\"serieName\": \"automatic\",\"color\": \"#48D1E0\"},{\"serieName\": \"manual\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: f7b488a1-4e00-43be-89df-229fb6a85b4b
+  - id: Viz_9
+    answer:
+      name: 0.5 HPX Retention
+      description: Cohort Graph
+      tables:
+      - id: HPX Retention_CSS_Analytics
+        name: HPX Retention_CSS_Analytics
+        fqn: 9368a52c-a8c3-4043-a78c-522b75aa38c6
+      formulas:
+      - id: '% Devices Returning'
+        name: '% Devices Returning'
+        expr: "[Active_Devices] / group_aggregate ( [Active_Devices] , { [First Device Event Date Time] } , query_filters ( ) - { [Hours Since First Use] , [Days Since First Use] , [Weeks Since First Use] , [Months Since First Use] } ) "
+        was_auto_generated: false
+      search_query: "[Active_Devices] [First Device Event Date Time] [First Device Event Date Time].monthly [% Devices Returning] [Months Since First Use] [Session Type] [Weeks Since First Use] [First Device Event Date Time] on or after '05/01/2023'"
+      answer_columns:
+      - name: '% Devices Returning'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: Active_Devices
+        custom_name: Active Devices
+      - name: Month(First Device Event Date Time)
+      - name: Months Since First Use
+      - name: Session Type
+      - name: Weeks Since First Use
+      table:
+        table_columns:
+        - column_id: '% Devices Returning'
+          show_headline: false
+        - column_id: Active_Devices
+          show_headline: false
+        - column_id: Month(First Device Event Date Time)
+          show_headline: false
+        - column_id: Months Since First Use
+          show_headline: false
+        - column_id: Session Type
+          show_headline: false
+        - column_id: Weeks Since First Use
+          show_headline: false
+        ordered_column_ids:
+        - Month(First Device Event Date Time)
+        - Months Since First Use
+        - Session Type
+        - Weeks Since First Use
+        - Active_Devices
+        - '% Devices Returning'
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: PIVOT_TABLE
+        chart_columns:
+        - column_id: '% Devices Returning'
+        - column_id: Active_Devices
+        - column_id: Month(First Device Event Date Time)
+        - column_id: Months Since First Use
+        - column_id: Session Type
+        - column_id: Weeks Since First Use
+        axis_configs:
+        - x:
+          - Month(First Device Event Date Time)
+          "y":
+          - '% Devices Returning'
+          color:
+          - Months Since First Use
+          - Session Type
+        - x:
+          - Month(First Device Event Date Time)
+          "y":
+          - '% Devices Returning'
+          color:
+          - Months Since First Use
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotState\": {\"fields\": [{\"dataField\": \"Month(First Device Event Date Time)\",\"sortBy\": \"value\",\"sortBySummaryField\": \"Month(First Device Event Date Time)\",\"sortOrder\": \"asc\",\"expanded\": false,\"area\": \"row\"}]},\"isHeatmapOverlayed\": true,\"pivotSummariesState\": {\"showColumnTotals\": false,\"showRowGrandTotals\": false,\"showColumnGrandTotals\": false}}},\"columnProperties\": [{\"columnId\": \"Active_Devices\",\"columnProperty\": {}},{\"columnId\": \"Month(First Device Event Date Time)\",\"columnProperty\": {}},{\"columnId\": \"% Devices Returning\",\"columnProperty\": {}},{\"columnId\": \"Months Since First Use\",\"columnProperty\": {}},{\"columnId\": \"Session Type\",\"columnProperty\": {}},{\"columnId\": \"Weeks Since First Use\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"bff0db07-f6e6-45ae-91cd-eb424bd87b1c\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"% Devices Returning\"],\"isOpposite\": false}},{\"id\": \"6661f8e6-4128-4f4f-a7e7-946e0d13ddf4\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Month(First Device Event Date Time)\"]}}]}"
+      display_mode: CHART_MODE
+    viz_guid: 465ce9dd-386a-4c7c-b0e0-7efabb785f91
+  - id: Viz_10
+    answer:
+      name: Total Consented Devices
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      search_query: "[Active Devices] [App Version].2023.03.b [App Version].2023.03.b-hotfix [App Version].2023.04.a [App Version].2023.04.b [App Version].2023.05.a [App Version].2023.06.a [App Version].2023.07.a [App Version].2023.07.b [App Version].2023.08.a [App Version].2023.09.a [App Version].'2023.09.a-hotfix 1' [App Version].2023.10.a [App Version].'2023.10.a-hotfix 1' [App Version].2023.12.a [App Version].2024.01.a [App Version].2024.02.a [App Version].2024.02.a-hotfix [App Version].2024.03.a [App Version].2024.04.a [App Version].2024.05.a [App Version].2024.06.a [App Version].2024.07.a-hotfix [App Version].2024.08 [App Version].2024.09.a [App Version].feb2023_firststorefullversion [App Version].feb2023_firststoreversion [App Version].'not a store release' [App Version].'other non-releases' [App Version].{null} [App Version] != [App Version].'not a store release' [App Version].{null} [Event Date Time] on or after '05/01/2023' [Pc Type].consumer [Pc Type].enterprise [Pc Type].premium [Pc Type].rpos [Pc Type].sbso [Pc Type].unknown [Pc Type].workstation [Pc Type].{null} [Geo Country Code].australia [Geo Country Code].brazil [Geo Country Code].canada [Geo Country Code].china [Geo Country Code].france [Geo Country Code].india [Geo Country Code].japan [Geo Country Code].mexico [Geo Country Code].other_countries [Geo Country Code].'united kingdom' [Geo Country Code].'united states' [Geo Country Code].{null} [Geo Country Code] != '{null}'"
+      answer_columns:
+      - name: Active Devices
+      table:
+        table_columns:
+        - column_id: Active Devices
+          show_headline: false
+        ordered_column_ids:
+        - Active Devices
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"orderedColumnIds\": [\"Active Devices\",\"688990af-5abf-4895-a835-bb9153978067\"],\"columnProperties\": [{\"columnId\": \"688990af-5abf-4895-a835-bb9153978067\",\"columnProperty\": {\"isHidden\": true}}]}"
+      chart:
+        type: KPI
+        chart_columns:
+        - column_id: Active Devices
+        axis_configs:
+        - "y":
+          - Active Devices
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"688990af-5abf-4895-a835-bb9153978067\",\"columnProperty\": {}},{\"columnId\": \"Active Devices\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"be6c7967-12c0-4b80-bf8f-1b9a11219228\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Active Devices\"],\"isOpposite\": false}},{\"id\": \"826e0fe4-cd1f-4076-bd7c-87b7a9f1958f\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"688990af-5abf-4895-a835-bb9153978067\"]}}],\"seriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#0096D3\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 06df84cf-a788-4b2a-810a-100715952deb
+  - id: Viz_11
+    answer:
+      name: HPX CURR - Trendline
+      description: "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6"
+      tables:
+      - id: HPX_CURR
+        name: HPX_CURR
+        fqn: 4f36fe75-ee67-4c57-af74-536a929e0e31
+      formulas:
+      - id: f_CURR
+        name: f_CURR
+        expr: "average ( [Curr] ) "
+        was_auto_generated: false
+      search_query: "[f_CURR] [Week Active] [Week Active].weekly"
+      answer_columns:
+      - name: Week(Week Active)
+        custom_name: Week Active
+      - name: f_CURR
+        custom_name: CURR
+      table:
+        table_columns:
+        - column_id: Week(Week Active)
+          show_headline: false
+        - column_id: f_CURR
+          show_headline: false
+        ordered_column_ids:
+        - Week(Week Active)
+        - f_CURR
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: LINE
+        chart_columns:
+        - column_id: Week(Week Active)
+        - column_id: f_CURR
+        axis_configs:
+        - x:
+          - Week(Week Active)
+          "y":
+          - f_CURR
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"gridLines\": {},\"responsiveLayoutPreference\": \"USER_PREFERRED_ON\",\"chartSpecific\": {\"dataFieldArea\": \"column\"}},\"columnProperties\": [{\"columnId\": \"f_CURR\",\"columnProperty\": {}},{\"columnId\": \"Week(Week Active)\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"2b09b918-7fb0-4819-ab3e-9688f22ad85f\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"f_CURR\"],\"isOpposite\": false}},{\"id\": \"57be0146-cb03-4268-8643-fed71d6d2193\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Week(Week Active)\"]}}],\"seriesColors\": [{\"serieName\": \"f_CURR\",\"color\": \"#06BF7F\"}],\"systemSeriesColors\": [{\"serieName\": \"f_CURR\",\"color\": \"#48D1E0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 8b00f1d5-fba7-451a-89ae-dbc1a50d1202
+  - id: Viz_12
+    answer:
+      name: HPX CURR - Data Table
+      description: "% Devices active in the previous week t14t20, last week t7t13 and this week t0t6"
+      tables:
+      - id: HPX_CURR
+        name: HPX_CURR
+        fqn: 4f36fe75-ee67-4c57-af74-536a929e0e31
+      formulas:
+      - id: f_CURR
+        name: f_CURR
+        expr: "average ( [Curr] ) "
+        was_auto_generated: false
+      search_query: "[f_CURR] [Week Active] [Week Active].weekly [Week Active] on or after '05/01/2023' [Last Week Users T7t13] [This Week Users T0t6] [Previous Week Users T14t20] sort by [Week Active] [Week Active].weekly"
+      answer_columns:
+      - name: Total Last Week Users T7t13
+        custom_name: Last Week Users T7t13
+      - name: Total Previous Week Users T14t20
+        custom_name: Previous Week Users T14t20
+        format:
+          category: NUMBER
+          numberFormatConfig:
+            unit: NONE
+            decimals: 0.0
+            negativeValueFormat: PREFIX_DASH
+            toSeparateThousands: true
+          isCategoryEditable: true
+      - name: Total This Week Users T0t6
+        custom_name: This Week Users T0t6
+      - name: Week(Week Active)
+        custom_name: Week
+      - name: f_CURR
+        custom_name: CURR
+      table:
+        table_columns:
+        - column_id: Total Last Week Users T7t13
+          show_headline: false
+        - column_id: Total Previous Week Users T14t20
+          show_headline: false
+        - column_id: Total This Week Users T0t6
+          show_headline: false
+        - column_id: Week(Week Active)
+          show_headline: false
+        - column_id: f_CURR
+          headline_aggregation: TABLE_AGGR
+        ordered_column_ids:
+        - Week(Week Active)
+        - f_CURR
+        - Total Last Week Users T7t13
+        - Total This Week Users T0t6
+        - Total Previous Week Users T14t20
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Week(Week Active)\",\"width\": 115.84646606445312},{\"columnId\": \"f_CURR\",\"width\": 100.31238708496093},{\"columnId\": \"Total This Week Users T0t6\",\"width\": 103.0},{\"columnId\": \"Total Previous Week Users T14t20\",\"width\": 116.6},{\"columnId\": \"Total Last Week Users T7t13\",\"width\": 107.0}],\"showTableFooter\": false,\"orderedColumnIds\": [\"Week(Week Active)\",\"Total Previous Week Users T14t20\",\"Total Last Week Users T7t13\",\"Total This Week Users T0t6\",\"f_CURR\"]}"
+      chart:
+        type: LINE
+        chart_columns:
+        - column_id: Total Last Week Users T7t13
+        - column_id: Total Previous Week Users T14t20
+        - column_id: Total This Week Users T0t6
+        - column_id: Week(Week Active)
+        - column_id: f_CURR
+        axis_configs:
+        - x:
+          - Week(Week Active)
+          "y":
+          - f_CURR
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"gridLines\": {},\"responsiveLayoutPreference\": \"USER_PREFERRED_ON\",\"chartSpecific\": {\"dataFieldArea\": \"column\"}},\"columnProperties\": [{\"columnId\": \"f_CURR\",\"columnProperty\": {}},{\"columnId\": \"Week(Week Active)\",\"columnProperty\": {}},{\"columnId\": \"Total Last Week Users T7t13\",\"columnProperty\": {}},{\"columnId\": \"Total This Week Users T0t6\",\"columnProperty\": {}},{\"columnId\": \"Total Previous Week Users T14t20\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"2b09b918-7fb0-4819-ab3e-9688f22ad85f\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"f_CURR\"],\"isOpposite\": false}},{\"id\": \"57be0146-cb03-4268-8643-fed71d6d2193\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Week(Week Active)\"]}}],\"seriesColors\": [{\"serieName\": \"f_CURR\",\"color\": \"#06BF7F\"}],\"systemSeriesColors\": [{\"serieName\": \"f_CURR\",\"color\": \"#48D1E0\"}]}"
+      display_mode: TABLE_MODE
+    viz_guid: 94dacfb9-512d-4d06-89a2-f41766bb6cc4
+  - id: Viz_13
+    answer:
+      name: HPX First Use Behavior Flow
+      description: Sankey Diagram as user moves between Screens 1 - 5
+      tables:
+      - id: hpx_first_use_behavior_flow
+        name: hpx_first_use_behavior_flow
+        fqn: 53422364-0e63-431f-8a63-5343279f9a75
+      search_query: "[Devices] [Screen 1] [Screen 2] [Screen 3] [Screen 4] [Screen 5] [Screen 1].welcome_S1 [Date] on or after '05/01/2023' [Screen 2] != 'welcome_S2' [Screen 3] != 'welcome_S3' [Screen 4] != 'welcome_S4' [Screen 5] != 'welcome_S5'"
+      answer_columns:
+      - name: Screen 1
+      - name: Screen 2
+      - name: Screen 3
+      - name: Screen 4
+      - name: Screen 5
+      - name: Total Devices
+      table:
+        table_columns:
+        - column_id: Screen 1
+          show_headline: false
+        - column_id: Screen 2
+          show_headline: false
+        - column_id: Screen 3
+          show_headline: false
+        - column_id: Screen 4
+          show_headline: false
+        - column_id: Screen 5
+          show_headline: false
+        - column_id: Total Devices
+          show_headline: false
+        ordered_column_ids:
+        - Screen 1
+        - Screen 2
+        - Screen 3
+        - Screen 4
+        - Screen 5
+        - Total Devices
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"columnProperties\": [{\"columnId\": \"Screen 1\",\"columnProperty\": {}},{\"columnId\": \"Screen 2\",\"columnProperty\": {}},{\"columnId\": \"Screen 3\",\"columnProperty\": {}},{\"columnId\": \"Screen 4\",\"columnProperty\": {}},{\"columnId\": \"Screen 5\",\"columnProperty\": {}},{\"columnId\": \"Total Devices\",\"columnProperty\": {}}]}"
+      chart:
+        type: SANKEY
+        chart_columns:
+        - column_id: Screen 1
+        - column_id: Screen 2
+        - column_id: Screen 3
+        - column_id: Screen 4
+        - column_id: Screen 5
+        - column_id: Total Devices
+        axis_configs:
+        - x:
+          - Screen 1
+          - Screen 2
+          "y":
+          - Total Devices
+        - x:
+          - Screen 2
+          - Screen 3
+          "y":
+          - Total Devices
+        - x:
+          - Screen 3
+          - Screen 4
+          "y":
+          - Total Devices
+        - x:
+          - Screen 4
+          - Screen 5
+          "y":
+          - Total Devices
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Screen 1\",\"columnProperty\": {}},{\"columnId\": \"Screen 2\",\"columnProperty\": {}},{\"columnId\": \"Screen 3\",\"columnProperty\": {}},{\"columnId\": \"Screen 4\",\"columnProperty\": {}},{\"columnId\": \"Screen 5\",\"columnProperty\": {}},{\"columnId\": \"Total Devices\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"2e95f386-0983-41fc-ac7e-037981caec0f\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Devices\"],\"isOpposite\": false}},{\"id\": \"754fa505-5a17-44fa-96a6-7530901fda3e\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Screen 1\",\"Screen 2\",\"Screen 3\",\"Screen 4\",\"Screen 5\"]}}]}"
+      display_mode: CHART_MODE
+      parameters:
+      - id: b31a86c3-cca5-4146-90a3-78d3a10392da
+        name: Min1000
+        data_type: INT64
+        default_value: "1000"
+        description: ""
+    viz_guid: 04a6b1e5-7f26-42d2-987b-84ce7936d7aa
+  - id: Viz_14
+    answer:
+      name: Home Tile Interactions
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      - id: hpx_events_model_homepage_summary
+        name: hpx_events_model_homepage_summary
+        fqn: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+      table_paths:
+      - id: hpx_events_model_1
+        table: hpx_events_model
+      - id: hpx_events_model_homepage_summary_1
+        table: hpx_events_model_homepage_summary
+      formulas:
+      - id: '% Secondary Button Clicked vs Tile Displayed'
+        name: '% Secondary Button Clicked vs Tile Displayed'
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Tile Views]  )"
+        was_auto_generated: false
+      - id: f_ctr
+        name: f_ctr
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Tile Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Tile Views] ) "
+        was_auto_generated: false
+      - id: f_ctr_cta_primary
+        name: f_ctr_cta_primary
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Tile Views] )"
+        was_auto_generated: false
+      - id: f_ctr_primary
+        name: f_ctr_primary
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Views] ) "
+        was_auto_generated: false
+      - id: f_ctr_secondary
+        name: f_ctr_secondary
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Views] )"
+        was_auto_generated: false
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [hpx_events_model_1::Active Devices] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [hpx_events_model_1::Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[hpx_events_model_homepage_summary_1::Home Tile] [hpx_events_model_homepage_summary_1::Unique Tile Views] [hpx_events_model_homepage_summary_1::Unique Tile Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Views] [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] [f_ctr] [f_ctr_primary] [f_ctr_secondary] [f_ctr_cta_primary] sort by [f_ctr_cta_primary] descending [% Secondary Button Clicked vs Tile Displayed]"
+      answer_columns:
+      - name: '% Secondary Button Clicked vs Tile Displayed'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: Home Tile
+      - name: Total Unique Interstitial Primary Button Clicks
+        custom_name: Unique Interstitial Primary Button Clicks
+      - name: Total Unique Interstitial Secondary Button Clicks
+        custom_name: Unique Interstitial Secondary Button Clicks
+      - name: Total Unique Interstitial Views
+        custom_name: Unique Interstitial Views
+      - name: Total Unique Tile Clicks
+        custom_name: Unique Tile Clicks
+      - name: Total Unique Tile Views
+        custom_name: Unique Tile Views
+      - name: f_ctr
+        custom_name: '% Home Tile Clicked vs Homepage Displayed'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: f_ctr_cta_primary
+        custom_name: '% Primary Button Clicked vs Tile Displayed'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: f_ctr_primary
+        custom_name: '% Primary Button Clicked vs Interstitial Tile Displayed'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: f_ctr_secondary
+        custom_name: '% Secondary Button Clicked vs Interstitial Tile Displayed'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      table:
+        table_columns:
+        - column_id: '% Secondary Button Clicked vs Tile Displayed'
+          show_headline: false
+        - column_id: Home Tile
+          show_headline: false
+        - column_id: Total Unique Interstitial Primary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Views
+          show_headline: false
+        - column_id: Total Unique Tile Clicks
+          show_headline: false
+        - column_id: Total Unique Tile Views
+          show_headline: false
+        - column_id: f_ctr
+          show_headline: false
+        - column_id: f_ctr_cta_primary
+          show_headline: false
+        - column_id: f_ctr_primary
+          show_headline: false
+        - column_id: f_ctr_secondary
+          show_headline: false
+        ordered_column_ids:
+        - Home Tile
+        - Total Unique Tile Views
+        - Total Unique Tile Clicks
+        - Total Unique Interstitial Views
+        - Total Unique Interstitial Primary Button Clicks
+        - Total Unique Interstitial Secondary Button Clicks
+        - f_ctr
+        - f_ctr_primary
+        - f_ctr_secondary
+        - f_ctr_cta_primary
+        - '% Secondary Button Clicked vs Tile Displayed'
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Total Unique Interstitial Secondary Button Clicks\",\"width\": 175.0},{\"columnId\": \"Home Tile\",\"width\": 220.0},{\"columnId\": \"Total Unique Tile Views\",\"width\": 158.0},{\"columnId\": \"Total Unique Interstitial Views\",\"width\": 142.0},{\"columnId\": \"Total Unique Tile Clicks\",\"width\": 144.0},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"width\": 155.0}],\"orderedColumnIds\": [\"Home Tile\",\"Total Unique Tile Views\",\"Total Unique Tile Clicks\",\"Total Unique Interstitial Views\",\"Total Unique Interstitial Primary Button Clicks\",\"Total Unique Interstitial Secondary Button Clicks\",\"f_ctr\",\"f_ctr_cta_primary\",\"% Secondary Button Clicked vs Tile Displayed\",\"f_ctr_primary\",\"f_ctr_secondary\"],\"columnProperties\": [{\"columnId\": \"f_ctr_primary\",\"columnProperty\": {\"conditionalFormatting\": {\"rows\": [{\"operator\": \"IS_NOT_EMPTY\",\"backgroundFormatType\": \"SOLID\",\"comparisonType\": \"VALUE_BASED\",\"isHighlightRow\": false}]},\"isHidden\": false}}]}"
+      chart:
+        type: COLUMN
+        chart_columns:
+        - column_id: '% Secondary Button Clicked vs Tile Displayed'
+        - column_id: Home Tile
+        - column_id: Total Unique Interstitial Primary Button Clicks
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+        - column_id: Total Unique Interstitial Views
+        - column_id: Total Unique Tile Clicks
+        - column_id: Total Unique Tile Views
+        - column_id: f_ctr
+        - column_id: f_ctr_cta_primary
+        - column_id: f_ctr_primary
+        - column_id: f_ctr_secondary
+        axis_configs:
+        - x:
+          - Home Tile
+          "y":
+          - Total Unique Tile Views
+          - Total Unique Tile Clicks
+          - Total Unique Interstitial Views
+          - Total Unique Interstitial Primary Button Clicks
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_OFF\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Home Tile\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Clicks\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"63ed7d73-bcf6-4218-b970-5eab61a176d0\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Unique Tile Views\"],\"isOpposite\": false}},{\"id\": \"ae75e739-8509-43f9-8f5a-1b3e42bb1f3b\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Unique Tile Clicks\"],\"isOpposite\": true}},{\"id\": \"841fb3c8-af5b-442f-b5fd-d96084d14526\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Unique Interstitial Views\"],\"isOpposite\": true}},{\"id\": \"da074fc3-d476-40c7-b5ac-accc28d0c148\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Unique Interstitial Primary Button Clicks\"],\"isOpposite\": true}},{\"id\": \"d007c9a7-a1a9-41c8-a22c-8c38c21545c5\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Home Tile\"]}}],\"systemSeriesColors\": [{\"serieName\": \"Total Unique Tile Views\",\"color\": \"#FCC838\"}]}"
+      display_mode: TABLE_MODE
+    viz_guid: d298a942-584c-407f-90ba-a9ac804870cb
+  - id: Viz_15
+    answer:
+      name: Home Tile Views
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      - id: hpx_events_model_homepage_summary
+        name: hpx_events_model_homepage_summary
+        fqn: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+      table_paths:
+      - id: hpx_events_model_1
+        table: hpx_events_model
+      - id: hpx_events_model_homepage_summary_1
+        table: hpx_events_model_homepage_summary
+      formulas:
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [hpx_events_model_1::Active Devices] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [hpx_events_model_1::Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[hpx_events_model_homepage_summary_1::Home Tile] [hpx_events_model_homepage_summary_1::Unique Tile Views] [hpx_events_model_homepage_summary_1::Unique Tile Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Views] [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] [hpx_events_model_homepage_summary_1::Home Tile Clicked Vs Homepage Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Interstitial Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Interstitial Displayed] sort by [hpx_events_model_homepage_summary_1::Unique Tile Views] descending"
+      answer_columns:
+      - name: Home Tile
+      - name: Total Home Tile Clicked Vs Homepage Displayed
+        custom_name: '% Home Tile Clicked Vs Homepage Displayed'
+      - name: Total Primary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Primary Button Clicked Vs Interstitial Displayed'
+      - name: Total Primary Button Clicked Vs Tile Displayed
+        custom_name: '% Primary Button Clicked Vs Tile Displayed'
+      - name: Total Secondary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Secondary Button Clicked Vs Interstitial Displayed'
+      - name: Total Secondary Button Clicked Vs Tile Displayed
+        custom_name: '% Secondary Button Clicked Vs Tile Displayed'
+      - name: Total Unique Interstitial Primary Button Clicks
+        custom_name: Unique Interstitial Primary Button Clicks
+      - name: Total Unique Interstitial Secondary Button Clicks
+        custom_name: Unique Interstitial Secondary Button Clicks
+      - name: Total Unique Interstitial Views
+        custom_name: Unique Interstitial Views
+      - name: Total Unique Tile Clicks
+        custom_name: Unique Tile Clicks
+      - name: Total Unique Tile Views
+        custom_name: Unique Tile Views
+      table:
+        table_columns:
+        - column_id: Home Tile
+          show_headline: false
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Unique Interstitial Primary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Views
+          show_headline: false
+        - column_id: Total Unique Tile Clicks
+          show_headline: false
+        - column_id: Total Unique Tile Views
+          show_headline: false
+        ordered_column_ids:
+        - Home Tile
+        - Total Unique Tile Views
+        - Total Unique Tile Clicks
+        - Total Unique Interstitial Views
+        - Total Unique Interstitial Primary Button Clicks
+        - Total Unique Interstitial Secondary Button Clicks
+        - Total Home Tile Clicked Vs Homepage Displayed
+        - Total Primary Button Clicked Vs Tile Displayed
+        - Total Secondary Button Clicked Vs Tile Displayed
+        - Total Primary Button Clicked Vs Interstitial Displayed
+        - Total Secondary Button Clicked Vs Interstitial Displayed
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Total Unique Interstitial Secondary Button Clicks\",\"width\": 175.0},{\"columnId\": \"Total Home Tile Clicked Vs Homepage Displayed\",\"width\": 170.0},{\"columnId\": \"Total Primary Button Clicked Vs Interstitial Displayed\",\"width\": 166.0},{\"columnId\": \"Home Tile\",\"width\": 220.0},{\"columnId\": \"Total Unique Tile Views\",\"width\": 158.0},{\"columnId\": \"Total Unique Interstitial Views\",\"width\": 142.0},{\"columnId\": \"Total Unique Tile Clicks\",\"width\": 144.0},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"width\": 155.0},{\"columnId\": \"Total Primary Button Clicked Vs Tile Displayed\",\"width\": 139.0},{\"columnId\": \"Total Secondary Button Clicked Vs Tile Displayed\",\"width\": 144.0},{\"columnId\": \"Total Secondary Button Clicked Vs Interstitial Displayed\",\"width\": 173.0}]}"
+      chart:
+        type: KPI
+        chart_columns:
+        - column_id: Home Tile
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+        - column_id: Total Unique Interstitial Primary Button Clicks
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+        - column_id: Total Unique Interstitial Views
+        - column_id: Total Unique Tile Clicks
+        - column_id: Total Unique Tile Views
+        axis_configs:
+        - "y":
+          - Total Unique Tile Views
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_OFF\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Home Tile\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Clicks\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"20ef4b43-0e36-4b41-8bb4-e23627fd36cb\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Unique Tile Views\"],\"isOpposite\": false}},{\"id\": \"1d0201df-a037-48bb-b971-a176f487c645\",\"properties\": {\"axisType\": \"X\"}}],\"systemSeriesColors\": [{\"serieName\": \"Total Unique Tile Views\",\"color\": \"#FCC838\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 0e3e25a0-87cf-402e-96e2-be9254044ff1
+  - id: Viz_16
+    answer:
+      name: Home Tile Clicks
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      - id: hpx_events_model_homepage_summary
+        name: hpx_events_model_homepage_summary
+        fqn: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+      table_paths:
+      - id: hpx_events_model_1
+        table: hpx_events_model
+      - id: hpx_events_model_homepage_summary_1
+        table: hpx_events_model_homepage_summary
+      formulas:
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [hpx_events_model_1::Active Devices] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [hpx_events_model_1::Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[hpx_events_model_homepage_summary_1::Home Tile] [hpx_events_model_homepage_summary_1::Unique Tile Views] [hpx_events_model_homepage_summary_1::Unique Tile Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Views] [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] [hpx_events_model_homepage_summary_1::Home Tile Clicked Vs Homepage Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Interstitial Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Interstitial Displayed] sort by [hpx_events_model_homepage_summary_1::Unique Tile Views] descending"
+      answer_columns:
+      - name: Home Tile
+      - name: Total Home Tile Clicked Vs Homepage Displayed
+        custom_name: '% Home Tile Clicked Vs Homepage Displayed'
+      - name: Total Primary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Primary Button Clicked Vs Interstitial Displayed'
+      - name: Total Primary Button Clicked Vs Tile Displayed
+        custom_name: '% Primary Button Clicked Vs Tile Displayed'
+      - name: Total Secondary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Secondary Button Clicked Vs Interstitial Displayed'
+      - name: Total Secondary Button Clicked Vs Tile Displayed
+        custom_name: '% Secondary Button Clicked Vs Tile Displayed'
+      - name: Total Unique Interstitial Primary Button Clicks
+        custom_name: Unique Interstitial Primary Button Clicks
+      - name: Total Unique Interstitial Secondary Button Clicks
+        custom_name: Unique Interstitial Secondary Button Clicks
+      - name: Total Unique Interstitial Views
+        custom_name: Unique Interstitial Views
+      - name: Total Unique Tile Clicks
+        custom_name: Unique Tile Clicks
+      - name: Total Unique Tile Views
+        custom_name: Unique Tile Views
+      table:
+        table_columns:
+        - column_id: Home Tile
+          show_headline: false
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Unique Interstitial Primary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Views
+          show_headline: false
+        - column_id: Total Unique Tile Clicks
+          show_headline: false
+        - column_id: Total Unique Tile Views
+          show_headline: false
+        ordered_column_ids:
+        - Home Tile
+        - Total Unique Tile Views
+        - Total Unique Tile Clicks
+        - Total Unique Interstitial Views
+        - Total Unique Interstitial Primary Button Clicks
+        - Total Unique Interstitial Secondary Button Clicks
+        - Total Home Tile Clicked Vs Homepage Displayed
+        - Total Primary Button Clicked Vs Tile Displayed
+        - Total Secondary Button Clicked Vs Tile Displayed
+        - Total Primary Button Clicked Vs Interstitial Displayed
+        - Total Secondary Button Clicked Vs Interstitial Displayed
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Total Unique Interstitial Secondary Button Clicks\",\"width\": 175.0},{\"columnId\": \"Total Home Tile Clicked Vs Homepage Displayed\",\"width\": 170.0},{\"columnId\": \"Total Primary Button Clicked Vs Interstitial Displayed\",\"width\": 166.0},{\"columnId\": \"Home Tile\",\"width\": 220.0},{\"columnId\": \"Total Unique Tile Views\",\"width\": 158.0},{\"columnId\": \"Total Unique Interstitial Views\",\"width\": 142.0},{\"columnId\": \"Total Unique Tile Clicks\",\"width\": 144.0},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"width\": 155.0},{\"columnId\": \"Total Primary Button Clicked Vs Tile Displayed\",\"width\": 139.0},{\"columnId\": \"Total Secondary Button Clicked Vs Tile Displayed\",\"width\": 144.0},{\"columnId\": \"Total Secondary Button Clicked Vs Interstitial Displayed\",\"width\": 173.0}]}"
+      chart:
+        type: KPI
+        chart_columns:
+        - column_id: Home Tile
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+        - column_id: Total Unique Interstitial Primary Button Clicks
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+        - column_id: Total Unique Interstitial Views
+        - column_id: Total Unique Tile Clicks
+        - column_id: Total Unique Tile Views
+        axis_configs:
+        - "y":
+          - Total Unique Tile Clicks
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_OFF\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Home Tile\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Clicks\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"f0818f1e-0f11-40f0-a9fc-d1aa751318b2\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"Total Unique Tile Clicks\"],\"isOpposite\": false}},{\"id\": \"3ffe3d99-518b-4867-b8e9-693fc0ad7903\",\"properties\": {\"axisType\": \"X\"}}],\"systemSeriesColors\": [{\"serieName\": \"Total Unique Tile Views\",\"color\": \"#FCC838\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 0d30c873-f798-4a6c-8a85-12a4a7a6d820
+  - id: Viz_17
+    answer:
+      name: Home Tile Interactions CTR
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      - id: hpx_events_model_homepage_summary
+        name: hpx_events_model_homepage_summary
+        fqn: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+      table_paths:
+      - id: hpx_events_model_1
+        table: hpx_events_model
+      - id: hpx_events_model_homepage_summary_1
+        table: hpx_events_model_homepage_summary
+      formulas:
+      - id: f_ctr
+        name: f_ctr
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Tile Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Tile Views] )"
+        was_auto_generated: false
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [hpx_events_model_1::Active Devices] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [hpx_events_model_1::Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[hpx_events_model_homepage_summary_1::Home Tile] [hpx_events_model_homepage_summary_1::Unique Tile Views] [hpx_events_model_homepage_summary_1::Unique Tile Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Views] [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] [hpx_events_model_homepage_summary_1::Home Tile Clicked Vs Homepage Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Interstitial Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Interstitial Displayed] sort by [hpx_events_model_homepage_summary_1::Unique Tile Views] descending [f_ctr]"
+      answer_columns:
+      - name: Home Tile
+      - name: Total Home Tile Clicked Vs Homepage Displayed
+        custom_name: '% Home Tile Clicked Vs Homepage Displayed'
+      - name: Total Primary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Primary Button Clicked Vs Interstitial Displayed'
+      - name: Total Primary Button Clicked Vs Tile Displayed
+        custom_name: '% Primary Button Clicked Vs Tile Displayed'
+      - name: Total Secondary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Secondary Button Clicked Vs Interstitial Displayed'
+      - name: Total Secondary Button Clicked Vs Tile Displayed
+        custom_name: '% Secondary Button Clicked Vs Tile Displayed'
+      - name: Total Unique Interstitial Primary Button Clicks
+        custom_name: Unique Interstitial Primary Button Clicks
+      - name: Total Unique Interstitial Secondary Button Clicks
+        custom_name: Unique Interstitial Secondary Button Clicks
+      - name: Total Unique Interstitial Views
+        custom_name: Unique Interstitial Views
+      - name: Total Unique Tile Clicks
+        custom_name: Unique Tile Clicks
+      - name: Total Unique Tile Views
+        custom_name: Unique Tile Views
+      - name: f_ctr
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 2.0
+          isCategoryEditable: true
+      table:
+        table_columns:
+        - column_id: Home Tile
+          show_headline: false
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+          headline_aggregation: AVERAGE
+          headline_client_state: "{\"headlineVizPropVersion\": \"V1\",\"columnProperty\": {\"summariesNumberFormatConfig\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 2.0},\"isCategoryEditable\": true}}}"
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Unique Interstitial Primary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Views
+          show_headline: false
+        - column_id: Total Unique Tile Clicks
+          headline_aggregation: SUM
+        - column_id: Total Unique Tile Views
+          headline_aggregation: SUM
+        - column_id: f_ctr
+          headline_aggregation: TABLE_AGGR
+          headline_client_state: "{\"headlineVizPropVersion\": \"V1\",\"columnProperty\": {\"summariesNumberFormatConfig\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 1.0},\"isCategoryEditable\": true}}}"
+        ordered_column_ids:
+        - Home Tile
+        - Total Unique Tile Views
+        - Total Unique Tile Clicks
+        - Total Unique Interstitial Views
+        - Total Unique Interstitial Primary Button Clicks
+        - Total Unique Interstitial Secondary Button Clicks
+        - Total Home Tile Clicked Vs Homepage Displayed
+        - Total Primary Button Clicked Vs Tile Displayed
+        - Total Secondary Button Clicked Vs Tile Displayed
+        - Total Primary Button Clicked Vs Interstitial Displayed
+        - Total Secondary Button Clicked Vs Interstitial Displayed
+        - f_ctr
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Total Unique Interstitial Secondary Button Clicks\",\"width\": 175.0},{\"columnId\": \"Total Home Tile Clicked Vs Homepage Displayed\",\"width\": 170.0},{\"columnId\": \"Total Primary Button Clicked Vs Interstitial Displayed\",\"width\": 166.0},{\"columnId\": \"Home Tile\",\"width\": 220.0},{\"columnId\": \"Total Unique Tile Views\",\"width\": 158.0},{\"columnId\": \"Total Unique Interstitial Views\",\"width\": 142.0},{\"columnId\": \"Total Unique Tile Clicks\",\"width\": 144.0},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"width\": 155.0},{\"columnId\": \"Total Primary Button Clicked Vs Tile Displayed\",\"width\": 139.0},{\"columnId\": \"Total Secondary Button Clicked Vs Tile Displayed\",\"width\": 144.0},{\"columnId\": \"Total Secondary Button Clicked Vs Interstitial Displayed\",\"width\": 173.0}]}"
+      chart:
+        type: KPI
+        chart_columns:
+        - column_id: Home Tile
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+        - column_id: Total Unique Interstitial Primary Button Clicks
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+        - column_id: Total Unique Interstitial Views
+        - column_id: Total Unique Tile Clicks
+        - column_id: Total Unique Tile Views
+        - column_id: f_ctr
+        axis_configs:
+        - "y":
+          - f_ctr
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_OFF\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Home Tile\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Clicks\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"a71357eb-7720-4aec-ba7a-1f53bdc1025a\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"f_ctr\"],\"isOpposite\": false}},{\"id\": \"63b0fdd7-96f0-4288-aabb-e4c26f553450\",\"properties\": {\"axisType\": \"X\"}}],\"systemSeriesColors\": [{\"serieName\": \"Total Unique Tile Views\",\"color\": \"#FCC838\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 048f8c1d-d3ca-4358-91f0-4d527db4b3c9
+  - id: Viz_18
+    answer:
+      name: Home Tile Primary CTR
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      - id: hpx_events_model_homepage_summary
+        name: hpx_events_model_homepage_summary
+        fqn: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+      table_paths:
+      - id: hpx_events_model_1
+        table: hpx_events_model
+      - id: hpx_events_model_homepage_summary_1
+        table: hpx_events_model_homepage_summary
+      formulas:
+      - id: f_ctr
+        name: f_ctr
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Tile Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Tile Views] )"
+        was_auto_generated: false
+      - id: f_ctr_cta1
+        name: f_ctr_cta1
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Views]  )"
+        was_auto_generated: false
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [hpx_events_model_1::Active Devices] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [hpx_events_model_1::Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[hpx_events_model_homepage_summary_1::Home Tile] [hpx_events_model_homepage_summary_1::Unique Tile Views] [hpx_events_model_homepage_summary_1::Unique Tile Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Views] [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] [hpx_events_model_homepage_summary_1::Home Tile Clicked Vs Homepage Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Interstitial Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Interstitial Displayed] sort by [hpx_events_model_homepage_summary_1::Unique Tile Views] descending [f_ctr] [f_ctr_cta1]"
+      answer_columns:
+      - name: Home Tile
+      - name: Total Home Tile Clicked Vs Homepage Displayed
+        custom_name: '% Home Tile Clicked Vs Homepage Displayed'
+      - name: Total Primary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Primary Button Clicked Vs Interstitial Displayed'
+      - name: Total Primary Button Clicked Vs Tile Displayed
+        custom_name: '% Primary Button Clicked Vs Tile Displayed'
+      - name: Total Secondary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Secondary Button Clicked Vs Interstitial Displayed'
+      - name: Total Secondary Button Clicked Vs Tile Displayed
+        custom_name: '% Secondary Button Clicked Vs Tile Displayed'
+      - name: Total Unique Interstitial Primary Button Clicks
+        custom_name: Unique Interstitial Primary Button Clicks
+      - name: Total Unique Interstitial Secondary Button Clicks
+        custom_name: Unique Interstitial Secondary Button Clicks
+      - name: Total Unique Interstitial Views
+        custom_name: Unique Interstitial Views
+      - name: Total Unique Tile Clicks
+        custom_name: Unique Tile Clicks
+      - name: Total Unique Tile Views
+        custom_name: Unique Tile Views
+      - name: f_ctr
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 2.0
+          isCategoryEditable: true
+      - name: f_ctr_cta1
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      table:
+        table_columns:
+        - column_id: Home Tile
+          show_headline: false
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+          headline_aggregation: AVERAGE
+          headline_client_state: "{\"headlineVizPropVersion\": \"V1\",\"columnProperty\": {\"summariesNumberFormatConfig\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 2.0},\"isCategoryEditable\": true}}}"
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Unique Interstitial Primary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Views
+          show_headline: false
+        - column_id: Total Unique Tile Clicks
+          headline_aggregation: SUM
+        - column_id: Total Unique Tile Views
+          headline_aggregation: SUM
+        - column_id: f_ctr
+          headline_aggregation: TABLE_AGGR
+          headline_client_state: "{\"headlineVizPropVersion\": \"V1\",\"columnProperty\": {\"summariesNumberFormatConfig\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 1.0},\"isCategoryEditable\": true}}}"
+        - column_id: f_ctr_cta1
+          headline_aggregation: TABLE_AGGR
+        ordered_column_ids:
+        - Home Tile
+        - Total Unique Tile Views
+        - Total Unique Tile Clicks
+        - Total Unique Interstitial Views
+        - Total Unique Interstitial Primary Button Clicks
+        - Total Unique Interstitial Secondary Button Clicks
+        - Total Home Tile Clicked Vs Homepage Displayed
+        - Total Primary Button Clicked Vs Tile Displayed
+        - Total Secondary Button Clicked Vs Tile Displayed
+        - Total Primary Button Clicked Vs Interstitial Displayed
+        - Total Secondary Button Clicked Vs Interstitial Displayed
+        - f_ctr
+        - f_ctr_cta1
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Total Unique Interstitial Secondary Button Clicks\",\"width\": 175.0},{\"columnId\": \"Total Home Tile Clicked Vs Homepage Displayed\",\"width\": 170.0},{\"columnId\": \"Total Primary Button Clicked Vs Interstitial Displayed\",\"width\": 166.0},{\"columnId\": \"Home Tile\",\"width\": 220.0},{\"columnId\": \"Total Unique Tile Views\",\"width\": 158.0},{\"columnId\": \"Total Unique Interstitial Views\",\"width\": 142.0},{\"columnId\": \"Total Unique Tile Clicks\",\"width\": 144.0},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"width\": 155.0},{\"columnId\": \"Total Primary Button Clicked Vs Tile Displayed\",\"width\": 139.0},{\"columnId\": \"Total Secondary Button Clicked Vs Tile Displayed\",\"width\": 144.0},{\"columnId\": \"Total Secondary Button Clicked Vs Interstitial Displayed\",\"width\": 173.0}]}"
+      chart:
+        type: KPI
+        chart_columns:
+        - column_id: Home Tile
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+        - column_id: Total Unique Interstitial Primary Button Clicks
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+        - column_id: Total Unique Interstitial Views
+        - column_id: Total Unique Tile Clicks
+        - column_id: Total Unique Tile Views
+        - column_id: f_ctr
+        - column_id: f_ctr_cta1
+        axis_configs:
+        - "y":
+          - f_ctr_cta1
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_OFF\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Home Tile\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Clicks\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"columnProperty\": {}},{\"columnId\": \"f_ctr\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"a796bfed-9627-4c73-8a10-30670b20899d\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"f_ctr_cta1\"],\"isOpposite\": false}},{\"id\": \"7407749c-12eb-48c1-b640-9cff09c4d099\",\"properties\": {\"axisType\": \"X\"}}],\"systemSeriesColors\": [{\"serieName\": \"Total Unique Tile Views\",\"color\": \"#FCC838\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 3d1ea094-3187-401a-87b0-ddcdf3fedd1e
+  - id: Viz_19
+    answer:
+      name: Home Tile Secondary CTR
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      - id: hpx_events_model_homepage_summary
+        name: hpx_events_model_homepage_summary
+        fqn: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+      table_paths:
+      - id: hpx_events_model_1
+        table: hpx_events_model
+      - id: hpx_events_model_homepage_summary_1
+        table: hpx_events_model_homepage_summary
+      formulas:
+      - id: f_ctr
+        name: f_ctr
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Tile Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Tile Views] )"
+        was_auto_generated: false
+      - id: f_ctr_cta0
+        name: f_ctr_cta0
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks]  ) / sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Views] )"
+        was_auto_generated: false
+      - id: f_ctr_cta1
+        name: f_ctr_cta1
+        expr: "sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] ) / sum ( [hpx_events_model_homepage_summary_1::Unique Interstitial Views]  )"
+        was_auto_generated: false
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [hpx_events_model_1::Active Devices] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [hpx_events_model_1::Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'insterstitialclicked' } and [hpx_events_model_1::Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [hpx_events_model_1::Unique Events] , query_groups ( ) , query_filters ( ) + { [hpx_events_model_1::Screen] = 'home' and [hpx_events_model_1::Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[hpx_events_model_homepage_summary_1::Home Tile] [hpx_events_model_homepage_summary_1::Unique Tile Views] [hpx_events_model_homepage_summary_1::Unique Tile Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Views] [hpx_events_model_homepage_summary_1::Unique Interstitial Primary Button Clicks] [hpx_events_model_homepage_summary_1::Unique Interstitial Secondary Button Clicks] [hpx_events_model_homepage_summary_1::Home Tile Clicked Vs Homepage Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Tile Displayed] [hpx_events_model_homepage_summary_1::Primary Button Clicked Vs Interstitial Displayed] [hpx_events_model_homepage_summary_1::Secondary Button Clicked Vs Interstitial Displayed] sort by [hpx_events_model_homepage_summary_1::Unique Tile Views] descending [f_ctr] [f_ctr_cta1] [f_ctr_cta0]"
+      answer_columns:
+      - name: Home Tile
+      - name: Total Home Tile Clicked Vs Homepage Displayed
+        custom_name: '% Home Tile Clicked Vs Homepage Displayed'
+      - name: Total Primary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Primary Button Clicked Vs Interstitial Displayed'
+      - name: Total Primary Button Clicked Vs Tile Displayed
+        custom_name: '% Primary Button Clicked Vs Tile Displayed'
+      - name: Total Secondary Button Clicked Vs Interstitial Displayed
+        custom_name: '% Secondary Button Clicked Vs Interstitial Displayed'
+      - name: Total Secondary Button Clicked Vs Tile Displayed
+        custom_name: '% Secondary Button Clicked Vs Tile Displayed'
+      - name: Total Unique Interstitial Primary Button Clicks
+        custom_name: Unique Interstitial Primary Button Clicks
+      - name: Total Unique Interstitial Secondary Button Clicks
+        custom_name: Unique Interstitial Secondary Button Clicks
+      - name: Total Unique Interstitial Views
+        custom_name: Unique Interstitial Views
+      - name: Total Unique Tile Clicks
+        custom_name: Unique Tile Clicks
+      - name: Total Unique Tile Views
+        custom_name: Unique Tile Views
+      - name: f_ctr
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 2.0
+          isCategoryEditable: true
+      - name: f_ctr_cta0
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: f_ctr_cta1
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      table:
+        table_columns:
+        - column_id: Home Tile
+          show_headline: false
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+          headline_aggregation: AVERAGE
+          headline_client_state: "{\"headlineVizPropVersion\": \"V1\",\"columnProperty\": {\"summariesNumberFormatConfig\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 2.0},\"isCategoryEditable\": true}}}"
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+          show_headline: false
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+          show_headline: false
+        - column_id: Total Unique Interstitial Primary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+          show_headline: false
+        - column_id: Total Unique Interstitial Views
+          show_headline: false
+        - column_id: Total Unique Tile Clicks
+          headline_aggregation: SUM
+        - column_id: Total Unique Tile Views
+          headline_aggregation: SUM
+        - column_id: f_ctr
+          headline_aggregation: TABLE_AGGR
+          headline_client_state: "{\"headlineVizPropVersion\": \"V1\",\"columnProperty\": {\"summariesNumberFormatConfig\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 1.0},\"isCategoryEditable\": true}}}"
+        - column_id: f_ctr_cta0
+          headline_aggregation: TABLE_AGGR
+        - column_id: f_ctr_cta1
+          headline_aggregation: TABLE_AGGR
+        ordered_column_ids:
+        - Home Tile
+        - Total Unique Tile Views
+        - Total Unique Tile Clicks
+        - Total Unique Interstitial Views
+        - Total Unique Interstitial Primary Button Clicks
+        - Total Unique Interstitial Secondary Button Clicks
+        - Total Home Tile Clicked Vs Homepage Displayed
+        - Total Primary Button Clicked Vs Tile Displayed
+        - Total Secondary Button Clicked Vs Tile Displayed
+        - Total Primary Button Clicked Vs Interstitial Displayed
+        - Total Secondary Button Clicked Vs Interstitial Displayed
+        - f_ctr
+        - f_ctr_cta1
+        - f_ctr_cta0
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\",\"widthState\": [{\"columnId\": \"Total Unique Interstitial Secondary Button Clicks\",\"width\": 175.0},{\"columnId\": \"Total Home Tile Clicked Vs Homepage Displayed\",\"width\": 170.0},{\"columnId\": \"Total Primary Button Clicked Vs Interstitial Displayed\",\"width\": 166.0},{\"columnId\": \"Home Tile\",\"width\": 220.0},{\"columnId\": \"Total Unique Tile Views\",\"width\": 158.0},{\"columnId\": \"Total Unique Interstitial Views\",\"width\": 142.0},{\"columnId\": \"Total Unique Tile Clicks\",\"width\": 144.0},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"width\": 155.0},{\"columnId\": \"Total Primary Button Clicked Vs Tile Displayed\",\"width\": 139.0},{\"columnId\": \"Total Secondary Button Clicked Vs Tile Displayed\",\"width\": 144.0},{\"columnId\": \"Total Secondary Button Clicked Vs Interstitial Displayed\",\"width\": 173.0}]}"
+      chart:
+        type: KPI
+        chart_columns:
+        - column_id: Home Tile
+        - column_id: Total Home Tile Clicked Vs Homepage Displayed
+        - column_id: Total Primary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Primary Button Clicked Vs Tile Displayed
+        - column_id: Total Secondary Button Clicked Vs Interstitial Displayed
+        - column_id: Total Secondary Button Clicked Vs Tile Displayed
+        - column_id: Total Unique Interstitial Primary Button Clicks
+        - column_id: Total Unique Interstitial Secondary Button Clicks
+        - column_id: Total Unique Interstitial Views
+        - column_id: Total Unique Tile Clicks
+        - column_id: Total Unique Tile Views
+        - column_id: f_ctr
+        - column_id: f_ctr_cta0
+        - column_id: f_ctr_cta1
+        axis_configs:
+        - "y":
+          - f_ctr_cta0
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_OFF\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Home Tile\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Tile Clicks\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Views\",\"columnProperty\": {}},{\"columnId\": \"Total Unique Interstitial Primary Button Clicks\",\"columnProperty\": {}},{\"columnId\": \"f_ctr\",\"columnProperty\": {}},{\"columnId\": \"f_ctr_cta1\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"bad5f3aa-259f-47c8-bdc4-c5641c466333\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"f_ctr_cta0\"],\"isOpposite\": false}},{\"id\": \"858d8296-d9df-457e-87a7-646661c6379a\",\"properties\": {\"axisType\": \"X\"}}],\"systemSeriesColors\": [{\"serieName\": \"Total Unique Tile Views\",\"color\": \"#FCC838\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 52daf795-dd5f-494c-a418-a037f3409cb9
+  - id: Viz_20
+    answer:
+      name: '% Active Devices by Country (Top 10)'
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      formulas:
+      - id: f_active_devices_rank
+        name: f_active_devices_rank
+        expr: "rank ( [MAU] , 'Desc' )"
+        properties:
+          column_type: ATTRIBUTE
+        was_auto_generated: false
+      - id: MAU
+        name: MAU
+        expr: "[Active Devices]"
+        was_auto_generated: false
+      - id: '% Active Devices By Appversion'
+        name: '% Active Devices By Appversion'
+        expr: "[Active Devices] / group_aggregate ( [Active Devices] , query_groups ( ) - { [App Version] } , query_filters ( ) ) "
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'insterstitialclicked' } and [Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'insterstitialclicked' } and [Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      - id: f_active_devices_home
+        name: f_active_devices_home
+        expr: "sum ( [Active Devices Home] ) "
+        was_auto_generated: false
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [Active Devices] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: f_pct_rank
+        name: f_pct_rank
+        expr: "rank ( [% Active Devices by Country] , '' )"
+        properties:
+          column_type: ATTRIBUTE
+        was_auto_generated: false
+      - id: '% Active Devices by Country'
+        name: '% Active Devices by Country'
+        expr: "[Active Devices] / group_aggregate ( [Active Devices] , query_groups ( ) - { [Geo Country Code]  } , query_filters ( ) )"
+        was_auto_generated: false
+      search_query: "[f_active_devices_rank] [f_active_devices_rank].1 [f_active_devices_rank].2 [f_active_devices_rank].3 [f_active_devices_rank].4 [f_active_devices_rank].5 [f_active_devices_rank].6 [f_active_devices_rank].7 [f_active_devices_rank].8 [f_active_devices_rank].9 [f_active_devices_rank].10 [% Active Devices by Country] [Geo Country Code] sort by [MAU] descending [App Version] != [App Version].'not a store release' [App Version].'other non-releases' [Event Date Time] on or after '05/01/2023' [Os Version] != '{null}'"
+      answer_columns:
+      - name: '% Active Devices by Country'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: Geo Country Code
+        custom_name: Country
+      - name: MAU
+      - name: f_active_devices_rank
+      table:
+        table_columns:
+        - column_id: '% Active Devices by Country'
+          show_headline: false
+        - column_id: Geo Country Code
+          show_headline: false
+        - column_id: MAU
+          show_headline: false
+        - column_id: f_active_devices_rank
+          show_headline: false
+        ordered_column_ids:
+        - Geo Country Code
+        - f_active_devices_rank
+        - '% Active Devices by Country'
+        - MAU
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: BAR
+        chart_columns:
+        - column_id: '% Active Devices by Country'
+        - column_id: Geo Country Code
+        - column_id: MAU
+        - column_id: f_active_devices_rank
+        axis_configs:
+        - x:
+          - Geo Country Code
+          "y":
+          - '% Active Devices by Country'
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"customProps\": \"{\\\"advancedProperties\\\":{\\\"tooltip\\\":{\\\"enabled\\\":true}}}\",\"pivotSummariesState\": {}},\"showStackedLabels\": true,\"allLabels\": true},\"columnProperties\": [{\"columnId\": \"f_active_devices_rank\",\"columnProperty\": {}},{\"columnId\": \"Geo Country Code\",\"columnProperty\": {}},{\"columnId\": \"% Active Devices by Country\",\"columnProperty\": {\"dataLabels\": true}}],\"axisProperties\": [{\"id\": \"ce865385-0ddf-4607-abd8-4858411757a1\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"% Active Devices by Country\"],\"format\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 0.0},\"isCategoryEditable\": true},\"isOpposite\": false}},{\"id\": \"6a519d82-9b49-4cbd-a3cc-47148e87dfbe\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Geo Country Code\"],\"name\": \"Country\"}}],\"seriesColors\": [{\"serieName\": \"% Active Devices by Country\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"% Active Devices by Country\",\"color\": \"#2E75F0\"}],\"tooltipConfig\": {\"columnIds\": [\"Geo Country Code\",\"% Active Devices by Country\",\"MAU\"]}}"
+      display_mode: CHART_MODE
+    viz_guid: d143e100-4243-4589-a360-efeae827a6a7
+  - id: Viz_21
+    answer:
+      name: '% Active Devices by Appversion'
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      formulas:
+      - id: '% Active Devices By Appversion'
+        name: '% Active Devices By Appversion'
+        expr: "[Active Devices] / group_aggregate ( [Active Devices] , query_groups ( ) - { [App Version] } , query_filters ( ) ) "
+        was_auto_generated: false
+      - id: Active Devices Home
+        name: Active Devices Home
+        expr: "group_aggregate ( [Active Devices] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' } )"
+        was_auto_generated: false
+      - id: Home Tile Clicked vs Homepage Displayed
+        name: Home Tile Clicked vs Homepage Displayed
+        expr: "[Home Tile Unique Clicks] / group_aggregate ( [Unique Screen Views] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' } ) "
+        was_auto_generated: false
+      - id: Home Tile Unique Clicks
+        name: Home Tile Unique Clicks
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'controltileclicked' , 'promotionclicked' } } )"
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Interstitial Displayed
+        name: Primary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Primary Button Clicked vs Tile Displayed
+        name: Primary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Primary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Primary Button Unique Clicks
+        name: Home Interstitial Primary Button Unique Clicks
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'insterstitialclicked' } and [Control] = 'ctabutton1' } )"
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Interstitial Displayed
+        name: Secondary Button Clicked vs Interstitial Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Interstitial Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Unique Views
+        name: Home Interstitial Unique Views
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] = 'interstitialdisplayed' } ) "
+        was_auto_generated: false
+      - id: Secondary Button Clicked vs Tile Displayed
+        name: Secondary Button Clicked vs Tile Displayed
+        expr: "[Home Interstitial Secondary Button Unique Clicks] / [Home Tile Unique Views] "
+        was_auto_generated: false
+      - id: Home Interstitial Secondary Button Unique Clicks
+        name: Home Interstitial Secondary Button Unique Clicks
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'insterstitialclicked' } and [Control] = 'ctabutton0' } )"
+        was_auto_generated: false
+      - id: Home Tile Unique Views
+        name: Home Tile Unique Views
+        expr: "group_aggregate ( [Unique Events] , query_groups ( ) , query_filters ( ) + { [Screen] = 'home' and [Ui Action] in { 'promotiondisplayed' } } )"
+        was_auto_generated: false
+      search_query: "[% Active Devices By Appversion] sort by [% Active Devices By Appversion] descending [App Version] [App Version] != [App Version].'not a store release' [App Version].'other non-releases' [Event Date Time] on or after '05/01/2023' [Os Version] != '{null}'"
+      answer_columns:
+      - name: '% Active Devices By Appversion'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 1.0
+          isCategoryEditable: true
+      - name: App Version
+      table:
+        table_columns:
+        - column_id: '% Active Devices By Appversion'
+          show_headline: false
+        - column_id: App Version
+          show_headline: false
+        ordered_column_ids:
+        - App Version
+        - '% Active Devices By Appversion'
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: BAR
+        chart_columns:
+        - column_id: '% Active Devices By Appversion'
+        - column_id: App Version
+        axis_configs:
+        - x:
+          - App Version
+          "y":
+          - '% Active Devices By Appversion'
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"App Version\",\"columnProperty\": {}},{\"columnId\": \"% Active Devices By Appversion\",\"columnProperty\": {\"dataLabels\": true}}],\"axisProperties\": [{\"id\": \"10b063fb-eebf-4827-8c87-bf250ed8da2b\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"App Version\"]}},{\"id\": \"86b1ed6c-c9a5-417d-91b3-ae4a1f8064ab\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"% Active Devices By Appversion\"],\"format\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 0.0},\"isCategoryEditable\": true},\"isOpposite\": false}}],\"seriesColors\": [{\"serieName\": \"5905bcdb-1307-4260-ba7c-0ae9b2c1d1a7\",\"color\": \"#2E75F0\"},{\"serieName\": \"7cf7123c-8318-4ec3-9f5f-c9e47560e495\",\"color\": \"#2E75F0\"},{\"serieName\": \"e897314e-652f-4979-8006-3ef9570a172c\",\"color\": \"#48D1E0\"},{\"serieName\": \"425af003-0001-485a-ae73-df5e8b3622ab\",\"color\": \"#2E75F0\"},{\"serieName\": \"% Active Devices By Appversion\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"5905bcdb-1307-4260-ba7c-0ae9b2c1d1a7\",\"color\": \"#2E75F0\"},{\"serieName\": \"7cf7123c-8318-4ec3-9f5f-c9e47560e495\",\"color\": \"#2E75F0\"},{\"serieName\": \"e897314e-652f-4979-8006-3ef9570a172c\",\"color\": \"#48D1E0\"},{\"serieName\": \"% Active Devices By Appversion\",\"color\": \"#48D1E0\"},{\"serieName\": \"425af003-0001-485a-ae73-df5e8b3622ab\",\"color\": \"#2E75F0\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: d1240218-9f8b-428b-bd11-7a8acd33e018
+  - id: Viz_22
+    answer:
+      name: HPX New Version Adoption
+      description: HPX Events Model with IIDE Table
+      tables:
+      - id: hpx_events_model
+        name: hpx_events_model
+        fqn: d88e6611-f923-40db-aa86-d9013633b3cc
+      formulas:
+      - id: '% Active Devices'
+        name: '% Active Devices'
+        expr: "[Active Devices] / group_aggregate ( [Active Devices] , { [Event Date Time] } , query_filters ( ) ) "
+        was_auto_generated: false
+      search_query: "[Active Devices] [Event Date Time] [Event Date Time].daily [% Active Devices] [App Version]"
+      answer_columns:
+      - name: '% Active Devices'
+        format:
+          category: PERCENTAGE
+          percentageFormatConfig:
+            decimals: 2.0
+          isCategoryEditable: true
+      - name: Active Devices
+      - name: App Version
+      - name: Day(Event Date Time)
+        custom_name: Daily Event Date
+      table:
+        table_columns:
+        - column_id: '% Active Devices'
+          show_headline: false
+        - column_id: Active Devices
+          show_headline: false
+        - column_id: App Version
+          show_headline: false
+        - column_id: Day(Event Date Time)
+          show_headline: false
+        ordered_column_ids:
+        - Day(Event Date Time)
+        - App Version
+        - Active Devices
+        - '% Active Devices'
+        client_state: ""
+        client_state_v2: "{\"tableVizPropVersion\": \"V1\"}"
+      chart:
+        type: LINE
+        chart_columns:
+        - column_id: '% Active Devices'
+        - column_id: Active Devices
+        - column_id: App Version
+        - column_id: Day(Event Date Time)
+        axis_configs:
+        - x:
+          - Day(Event Date Time)
+          "y":
+          - '% Active Devices'
+          color:
+          - App Version
+        client_state: ""
+        client_state_v2: "{\"version\": \"V4DOT2\",\"chartProperties\": {\"responsiveLayoutPreference\": \"AUTO_ON\",\"chartSpecific\": {\"pivotSummariesState\": {}}},\"columnProperties\": [{\"columnId\": \"Day(Event Date Time)\",\"columnProperty\": {}},{\"columnId\": \"Active Devices\",\"columnProperty\": {}},{\"columnId\": \"% Active Devices\",\"columnProperty\": {}},{\"columnId\": \"App Version\",\"columnProperty\": {}}],\"axisProperties\": [{\"id\": \"b4422888-5490-4f12-8834-81af747ec46d\",\"properties\": {\"axisType\": \"X\",\"linkedColumns\": [\"Day(Event Date Time)\"]}},{\"id\": \"432a9a44-17bb-47ed-b402-e986e799157f\",\"properties\": {\"axisType\": \"Y\",\"linkedColumns\": [\"% Active Devices\"],\"format\": {\"category\": \"PERCENTAGE\",\"percentageFormatConfig\": {\"decimals\": 0.0},\"isCategoryEditable\": true},\"isOpposite\": false}}],\"seriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#0096D3\"}],\"systemSeriesColors\": [{\"serieName\": \"Active Devices\",\"color\": \"#0096D3\"},{\"serieName\": \"% Active Devices\",\"color\": \"#8C62F5\"},{\"serieName\": \"2023.03.b\",\"color\": \"#2E75F0\"},{\"serieName\": \"2023.03.b-hotfix\",\"color\": \"#48D1E0\"},{\"serieName\": \"2023.04.a\",\"color\": \"#FCC838\"},{\"serieName\": \"2023.04.b\",\"color\": \"#06BF7F\"},{\"serieName\": \"2023.05.a\",\"color\": \"#8C62F5\"},{\"serieName\": \"2023.06.a\",\"color\": \"#FF8142\"},{\"serieName\": \"2023.07.a\",\"color\": \"#ABC7F9\"},{\"serieName\": \"2023.07.b\",\"color\": \"#B5ECF2\"},{\"serieName\": \"2023.08.a\",\"color\": \"#FDE9AF\"},{\"serieName\": \"2023.09.a\",\"color\": \"#9BE5CB\"},{\"serieName\": \"2023.09.a-hotfix 1\",\"color\": \"#D1C0FB\"},{\"serieName\": \"2023.10.a\",\"color\": \"#FFCCB3\"},{\"serieName\": \"2023.10.a-hotfix 1\",\"color\": \"#2359B6\"},{\"serieName\": \"2023.12.a\",\"color\": \"#369FAA\"},{\"serieName\": \"2024.01.a\",\"color\": \"#BF982A\"},{\"serieName\": \"2024.02.a\",\"color\": \"#049160\"},{\"serieName\": \"2024.02.a-hotfix\",\"color\": \"#6A4ABA\"},{\"serieName\": \"2024.03.a\",\"color\": \"#C26232\"},{\"serieName\": \"2024.04.a\",\"color\": \"#71A1F4\"},{\"serieName\": \"feb2023_firststorefullversion\",\"color\": \"#82DFE9\"},{\"serieName\": \"feb2023_firststoreversion\",\"color\": \"#FCD977\"},{\"serieName\": \"not a store release\",\"color\": \"#56D3A8\"},{\"serieName\": \"other non-releases\",\"color\": \"#B094F8\"}]}"
+      display_mode: CHART_MODE
+    viz_guid: 2b63bc89-03ba-4abc-b4ec-7c836d8f85d2
+  filters:
+  - column:
+    - HPX Events::Event Time
+    is_mandatory: false
+    date_filter:
+      type: EXACT_DATE
+      date: 05/01/2023
+      oper: '>='
+    display_name: ""
+  - column:
+    - HPX Events::Geo Market
+    oper: in
+    values:
+    - greater asia
+    - "{null}"
+    - CENTRAL & EASTERN EUROPE
+    - GREATER CHINA
+    - INDIA SL & BL
+    - LATIN AMERICA
+    - NORTH AMERICA
+    - NORTHWEST EUROPE
+    - RUSSIA & BELARUS
+    - "SOUTHERN EUROPE, ME & AFRICA"
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::Geo Country
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::OS Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::App Version
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::PC Type
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - HPX Events::PC Model Name
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model::Geo Country Code
+    - hpx_events_model_homepage_summary::Geo Country Code
+    oper: not in
+    values:
+    - "{null}"
+    is_mandatory: false
+    is_single_value: false
+    display_name: Top 10 Country
+  - column:
+    - hpx_events_model::Event Date Time
+    - hpx_events_model_homepage_summary::Event Date Time
+    is_mandatory: false
+    date_filter:
+      type: EXACT_DATE
+      date: 05/01/2023
+      oper: '>='
+    display_name: ""
+  - column:
+    - hpx_events_model::App Version
+    - hpx_events_model_homepage_summary::App Version
+    oper: not in
+    values:
+    - "{null}"
+    - Not a Store Release
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model::Pc Type
+    - hpx_events_model_homepage_summary::Pc Type
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  - column:
+    - hpx_events_model_homepage_summary::Home Tile
+    - hpx_events_model::Home Tile
+    is_mandatory: false
+    is_single_value: false
+    display_name: ""
+  layout:
+    tabs:
+    - name: Executive Summary
+      description: ""
+      tiles:
+      - visualization_id: Viz_1
+        x: 0
+        "y": 0
+        height: 4
+        width: 6
+      - visualization_id: Viz_2
+        x: 0
+        "y": 4
+        height: 4
+        width: 6
+      - visualization_id: Viz_3
+        x: 6
+        "y": 4
+        height: 4
+        width: 6
+      - visualization_id: Viz_4
+        x: 0
+        "y": 8
+        height: 4
+        width: 6
+      - visualization_id: Viz_5
+        x: 6
+        "y": 8
+        height: 4
+        width: 6
+      - visualization_id: Viz_6
+        x: 6
+        "y": 12
+        height: 4
+        width: 6
+      - visualization_id: Viz_7
+        x: 0
+        "y": 12
+        height: 4
+        width: 6
+      - visualization_id: Viz_8
+        x: 8
+        "y": 0
+        height: 4
+        width: 4
+      - visualization_id: Viz_10
+        x: 6
+        "y": 0
+        height: 4
+        width: 2
+      id: b42b0877-5508-490a-9f58-e08e14be314e
+    - name: Homepage Summary
+      description: ""
+      tiles:
+      - visualization_id: Viz_14
+        x: 0
+        "y": 2
+        height: 8
+        width: 12
+      - visualization_id: Viz_15
+        x: 0
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_16
+        x: 2
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_17
+        x: 4
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_18
+        x: 6
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_19
+        x: 8
+        "y": 0
+        height: 2
+        width: 2
+      - visualization_id: Viz_20
+        x: 0
+        "y": 10
+        height: 6
+        width: 6
+      - visualization_id: Viz_21
+        x: 6
+        "y": 10
+        height: 6
+        width: 6
+      id: 66fb0839-9874-46bb-a5cc-7a76fc0a69a5
+    - name: Retention
+      description: ""
+      tiles:
+      - visualization_id: Viz_9
+        x: 0
+        "y": 0
+        height: 8
+        width: 5
+      - visualization_id: Viz_22
+        x: 5
+        "y": 0
+        height: 8
+        width: 7
+      id: c6a79efc-5526-480d-b969-22ddad3327d2
+    - name: Behavior Flow
+      description: ""
+      tiles:
+      - visualization_id: Viz_13
+        x: 0
+        "y": 0
+        height: 7
+        width: 12
+      id: d057851e-fb46-4755-a310-52a5a0c6087d
+    - name: CURR
+      description: ""
+      tiles:
+      - visualization_id: Viz_11
+        x: 0
+        "y": 0
+        height: 6
+        width: 6
+      - visualization_id: Viz_12
+        x: 6
+        "y": 0
+        height: 6
+        width: 6
+      id: 3cc7db63-fcd8-42aa-b902-32f691844c50
+  ordered_chips:
+  - name: HPX Events::Event Time
+    type: FILTER
+  - name: HPX Events::Geo Market
+    type: FILTER
+  - name: HPX Events::Geo Country
+    type: FILTER
+  - name: HPX Events::OS Version
+    type: FILTER
+  - name: HPX Events::App Version
+    type: FILTER
+  - name: HPX Events::PC Type
+    type: FILTER
+  - name: HPX Events::PC Model Name
+    type: FILTER
+  - name: hpx_events_model::Geo Country Code
+    type: FILTER
+  - name: hpx_events_model::Event Date Time
+    type: FILTER
+  - name: hpx_events_model::App Version
+    type: FILTER
+  - name: hpx_events_model::Pc Type
+    type: FILTER
+  - name: hpx_events_model_homepage_summary::Home Tile
+    type: FILTER
