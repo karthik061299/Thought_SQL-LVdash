@@ -1,17 +1,17 @@
 {
   "datasets": [
     {
-      "name": "launch_type_active_devices_dataset",
-      "displayName": "Launch Type Active Devices Dataset",
+      "name": "hpx_events_model_dataset",
+      "displayName": "HPX Events Model Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices) as active_devices FROM hpx_events_model WHERE launch_type IS NOT NULL GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, launch_type, SUM(active_devices_1) as total_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE launch_type IS NOT NULL AND launch_type != '{Null}' GROUP BY DATE_TRUNC('DAY', event_date_time), launch_type ORDER BY daily_event_date, launch_type"
       ]
     }
   ],
   "pages": [
     {
-      "name": "launch_type_active_devices_page",
-      "displayName": "Launch type Active Devices",
+      "name": "executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
@@ -20,11 +20,11 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "launch_type_active_devices_dataset",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "launch_type", "expression": "`launch_type`" },
-                    { "name": "active_devices", "expression": "`active_devices`" }
+                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,12 +40,9 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "active_devices",
-                  "displayName": "Active Devices",
-                  "scale": { "type": "quantitative" },
-                  "axis": {
-                    "format": "PERCENTAGE"
-                  }
+                  "fieldName": "total_active_devices",
+                  "displayName": "Total % Event ID",
+                  "scale": { "type": "quantitative" }
                 },
                 "color": {
                   "fieldName": "launch_type",
@@ -54,15 +51,12 @@
                 }
               },
               "frame": {
-                "title": "Launch Type Active Devices Over Time",
+                "title": "Launch type Active Devices",
                 "showTitle": true
-              },
-              "options": {
-                "stackedPercentage": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": { "x": 8, "y": 0, "width": 4, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
