@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "customer_journey_dataset",
-      "displayName": "Customer Journey Dataset",
+      "name": "flow_dataset",
+      "displayName": "Customer Journey Flow Dataset",
       "queryLines": [
-        "SELECT stage1, stage2, stage3, SUM(customer_count) as flow_volume FROM journey_schema.customer_flow_view GROUP BY stage1, stage2, stage3 ORDER BY flow_volume DESC"
+        "SELECT stage1, stage2, stage3, SUM(flow_count) as total_flow FROM flow_schema.customer_journey_view GROUP BY stage1, stage2, stage3 ORDER BY total_flow DESC"
       ]
     }
   ],
@@ -15,17 +15,17 @@
       "layout": [
         {
           "widget": {
-            "name": "customer_journey_sankey",
+            "name": "journey_sankey_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "customer_journey_dataset",
+                  "datasetName": "flow_dataset",
                   "fields": [
                     { "name": "stage1", "expression": "`stage1`" },
                     { "name": "stage2", "expression": "`stage2`" },
                     { "name": "stage3", "expression": "`stage3`" },
-                    { "name": "flow_volume", "expression": "`flow_volume`" }
+                    { "name": "total_flow", "expression": "`total_flow`" }
                   ],
                   "disaggregated": false
                 }
@@ -36,21 +36,21 @@
               "widgetType": "sankey",
               "encodings": {
                 "value": {
-                  "fieldName": "flow_volume",
-                  "displayName": "Flow Volume"
+                  "fieldName": "total_flow",
+                  "displayName": "Flow Count"
                 },
                 "stages": [
                   {
                     "fieldName": "stage1",
-                    "displayName": "Stage 1"
+                    "displayName": "Initial Stage"
                   },
                   {
                     "fieldName": "stage2",
-                    "displayName": "Stage 2"
+                    "displayName": "Middle Stage"
                   },
                   {
                     "fieldName": "stage3",
-                    "displayName": "Stage 3"
+                    "displayName": "Final Stage"
                   }
                 ]
               },
