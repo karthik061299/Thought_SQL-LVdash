@@ -4,7 +4,7 @@
       "name": "kpi_metrics_dataset",
       "displayName": "KPI Metrics Dataset",
       "queryLines": [
-        "SELECT SUM(revenue) as total_revenue, COUNT(DISTINCT customer_id) as unique_customers, AVG(order_value) as avg_order_value FROM business_schema.kpi_metrics_view"
+        "SELECT SUM(revenue) as total_revenue, COUNT(DISTINCT customer_id) as unique_customers, AVG(order_value) as avg_order_value FROM business_schema.metrics_view"
       ]
     }
   ],
@@ -22,7 +22,9 @@
                 "query": {
                   "datasetName": "kpi_metrics_dataset",
                   "fields": [
-                    { "name": "total_revenue", "expression": "`total_revenue`" }
+                    { "name": "total_revenue", "expression": "`total_revenue`" },
+                    { "name": "unique_customers", "expression": "`unique_customers`" },
+                    { "name": "avg_order_value", "expression": "`avg_order_value`" }
                   ],
                   "disaggregated": false
                 }
@@ -45,39 +47,6 @@
             }
           },
           "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "customers_kpi",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "kpi_metrics_dataset",
-                  "fields": [
-                    { "name": "unique_customers", "expression": "`unique_customers`" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "unique_customers",
-                  "displayName": "Unique Customers",
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "Unique Customers KPI",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 4, "y": 0, "width": 4, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
