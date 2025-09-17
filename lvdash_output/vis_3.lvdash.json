@@ -1,28 +1,29 @@
 {
   "datasets": [
     {
-      "name": "kpi_metrics_dataset",
-      "displayName": "KPI Metrics Dataset",
+      "name": "revenue_distribution_dataset",
+      "displayName": "Revenue Distribution Dataset",
       "queryLines": [
-        "SELECT SUM(total_sales) as total_sales_amount, COUNT(DISTINCT customer_id) as unique_customers, AVG(order_value) as avg_order_value FROM kpi_schema.kpi_metrics_view"
+        "SELECT product_category, SUM(revenue) as total_revenue FROM example_schema.revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_3",
-      "displayName": "KPI Dashboard",
+      "name": "revenue_page",
+      "displayName": "Revenue",
       "layout": [
         {
           "widget": {
-            "name": "total_sales_kpi",
+            "name": "revenue_distribution_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "kpi_metrics_dataset",
+                  "datasetName": "revenue_distribution_dataset",
                   "fields": [
-                    { "name": "total_sales_amount", "expression": "`total_sales_amount`" }
+                    { "name": "product_category", "expression": "`product_category`" },
+                    { "name": "total_revenue", "expression": "`total_revenue`" }
                   ],
                   "disaggregated": false
                 }
@@ -30,54 +31,26 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "counter",
+              "widgetType": "pie",
               "encodings": {
-                "value": {
-                  "fieldName": "total_sales_amount",
-                  "displayName": "Total Sales Amount",
+                "angle": {
+                  "fieldName": "total_revenue",
+                  "displayName": "Revenue",
                   "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "product_category",
+                  "displayName": "Product Category",
+                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Total Sales KPI",
+                "title": "Revenue Distribution",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "unique_customers_kpi",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "kpi_metrics_dataset",
-                  "fields": [
-                    { "name": "unique_customers", "expression": "`unique_customers`" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "unique_customers",
-                  "displayName": "Unique Customers",
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "Unique Customers KPI",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 4, "y": 0, "width": 4, "height": 4 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
