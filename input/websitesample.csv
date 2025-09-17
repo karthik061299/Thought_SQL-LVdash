@@ -1,6 +1,0 @@
-ID,Chart Type,Measures,Dimensions,Tab Name,Dataset Name
-Vis_1,line,daily_users,date,User Analytics,user_activity_dataset
-Vis_2,bar,total_sales,region,Sales Dashboard,sales_dataset
-Vis_3,pie,revenue,product_category,Revenue Analysis,revenue_dataset
-Vis_4,counter,total_orders,,KPI Dashboard,orders_dataset
-Vis_5,table,customer_count,status,Customer Overview,customer_dataset
