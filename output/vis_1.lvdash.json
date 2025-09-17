@@ -1,29 +1,31 @@
 {
   "datasets": [
     {
-      "name": "user_activity_dataset",
-      "displayName": "User Activity Dataset",
+      "name": "website_analytics_dataset",
+      "displayName": "Website Analytics Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', date) as date, SUM(daily_users) as daily_users FROM user_activity_dataset GROUP BY DATE_TRUNC('DAY', date) ORDER BY date"
+        "SELECT DATE_TRUNC('DAY', visit_date) as daily_visits, SUM(page_views) as total_page_views, SUM(unique_visitors) as total_unique_visitors, SUM(SUM(unique_visitors)) OVER (ORDER BY DATE_TRUNC('DAY', visit_date) ROWS UNBOUNDED PRECEDING) as cumulative_visitors FROM analytics_schema.website_metrics_view GROUP BY DATE_TRUNC('DAY', visit_date) ORDER BY daily_visits"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_1",
-      "displayName": "User Analytics",
+      "displayName": "Website Analytics Overview",
       "layout": [
         {
           "widget": {
-            "name": "line_chart_widget",
+            "name": "website_analytics_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "user_activity_dataset",
+                  "datasetName": "website_analytics_dataset",
                   "fields": [
-                    { "name": "date", "expression": "`date`" },
-                    { "name": "daily_users", "expression": "`daily_users`" }
+                    { "name": "daily_visits", "expression": "`daily_visits`" },
+                    { "name": "total_page_views", "expression": "`total_page_views`" },
+                    { "name": "total_unique_visitors", "expression": "`total_unique_visitors`" },
+                    { "name": "cumulative_visitors", "expression": "`cumulative_visitors`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,18 +36,30 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "date",
-                  "displayName": "Date",
+                  "fieldName": "daily_visits",
+                  "displayName": "Daily Visits",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "daily_users",
-                  "displayName": "Daily Users",
+                  "fields": [
+                    {
+                      "fieldName": "total_page_views",
+                      "displayName": "Total Page Views"
+                    },
+                    {
+                      "fieldName": "total_unique_visitors",
+                      "displayName": "Total Unique Visitors"
+                    },
+                    {
+                      "fieldName": "cumulative_visitors",
+                      "displayName": "Cumulative Visitors"
+                    }
+                  ],
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Daily Users Over Time",
+                "title": "Website Analytics - Daily and Cumulative Metrics",
                 "showTitle": true
               }
             }
