@@ -1,0 +1,92 @@
+{
+  "datasets": [
+    {
+      "name": "website_kpi_dataset",
+      "displayName": "Website KPI Dataset",
+      "queryLines": [
+        "SELECT SUM(total_revenue) as total_revenue, COUNT(DISTINCT user_id) as unique_users, AVG(session_duration) as avg_session_duration FROM website_schema.kpi_metrics_view"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_3",
+      "displayName": "Key Performance Indicators",
+      "layout": [
+        {
+          "widget": {
+            "name": "revenue_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "website_kpi_dataset",
+                  "fields": [
+                    { "name": "total_revenue", "expression": "`total_revenue`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_revenue",
+                  "displayName": "Total Revenue",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Total Revenue",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "users_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "website_kpi_dataset",
+                  "fields": [
+                    { "name": "unique_users", "expression": "`unique_users`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "unique_users",
+                  "displayName": "Unique Users",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Unique Users",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 4, "y": 0, "width": 4, "height": 4 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
