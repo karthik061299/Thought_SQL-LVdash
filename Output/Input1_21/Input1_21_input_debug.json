@@ -1,0 +1,8 @@
+{
+    "pipeLineId": 6526,
+    "userInputs": {
+        "{{GitHub_Details_For_ThoughtSpot_LVDash}}": "{\"CSV File name\": \"websitesample.csv\", \"Input repo name\": \"Input\", \"SQL file name\": \"ThoughtSpot_SQL_1.sql\", \"row_number\": 21, \"output repo\": \"Output\"}"
+    },
+    "executionId": "c5b4d8ae-9537-4af5-86a5-b1c90e82950a",
+    "user": "elansuriyaa.p@ascendion.com"
+}
