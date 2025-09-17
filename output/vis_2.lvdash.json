@@ -4,7 +4,7 @@
       "name": "sales_dataset",
       "displayName": "Sales Dataset",
       "queryLines": [
-        "SELECT region, SUM(total_sales) as total_sales FROM sales_schema.sales_view GROUP BY region ORDER BY total_sales DESC"
+        "SELECT region, SUM(total_sales) as total_sales FROM sales_dataset GROUP BY region ORDER BY total_sales DESC"
       ]
     }
   ],
