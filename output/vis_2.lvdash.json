@@ -1,30 +1,29 @@
 {
   "datasets": [
     {
-      "name": "product_dataset",
-      "displayName": "Product Performance Dataset",
+      "name": "sales_by_region_dataset",
+      "displayName": "Sales by Region Dataset",
       "queryLines": [
-        "SELECT product_category, SUM(revenue) as total_revenue, AVG(profit_margin) as avg_profit_margin FROM product_schema.product_view GROUP BY product_category ORDER BY total_revenue DESC"
+        "SELECT region, SUM(total_sales) as aggregated_sales FROM example_schema.sales_view GROUP BY region ORDER BY aggregated_sales DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_2",
-      "displayName": "Product Performance",
+      "name": "sales_page",
+      "displayName": "Sales",
       "layout": [
         {
           "widget": {
-            "name": "product_bar_chart",
+            "name": "sales_by_region_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "product_dataset",
+                  "datasetName": "sales_by_region_dataset",
                   "fields": [
-                    { "name": "product_category", "expression": "`product_category`" },
-                    { "name": "total_revenue", "expression": "`total_revenue`" },
-                    { "name": "avg_profit_margin", "expression": "`avg_profit_margin`" }
+                    { "name": "region", "expression": "`region`" },
+                    { "name": "aggregated_sales", "expression": "`aggregated_sales`" }
                   ],
                   "disaggregated": false
                 }
@@ -35,18 +34,18 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "product_category",
-                  "displayName": "Product Category",
+                  "fieldName": "region",
+                  "displayName": "Region",
                   "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "total_revenue",
-                  "displayName": "Total Revenue",
+                  "fieldName": "aggregated_sales",
+                  "displayName": "Total Sales",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Revenue by Product Category",
+                "title": "Sales by Region",
                 "showTitle": true
               }
             }
