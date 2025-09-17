@@ -1,4 +1,0 @@
-ID,Chart Type,Measures,Dimensions,Tab Name,Title
-Vis_1,line,daily_users,date,Overview,Daily User Activity
-Vis_2,bar,total_sales,region,Sales,Sales by Region
-Vis_3,pie,revenue,product_category,Revenue,Revenue Distribution
