@@ -1,1 +1,1 @@
-Unable to proceed due to missing or invalid GitHub personal access token. Please provide a valid token with access to the repository "karthik061299/Thought_SQL-LVdash" so I can read the input files and generate the required Lakeview .lvdash.json outputs.
+Unable to proceed without a valid GitHub personal access token. Please provide a valid token to allow access to the repository files so I can generate the required Lakeview .lvdash.json outputs as specified.
