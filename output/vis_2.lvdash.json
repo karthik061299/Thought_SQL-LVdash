@@ -1,0 +1,66 @@
+{
+  "datasets": [
+    {
+      "name": "website_traffic_dataset",
+      "displayName": "Website Traffic Dataset",
+      "queryLines": [
+        "SELECT traffic_source, SUM(sessions) as total_sessions, SUM(bounce_rate) as avg_bounce_rate FROM website_schema.traffic_analytics_view GROUP BY traffic_source ORDER BY total_sessions DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_2",
+      "displayName": "Traffic Source Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "traffic_source_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "website_traffic_dataset",
+                  "fields": [
+                    { "name": "traffic_source", "expression": "`traffic_source`" },
+                    { "name": "total_sessions", "expression": "`total_sessions`" },
+                    { "name": "avg_bounce_rate", "expression": "`avg_bounce_rate`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "traffic_source",
+                  "displayName": "Traffic Source",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "total_sessions",
+                  "displayName": "Total Sessions",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Sessions by Traffic Source",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
