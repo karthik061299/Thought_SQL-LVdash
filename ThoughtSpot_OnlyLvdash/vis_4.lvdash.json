@@ -1,26 +1,26 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
-      "displayName": "HPX Events Model Dataset",
+      "name": "onpress_events_dataset",
+      "displayName": "OnPress Events Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(clicks) as total_clicks FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' AND control NOT LIKE '%testid%' AND ui_action = 'onpress' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY daily_event_date, total_clicks DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, control, SUM(total_clicks) as total_clicks FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'onpress' AND control NOT LIKE '%testid%' AND control != 'welcome core navigationviewitem id' GROUP BY DATE_TRUNC('DAY', event_date_time), control ORDER BY daily_event_date, total_clicks DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "executive_summary",
-      "displayName": "Executive Summary",
+      "name": "page_4",
+      "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_chart",
+            "name": "onpress_events_stacked_bar",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "onpress_events_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "control", "expression": "`control`" },
@@ -56,7 +56,7 @@
               }
             }
           },
-          "position": { "x": 0, "y": 8, "width": 6, "height": 4 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
