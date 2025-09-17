@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "screen_views_dataset",
-      "displayName": "Screen Views Dataset",
+      "name": "unique_screen_views_dataset",
+      "displayName": "Unique Screen Views Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as unique_screen_views FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, unique_screen_views DESC"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, screen, SUM(unique_screen_views) as total_unique_screen_views FROM hpx_events_model WHERE ui_action = 'screendisplayed' AND screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), screen ORDER BY daily_event_date, total_unique_screen_views DESC"
       ]
     }
   ],
@@ -15,16 +15,16 @@
       "layout": [
         {
           "widget": {
-            "name": "screen_views_stacked_bar",
+            "name": "unique_screen_views_stacked_bar",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "screen_views_dataset",
+                  "datasetName": "unique_screen_views_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
                     { "name": "screen", "expression": "`screen`" },
-                    { "name": "unique_screen_views", "expression": "`unique_screen_views`" }
+                    { "name": "total_unique_screen_views", "expression": "`total_unique_screen_views`" }
                   ],
                   "disaggregated": false
                 }
@@ -40,7 +40,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "unique_screen_views",
+                  "fieldName": "total_unique_screen_views",
                   "displayName": "Unique Screen Views",
                   "scale": { "type": "quantitative" }
                 },
@@ -51,7 +51,7 @@
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views (excl. Home/Welcome)",
+                "title": "Top Unique Screen Views by Screen Over Time",
                 "showTitle": true
               }
             }
