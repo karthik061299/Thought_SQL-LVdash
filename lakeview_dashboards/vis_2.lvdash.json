@@ -1,0 +1,66 @@
+{
+  "datasets": [
+    {
+      "name": "revenue_by_region_dataset",
+      "displayName": "Revenue by Region Dataset",
+      "queryLines": [
+        "SELECT region_name, SUM(revenue_amount) as total_revenue, COUNT(order_id) as total_orders FROM sales_schema.regional_sales_view GROUP BY region_name ORDER BY total_revenue DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_2",
+      "displayName": "Regional Revenue Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "revenue_bar_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "revenue_by_region_dataset",
+                  "fields": [
+                    { "name": "region_name", "expression": "`region_name`" },
+                    { "name": "total_revenue", "expression": "`total_revenue`" },
+                    { "name": "total_orders", "expression": "`total_orders`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "region_name",
+                  "displayName": "Region",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "total_revenue",
+                  "displayName": "Total Revenue",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Revenue by Region",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
