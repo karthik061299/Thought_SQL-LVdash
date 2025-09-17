@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_iide_metric_view_dataset",
+      "name": "hpx_events_model_iide_dataset",
       "displayName": "HPX Events Model IIDE Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) AS daily_event_date, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT event_date_time AS event_date_time, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY event_date_time ORDER BY event_date_time"
       ]
     }
   ],
@@ -20,9 +20,9 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_iide_metric_view_dataset",
+                  "datasetName": "hpx_events_model_iide_dataset",
                   "fields": [
-                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
+                    { "name": "event_date_time", "expression": "`event_date_time`" },
                     { "name": "active_devices_1", "expression": "`active_devices_1`" }
                   ],
                   "disaggregated": false
@@ -34,8 +34,8 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_event_date",
-                  "displayName": "Daily Event Date",
+                  "fieldName": "event_date_time",
+                  "displayName": "Event Date Time",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
@@ -45,7 +45,7 @@
                 }
               },
               "frame": {
-                "title": "Active Devices by Day",
+                "title": "Active Devices Over Time",
                 "showTitle": true
               }
             }
