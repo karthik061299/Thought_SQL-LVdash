@@ -1,0 +1,1 @@
+I am unable to generate the ThoughtSpot LVDash output because I do not have a valid GitHub personal access token to access the necessary input files. Please provide a valid GitHub token with appropriate repository access so I can proceed with reading the CSV and generating the required Lakeview dashboard JSON files.
