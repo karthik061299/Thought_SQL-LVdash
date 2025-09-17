@@ -4,7 +4,7 @@
       "name": "daily_users_dataset",
       "displayName": "Daily Users Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', date) as daily_date, SUM(daily_users) as total_daily_users FROM example_schema.user_activity_view GROUP BY DATE_TRUNC('DAY', date) ORDER BY daily_date"
+        "SELECT DATE_TRUNC('DAY', date) as daily_date, SUM(daily_users) as total_daily_users FROM example_schema.user_activity_table GROUP BY DATE_TRUNC('DAY', date) ORDER BY daily_date"
       ]
     }
   ],
