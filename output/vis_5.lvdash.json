@@ -1,53 +1,61 @@
 {
   "datasets": [
     {
-      "name": "customer_dataset",
-      "displayName": "Customer Dataset",
+      "name": "customer_journey_dataset",
+      "displayName": "Customer Journey Dataset",
       "queryLines": [
-        "SELECT status, SUM(customer_count) as customer_count FROM customer_dataset GROUP BY status ORDER BY customer_count DESC"
+        "SELECT stage1, stage2, stage3, SUM(customer_count) as flow_volume FROM journey_schema.customer_flow_view GROUP BY stage1, stage2, stage3 ORDER BY flow_volume DESC"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_5",
-      "displayName": "Customer Overview",
+      "displayName": "Customer Journey Flow",
       "layout": [
         {
           "widget": {
-            "name": "table_widget",
+            "name": "customer_journey_sankey",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "customer_dataset",
+                  "datasetName": "customer_journey_dataset",
                   "fields": [
-                    { "name": "status", "expression": "`status`" },
-                    { "name": "customer_count", "expression": "`customer_count`" }
+                    { "name": "stage1", "expression": "`stage1`" },
+                    { "name": "stage2", "expression": "`stage2`" },
+                    { "name": "stage3", "expression": "`stage3`" },
+                    { "name": "flow_volume", "expression": "`flow_volume`" }
                   ],
                   "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": 3,
-              "widgetType": "table",
+              "version": 1,
+              "widgetType": "sankey",
               "encodings": {
-                "columns": [
+                "value": {
+                  "fieldName": "flow_volume",
+                  "displayName": "Flow Volume"
+                },
+                "stages": [
                   {
-                    "fieldName": "status",
-                    "displayName": "Status",
-                    "scale": { "type": "categorical" }
+                    "fieldName": "stage1",
+                    "displayName": "Stage 1"
                   },
                   {
-                    "fieldName": "customer_count",
-                    "displayName": "Customer Count",
-                    "scale": { "type": "quantitative" }
+                    "fieldName": "stage2",
+                    "displayName": "Stage 2"
+                  },
+                  {
+                    "fieldName": "stage3",
+                    "displayName": "Stage 3"
                   }
                 ]
               },
               "frame": {
-                "title": "Customer Count by Status",
+                "title": "Customer Journey Flow Analysis",
                 "showTitle": true
               }
             }
