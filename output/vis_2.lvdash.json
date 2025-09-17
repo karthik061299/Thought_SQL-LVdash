@@ -4,7 +4,7 @@
       "name": "sales_by_region_dataset",
       "displayName": "Sales by Region Dataset",
       "queryLines": [
-        "SELECT region, SUM(total_sales) as sum_total_sales FROM example_schema.sales_view GROUP BY region ORDER BY sum_total_sales DESC"
+        "SELECT region, SUM(total_sales) as aggregated_sales FROM example_schema.sales_view GROUP BY region ORDER BY aggregated_sales DESC"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "sales_by_region_chart",
+            "name": "sales_by_region_widget",
             "queries": [
               {
                 "name": "main_query",
@@ -23,7 +23,7 @@
                   "datasetName": "sales_by_region_dataset",
                   "fields": [
                     { "name": "region", "expression": "`region`" },
-                    { "name": "sum_total_sales", "expression": "`sum_total_sales`" }
+                    { "name": "aggregated_sales", "expression": "`aggregated_sales`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fieldName": "sum_total_sales",
+                  "fieldName": "aggregated_sales",
                   "displayName": "Total Sales",
                   "scale": { "type": "quantitative" }
                 }
