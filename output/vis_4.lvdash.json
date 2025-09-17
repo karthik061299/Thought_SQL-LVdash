@@ -1,29 +1,28 @@
 {
   "datasets": [
     {
-      "name": "website_pie_dataset",
-      "displayName": "Website Device Distribution Dataset",
+      "name": "orders_dataset",
+      "displayName": "Orders Dataset",
       "queryLines": [
-        "SELECT device_type, SUM(sessions) as total_sessions FROM website_schema.device_analytics_view GROUP BY device_type ORDER BY total_sessions DESC"
+        "SELECT SUM(total_orders) as total_orders FROM orders_schema.orders_view"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_4",
-      "displayName": "Device Distribution Analysis",
+      "displayName": "KPI Dashboard",
       "layout": [
         {
           "widget": {
-            "name": "device_distribution_pie",
+            "name": "counter_widget",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "website_pie_dataset",
+                  "datasetName": "orders_dataset",
                   "fields": [
-                    { "name": "device_type", "expression": "`device_type`" },
-                    { "name": "total_sessions", "expression": "`total_sessions`" }
+                    { "name": "total_orders", "expression": "`total_orders`" }
                   ],
                   "disaggregated": false
                 }
@@ -31,26 +30,21 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "pie",
+              "widgetType": "counter",
               "encodings": {
-                "angle": {
-                  "fieldName": "total_sessions",
-                  "displayName": "Total Sessions",
+                "value": {
+                  "fieldName": "total_orders",
+                  "displayName": "Total Orders",
                   "scale": { "type": "quantitative" }
-                },
-                "color": {
-                  "fieldName": "device_type",
-                  "displayName": "Device Type",
-                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Sessions by Device Type",
+                "title": "Total Orders KPI",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 8, "height": 8 }
+          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
