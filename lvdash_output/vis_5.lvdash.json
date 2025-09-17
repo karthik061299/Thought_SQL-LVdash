@@ -1,0 +1,75 @@
+{
+  "datasets": [
+    {
+      "name": "customer_journey_dataset",
+      "displayName": "Customer Journey Dataset",
+      "queryLines": [
+        "SELECT stage1, stage2, stage3, SUM(customer_count) as flow_volume FROM journey_schema.customer_journey_view GROUP BY stage1, stage2, stage3 ORDER BY flow_volume DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_5",
+      "displayName": "Customer Journey Flow",
+      "layout": [
+        {
+          "widget": {
+            "name": "journey_sankey_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "customer_journey_dataset",
+                  "fields": [
+                    { "name": "stage1", "expression": "`stage1`" },
+                    { "name": "stage2", "expression": "`stage2`" },
+                    { "name": "stage3", "expression": "`stage3`" },
+                    { "name": "flow_volume", "expression": "`flow_volume`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "sankey",
+              "encodings": {
+                "value": {
+                  "fieldName": "flow_volume",
+                  "displayName": "Flow Volume"
+                },
+                "stages": [
+                  {
+                    "fieldName": "stage1",
+                    "displayName": "Stage 1"
+                  },
+                  {
+                    "fieldName": "stage2",
+                    "displayName": "Stage 2"
+                  },
+                  {
+                    "fieldName": "stage3",
+                    "displayName": "Stage 3"
+                  }
+                ]
+              },
+              "frame": {
+                "title": "Customer Journey Flow Analysis",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
