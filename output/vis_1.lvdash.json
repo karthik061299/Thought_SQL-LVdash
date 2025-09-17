@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "daily_user_activity_widget",
+            "name": "daily_user_activity_chart",
             "queries": [
               {
                 "name": "main_query",
