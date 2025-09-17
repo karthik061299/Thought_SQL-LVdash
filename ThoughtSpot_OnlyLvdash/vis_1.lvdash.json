@@ -2,7 +2,7 @@
   "datasets": [
     {
       "name": "hpx_events_model_iide_metric_view",
-      "displayName": "HPX Events Model with IIDE Table",
+      "displayName": "HPX Events Model IIDE Metric View",
       "queryLines": [
         "SELECT DATE_TRUNC('DAY', event_date_time) AS daily_event_date, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
