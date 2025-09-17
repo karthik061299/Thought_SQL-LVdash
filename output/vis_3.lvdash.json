@@ -33,15 +33,15 @@
               "version": 3,
               "widgetType": "pie",
               "encodings": {
+                "angle": {
+                  "fieldName": "total_revenue",
+                  "displayName": "Revenue",
+                  "scale": { "type": "quantitative" }
+                },
                 "color": {
                   "fieldName": "product_category",
                   "displayName": "Product Category",
                   "scale": { "type": "categorical" }
-                },
-                "angle": {
-                  "fieldName": "total_revenue",
-                  "displayName": "Total Revenue",
-                  "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
