@@ -1,28 +1,27 @@
 {
   "datasets": [
     {
-      "name": "revenue_dataset",
-      "displayName": "Revenue Dataset",
+      "name": "kpi_metrics_dataset",
+      "displayName": "KPI Metrics Dataset",
       "queryLines": [
-        "SELECT product_category, SUM(revenue) as total_revenue FROM revenue_dataset GROUP BY product_category ORDER BY total_revenue DESC"
+        "SELECT SUM(revenue) as total_revenue, COUNT(DISTINCT customer_id) as unique_customers, AVG(order_value) as avg_order_value FROM business_schema.kpi_metrics_view"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_3",
-      "displayName": "Revenue Analysis",
+      "displayName": "KPI Dashboard",
       "layout": [
         {
           "widget": {
-            "name": "pie_chart_widget",
+            "name": "revenue_kpi",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "revenue_dataset",
+                  "datasetName": "kpi_metrics_dataset",
                   "fields": [
-                    { "name": "product_category", "expression": "`product_category`" },
                     { "name": "total_revenue", "expression": "`total_revenue`" }
                   ],
                   "disaggregated": false
@@ -31,26 +30,54 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "pie",
+              "widgetType": "counter",
               "encodings": {
-                "angle": {
+                "value": {
                   "fieldName": "total_revenue",
                   "displayName": "Total Revenue",
                   "scale": { "type": "quantitative" }
-                },
-                "color": {
-                  "fieldName": "product_category",
-                  "displayName": "Product Category",
-                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Revenue by Product Category",
+                "title": "Total Revenue KPI",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "customers_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_metrics_dataset",
+                  "fields": [
+                    { "name": "unique_customers", "expression": "`unique_customers`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "unique_customers",
+                  "displayName": "Unique Customers",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Unique Customers KPI",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 4, "y": 0, "width": 4, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
