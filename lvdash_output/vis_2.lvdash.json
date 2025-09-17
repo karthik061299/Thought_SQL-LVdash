@@ -1,0 +1,74 @@
+{
+  "datasets": [
+    {
+      "name": "sales_performance_dataset",
+      "displayName": "Sales Performance Dataset",
+      "queryLines": [
+        "SELECT region as sales_region, SUM(revenue) as total_revenue, SUM(units_sold) as total_units FROM sales_schema.sales_performance_view GROUP BY region ORDER BY total_revenue DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_2",
+      "displayName": "Sales Performance Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "sales_bar_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "sales_performance_dataset",
+                  "fields": [
+                    { "name": "sales_region", "expression": "`sales_region`" },
+                    { "name": "total_revenue", "expression": "`total_revenue`" },
+                    { "name": "total_units", "expression": "`total_units`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sales_region",
+                  "displayName": "Sales Region",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "total_revenue",
+                      "displayName": "Total Revenue"
+                    },
+                    {
+                      "fieldName": "total_units",
+                      "displayName": "Total Units Sold"
+                    }
+                  ],
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Sales Performance by Region",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
