@@ -1,0 +1,1 @@
+I am unable to proceed with generating the `.lvdash.json` files due to inaccessible or incorrect file paths in the specified repository. Please verify the repository structure, file paths, and branch configuration to ensure the required files are accessible.
