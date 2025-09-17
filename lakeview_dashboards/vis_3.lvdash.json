@@ -1,0 +1,61 @@
+{
+  "datasets": [
+    {
+      "name": "kpi_metrics_dataset",
+      "displayName": "KPI Metrics Dataset",
+      "queryLines": [
+        "SELECT SUM(total_sales) as overall_sales, COUNT(DISTINCT customer_id) as unique_customers, AVG(order_value) as avg_order_value FROM business_schema.sales_summary_view"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_3",
+      "displayName": "Key Performance Indicators",
+      "layout": [
+        {
+          "widget": {
+            "name": "sales_kpi_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_metrics_dataset",
+                  "fields": [
+                    { "name": "overall_sales", "expression": "`overall_sales`" },
+                    { "name": "unique_customers", "expression": "`unique_customers`" },
+                    { "name": "avg_order_value", "expression": "`avg_order_value`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "overall_sales",
+                  "displayName": "Total Sales",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Total Sales Performance",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
