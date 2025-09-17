@@ -1,0 +1,65 @@
+{
+  "datasets": [
+    {
+      "name": "sales_by_region_dataset",
+      "displayName": "Sales by Region Dataset",
+      "queryLines": [
+        "SELECT region, SUM(total_sales) as total_sales_sum FROM example_schema.sales_view GROUP BY region ORDER BY total_sales_sum DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "sales_page",
+      "displayName": "Sales",
+      "layout": [
+        {
+          "widget": {
+            "name": "sales_by_region_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "sales_by_region_dataset",
+                  "fields": [
+                    { "name": "region", "expression": "`region`" },
+                    { "name": "total_sales_sum", "expression": "`total_sales_sum`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "region",
+                  "displayName": "Region",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "total_sales_sum",
+                  "displayName": "Total Sales",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Sales by Region",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
