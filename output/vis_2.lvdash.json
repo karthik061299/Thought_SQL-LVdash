@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "sales_by_region_widget",
+            "name": "sales_by_region_chart",
             "queries": [
               {
                 "name": "main_query",
