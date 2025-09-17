@@ -1,1 +1,0 @@
-The provided GitHub token is either invalid or lacks the necessary permissions to access the repository. Please provide a valid token with the correct access rights to proceed.
