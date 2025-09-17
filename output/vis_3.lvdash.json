@@ -4,7 +4,7 @@
       "name": "revenue_dataset",
       "displayName": "Revenue Dataset",
       "queryLines": [
-        "SELECT product_category, SUM(revenue) as total_revenue FROM revenue_schema.revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
+        "SELECT product_category, SUM(revenue) as total_revenue FROM revenue_dataset GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
