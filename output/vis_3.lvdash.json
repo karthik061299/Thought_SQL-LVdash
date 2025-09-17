@@ -1,27 +1,28 @@
 {
   "datasets": [
     {
-      "name": "website_kpi_dataset",
-      "displayName": "Website KPI Dataset",
+      "name": "revenue_dataset",
+      "displayName": "Revenue Dataset",
       "queryLines": [
-        "SELECT SUM(total_revenue) as total_revenue, COUNT(DISTINCT user_id) as unique_users, AVG(session_duration) as avg_session_duration FROM website_schema.kpi_metrics_view"
+        "SELECT product_category, SUM(revenue) as total_revenue FROM revenue_schema.revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_3",
-      "displayName": "Key Performance Indicators",
+      "displayName": "Revenue Analysis",
       "layout": [
         {
           "widget": {
-            "name": "revenue_kpi",
+            "name": "pie_chart_widget",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "website_kpi_dataset",
+                  "datasetName": "revenue_dataset",
                   "fields": [
+                    { "name": "product_category", "expression": "`product_category`" },
                     { "name": "total_revenue", "expression": "`total_revenue`" }
                   ],
                   "disaggregated": false
@@ -30,54 +31,26 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "counter",
+              "widgetType": "pie",
               "encodings": {
-                "value": {
+                "angle": {
                   "fieldName": "total_revenue",
                   "displayName": "Total Revenue",
                   "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "product_category",
+                  "displayName": "Product Category",
+                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Total Revenue",
+                "title": "Revenue by Product Category",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
-        },
-        {
-          "widget": {
-            "name": "users_kpi",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "website_kpi_dataset",
-                  "fields": [
-                    { "name": "unique_users", "expression": "`unique_users`" }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "counter",
-              "encodings": {
-                "value": {
-                  "fieldName": "unique_users",
-                  "displayName": "Unique Users",
-                  "scale": { "type": "quantitative" }
-                }
-              },
-              "frame": {
-                "title": "Unique Users",
-                "showTitle": true
-              }
-            }
-          },
-          "position": { "x": 4, "y": 0, "width": 4, "height": 4 }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
