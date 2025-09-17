@@ -4,7 +4,7 @@
       "name": "customer_dataset",
       "displayName": "Customer Dataset",
       "queryLines": [
-        "SELECT status, SUM(customer_count) as customer_count FROM customer_schema.customer_view GROUP BY status ORDER BY customer_count DESC"
+        "SELECT status, SUM(customer_count) as customer_count FROM customer_dataset GROUP BY status ORDER BY customer_count DESC"
       ]
     }
   ],
