@@ -1,0 +1,8 @@
+{
+    "pipeLineId": 6526,
+    "userInputs": {
+        "{{GitHub_Details_For_ThoughtSpot_LVDash}}": "{\"CSV File name\": \"websitesample.csv\", \"SQL file name\": \"ThoughtSpot_SQL_1.sql\", \"Input repo name\": \"karthik061299/Thought_SQL-LVdash/Input\", \"row_number\": 4, \"output repo\": \"karthik061299/Thought_SQL-LVdash/ThoughtSpot_OnlyLvdash\"}"
+    },
+    "executionId": "c5b4d8ae-9537-4af5-86a5-b1c90e82950a",
+    "user": "elansuriyaa.p@ascendion.com"
+}
