@@ -1,0 +1,87 @@
+{
+  "datasets": [
+    {
+      "name": "filtered_analytics_dataset",
+      "displayName": "Filtered Analytics Dataset",
+      "queryLines": [
+        "SELECT DATE_TRUNC('MONTH', transaction_date) as monthly_period, region, SUM(revenue) as total_revenue, COUNT(transaction_id) as transaction_count FROM analytics_schema.transaction_analytics_view GROUP BY DATE_TRUNC('MONTH', transaction_date), region ORDER BY monthly_period, region"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_7",
+      "displayName": "Filtered Analytics Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "filtered_revenue_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "filtered_analytics_dataset",
+                  "fields": [
+                    { "name": "monthly_period", "expression": "`monthly_period`" },
+                    { "name": "region", "expression": "`region`" },
+                    { "name": "total_revenue", "expression": "`total_revenue`" },
+                    { "name": "transaction_count", "expression": "`transaction_count`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly_period",
+                  "displayName": "Monthly Period",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fieldName": "total_revenue",
+                  "displayName": "Total Revenue",
+                  "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "region",
+                  "displayName": "Region",
+                  "scale": { "type": "categorical" }
+                }
+              },
+              "frame": {
+                "title": "Monthly Revenue by Region",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": [
+        {
+          "fieldName": "monthly_period",
+          "displayName": "Monthly Period",
+          "type": "FILTER",
+          "isMandatory": false,
+          "isSingleValue": false
+        },
+        {
+          "fieldName": "region",
+          "displayName": "Region",
+          "type": "FILTER",
+          "isMandatory": false,
+          "isSingleValue": true
+        }
+      ]
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
