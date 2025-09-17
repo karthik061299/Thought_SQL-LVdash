@@ -35,7 +35,7 @@
               "encodings": {
                 "angle": {
                   "fieldName": "total_revenue",
-                  "displayName": "Total Revenue",
+                  "displayName": "Revenue",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
