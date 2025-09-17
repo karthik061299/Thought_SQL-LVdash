@@ -1,29 +1,29 @@
 {
   "datasets": [
     {
-      "name": "market_share_dataset",
-      "displayName": "Market Share Dataset",
+      "name": "kpi_dataset",
+      "displayName": "KPI Metrics Dataset",
       "queryLines": [
-        "SELECT product_line, SUM(market_share_percentage) as total_market_share FROM market_schema.market_share_view GROUP BY product_line ORDER BY total_market_share DESC"
+        "SELECT SUM(total_orders) as total_order_count, AVG(customer_satisfaction) as avg_satisfaction FROM kpi_schema.kpi_view"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_4",
-      "displayName": "Market Share Analysis",
+      "displayName": "Key Performance Indicators",
       "layout": [
         {
           "widget": {
-            "name": "market_share_pie",
+            "name": "kpi_counter_widget",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "market_share_dataset",
+                  "datasetName": "kpi_dataset",
                   "fields": [
-                    { "name": "product_line", "expression": "`product_line`" },
-                    { "name": "total_market_share", "expression": "`total_market_share`" }
+                    { "name": "total_order_count", "expression": "`total_order_count`" },
+                    { "name": "avg_satisfaction", "expression": "`avg_satisfaction`" }
                   ],
                   "disaggregated": false
                 }
@@ -31,26 +31,21 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "pie",
+              "widgetType": "counter",
               "encodings": {
-                "angle": {
-                  "fieldName": "total_market_share",
-                  "displayName": "Market Share %",
+                "value": {
+                  "fieldName": "total_order_count",
+                  "displayName": "Total Orders",
                   "scale": { "type": "quantitative" }
-                },
-                "color": {
-                  "fieldName": "product_line",
-                  "displayName": "Product Line",
-                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Market Share Distribution by Product Line",
+                "title": "Total Order Count",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 8, "height": 8 }
+          "position": { "x": 0, "y": 0, "width": 6, "height": 4 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
