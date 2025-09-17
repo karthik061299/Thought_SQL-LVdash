@@ -1,0 +1,65 @@
+{
+  "datasets": [
+    {
+      "name": "website_pie_dataset",
+      "displayName": "Website Device Distribution Dataset",
+      "queryLines": [
+        "SELECT device_type, SUM(sessions) as total_sessions FROM website_schema.device_analytics_view GROUP BY device_type ORDER BY total_sessions DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_4",
+      "displayName": "Device Distribution Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "device_distribution_pie",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "website_pie_dataset",
+                  "fields": [
+                    { "name": "device_type", "expression": "`device_type`" },
+                    { "name": "total_sessions", "expression": "`total_sessions`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "total_sessions",
+                  "displayName": "Total Sessions",
+                  "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "device_type",
+                  "displayName": "Device Type",
+                  "scale": { "type": "categorical" }
+                }
+              },
+              "frame": {
+                "title": "Sessions by Device Type",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 8, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
