@@ -1,31 +1,30 @@
 {
   "datasets": [
     {
-      "name": "website_analytics_dataset",
-      "displayName": "Website Analytics Dataset",
+      "name": "sales_dataset",
+      "displayName": "Sales Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', visit_date) as daily_visits, SUM(page_views) as total_page_views, SUM(unique_visitors) as total_unique_visitors, SUM(SUM(unique_visitors)) OVER (ORDER BY DATE_TRUNC('DAY', visit_date) ROWS UNBOUNDED PRECEDING) as cumulative_visitors FROM analytics_schema.website_metrics_view GROUP BY DATE_TRUNC('DAY', visit_date) ORDER BY daily_visits"
+        "SELECT DATE_TRUNC('MONTH', order_date) as month_date, SUM(sales_amount) as total_sales, COUNT(order_id) as order_count FROM sales_schema.sales_view GROUP BY DATE_TRUNC('MONTH', order_date) ORDER BY month_date"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_1",
-      "displayName": "Website Analytics Overview",
+      "displayName": "Sales Overview",
       "layout": [
         {
           "widget": {
-            "name": "website_analytics_chart",
+            "name": "sales_line_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "website_analytics_dataset",
+                  "datasetName": "sales_dataset",
                   "fields": [
-                    { "name": "daily_visits", "expression": "`daily_visits`" },
-                    { "name": "total_page_views", "expression": "`total_page_views`" },
-                    { "name": "total_unique_visitors", "expression": "`total_unique_visitors`" },
-                    { "name": "cumulative_visitors", "expression": "`cumulative_visitors`" }
+                    { "name": "month_date", "expression": "`month_date`" },
+                    { "name": "total_sales", "expression": "`total_sales`" },
+                    { "name": "order_count", "expression": "`order_count`" }
                   ],
                   "disaggregated": false
                 }
@@ -36,30 +35,26 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_visits",
-                  "displayName": "Daily Visits",
+                  "fieldName": "month_date",
+                  "displayName": "Month",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
                   "fields": [
                     {
-                      "fieldName": "total_page_views",
-                      "displayName": "Total Page Views"
+                      "fieldName": "total_sales",
+                      "displayName": "Total Sales"
                     },
                     {
-                      "fieldName": "total_unique_visitors",
-                      "displayName": "Total Unique Visitors"
-                    },
-                    {
-                      "fieldName": "cumulative_visitors",
-                      "displayName": "Cumulative Visitors"
+                      "fieldName": "order_count",
+                      "displayName": "Order Count"
                     }
                   ],
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Website Analytics - Daily and Cumulative Metrics",
+                "title": "Monthly Sales and Order Trends",
                 "showTitle": true
               }
             }
