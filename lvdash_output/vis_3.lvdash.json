@@ -1,0 +1,92 @@
+{
+  "datasets": [
+    {
+      "name": "kpi_metrics_dataset",
+      "displayName": "KPI Metrics Dataset",
+      "queryLines": [
+        "SELECT SUM(total_sales) as total_sales_amount, COUNT(DISTINCT customer_id) as unique_customers, AVG(order_value) as avg_order_value FROM kpi_schema.kpi_metrics_view"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_3",
+      "displayName": "KPI Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "total_sales_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_metrics_dataset",
+                  "fields": [
+                    { "name": "total_sales_amount", "expression": "`total_sales_amount`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_sales_amount",
+                  "displayName": "Total Sales Amount",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Total Sales KPI",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 4, "height": 4 }
+        },
+        {
+          "widget": {
+            "name": "unique_customers_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_metrics_dataset",
+                  "fields": [
+                    { "name": "unique_customers", "expression": "`unique_customers`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "unique_customers",
+                  "displayName": "Unique Customers",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Unique Customers KPI",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 4, "y": 0, "width": 4, "height": 4 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
