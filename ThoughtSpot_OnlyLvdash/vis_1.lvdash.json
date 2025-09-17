@@ -2,9 +2,9 @@
   "datasets": [
     {
       "name": "hpx_events_model_iide_metric_view_dataset",
-      "displayName": "HPX Events Model IIDE Metric View",
+      "displayName": "HPX Events Model IIDE Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) AS daily_event_date, SUM(active_devices_1) AS total_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) AS daily_event_date, SUM(active_devices_1) AS active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -23,7 +23,7 @@
                   "datasetName": "hpx_events_model_iide_metric_view_dataset",
                   "fields": [
                     { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
+                    { "name": "active_devices", "expression": "`active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -39,7 +39,7 @@
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_active_devices",
+                  "fieldName": "active_devices",
                   "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 }
