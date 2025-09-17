@@ -4,7 +4,7 @@
       "name": "revenue_distribution_dataset",
       "displayName": "Revenue Distribution Dataset",
       "queryLines": [
-        "SELECT product_category, SUM(revenue) as total_revenue FROM example_schema.revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
+        "SELECT product_category, SUM(revenue) as total_revenue FROM revenue_analytics.product_revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "revenue_distribution_widget",
+            "name": "revenue_distribution_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -33,15 +33,15 @@
               "version": 3,
               "widgetType": "pie",
               "encodings": {
-                "angle": {
-                  "fieldName": "total_revenue",
-                  "displayName": "Revenue",
-                  "scale": { "type": "quantitative" }
-                },
                 "color": {
                   "fieldName": "product_category",
                   "displayName": "Product Category",
                   "scale": { "type": "categorical" }
+                },
+                "angle": {
+                  "fieldName": "total_revenue",
+                  "displayName": "Total Revenue",
+                  "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
