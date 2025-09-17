@@ -4,7 +4,7 @@
       "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as daily_event_date, app_version, SUM(active_devices_1) as active_devices, SUM(active_devices_1) / SUM(SUM(active_devices_1)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time)) as pct_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY daily_event_date, app_version"
+        "SELECT DATE_TRUNC('DAY', event_date_time) as day_event_date_time, app_version, COUNT(DISTINCT sys_sn_hash) as active_devices, (COUNT(DISTINCT sys_sn_hash) / SUM(COUNT(DISTINCT sys_sn_hash)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time))) * 100 as pct_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY day_event_date_time, app_version"
       ]
     }
   ],
@@ -22,10 +22,22 @@
                 "query": {
                   "datasetName": "hpx_events_model_dataset",
                   "fields": [
-                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
-                    { "name": "app_version", "expression": "`app_version`" },
-                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" },
-                    { "name": "active_devices", "expression": "`active_devices`" }
+                    {
+                      "name": "day_event_date_time",
+                      "expression": "`day_event_date_time`"
+                    },
+                    {
+                      "name": "app_version",
+                      "expression": "`app_version`"
+                    },
+                    {
+                      "name": "active_devices",
+                      "expression": "`active_devices`"
+                    },
+                    {
+                      "name": "pct_active_devices",
+                      "expression": "`pct_active_devices`"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -36,19 +48,25 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_event_date",
+                  "fieldName": "day_event_date_time",
                   "displayName": "Daily Event Date",
-                  "scale": { "type": "temporal" }
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
                   "fieldName": "pct_active_devices",
                   "displayName": "% Active Devices",
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 "color": {
                   "fieldName": "app_version",
                   "displayName": "App Version",
-                  "scale": { "type": "categorical" }
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
@@ -57,7 +75,12 @@
               }
             }
           },
-          "position": { "x": 5, "y": 0, "width": 7, "height": 8 }
+          "position": {
+            "x": 5,
+            "y": 0,
+            "width": 7,
+            "height": 8
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
