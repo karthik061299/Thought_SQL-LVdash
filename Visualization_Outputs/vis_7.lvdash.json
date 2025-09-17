@@ -1,0 +1,65 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_model",
+      "displayName": "HPX Events Model",
+      "queryLines": [
+        "SELECT `Control` AS `Control`, SUM(`Clicks`) AS `Total Clicks` FROM `d88e6611-f923-40db-aa86-d9013633b3cc` WHERE `Control` NOT LIKE '%testid%' AND `Ui Action` = 'onpress' GROUP BY `Control` ORDER BY `Total Clicks` DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_7",
+      "displayName": "Top On Press Events",
+      "layout": [
+        {
+          "widget": {
+            "name": "top_on_press_events_bar_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model",
+                  "fields": [
+                    { "name": "Control", "expression": "`Control`" },
+                    { "name": "Total Clicks", "expression": "`Total Clicks`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Control",
+                  "displayName": "Control",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "Total Clicks",
+                  "displayName": "Total Clicks",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Top On Press Events",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
