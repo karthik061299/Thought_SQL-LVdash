@@ -1,29 +1,29 @@
 {
   "datasets": [
     {
-      "name": "region_dataset",
-      "displayName": "Regional Sales Dataset",
+      "name": "revenue_distribution_dataset",
+      "displayName": "Revenue Distribution Dataset",
       "queryLines": [
-        "SELECT region, SUM(sales_amount) as aggregated_sales FROM regional_schema.regional_view GROUP BY region ORDER BY aggregated_sales DESC"
+        "SELECT product_category, SUM(revenue) as total_revenue FROM example_schema.revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_3",
-      "displayName": "Regional Distribution",
+      "name": "revenue_page",
+      "displayName": "Revenue",
       "layout": [
         {
           "widget": {
-            "name": "region_pie_chart",
+            "name": "revenue_distribution_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "region_dataset",
+                  "datasetName": "revenue_distribution_dataset",
                   "fields": [
-                    { "name": "region", "expression": "`region`" },
-                    { "name": "aggregated_sales", "expression": "`aggregated_sales`" }
+                    { "name": "product_category", "expression": "`product_category`" },
+                    { "name": "total_revenue", "expression": "`total_revenue`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,18 +34,18 @@
               "widgetType": "pie",
               "encodings": {
                 "angle": {
-                  "fieldName": "aggregated_sales",
-                  "displayName": "Sales Amount",
+                  "fieldName": "total_revenue",
+                  "displayName": "Revenue",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
-                  "fieldName": "region",
-                  "displayName": "Region",
+                  "fieldName": "product_category",
+                  "displayName": "Product Category",
                   "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Sales Distribution by Region",
+                "title": "Revenue Distribution",
                 "showTitle": true
               }
             }
