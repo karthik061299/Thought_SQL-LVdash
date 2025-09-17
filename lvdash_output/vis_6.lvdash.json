@@ -1,0 +1,91 @@
+{
+  "datasets": [
+    {
+      "name": "detailed_sales_dataset",
+      "displayName": "Detailed Sales Dataset",
+      "queryLines": [
+        "SELECT customer_name, product_name, order_date, quantity, unit_price, (quantity * unit_price) as total_amount FROM sales_schema.detailed_sales_view ORDER BY order_date DESC LIMIT 100"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_6",
+      "displayName": "Sales Details Table",
+      "layout": [
+        {
+          "widget": {
+            "name": "sales_details_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "detailed_sales_dataset",
+                  "fields": [
+                    { "name": "customer_name", "expression": "`customer_name`" },
+                    { "name": "product_name", "expression": "`product_name`" },
+                    { "name": "order_date", "expression": "`order_date`" },
+                    { "name": "quantity", "expression": "`quantity`" },
+                    { "name": "unit_price", "expression": "`unit_price`" },
+                    { "name": "total_amount", "expression": "`total_amount`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "customer_name",
+                    "displayName": "Customer Name",
+                    "scale": { "type": "categorical" }
+                  },
+                  {
+                    "fieldName": "product_name",
+                    "displayName": "Product Name",
+                    "scale": { "type": "categorical" }
+                  },
+                  {
+                    "fieldName": "order_date",
+                    "displayName": "Order Date",
+                    "scale": { "type": "temporal" }
+                  },
+                  {
+                    "fieldName": "quantity",
+                    "displayName": "Quantity",
+                    "scale": { "type": "quantitative" }
+                  },
+                  {
+                    "fieldName": "unit_price",
+                    "displayName": "Unit Price",
+                    "scale": { "type": "quantitative" }
+                  },
+                  {
+                    "fieldName": "total_amount",
+                    "displayName": "Total Amount",
+                    "scale": { "type": "quantitative" }
+                  }
+                ]
+              },
+              "frame": {
+                "title": "Detailed Sales Records",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
