@@ -1,10 +1,10 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_iide_dataset",
-      "displayName": "HPX Events Model IIDE Dataset",
+      "name": "hpx_events_model_iide_metric_view_dataset",
+      "displayName": "HPX Events Model IIDE Metric View",
       "queryLines": [
-        "SELECT event_date_time AS `event_date_time`, COUNT(DISTINCT sys_sn_hash) AS `active_devices_1` FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide GROUP BY event_date_time ORDER BY event_date_time"
+        "SELECT DATE_TRUNC('DAY', event_date_time) AS daily_event_date, SUM(active_devices_1) AS total_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -20,10 +20,10 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_iide_dataset",
+                  "datasetName": "hpx_events_model_iide_metric_view_dataset",
                   "fields": [
-                    { "name": "event_date_time", "expression": "`event_date_time`" },
-                    { "name": "active_devices_1", "expression": "`active_devices_1`" }
+                    { "name": "daily_event_date", "expression": "`daily_event_date`" },
+                    { "name": "total_active_devices", "expression": "`total_active_devices`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,18 +34,18 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "event_date_time",
-                  "displayName": "Event Date Time",
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "active_devices_1",
+                  "fieldName": "total_active_devices",
                   "displayName": "Active Devices",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Active Devices Over Time",
+                "title": "Active Devices by Day",
                 "showTitle": true
               }
             }
