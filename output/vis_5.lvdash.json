@@ -1,0 +1,75 @@
+{
+  "datasets": [
+    {
+      "name": "website_sankey_dataset",
+      "displayName": "Website User Journey Dataset",
+      "queryLines": [
+        "SELECT traffic_source as stage1, landing_page as stage2, conversion_action as stage3, SUM(user_count) as flow_value FROM website_schema.user_journey_view GROUP BY traffic_source, landing_page, conversion_action ORDER BY flow_value DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_5",
+      "displayName": "User Journey Flow Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "user_journey_sankey",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "website_sankey_dataset",
+                  "fields": [
+                    { "name": "stage1", "expression": "`stage1`" },
+                    { "name": "stage2", "expression": "`stage2`" },
+                    { "name": "stage3", "expression": "`stage3`" },
+                    { "name": "flow_value", "expression": "`flow_value`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "sankey",
+              "encodings": {
+                "value": {
+                  "fieldName": "flow_value",
+                  "displayName": "User Flow Count"
+                },
+                "stages": [
+                  {
+                    "fieldName": "stage1",
+                    "displayName": "Traffic Source"
+                  },
+                  {
+                    "fieldName": "stage2",
+                    "displayName": "Landing Page"
+                  },
+                  {
+                    "fieldName": "stage3",
+                    "displayName": "Conversion Action"
+                  }
+                ]
+              },
+              "frame": {
+                "title": "User Journey Flow - Traffic Source to Conversion",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 10 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
