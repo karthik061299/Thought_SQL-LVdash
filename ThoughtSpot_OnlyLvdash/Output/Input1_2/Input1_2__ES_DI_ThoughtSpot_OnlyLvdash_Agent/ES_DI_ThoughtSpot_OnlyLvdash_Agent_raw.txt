@@ -1,1 +1,1 @@
-Unable to proceed without a valid GitHub personal access token. Please provide a valid token with access to the repository "karthik061299/Thought_SQL-LVdash" so I can read the CSV, process each visualization row, and generate/upload the required .lvdash.json files as per your detailed instructions.
+Unable to proceed due to authorization errors (401 Unauthorized) when accessing the GitHub repository. Please provide a valid GitHub personal access token with the necessary permissions to read and write files in the repository, and try again.
