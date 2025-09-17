@@ -4,7 +4,7 @@
       "name": "daily_users_dataset",
       "displayName": "Daily Users Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', date) as daily_date, SUM(daily_users) as total_daily_users FROM example_schema.user_activity_view GROUP BY DATE_TRUNC('DAY', date) ORDER BY daily_date"
+        "SELECT DATE_TRUNC('DAY', date) as date, SUM(daily_users) as daily_users FROM example_schema.user_activity_table GROUP BY DATE_TRUNC('DAY', date) ORDER BY date"
       ]
     }
   ],
@@ -22,8 +22,8 @@
                 "query": {
                   "datasetName": "daily_users_dataset",
                   "fields": [
-                    { "name": "daily_date", "expression": "`daily_date`" },
-                    { "name": "total_daily_users", "expression": "`total_daily_users`" }
+                    { "name": "date", "expression": "`date`" },
+                    { "name": "daily_users", "expression": "`daily_users`" }
                   ],
                   "disaggregated": false
                 }
@@ -34,12 +34,12 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_date",
+                  "fieldName": "date",
                   "displayName": "Date",
                   "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_daily_users",
+                  "fieldName": "daily_users",
                   "displayName": "Daily Users",
                   "scale": { "type": "quantitative" }
                 }
