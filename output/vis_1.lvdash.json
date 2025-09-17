@@ -1,0 +1,65 @@
+{
+  "datasets": [
+    {
+      "name": "daily_users_dataset",
+      "displayName": "Daily Users Dataset",
+      "queryLines": [
+        "SELECT DATE_TRUNC('DAY', date) as date_day, SUM(daily_users) as total_daily_users FROM example_schema.user_activity_view GROUP BY DATE_TRUNC('DAY', date) ORDER BY date_day"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "overview_page",
+      "displayName": "Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "daily_user_activity_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daily_users_dataset",
+                  "fields": [
+                    { "name": "date_day", "expression": "`date_day`" },
+                    { "name": "total_daily_users", "expression": "`total_daily_users`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "date_day",
+                  "displayName": "Date",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fieldName": "total_daily_users",
+                  "displayName": "Daily Users",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Daily User Activity",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
