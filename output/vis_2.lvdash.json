@@ -1,31 +1,30 @@
 {
   "datasets": [
     {
-      "name": "website_analytics_dataset",
-      "displayName": "Website Analytics Dataset",
+      "name": "product_dataset",
+      "displayName": "Product Performance Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', visit_date) as daily_visits, SUM(page_views) as total_page_views, SUM(unique_visitors) as total_unique_visitors, SUM(SUM(unique_visitors)) OVER (ORDER BY DATE_TRUNC('DAY', visit_date) ROWS UNBOUNDED PRECEDING) as cumulative_visitors FROM website_schema.analytics_view GROUP BY DATE_TRUNC('DAY', visit_date) ORDER BY daily_visits"
+        "SELECT product_category, SUM(revenue) as total_revenue, AVG(profit_margin) as avg_profit_margin FROM product_schema.product_view GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_2",
-      "displayName": "Website Analytics Dashboard",
+      "displayName": "Product Performance",
       "layout": [
         {
           "widget": {
-            "name": "website_analytics_chart",
+            "name": "product_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "website_analytics_dataset",
+                  "datasetName": "product_dataset",
                   "fields": [
-                    { "name": "daily_visits", "expression": "`daily_visits`" },
-                    { "name": "total_page_views", "expression": "`total_page_views`" },
-                    { "name": "total_unique_visitors", "expression": "`total_unique_visitors`" },
-                    { "name": "cumulative_visitors", "expression": "`cumulative_visitors`" }
+                    { "name": "product_category", "expression": "`product_category`" },
+                    { "name": "total_revenue", "expression": "`total_revenue`" },
+                    { "name": "avg_profit_margin", "expression": "`avg_profit_margin`" }
                   ],
                   "disaggregated": false
                 }
@@ -33,33 +32,21 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "line",
+              "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_visits",
-                  "displayName": "Daily Visits",
-                  "scale": { "type": "temporal" }
+                  "fieldName": "product_category",
+                  "displayName": "Product Category",
+                  "scale": { "type": "categorical" }
                 },
                 "y": {
-                  "fields": [
-                    {
-                      "fieldName": "total_page_views",
-                      "displayName": "Total Page Views"
-                    },
-                    {
-                      "fieldName": "total_unique_visitors",
-                      "displayName": "Total Unique Visitors"
-                    },
-                    {
-                      "fieldName": "cumulative_visitors",
-                      "displayName": "Cumulative Visitors"
-                    }
-                  ],
+                  "fieldName": "total_revenue",
+                  "displayName": "Total Revenue",
                   "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Website Analytics - Daily and Cumulative Metrics",
+                "title": "Revenue by Product Category",
                 "showTitle": true
               }
             }
