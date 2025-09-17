@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "revenue_distribution_widget",
+            "name": "revenue_distribution_chart",
             "queries": [
               {
                 "name": "main_query",
