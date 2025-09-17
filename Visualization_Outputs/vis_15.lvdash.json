@@ -1,0 +1,64 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_model_homepage_summary",
+      "displayName": "HPX Events Model Homepage Summary",
+      "queryLines": [
+        "SELECT `Home Tile` AS `Home Tile`, SUM(`Unique Tile Views`) AS `Total Unique Tile Views`, SUM(`Unique Tile Clicks`) AS `Total Unique Tile Clicks`, SUM(`Unique Interstitial Views`) AS `Total Unique Interstitial Views`, SUM(`Unique Interstitial Primary Button Clicks`) AS `Total Unique Interstitial Primary Button Clicks`, SUM(`Unique Interstitial Secondary Button Clicks`) AS `Total Unique Interstitial Secondary Button Clicks`, SUM(`Total Home Tile Clicked Vs Homepage Displayed`) AS `Total Home Tile Clicked Vs Homepage Displayed` FROM `36e16271-d174-4cbe-96f9-e7bcb8a6b794` GROUP BY `Home Tile` ORDER BY `Total Unique Tile Views` DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_15",
+      "displayName": "Home Tile Views",
+      "layout": [
+        {
+          "widget": {
+            "name": "home_tile_views_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model_homepage_summary",
+                  "fields": [
+                    { "name": "Home Tile", "expression": "`Home Tile`" },
+                    { "name": "Total Unique Tile Views", "expression": "`Total Unique Tile Views`" },
+                    { "name": "Total Unique Tile Clicks", "expression": "`Total Unique Tile Clicks`" },
+                    { "name": "Total Unique Interstitial Views", "expression": "`Total Unique Interstitial Views`" },
+                    { "name": "Total Unique Interstitial Primary Button Clicks", "expression": "`Total Unique Interstitial Primary Button Clicks`" },
+                    { "name": "Total Unique Interstitial Secondary Button Clicks", "expression": "`Total Unique Interstitial Secondary Button Clicks`" },
+                    { "name": "Total Home Tile Clicked Vs Homepage Displayed", "expression": "`Total Home Tile Clicked Vs Homepage Displayed`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "Total Unique Tile Views",
+                  "displayName": "Unique Tile Views"
+                }
+              },
+              "frame": {
+                "title": "Home Tile Views",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
