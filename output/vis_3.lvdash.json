@@ -4,7 +4,7 @@
       "name": "revenue_distribution_dataset",
       "displayName": "Revenue Distribution Dataset",
       "queryLines": [
-        "SELECT product_category, SUM(revenue) as total_revenue FROM example_schema.revenue_table GROUP BY product_category ORDER BY total_revenue DESC"
+        "SELECT product_category, SUM(revenue) as total_revenue FROM example_schema.revenue_view GROUP BY product_category ORDER BY total_revenue DESC"
       ]
     }
   ],
@@ -35,7 +35,7 @@
               "encodings": {
                 "angle": {
                   "fieldName": "total_revenue",
-                  "displayName": "Revenue",
+                  "displayName": "Total Revenue",
                   "scale": { "type": "quantitative" }
                 },
                 "color": {
