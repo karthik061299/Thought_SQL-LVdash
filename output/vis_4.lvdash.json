@@ -4,7 +4,7 @@
       "name": "orders_dataset",
       "displayName": "Orders Dataset",
       "queryLines": [
-        "SELECT SUM(total_orders) as total_orders FROM orders_schema.orders_view"
+        "SELECT COUNT(total_orders) as total_orders FROM orders_dataset"
       ]
     }
   ],
@@ -39,7 +39,7 @@
                 }
               },
               "frame": {
-                "title": "Total Orders KPI",
+                "title": "Total Orders",
                 "showTitle": true
               }
             }
