@@ -1,0 +1,85 @@
+{
+  "datasets": [
+    {
+      "name": "customer_dataset",
+      "displayName": "Customer Details Dataset",
+      "queryLines": [
+        "SELECT customer_id, customer_name, total_purchases, last_purchase_date, customer_segment FROM customer_schema.customer_details_view ORDER BY total_purchases DESC LIMIT 100"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_6",
+      "displayName": "Customer Details",
+      "layout": [
+        {
+          "widget": {
+            "name": "customer_table_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "customer_dataset",
+                  "fields": [
+                    { "name": "customer_id", "expression": "`customer_id`" },
+                    { "name": "customer_name", "expression": "`customer_name`" },
+                    { "name": "total_purchases", "expression": "`total_purchases`" },
+                    { "name": "last_purchase_date", "expression": "`last_purchase_date`" },
+                    { "name": "customer_segment", "expression": "`customer_segment`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "customer_id",
+                    "displayName": "Customer ID",
+                    "scale": { "type": "categorical" }
+                  },
+                  {
+                    "fieldName": "customer_name",
+                    "displayName": "Customer Name",
+                    "scale": { "type": "categorical" }
+                  },
+                  {
+                    "fieldName": "total_purchases",
+                    "displayName": "Total Purchases",
+                    "scale": { "type": "quantitative" }
+                  },
+                  {
+                    "fieldName": "last_purchase_date",
+                    "displayName": "Last Purchase Date",
+                    "scale": { "type": "temporal" }
+                  },
+                  {
+                    "fieldName": "customer_segment",
+                    "displayName": "Customer Segment",
+                    "scale": { "type": "categorical" }
+                  }
+                ]
+              },
+              "frame": {
+                "title": "Top Customer Details",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
