@@ -1,1 +1,1 @@
-Unable to proceed without a valid GitHub personal access token. Please provide a valid token to allow access to the repository files so I can generate the required Lakeview .lvdash.json outputs as specified.
+Unable to proceed: GitHub authorization failed for all input files. Please provide a valid GitHub personal access token with appropriate repository access so I can read the input files and generate the required Lakeview .lvdash.json outputs.
