@@ -1,0 +1,65 @@
+{
+  "datasets": [
+    {
+      "name": "product_category_dataset",
+      "displayName": "Product Category Dataset",
+      "queryLines": [
+        "SELECT product_category, SUM(sales_amount) as total_category_sales FROM product_schema.product_sales_view GROUP BY product_category ORDER BY total_category_sales DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_4",
+      "displayName": "Product Category Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "category_pie_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "product_category_dataset",
+                  "fields": [
+                    { "name": "product_category", "expression": "`product_category`" },
+                    { "name": "total_category_sales", "expression": "`total_category_sales`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "total_category_sales",
+                  "displayName": "Total Category Sales",
+                  "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "product_category",
+                  "displayName": "Product Category",
+                  "scale": { "type": "categorical" }
+                }
+              },
+              "frame": {
+                "title": "Sales Distribution by Product Category",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 8, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
