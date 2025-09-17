@@ -1,1 +1,65 @@
-I am unable to access the required GitHub files due to authorization errors (invalid or missing GitHub token). Please provide a valid GitHub personal access token with appropriate permissions so I can read the input files and generate the requested LVdash JSON outputs.
+{
+  "datasets": [
+    {
+      "name": "hpx_events_model_iide_dataset",
+      "displayName": "HPX Events Model IIDE Dataset",
+      "queryLines": [
+        "SELECT event_date_time AS event_date_time, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY event_date_time ORDER BY event_date_time"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_1",
+      "displayName": "Active Devices",
+      "layout": [
+        {
+          "widget": {
+            "name": "active_devices_line_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model_iide_dataset",
+                  "fields": [
+                    { "name": "event_date_time", "expression": "`event_date_time`" },
+                    { "name": "active_devices_1", "expression": "`active_devices_1`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "event_date_time",
+                  "displayName": "Event Date Time",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fieldName": "active_devices_1",
+                  "displayName": "Active Devices",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Active Devices Over Time",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
