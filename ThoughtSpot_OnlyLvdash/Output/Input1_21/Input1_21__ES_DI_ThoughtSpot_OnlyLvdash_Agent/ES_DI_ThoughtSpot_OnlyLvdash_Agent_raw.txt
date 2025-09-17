@@ -1,0 +1,1 @@
+A valid GitHub personal access token is required to access the files in the repository. Please provide the token so I can read the input files and generate the required Lakeview .lvdash.json outputs.
