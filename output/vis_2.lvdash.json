@@ -1,31 +1,31 @@
 {
   "datasets": [
     {
-      "name": "sales_performance_dataset",
-      "displayName": "Sales Performance Dataset",
+      "name": "website_analytics_dataset",
+      "displayName": "Website Analytics Dataset",
       "queryLines": [
-        "SELECT region, product_category, SUM(sales_amount) as total_sales, SUM(units_sold) as total_units FROM sales_schema.sales_metrics_view GROUP BY region, product_category ORDER BY region, product_category"
+        "SELECT DATE_TRUNC('DAY', visit_date) as daily_visits, SUM(page_views) as total_page_views, SUM(unique_visitors) as total_unique_visitors, SUM(SUM(unique_visitors)) OVER (ORDER BY DATE_TRUNC('DAY', visit_date) ROWS UNBOUNDED PRECEDING) as cumulative_visitors FROM website_schema.analytics_view GROUP BY DATE_TRUNC('DAY', visit_date) ORDER BY daily_visits"
       ]
     }
   ],
   "pages": [
     {
       "name": "page_2",
-      "displayName": "Sales Performance Dashboard",
+      "displayName": "Website Analytics Dashboard",
       "layout": [
         {
           "widget": {
-            "name": "sales_bar_chart",
+            "name": "website_analytics_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "sales_performance_dataset",
+                  "datasetName": "website_analytics_dataset",
                   "fields": [
-                    { "name": "region", "expression": "`region`" },
-                    { "name": "product_category", "expression": "`product_category`" },
-                    { "name": "total_sales", "expression": "`total_sales`" },
-                    { "name": "total_units", "expression": "`total_units`" }
+                    { "name": "daily_visits", "expression": "`daily_visits`" },
+                    { "name": "total_page_views", "expression": "`total_page_views`" },
+                    { "name": "total_unique_visitors", "expression": "`total_unique_visitors`" },
+                    { "name": "cumulative_visitors", "expression": "`cumulative_visitors`" }
                   ],
                   "disaggregated": false
                 }
@@ -33,26 +33,33 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "bar",
+              "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "region",
-                  "displayName": "Region",
-                  "scale": { "type": "categorical" }
+                  "fieldName": "daily_visits",
+                  "displayName": "Daily Visits",
+                  "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "total_sales",
-                  "displayName": "Total Sales",
+                  "fields": [
+                    {
+                      "fieldName": "total_page_views",
+                      "displayName": "Total Page Views"
+                    },
+                    {
+                      "fieldName": "total_unique_visitors",
+                      "displayName": "Total Unique Visitors"
+                    },
+                    {
+                      "fieldName": "cumulative_visitors",
+                      "displayName": "Cumulative Visitors"
+                    }
+                  ],
                   "scale": { "type": "quantitative" }
-                },
-                "color": {
-                  "fieldName": "product_category",
-                  "displayName": "Product Category",
-                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Sales Performance by Region and Product Category",
+                "title": "Website Analytics - Daily and Cumulative Metrics",
                 "showTitle": true
               }
             }
