@@ -1,35 +1,29 @@
 {
   "datasets": [
     {
-      "name": "ds_hpx_events_onpress",
-      "displayName": "HPX Events OnPress Dataset",
+      "name": "top_onpress_controls_dataset",
+      "displayName": "Top OnPress Controls Dataset",
       "queryLines": [
-        "SELECT control AS `control`, SUM(clicks) AS `total_clicks` FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY SUM(clicks) DESC LIMIT 10"
+        "SELECT control, SUM(clicks) as total_clicks FROM hpx_events_model WHERE ui_action = 'onpress' AND control NOT LIKE '%testid%' GROUP BY control ORDER BY total_clicks DESC LIMIT 10"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_executive_summary",
-      "displayName": "Executive Summary",
+      "name": "page_7",
+      "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "bar_top_onpress_events",
+            "name": "top_onpress_controls_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_hpx_events_onpress",
+                  "datasetName": "top_onpress_controls_dataset",
                   "fields": [
-                    {
-                      "name": "control",
-                      "expression": "`control`"
-                    },
-                    {
-                      "name": "total_clicks",
-                      "expression": "`total_clicks`"
-                    }
+                    { "name": "control", "expression": "`control`" },
+                    { "name": "total_clicks", "expression": "`total_clicks`" }
                   ],
                   "disaggregated": false
                 }
@@ -42,30 +36,21 @@
                 "x": {
                   "fieldName": "control",
                   "displayName": "Control",
-                  "scale": {
-                    "type": "categorical"
-                  }
+                  "scale": { "type": "categorical" }
                 },
                 "y": {
                   "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
-                  "scale": {
-                    "type": "quantitative"
-                  }
+                  "scale": { "type": "quantitative" }
                 }
               },
               "frame": {
-                "title": "Top On Press Events",
+                "title": "Top On Press Events by Control",
                 "showTitle": true
               }
             }
           },
-          "position": {
-            "x": 0,
-            "y": 12,
-            "width": 6,
-            "height": 4
-          }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
