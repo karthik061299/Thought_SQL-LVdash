@@ -1,17 +1,17 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_iide_dataset",
-      "displayName": "HPX Events Model IIDE Dataset",
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Dataset",
       "queryLines": [
-        "SELECT event_date_time AS event_date_time, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY event_date_time ORDER BY event_date_time"
+        "SELECT * FROM hive_metastore.default.mv_hpx_events_model"
       ]
     }
   ],
   "pages": [
     {
-      "name": "page_1",
-      "displayName": "Active Devices",
+      "name": "executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
@@ -20,10 +20,16 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_iide_dataset",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
-                    { "name": "event_date_time", "expression": "`event_date_time`" },
-                    { "name": "active_devices_1", "expression": "`active_devices_1`" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
+                    },
+                    {
+                      "name": "active_devices",
+                      "expression": "SUM(`Active Devices`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -34,23 +40,32 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "event_date_time",
-                  "displayName": "Event Date Time",
-                  "scale": { "type": "temporal" }
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
-                  "fieldName": "active_devices_1",
+                  "fieldName": "active_devices",
                   "displayName": "Active Devices",
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
-                "title": "Active Devices Over Time",
+                "title": "Active Devices",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
