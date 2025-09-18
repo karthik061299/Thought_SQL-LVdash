@@ -4,7 +4,7 @@
       "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
       "queryLines": [
-        "SELECT DATE_TRUNC('DAY', event_date_time) as day_event_date_time, app_version, COUNT(DISTINCT sys_sn_hash) as active_devices, (COUNT(DISTINCT sys_sn_hash) / SUM(COUNT(DISTINCT sys_sn_hash)) OVER (PARTITION BY DATE_TRUNC('DAY', event_date_time))) * 100 as pct_active_devices FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view WHERE event_date_time >= '2023-05-01' GROUP BY DATE_TRUNC('DAY', event_date_time), app_version ORDER BY day_event_date_time, app_version"
+        "SELECT * FROM hive_metastore.default.mv_hpx_events_model"
       ]
     }
   ],
@@ -15,7 +15,7 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_new_version_adoption_line",
+            "name": "hpx_new_version_adoption_line_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -23,20 +23,20 @@
                   "datasetName": "hpx_events_model_dataset",
                   "fields": [
                     {
-                      "name": "day_event_date_time",
-                      "expression": "`day_event_date_time`"
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
                     },
                     {
                       "name": "app_version",
-                      "expression": "`app_version`"
+                      "expression": "`App Version`"
                     },
                     {
                       "name": "active_devices",
-                      "expression": "`active_devices`"
+                      "expression": "SUM(`Active Devices`)"
                     },
                     {
                       "name": "pct_active_devices",
-                      "expression": "`pct_active_devices`"
+                      "expression": "SUM(`Active Devices`) / SUM(SUM(`Active Devices`)) OVER (PARTITION BY DATE_TRUNC('DAY', `Event Date Time`))"
                     }
                   ],
                   "disaggregated": false
@@ -48,7 +48,7 @@
               "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "day_event_date_time",
+                  "fieldName": "daily_event_date",
                   "displayName": "Daily Event Date",
                   "scale": {
                     "type": "temporal"
