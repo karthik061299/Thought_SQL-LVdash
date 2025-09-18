@@ -45,7 +45,7 @@
                 }
               },
               "frame": {
-                "title": "Active Devices Over Time",
+                "title": "Active Devices by Daily Event Date",
                 "showTitle": true
               }
             }
