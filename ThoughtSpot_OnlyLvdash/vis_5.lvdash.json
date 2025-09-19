@@ -1,1 +1,72 @@
-{"datasets": [{"name": "example_dataset","displayName": "Example Dataset","queryLines": ["SELECT DATE_TRUNC('DAY', event_time) as daily_event, screen, SUM(unique_screen_views) as total_unique_screen_views FROM example_schema.example_event_view WHERE screen NOT IN ('home', 'welcome', 'welcomecontainer', 'welcome-core', 'support') AND ui_action = 'screendisplayed' GROUP BY DATE_TRUNC('DAY', event_time), screen ORDER BY total_unique_screen_views DESC"]}],"pages": [{"name": "overview_page","displayName": "Top Unique Screen Views","layout": [{"widget": {"name": "unique_screen_views_chart","queries": [{"name": "activity_query","query": {"datasetName": "example_dataset","fields": [{"name": "daily_event","expression": "`daily_event`"},{"name": "screen","expression": "`screen`"},{"name": "total_unique_screen_views","expression": "`total_unique_screen_views`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "bar","encodings": {"x": {"fieldName": "daily_event","displayName": "Daily Event","scale": {"type": "temporal"}},"y": {"fieldName": "total_unique_screen_views","displayName": "Total Unique Screen Views","scale": {"type": "quantitative"}},"color": {"fieldName": "screen","displayName": "Screen","scale": {"type": "categorical"}}},"frame": {"title": "Top Unique Screen Views","showTitle": true}}}},"position": {"x": 0,"y": 0,"width": 12,"height": 8}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "paas_tracking_card_metric_view",
+      "displayName": "PaaS Tracking Card Metric View",
+      "queryLines": [
+        "SELECT `Month(Date)`, `Order Confirmed - Pill`, `Processing - Pill`, `Shipped - Pill`, `Delivered - Pill` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_5",
+      "displayName": "Tracking Card Status Pill Clicks",
+      "layout": [
+        {
+          "widget": {
+            "name": "tracking_card_status_pill_clicks_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "paas_tracking_card_metric_view",
+                  "fields": [
+                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
+                    { "name": "Order Confirmed - Pill", "expression": "`Order Confirmed - Pill`" },
+                    { "name": "Processing - Pill", "expression": "`Processing - Pill`" },
+                    { "name": "Shipped - Pill", "expression": "`Shipped - Pill`" },
+                    { "name": "Delivered - Pill", "expression": "`Delivered - Pill`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Month(Date)",
+                  "displayName": "Month(Date)",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fields": [
+                    { "fieldName": "Order Confirmed - Pill", "displayName": "Order Confirmed - Pill" },
+                    { "fieldName": "Processing - Pill", "displayName": "Processing - Pill" },
+                    { "fieldName": "Shipped - Pill", "displayName": "Shipped - Pill" },
+                    { "fieldName": "Delivered - Pill", "displayName": "Delivered - Pill" }
+                  ],
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Tracking Card Status Pill Clicks",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
