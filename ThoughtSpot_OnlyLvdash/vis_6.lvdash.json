@@ -1,1 +1,72 @@
-{"datasets": [{"name": "hpx_events_model","displayName": "HPX Events Model","queryLines": ["SELECT `Screen` AS `screen`, SUM(`Unique Screen Views`) AS `unique_screen_views` FROM `hpx_events_model` WHERE `Event Date Time` >= '2023-05-01' AND `Screen` NOT IN ('home', 'support', 'welcome', 'welcome-core', 'welcomeContainer') AND `Ui Action` = 'screendisplayed' GROUP BY `Screen` ORDER BY `unique_screen_views` DESC"]}],"pages": [{"name": "overview_page","displayName": "Top Unique Screen Views (excl. Home/Welcome)","layout": [{"widget": {"name": "unique_screen_views_chart","queries": [{"name": "main_query","query": {"datasetName": "hpx_events_model","fields": [{"name": "screen","expression": "`screen`"},{"name": "unique_screen_views","expression": "`unique_screen_views`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "bar","encodings": {"x": {"fieldName": "screen","displayName": "Screen","scale": {"type": "categorical"}},"y": {"fieldName": "unique_screen_views","displayName": "Unique Screen Views","scale": {"type": "quantitative"}}},"frame": {"title": "Top Unique Screen Views (excl. Home/Welcome)","showTitle": true}}}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "ds_tracking_card_status",
+      "displayName": "Tracking Card Status Dataset",
+      "queryLines": [
+        "SELECT `Month(Date)`, `Processed`, `Shipped`, `Confirmed`, `Delivered` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_tracking_card_status",
+      "displayName": "Tracking Card Status",
+      "layout": [
+        {
+          "widget": {
+            "name": "bar_tracking_card_status",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_tracking_card_status",
+                  "fields": [
+                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
+                    { "name": "Processed", "expression": "`Processed`" },
+                    { "name": "Shipped", "expression": "`Shipped`" },
+                    { "name": "Confirmed", "expression": "`Confirmed`" },
+                    { "name": "Delivered", "expression": "`Delivered`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Month(Date)",
+                  "displayName": "Month(Date)",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fields": [
+                    { "fieldName": "Processed", "displayName": "Processed" },
+                    { "fieldName": "Shipped", "displayName": "Shipped" },
+                    { "fieldName": "Confirmed", "displayName": "Confirmed" },
+                    { "fieldName": "Delivered", "displayName": "Delivered" }
+                  ],
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Tracking Card Status by Month",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
