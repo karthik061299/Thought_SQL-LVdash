@@ -1,1 +1,70 @@
-{"datasets": [{"name": "example_dataset","displayName": "Example Dataset","queryLines": ["SELECT DATE_TRUNC('DAY', event_time) as daily_event, control, SUM(clicks) as total_clicks FROM example_schema.example_event_view WHERE control NOT LIKE '%testid%' AND ui_action = 'onpress' GROUP BY DATE_TRUNC('DAY', event_time), control ORDER BY daily_event"]}],"pages": [{"name": "overview_page","displayName": "Top On Press Events","layout": [{"widget": {"name": "on_press_events_chart","queries": [{"name": "activity_query","query": {"datasetName": "example_dataset","fields": [{"name": "daily_event","expression": "`daily_event`"},{"name": "control","expression": "`control`"},{"name": "total_clicks","expression": "`total_clicks`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "bar","encodings": {"x": {"fieldName": "daily_event","displayName": "Daily Event","scale": {"type": "temporal"}},"y": {"fieldName": "total_clicks","displayName": "Total Clicks","scale": {"type": "quantitative"}},"color": {"fieldName": "control","displayName": "Control","scale": {"type": "categorical"}}},"frame": {"title": "Top On Press Events","showTitle": true}}}},"position": {"x": 0,"y": 0,"width": 12,"height": 8}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "paas_tracking_card_metric_view",
+      "displayName": "PaaS Tracking Card Metrics",
+      "queryLines": [
+        "SELECT `Month(Date)`, `Delivered`, `Onboarded`, `Support Cases` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_4",
+      "displayName": "Delivered vs Onboarded and Support Cases",
+      "layout": [
+        {
+          "widget": {
+            "name": "line_chart_delivered_onboarded_supportcases",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "paas_tracking_card_metric_view",
+                  "fields": [
+                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
+                    { "name": "Delivered", "expression": "`Delivered`" },
+                    { "name": "Onboarded", "expression": "`Onboarded`" },
+                    { "name": "Support Cases", "expression": "`Support Cases`" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Month(Date)",
+                  "displayName": "Month",
+                  "scale": { "type": "temporal" }
+                },
+                "y": {
+                  "fields": [
+                    { "fieldName": "Delivered", "displayName": "Delivered" },
+                    { "fieldName": "Onboarded", "displayName": "Onboarded" },
+                    { "fieldName": "Support Cases", "displayName": "Support Cases" }
+                  ],
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Delivered vs Onboarded and Support Cases by Month",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
