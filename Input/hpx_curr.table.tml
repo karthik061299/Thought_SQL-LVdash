@@ -1,0 +1,80 @@
+guid: b5f9cb0a-4736-481d-bf30-0a811561d04a
+table:
+  name: hpx_curr
+  db: team_css_analytics_prod
+  schema: hpx_analytics
+  db_table: hpx_curr
+  connection:
+    name: dataos-prod-internal-cascade
+    fqn: ee891b6b-2334-402c-975f-741ec3f3c827
+  columns:
+  - name: week_active
+    db_column_name: week_active
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: DATE
+  - name: previous_week_users_t14t20
+    db_column_name: previous_week_users_t14t20
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT64
+  - name: last_week_users_t7t13
+    db_column_name: last_week_users_t7t13
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT64
+  - name: this_week_users_t0t6
+    db_column_name: this_week_users_t0t6
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: INT64
+  - name: CURR
+    db_column_name: CURR
+    properties:
+      column_type: MEASURE
+      aggregation: AVERAGE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: DOUBLE
+  - name: hpid_signed_in
+    db_column_name: hpid_signed_in
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: app_version
+    db_column_name: app_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: os_platform
+    db_column_name: os_platform
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  - name: country_name
+    db_column_name: country_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+    db_column_properties:
+      data_type: VARCHAR
+  properties:
+    sage_config:
+      is_sage_enabled: false

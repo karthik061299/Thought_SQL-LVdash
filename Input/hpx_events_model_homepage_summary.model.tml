@@ -1,0 +1,104 @@
+guid: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
+model:
+  name: hpx_events_model_homepage_summary
+  description: Pre-aggregated formulas in Databricks with a goal to reduce rendering
+    latency
+  model_tables:
+  - name: hpx_events_model_homepage_summary
+    fqn: c895ffc9-bade-434d-94a2-4bd5ee7a386e
+  columns:
+  - name: Home Tile
+    column_id: hpx_events_model_homepage_summary::home_tile
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Unique Tile Views
+    column_id: hpx_events_model_homepage_summary::unique_tile_views
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Unique Tile Clicks
+    column_id: hpx_events_model_homepage_summary::unique_tile_clicks
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Unique Interstitial Views
+    column_id: hpx_events_model_homepage_summary::unique_interstitial_views
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Unique Interstitial Primary Button Clicks
+    column_id: hpx_events_model_homepage_summary::unique_interstitial_primary_button_clicks
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Unique Interstitial Secondary Button Clicks
+    column_id: hpx_events_model_homepage_summary::unique_interstitial_secondary_button_clicks
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Home Tile Clicked Vs Homepage Displayed
+    column_id: hpx_events_model_homepage_summary::home_tile_clicked_vs_homepage_displayed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Primary Button Clicked Vs Tile Displayed
+    column_id: hpx_events_model_homepage_summary::primary_button_clicked_vs_tile_displayed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Secondary Button Clicked Vs Tile Displayed
+    column_id: hpx_events_model_homepage_summary::secondary_button_clicked_vs_tile_displayed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Primary Button Clicked Vs Interstitial Displayed
+    column_id: hpx_events_model_homepage_summary::primary_button_clicked_vs_interstitial_displayed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Secondary Button Clicked Vs Interstitial Displayed
+    column_id: hpx_events_model_homepage_summary::secondary_button_clicked_vs_interstitial_displayed
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Pc Type
+    column_id: hpx_events_model_homepage_summary::pc_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen
+    column_id: hpx_events_model_homepage_summary::screen
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Version
+    column_id: hpx_events_model_homepage_summary::app_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Date Time
+    column_id: hpx_events_model_homepage_summary::event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Country Code
+    column_id: hpx_events_model_homepage_summary::geo_country_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  properties:
+    is_bypass_rls: false
+    join_progressive: true
+    sage_config:
+      is_sage_enabled: false

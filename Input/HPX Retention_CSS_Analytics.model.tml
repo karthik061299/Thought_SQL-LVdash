@@ -1,0 +1,230 @@
+guid: 9368a52c-a8c3-4043-a78c-522b75aa38c6
+model:
+  name: HPX Retention_CSS_Analytics
+  description: 0.5 HPX App Data
+  model_tables:
+  - name: hpx_retention_good
+    fqn: c0c42fee-c88d-40e6-a2de-af60f976566d
+  formulas:
+  - id: Active_Devices
+    name: Active_Devices
+    expr: unique count ( [hpx_retention_good::sys_serial_number] )
+  - id: New Device
+    name: New Device
+    expr: unique count ( [hpx_retention_good::first_event] )
+  columns:
+  - name: Event Date
+    column_id: hpx_retention_good::event_date
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Active_Devices
+    formula_id: Active_Devices
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: New Device
+    formula_id: New Device
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Session Id
+    column_id: hpx_retention_good::session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Sys Serial Number
+    column_id: hpx_retention_good::sys_serial_number
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Meta Detail Date Time
+    column_id: hpx_retention_good::event_meta_detail_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Device Event Date Time
+    column_id: hpx_retention_good::first_device_event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session First Event Date Time
+    column_id: hpx_retention_good::session_first_event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Last Device Event Date Time
+    column_id: hpx_retention_good::last_device_event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session Last Event Date Time
+    column_id: hpx_retention_good::session_last_event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Device Event Sequence
+    column_id: hpx_retention_good::device_event_sequence
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Session Time
+    column_id: hpx_retention_good::session_time
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Session Type
+    column_id: hpx_retention_good::session_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Event
+    column_id: hpx_retention_good::first_event
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Seconds Since First Use
+    column_id: hpx_retention_good::seconds_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Seconds Since Previous Session
+    column_id: hpx_retention_good::seconds_since_previous_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Hours Since First Use
+    column_id: hpx_retention_good::hours_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Hours Since Previous Session
+    column_id: hpx_retention_good::hours_since_previous_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Days Since First Use
+    column_id: hpx_retention_good::days_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Days Since Previous Session
+    column_id: hpx_retention_good::days_since_previous_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Weeks Since First Use
+    column_id: hpx_retention_good::weeks_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Weeks Since Previous Session
+    column_id: hpx_retention_good::weeks_since_previous_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Months Since First Use
+    column_id: hpx_retention_good::months_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Months Since Previous Session
+    column_id: hpx_retention_good::months_since_previous_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+      is_additive: true
+  - name: Sys Sku
+    column_id: hpx_retention_good::sys_sku
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Business Model
+    column_id: hpx_retention_good::business_model
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Family
+    column_id: hpx_retention_good::family
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Model Name
+    column_id: hpx_retention_good::model_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Device Type
+    column_id: hpx_retention_good::device_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Country Code
+    column_id: hpx_retention_good::geo_country_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Pc Type
+    column_id: hpx_retention_good::pc_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Pcaas
+    column_id: hpx_retention_good::PCaaS
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Hpone
+    column_id: hpx_retention_good::HPOne
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Action
+    column_id: hpx_retention_good::action
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Action Aux Params
+    column_id: hpx_retention_good::action_aux_params
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Activity
+    column_id: hpx_retention_good::activity
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen Path
+    column_id: hpx_retention_good::screen_path
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen Mode
+    column_id: hpx_retention_good::screen_mode
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Control Name
+    column_id: hpx_retention_good::control_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  properties:
+    is_bypass_rls: false
+    join_progressive: true
+    sage_config:
+      is_sage_enabled: false

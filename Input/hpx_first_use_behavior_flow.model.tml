@@ -1,0 +1,74 @@
+guid: 53422364-0e63-431f-8a63-5343279f9a75
+model:
+  name: hpx_first_use_behavior_flow
+  description: table in UC
+  model_tables:
+  - name: hpx_first_use_behavior_flow
+    fqn: deda28f5-2dc3-4338-a80a-5767c2469f82
+  columns:
+  - name: Date
+    column_id: hpx_first_use_behavior_flow::Date
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Country Code
+    column_id: hpx_first_use_behavior_flow::geo_country_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Pc Type
+    column_id: hpx_first_use_behavior_flow::pc_Type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Sys Sku
+    column_id: hpx_first_use_behavior_flow::sys_sku
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Model Name
+    column_id: hpx_first_use_behavior_flow::model_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Version
+    column_id: hpx_first_use_behavior_flow::App_Version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen 1
+    column_id: hpx_first_use_behavior_flow::Screen_1
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen 2
+    column_id: hpx_first_use_behavior_flow::Screen_2
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen 3
+    column_id: hpx_first_use_behavior_flow::Screen_3
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen 4
+    column_id: hpx_first_use_behavior_flow::Screen_4
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen 5
+    column_id: hpx_first_use_behavior_flow::Screen_5
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Devices
+    column_id: hpx_first_use_behavior_flow::Devices
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  properties:
+    is_bypass_rls: false
+    join_progressive: true
+    sage_config:
+      is_sage_enabled: false

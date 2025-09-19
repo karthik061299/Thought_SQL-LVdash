@@ -1,0 +1,43 @@
+guid: 4f36fe75-ee67-4c57-af74-536a929e0e31
+model:
+  name: HPX_CURR
+  description: Active Users in Previous Week t-14 to t-20, Last Week t-7 to t-13,
+    This Week t-0 to t-6
+  model_tables:
+  - name: hpx_curr
+    fqn: b5f9cb0a-4736-481d-bf30-0a811561d04a
+  columns:
+  - name: Week Active
+    column_id: hpx_curr::week_active
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Previous Week Users T14t20
+    column_id: hpx_curr::previous_week_users_t14t20
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Last Week Users T7t13
+    column_id: hpx_curr::last_week_users_t7t13
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: This Week Users T0t6
+    column_id: hpx_curr::this_week_users_t0t6
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Curr
+    column_id: hpx_curr::CURR
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  properties:
+    is_bypass_rls: false
+    join_progressive: true
+    sage_config:
+      is_sage_enabled: false

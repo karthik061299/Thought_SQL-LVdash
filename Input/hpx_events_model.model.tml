@@ -1,0 +1,392 @@
+guid: d88e6611-f923-40db-aa86-d9013633b3cc
+model:
+  name: hpx_events_model
+  description: Recreation of the HPX Events LookML
+  model_tables:
+  - name: hpx_events_model_iide
+    fqn: 90df7903-6753-4c9b-a9de-4005bd2dfca7
+  formulas:
+  - id: Active Devices
+    name: Active Devices
+    expr: unique count ( [hpx_events_model_iide::sys_sn_hash] )
+  - id: Cumulative New Devices
+    name: Cumulative New Devices
+    expr: cumulative_sum ( [hpx_events_model_iide::first_event_ct] , [hpx_events_model_iide::event_date_time]
+      )
+  - id: New Devices
+    name: New Devices
+    expr: sum ( [hpx_events_model_iide::first_event_ct] )
+  - id: Screen Views
+    name: Screen Views
+    expr: if ( [hpx_events_model_iide::ui_action] = 'ScreenDisplayed' ) then 1 else
+      0
+  - id: Sessions
+    name: Sessions
+    expr: unique count ( [hpx_events_model_iide::session_id] )
+  - id: Total Events
+    name: Total Events
+    expr: count ( [hpx_events_model_iide::event_id] )
+  - id: Unique Events
+    name: Unique Events
+    expr: unique count ( [hpx_events_model_iide::unique_event_per_session] )
+  - id: Unique Screen Views
+    name: Unique Screen Views
+    expr: unique count ( [hpx_events_model_iide::unique_screen_per_session] )
+  - id: cum_sums
+    name: cum_sums
+    expr: cumulative_sum ( group_unique_count ( [hpx_events_model_iide::sys_sn_hash]
+      ) , [hpx_events_model_iide::first_event_date_time] )
+  columns:
+  - name: Active Devices
+    formula_id: Active Devices
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Cumulative New Devices
+    formula_id: Cumulative New Devices
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: New Devices
+    formula_id: New Devices
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Screen Views
+    formula_id: Screen Views
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Sessions
+    formula_id: Sessions
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Total Events
+    formula_id: Total Events
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Unique Events
+    formula_id: Unique Events
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Unique Screen Views
+    formula_id: Unique Screen Views
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: cum_sums
+    formula_id: cum_sums
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Session Id
+    column_id: hpx_events_model_iide::session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Clicks
+    column_id: hpx_events_model_iide::clicks
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Support Feature Category
+    column_id: hpx_events_model_iide::support_feature_category
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Event Ct
+    column_id: hpx_events_model_iide::first_event_ct
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Hours Since First Use
+    column_id: hpx_events_model_iide::hours_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Days Since First Use
+    column_id: hpx_events_model_iide::days_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Weeks Since First Use
+    column_id: hpx_events_model_iide::weeks_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Months Since First Use
+    column_id: hpx_events_model_iide::months_since_first_use
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Session Id
+    column_id: hpx_events_model_iide::first_session_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: App Version
+    column_id: hpx_events_model_iide::app_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First App Version
+    column_id: hpx_events_model_iide::first_app_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Use Registration
+    column_id: hpx_events_model_iide::first_use_registration
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Use Registration Server Response
+    column_id: hpx_events_model_iide::first_use_registration_server_response
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Id
+    column_id: hpx_events_model_iide::event_id
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Source Table
+    column_id: hpx_events_model_iide::event_source_table
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Region Name
+    column_id: hpx_events_model_iide::geo_region_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Country Code
+    column_id: hpx_events_model_iide::geo_country_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Ip Connection
+    column_id: hpx_events_model_iide::geo_ip_connection
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Sequence Number
+    column_id: hpx_events_model_iide::sequence_number
+    properties:
+      column_type: MEASURE
+      aggregation: SUM
+      index_type: DONT_INDEX
+  - name: Event Date Time
+    column_id: hpx_events_model_iide::event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: First Event Date Time
+    column_id: hpx_events_model_iide::first_event_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session Start Date Time
+    column_id: hpx_events_model_iide::session_start_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session End Date Time
+    column_id: hpx_events_model_iide::session_end_date_time
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session Duration
+    column_id: hpx_events_model_iide::session_duration
+    properties:
+      column_type: MEASURE
+      aggregation: AVERAGE
+      index_type: DONT_INDEX
+  - name: Born On Date
+    column_id: hpx_events_model_iide::born_on_date
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Os Country Region
+    column_id: hpx_events_model_iide::os_country_region
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Os Language
+    column_id: hpx_events_model_iide::os_language
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Os Version
+    column_id: hpx_events_model_iide::os_version
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Os Screen Resolution
+    column_id: hpx_events_model_iide::os_screen_resolution
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Device Type
+    column_id: hpx_events_model_iide::device_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Model Name
+    column_id: hpx_events_model_iide::model_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Model Number
+    column_id: hpx_events_model_iide::model_number
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo Postal Code
+    column_id: hpx_events_model_iide::geo_postal_code
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Geo City
+    column_id: hpx_events_model_iide::geo_city
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Launch Type
+    column_id: hpx_events_model_iide::launch_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Screen
+    column_id: hpx_events_model_iide::screen
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Action Aux Params
+    column_id: hpx_events_model_iide::action_aux_params
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Tile Position
+    column_id: hpx_events_model_iide::tile_position
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Par8 Cleaned
+    column_id: hpx_events_model_iide::event_par8_cleaned
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Control
+    column_id: hpx_events_model_iide::control
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Ui Action
+    column_id: hpx_events_model_iide::ui_action
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Is Signed In
+    column_id: hpx_events_model_iide::is_signed_in
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Previous Control
+    column_id: hpx_events_model_iide::previous_control
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Next Control
+    column_id: hpx_events_model_iide::next_control
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Home Tile
+    column_id: hpx_events_model_iide::home_tile
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Unique Screen Per Session
+    column_id: hpx_events_model_iide::unique_screen_per_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Unique Event Per Session
+    column_id: hpx_events_model_iide::unique_event_per_session
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Session Type
+    column_id: hpx_events_model_iide::session_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Previous Screen
+    column_id: hpx_events_model_iide::previous_screen
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Next Screen
+    column_id: hpx_events_model_iide::next_screen
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Detail Event Category
+    column_id: hpx_events_model_iide::event_detail_event_category
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Type
+    column_id: hpx_events_model_iide::event_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Event Name
+    column_id: hpx_events_model_iide::event_name
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Action
+    column_id: hpx_events_model_iide::action
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Activity
+    column_id: hpx_events_model_iide::activity
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Os Platform
+    column_id: hpx_events_model_iide::os_platform
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Pc Type
+    column_id: hpx_events_model_iide::pc_type
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  - name: Data Purpose Benefits Hp Analytics
+    column_id: hpx_events_model_iide::data_purpose_benefits_hp_analytics
+    properties:
+      column_type: ATTRIBUTE
+      index_type: DONT_INDEX
+  properties:
+    is_bypass_rls: false
+    join_progressive: true
+    sage_config:
+      is_sage_enabled: false
