@@ -1,35 +1,30 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset",
-      "displayName": "HPX Events Dataset",
+      "name": "paas_tracking_card_metric_view",
+      "displayName": "PaaS Tracking Card Metric View",
       "queryLines": [
-        "SELECT * FROM hive_metastore.default.mv_hpx_events_model"
+        "SELECT `Month(Date)`, `Os Platform`, `Viewed PaaS Tracking Card` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`, `Os Platform`"
       ]
     }
   ],
   "pages": [
     {
-      "name": "executive_summary",
-      "displayName": "Executive Summary",
+      "name": "page_1",
+      "displayName": "PaaS Tracking Card Views",
       "layout": [
         {
           "widget": {
-            "name": "active_devices_line_chart",
+            "name": "bar_paas_tracking_card_views",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset",
+                  "datasetName": "paas_tracking_card_metric_view",
                   "fields": [
-                    {
-                      "name": "daily_event_date",
-                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
-                    },
-                    {
-                      "name": "active_devices",
-                      "expression": "SUM(`Active Devices`)"
-                    }
+                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
+                    { "name": "Os Platform", "expression": "`Os Platform`" },
+                    { "name": "Viewed PaaS Tracking Card", "expression": "`Viewed PaaS Tracking Card`" }
                   ],
                   "disaggregated": false
                 }
@@ -37,35 +32,31 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "line",
+              "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "daily_event_date",
-                  "displayName": "Daily Event Date",
-                  "scale": {
-                    "type": "temporal"
-                  }
+                  "fieldName": "Month(Date)",
+                  "displayName": "Month(Date)",
+                  "scale": { "type": "temporal" }
                 },
                 "y": {
-                  "fieldName": "active_devices",
-                  "displayName": "Active Devices",
-                  "scale": {
-                    "type": "quantitative"
-                  }
+                  "fieldName": "Viewed PaaS Tracking Card",
+                  "displayName": "Viewed PaaS Tracking Card",
+                  "scale": { "type": "quantitative" }
+                },
+                "color": {
+                  "fieldName": "Os Platform",
+                  "displayName": "Os Platform",
+                  "scale": { "type": "categorical" }
                 }
               },
               "frame": {
-                "title": "Active Devices",
+                "title": "PaaS Tracking Card Views by Month and Platform",
                 "showTitle": true
               }
             }
           },
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 12,
-            "height": 8
-          }
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
