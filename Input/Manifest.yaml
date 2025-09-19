@@ -1,102 +1,32 @@
 object:
-- name: HPX Executive Summary UC
-  filename: HPX Executive Summary UC.liveboard.tml
+- name: PaaS Tracking Card
+  filename: PaaS Tracking Card.liveboard.tml
   status:
     status_code: OK
   type: liveboard
-  id: 079a7bdb-2a55-40cc-8ab6-01d8d8acf229
+  id: 9335cc96-a35c-4780-95f9-808f4966c066
   dependency:
-  - name: hpx_first_use_behavior_flow
-    filename: hpx_first_use_behavior_flow.model.tml
-  - name: HPX_CURR
-    filename: HPX_CURR.model.tml
-  - name: hpx_events_model
-    filename: hpx_events_model.model.tml
-  - name: HPX Retention_CSS_Analytics
-    filename: HPX Retention_CSS_Analytics.model.tml
-  - name: hpx_events_model_homepage_summary
-    filename: hpx_events_model_homepage_summary.model.tml
-  - name: hpx_first_use_behavior_flow
-    filename: hpx_first_use_behavior_flow.table.tml
-  - name: dataos-prod-internal-cascade
-    status:
-      status_code: ERROR
-      error_message: |-
-        Error Code: AUTHORIZATION_FAILURE Incident Id: 96c90441-1e5f-4c33-a0d6-1cc015aa6376
-        Error Message: User does not have privilege to export connection ee891b6b-2334-402c-975f-741ec3f3c827.
-  - name: hpx_curr
-    filename: hpx_curr.table.tml
-  - name: hpx_events_model_iide
-    filename: hpx_events_model_iide.table.tml
-  - name: hpx_retention_good
-    filename: hpx_retention_good.table.tml
-  - name: hpx_events_model_homepage_summary
-    filename: hpx_events_model_homepage_summary.table.tml
-- name: hpx_first_use_behavior_flow
-  filename: hpx_first_use_behavior_flow.model.tml
+  - name: PaaS_tracking_card_hpx
+    filename: PaaS_tracking_card_hpx.model.tml
+  - name: paas_tracking_card
+    filename: paas_tracking_card.table.tml
+  - name: dataos-prod-css-analytics
+    filename: dataos-prod-css-analytics.connection.tml
+- name: PaaS_tracking_card_hpx
+  filename: PaaS_tracking_card_hpx.model.tml
   status:
     status_code: OK
   type: model
-  id: 53422364-0e63-431f-8a63-5343279f9a75
-- name: HPX_CURR
-  filename: HPX_CURR.model.tml
-  status:
-    status_code: OK
-  type: model
-  id: 4f36fe75-ee67-4c57-af74-536a929e0e31
-- name: hpx_events_model
-  filename: hpx_events_model.model.tml
-  status:
-    status_code: OK
-  type: model
-  id: d88e6611-f923-40db-aa86-d9013633b3cc
-- name: HPX Retention_CSS_Analytics
-  filename: HPX Retention_CSS_Analytics.model.tml
-  status:
-    status_code: OK
-  type: model
-  id: 9368a52c-a8c3-4043-a78c-522b75aa38c6
-- name: hpx_events_model_homepage_summary
-  filename: hpx_events_model_homepage_summary.model.tml
-  status:
-    status_code: OK
-  type: model
-  id: 36e16271-d174-4cbe-96f9-e7bcb8a6b794
-- name: hpx_first_use_behavior_flow
-  filename: hpx_first_use_behavior_flow.table.tml
+  id: 7898b76b-92bf-4b22-9e8b-0a789ca5ad45
+- name: paas_tracking_card
+  filename: paas_tracking_card.table.tml
   status:
     status_code: OK
   type: table
-  id: deda28f5-2dc3-4338-a80a-5767c2469f82
-- name: dataos-prod-internal-cascade
+  id: 274eaa3d-2260-45c7-9afb-1991d6135039
+- name: dataos-prod-css-analytics
+  filename: dataos-prod-css-analytics.connection.tml
   status:
-    status_code: ERROR
-    error_message: |-
-      Error Code: AUTHORIZATION_FAILURE Incident Id: 96c90441-1e5f-4c33-a0d6-1cc015aa6376
-      Error Message: User does not have privilege to export connection ee891b6b-2334-402c-975f-741ec3f3c827.
+    status_code: OK
   type: connection
-  id: ee891b6b-2334-402c-975f-741ec3f3c827
-- name: hpx_curr
-  filename: hpx_curr.table.tml
-  status:
-    status_code: OK
-  type: table
-  id: b5f9cb0a-4736-481d-bf30-0a811561d04a
-- name: hpx_events_model_iide
-  filename: hpx_events_model_iide.table.tml
-  status:
-    status_code: OK
-  type: table
-  id: 90df7903-6753-4c9b-a9de-4005bd2dfca7
-- name: hpx_retention_good
-  filename: hpx_retention_good.table.tml
-  status:
-    status_code: OK
-  type: table
-  id: c0c42fee-c88d-40e6-a2de-af60f976566d
-- name: hpx_events_model_homepage_summary
-  filename: hpx_events_model_homepage_summary.table.tml
-  status:
-    status_code: OK
-  type: table
-  id: c895ffc9-bade-434d-94a2-4bd5ee7a386e
+  id: 19f20d79-6028-4ea1-8e5a-ee7e4f5a0ef8
