@@ -1,0 +1,40 @@
+DROP TABLE IF EXISTS CUSTOMER_MASTER;
+CREATE TABLE CUSTOMER_MASTER (
+  customer_id VARCHAR(20),
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
+  email VARCHAR(100),
+  phone_number VARCHAR(20),
+  pan_number VARCHAR(20),
+  created_at TIMESTAMP,
+  last_updated TIMESTAMP
+);
+
+INSERT INTO CUSTOMER_MASTER VALUES
+('C001', 'Ravi', 'Kumar', 'ravi.kumar@example.com', '9876543210', 'ABCDE1234F', '2023-01-01 10:00:00', '2023-02-01 12:00:00'),
+('C002', 'Meena', 'Iyer', NULL, '9876500000', 'PQRSX5678Z', '2023-01-05 09:00:00', '2023-02-02 14:30:00'),
+('C003', 'Arun', 'Sharma', 'arun.sharma@example.com', '98XX543210', 'LMNOP3456Y', '2023-01-10 11:15:00', '2023-02-05 16:00:00'),
+('C001', 'Ravi', 'Kumar', 'ravi.duplicate@example.com', '9123456789', 'ABCDE1234F', '2023-01-01 10:05:00', '2023-02-03 12:00:00'),
+('C004', 'Sneha', 'Patel', 'sneha.patel@example.com', '9988776655', 'XYZAB6789C', '2023-01-12 08:00:00', '2023-02-04 10:00:00'),
+('C005', 'Vikas', 'Nair', 'vikas.nair@example.com', '9765432100', 'ABCDE12', '2023-01-14 13:20:00', '2023-02-06 15:30:00'),
+('C006', 'Kavya', 'Menon', 'kavya.menon@example.com', NULL, 'MNBVC4321P', '2023-01-16 09:45:00', '2023-02-07 11:00:00'),
+('C007', 'Anil', 'Gupta', 'anil.gupta@example.com', '9090909090', 'TGBHN5678U', '2023-01-18 07:30:00', '2023-02-08 12:30:00'),
+('C008', 'Priya', 'Das', 'priya.das#email.com', '9234567890', 'PLMOK9876Q', '2023-01-20 15:00:00', '2023-02-09 09:30:00'),
+('C009', 'Ramesh', 'Jain', 'ramesh.jain@example.com', '9345678901', 'ASDFG1234H', '2023-01-22 10:10:00', '2023-02-10 08:00:00'),
+('C002', 'Meena', 'Iyer', 'meena.alt@example.com', '9000000000', 'PQRSX5678Z', '2023-01-05 09:15:00', '2023-02-11 10:00:00'),
+('C010', 'Deepak', 'Verma', 'deepak.verma@example.com', '9456789012', 'ABCD#1234!', '2023-01-25 14:30:00', '2023-02-12 14:45:00'),
+('C011', 'Lakshmi', 'Rao', 'lakshmi.rao@example.com', '9567890123', 'QWERT6789U', '2023-01-26 11:00:00', '2023-02-13 13:00:00'),
+('C012', 'Suresh', 'Pillai', 'suresh.pillai@example.com', '9678901234', NULL, '2023-01-27 12:00:00', '2023-02-14 12:00:00'),
+('C013', 'Asha', 'Krishnan', 'asha.krishnan@example.com', '9789012345', 'ZXCVB1234N', '2023-01-28 08:15:00', '2023-02-15 16:20:00'),
+('C014', 'Tarun', 'Bose', 'tarun.bose@example.com', '12345', 'HGFDS4321K', '2023-01-29 09:40:00', '2023-02-16 11:10:00'),
+('C015', 'Geeta', 'Mishra', NULL, NULL, 'LKJHG9876M', '2023-01-30 07:55:00', '2023-02-17 10:30:00'),
+('C016', 'Manoj', 'Yadav', 'manoj.yadav@example.com', '9898989898', 'CVBNM4321L', '2023-02-01 13:00:00', '2023-02-18 12:40:00'),
+('C017', 'Pooja', 'Shah', 'pooja.shah@', '9230000000', 'DFGHJ5678T', '2023-02-02 10:10:00', '2023-02-19 15:30:00'),
+('C018', 'Nitin', 'Kapoor', 'nitin.kapoor@example.com', '9123450000', 'BNMLK1234R', '2023-02-03 11:11:00', '2023-02-20 12:12:00'),
+('C019', 'Rohit', 'Agarwal', 'rohit.agarwal@example.com', '9345611111', 'BNMLK1234R', '2023-02-04 09:30:00', '2023-02-21 14:00:00'),
+('C020', 'Divya', 'Chopra', 'divya.chopra@example.com', '9456123456', 'MKOIJ8765W', '2023-02-05 10:20:00', '2023-02-22 10:40:00'),
+('C021', 'Sanjay', 'Bhatt', 'sanjay.bhatt@example.com', '9234567899', 'ASDFG1234HJKL', '2023-02-06 12:25:00', '2023-02-23 09:30:00'),
+('C022', 'Rekha', 'Singh', 'rekha.singh@example.com', '98AB543210', 'PLKJI9876Y', '2023-02-07 14:15:00', '2023-02-24 13:20:00'),
+('C023', 'Alok', 'Joshi', 'alok.joshi@example.com', '9345678902', 'QAZWS1234X', '2023-02-08 16:00:00', '2023-02-25 11:00:00'),
+('C024', 'Unknown', 'User', NULL, NULL, NULL, '2023-02-09 10:00:00', '2023-02-26 09:00:00'),
+('C025', 'Farah', 'Ali', 'farah.ali@example.com', '9876501234', 'MNBVC7654Z', '2023-02-10 12:45:00', '2023-02-27 15:15:00');
