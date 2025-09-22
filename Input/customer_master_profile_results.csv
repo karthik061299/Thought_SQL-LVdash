@@ -1,0 +1,8 @@
+issue_type,count
+Missing Email,3
+Missing Phone,3
+Missing PAN,2
+Duplicate Customer IDs,2
+Invalid Emails,2
+Invalid Phones,3
+Invalid PANs,3
