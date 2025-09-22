@@ -1,8 +1,26 @@
-issue_type,count
-Missing Email,3
-Missing Phone,3
-Missing PAN,2
-Duplicate Customer IDs,2
-Invalid Emails,2
-Invalid Phones,3
-Invalid PANs,3
+customer_id,missing_email,missing_phone,missing_pan,invalid_email,invalid_phone,invalid_pan
+C001,0,0,0,0,0,0
+C002,1,0,0,0,0,0
+C003,0,0,0,0,1,0
+C004,0,0,0,0,0,0
+C005,0,0,0,0,0,1
+C006,0,1,0,0,0,0
+C007,0,0,0,0,0,0
+C008,0,0,0,1,0,0
+C009,0,0,0,0,0,0
+C010,0,0,0,0,0,1
+C011,0,0,0,0,0,0
+C012,0,0,1,0,0,0
+C013,0,0,0,0,0,0
+C014,0,0,0,0,1,0
+C015,1,1,0,0,0,0
+C016,0,0,0,0,0,0
+C017,0,0,0,1,0,0
+C018,0,0,0,0,0,0
+C019,0,0,0,0,0,0
+C020,0,0,0,0,0,0
+C021,0,0,0,0,0,1
+C022,0,0,0,0,1,0
+C023,0,0,0,0,0,0
+C024,1,1,1,0,0,0
+C025,0,0,0,0,0,0
