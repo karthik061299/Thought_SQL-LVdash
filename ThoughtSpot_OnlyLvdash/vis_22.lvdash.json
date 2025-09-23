@@ -1,42 +1,39 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
+      "name": "ds_hpx_events_model_22",
       "displayName": "HPX Events Model Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model",
       "queryLines": [
-        "SELECT * FROM hive_metastore.default.mv_hpx_events_model"
+        "SELECT DATE_TRUNC('DAY', `Event Date Time`) as daily_event_date, `App Version`, MEASURE(`Active Devices`) as active_devices, (MEASURE(`Active Devices`) / SUM(MEASURE(`Active Devices`)) OVER (PARTITION BY DATE_TRUNC('DAY', `Event Date Time`))) * 100 as pct_active_devices FROM hive_metastore.default.mv_hpx_events_model GROUP BY DATE_TRUNC('DAY', `Event Date Time`), `App Version` ORDER BY daily_event_date, `App Version`"
       ]
     }
   ],
   "pages": [
     {
-      "name": "retention_page",
+      "name": "page_retention",
       "displayName": "Retention",
       "layout": [
         {
           "widget": {
-            "name": "hpx_new_version_adoption_line_chart",
+            "name": "line_hpx_version_adoption",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "ds_hpx_events_model_22",
                   "fields": [
                     {
                       "name": "daily_event_date",
-                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
-                    },
-                    {
-                      "name": "app_version",
-                      "expression": "`App Version`"
-                    },
-                    {
-                      "name": "active_devices",
-                      "expression": "SUM(`Active Devices`)"
+                      "expression": "`daily_event_date`"
                     },
                     {
                       "name": "pct_active_devices",
-                      "expression": "SUM(`Active Devices`) / SUM(SUM(`Active Devices`)) OVER (PARTITION BY DATE_TRUNC('DAY', `Event Date Time`))"
+                      "expression": "`pct_active_devices`"
+                    },
+                    {
+                      "name": "App Version",
+                      "expression": "`App Version`"
                     }
                   ],
                   "disaggregated": false
@@ -62,7 +59,7 @@
                   }
                 },
                 "color": {
-                  "fieldName": "app_version",
+                  "fieldName": "App Version",
                   "displayName": "App Version",
                   "scale": {
                     "type": "categorical"
