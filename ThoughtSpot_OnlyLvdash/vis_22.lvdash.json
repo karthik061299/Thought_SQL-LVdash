@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "ds_hpx_events_model_22",
+      "name": "ds_hpx_events_model",
       "displayName": "HPX Events Model Dataset",
       "asset_name": "hive_metastore.default.mv_hpx_events_model",
       "queryLines": [
@@ -21,19 +21,23 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_hpx_events_model_22",
+                  "datasetName": "ds_hpx_events_model",
                   "fields": [
                     {
                       "name": "daily_event_date",
                       "expression": "`daily_event_date`"
                     },
                     {
+                      "name": "App Version",
+                      "expression": "`App Version`"
+                    },
+                    {
                       "name": "pct_active_devices",
                       "expression": "`pct_active_devices`"
                     },
                     {
-                      "name": "App Version",
-                      "expression": "`App Version`"
+                      "name": "active_devices",
+                      "expression": "`active_devices`"
                     }
                   ],
                   "disaggregated": false
