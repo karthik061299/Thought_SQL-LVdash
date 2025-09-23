@@ -1,32 +1,33 @@
 {
   "datasets": [
     {
-      "name": "paas_tracking_card_metric_view",
-      "displayName": "PaaS Tracking Card Metrics",
-      "queryLines": [
-        "SELECT `Month(Date)`, `Clicked Complete Setup`, `Clicked Order Confirmation`, `Clicked Order Processing`, `Clicked Track Delivery` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`"
-      ]
+      "name": "ds_hpx_events_model",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "page_3",
-      "displayName": "Clicks on Each Status - PaaS Tracking Card",
+      "name": "page_executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "bar_clicks_by_status",
+            "name": "pie_new_devices_by_country",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "paas_tracking_card_metric_view",
+                  "datasetName": "ds_hpx_events_model",
                   "fields": [
-                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
-                    { "name": "Clicked Complete Setup", "expression": "`Clicked Complete Setup`" },
-                    { "name": "Clicked Order Confirmation", "expression": "`Clicked Order Confirmation`" },
-                    { "name": "Clicked Order Processing", "expression": "`Clicked Order Processing`" },
-                    { "name": "Clicked Track Delivery", "expression": "`Clicked Track Delivery`" }
+                    {
+                      "name": "geo_country_code",
+                      "expression": "`Geo Country Code`"
+                    },
+                    {
+                      "name": "sum_new_devices",
+                      "expression": "SUM(`New Devices`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -34,30 +35,35 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "bar",
+              "widgetType": "pie",
               "encodings": {
-                "x": {
-                  "fieldName": "Month(Date)",
-                  "displayName": "Month",
-                  "scale": { "type": "temporal" }
+                "angle": {
+                  "fieldName": "sum_new_devices",
+                  "displayName": "New Devices",
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
-                "y": {
-                  "fields": [
-                    { "fieldName": "Clicked Complete Setup", "displayName": "Complete Setup" },
-                    { "fieldName": "Clicked Order Confirmation", "displayName": "Order Confirmation" },
-                    { "fieldName": "Clicked Order Processing", "displayName": "Processing" },
-                    { "fieldName": "Clicked Track Delivery", "displayName": "Track Delivery" }
-                  ],
-                  "scale": { "type": "quantitative" }
+                "color": {
+                  "fieldName": "geo_country_code",
+                  "displayName": "Geo Country Code",
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
-                "title": "Clicks on Each Status by Month",
+                "title": "New Devices by Top 10 Countries",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 6,
+            "y": 4,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
