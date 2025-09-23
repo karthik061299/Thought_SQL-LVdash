@@ -1,30 +1,37 @@
 {
   "datasets": [
     {
-      "name": "paas_tracking_card_metric_view",
-      "displayName": "PaaS Tracking Card Metric View",
-      "queryLines": [
-        "SELECT `Month(Date)`, `Os Platform`, `Clicked Expand` FROM hive_metastore.default.paas_tracking_card_metric_view GROUP BY `Month(Date)`, `Os Platform`, `Clicked Expand` ORDER BY `Month(Date)`"
-      ]
+      "name": "ds_hpx_events_model",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "page_2",
-      "displayName": "Clicks on Expand - PaaS Tracking Card",
+      "name": "page_executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "bar_chart_widget_2",
+            "name": "line_new_devices_viz_2",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "paas_tracking_card_metric_view",
+                  "datasetName": "ds_hpx_events_model",
                   "fields": [
-                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
-                    { "name": "Os Platform", "expression": "`Os Platform`" },
-                    { "name": "Clicked Expand", "expression": "`Clicked Expand`" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
+                    },
+                    {
+                      "name": "new_devices",
+                      "expression": "MEASURE(`New Devices`)"
+                    },
+                    {
+                      "name": "cumulative_new_devices",
+                      "expression": "SUM(MEASURE(`New Devices`)) OVER (ORDER BY DATE_TRUNC('DAY', `Event Date Time`) ROWS UNBOUNDED PRECEDING)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -32,31 +39,43 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "bar",
+              "widgetType": "line",
               "encodings": {
                 "x": {
-                  "fieldName": "Month(Date)",
-                  "displayName": "Month(Date)",
-                  "scale": { "type": "temporal" }
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
-                  "fieldName": "Clicked Expand",
-                  "displayName": "Clicked Expand",
-                  "scale": { "type": "quantitative" }
-                },
-                "color": {
-                  "fieldName": "Os Platform",
-                  "displayName": "Os Platform",
-                  "scale": { "type": "categorical" }
+                  "fields": [
+                    {
+                      "fieldName": "new_devices",
+                      "displayName": "New Devices"
+                    },
+                    {
+                      "fieldName": "cumulative_new_devices",
+                      "displayName": "Cumulative New Devices"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
-                "title": "Clicks on Expand by Month and OS Platform",
+                "title": "New Devices",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
