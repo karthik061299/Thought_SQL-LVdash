@@ -1,12 +1,9 @@
 {
   "datasets": [
     {
-      "name": "ds_hpx_events_model",
+      "name": "ds_hpx_events_model_22",
       "displayName": "HPX Events Model Dataset",
-      "asset_name": "hive_metastore.default.mv_hpx_events_model",
-      "queryLines": [
-        "SELECT DATE_TRUNC('DAY', `Event Date Time`) as daily_event_date, `App Version`, MEASURE(`Active Devices`) as active_devices, (MEASURE(`Active Devices`) / SUM(MEASURE(`Active Devices`)) OVER (PARTITION BY DATE_TRUNC('DAY', `Event Date Time`))) * 100 as pct_active_devices FROM hive_metastore.default.mv_hpx_events_model GROUP BY DATE_TRUNC('DAY', `Event Date Time`), `App Version` ORDER BY daily_event_date, `App Version`"
-      ]
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
@@ -16,28 +13,28 @@
       "layout": [
         {
           "widget": {
-            "name": "line_hpx_version_adoption",
+            "name": "line_hpx_new_version_adoption",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_hpx_events_model",
+                  "datasetName": "ds_hpx_events_model_22",
                   "fields": [
                     {
                       "name": "daily_event_date",
-                      "expression": "`daily_event_date`"
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
                     },
                     {
-                      "name": "App Version",
+                      "name": "app_version",
                       "expression": "`App Version`"
                     },
                     {
-                      "name": "pct_active_devices",
-                      "expression": "`pct_active_devices`"
+                      "name": "active_devices",
+                      "expression": "MEASURE(`Active Devices`)"
                     },
                     {
-                      "name": "active_devices",
-                      "expression": "`active_devices`"
+                      "name": "pct_active_devices",
+                      "expression": "MEASURE(`Active Devices`) / SUM(MEASURE(`Active Devices`)) OVER (PARTITION BY DATE_TRUNC('DAY', `Event Date Time`))"
                     }
                   ],
                   "disaggregated": false
@@ -63,7 +60,7 @@
                   }
                 },
                 "color": {
-                  "fieldName": "App Version",
+                  "fieldName": "app_version",
                   "displayName": "App Version",
                   "scale": {
                     "type": "categorical"
