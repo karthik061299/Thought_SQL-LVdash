@@ -1,1 +1,118 @@
-{"datasets": [{"name": "hpx_events_model","displayName": "HPX Events Model","queryLines": ["SELECT `Home Tile` AS `home_tile`, SUM(`Unique Tile Views`) AS `unique_tile_views`, SUM(`Unique Tile Clicks`) AS `unique_tile_clicks`, SUM(`Unique Interstitial Views`) AS `unique_interstitial_views`, SUM(`Unique Interstitial Primary Button Clicks`) AS `unique_interstitial_primary_clicks`, SUM(`Unique Interstitial Secondary Button Clicks`) AS `unique_interstitial_secondary_clicks`, SUM(`Unique Interstitial Secondary Button Clicks`) / SUM(`Unique Tile Views`) AS `percent_secondary_button_clicked` FROM `hpx_events_model` GROUP BY `Home Tile` ORDER BY `percent_secondary_button_clicked` DESC"]}],"pages": [{"name": "overview_page","displayName": "Home Tile Interactions","layout": [{"widget": {"name": "home_tile_interactions_chart","queries": [{"name": "main_query","query": {"datasetName": "hpx_events_model","fields": [{"name": "home_tile","expression": "`home_tile`"},{"name": "unique_tile_views","expression": "`unique_tile_views`"},{"name": "unique_tile_clicks","expression": "`unique_tile_clicks`"},{"name": "unique_interstitial_views","expression": "`unique_interstitial_views`"},{"name": "unique_interstitial_primary_clicks","expression": "`unique_interstitial_primary_clicks`"},{"name": "unique_interstitial_secondary_clicks","expression": "`unique_interstitial_secondary_clicks`"},{"name": "percent_secondary_button_clicked","expression": "`percent_secondary_button_clicked`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "table","encodings": {"columns": [{"fieldName": "home_tile","displayName": "Home Tile"},{"fieldName": "unique_tile_views","displayName": "Unique Tile Views"},{"fieldName": "unique_tile_clicks","displayName": "Unique Tile Clicks"},{"fieldName": "unique_interstitial_views","displayName": "Unique Interstitial Views"},{"fieldName": "unique_interstitial_primary_clicks","displayName": "Unique Interstitial Primary Button Clicks"},{"fieldName": "unique_interstitial_secondary_clicks","displayName": "Unique Interstitial Secondary Button Clicks"},{"fieldName": "percent_secondary_button_clicked","displayName": "% Secondary Button Clicked"}]},"frame": {"title": "Home Tile Interactions","showTitle": true}}}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "ds_homepage_summary",
+      "displayName": "Homepage Summary Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_homepage_summary"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_homepage_summary",
+      "displayName": "Homepage Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "home_tile_interactions_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_homepage_summary",
+                  "fields": [
+                    {
+                      "name": "home_tile",
+                      "expression": "`Home Tile`"
+                    },
+                    {
+                      "name": "total_unique_tile_views",
+                      "expression": "MEASURE(`Total Unique Tile Views`)"
+                    },
+                    {
+                      "name": "total_unique_tile_clicks",
+                      "expression": "MEASURE(`Total Unique Tile Clicks`)"
+                    },
+                    {
+                      "name": "total_unique_interstitial_views",
+                      "expression": "MEASURE(`Total Unique Interstitial Views`)"
+                    },
+                    {
+                      "name": "total_unique_interstitial_primary_button_clicks",
+                      "expression": "MEASURE(`Total Unique Interstitial Primary Button Clicks`)"
+                    },
+                    {
+                      "name": "total_unique_interstitial_secondary_button_clicks",
+                      "expression": "MEASURE(`Total Unique Interstitial Secondary Button Clicks`)"
+                    },
+                    {
+                      "name": "pct_secondary_button_clicked_vs_tile_displayed",
+                      "expression": "MEASURE(`Total Unique Interstitial Secondary Button Clicks`) / MEASURE(`Total Unique Tile Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "home_tile",
+                  "displayName": "Home Tile",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "total_unique_tile_views",
+                      "displayName": "Total Unique Tile Views"
+                    },
+                    {
+                      "fieldName": "total_unique_tile_clicks",
+                      "displayName": "Total Unique Tile Clicks"
+                    },
+                    {
+                      "fieldName": "total_unique_interstitial_views",
+                      "displayName": "Total Unique Interstitial Views"
+                    },
+                    {
+                      "fieldName": "total_unique_interstitial_primary_button_clicks",
+                      "displayName": "Total Unique Interstitial Primary Button Clicks"
+                    },
+                    {
+                      "fieldName": "total_unique_interstitial_secondary_button_clicks",
+                      "displayName": "Total Unique Interstitial Secondary Button Clicks"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Home Tile Interactions",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
