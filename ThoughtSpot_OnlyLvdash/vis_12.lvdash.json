@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "hpx_curr_data_table",
+            "name": "table_hpx_curr_data",
             "queries": [
               {
                 "name": "main_query",
