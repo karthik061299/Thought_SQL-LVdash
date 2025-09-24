@@ -4,7 +4,7 @@
       "name": "hpx_events_model_iide_dataset",
       "displayName": "HPX Events Model IIDE Dataset",
       "queryLines": [
-        "SELECT event_date_time AS daily_event_date, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view GROUP BY event_date_time ORDER BY daily_event_date"
+        "SELECT DATE_TRUNC('DAY', event_date_time) AS daily_event_date, COUNT(DISTINCT sys_sn_hash) AS active_devices_1 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_iide GROUP BY DATE_TRUNC('DAY', event_date_time) ORDER BY daily_event_date"
       ]
     }
   ],
@@ -45,7 +45,7 @@
                 }
               },
               "frame": {
-                "title": "Active Devices Over Time",
+                "title": "Active Devices by Day",
                 "showTitle": true
               }
             }
@@ -63,4 +63,3 @@
     }
   }
 }
-This .lvdash.json file for the first visualization (vis_1.lvdash.json) is fully Lakeview schema compliant, perfectly aligned with the metric view SQL, and uploaded to GitHub as required.
