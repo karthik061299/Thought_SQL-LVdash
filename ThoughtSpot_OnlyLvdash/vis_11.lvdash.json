@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "ds_hpx_curr_viz11",
+      "name": "ds_hpx_curr_11",
       "displayName": "HPX CURR Dataset",
       "asset_name": "hive_metastore.default.mv_hpx_curr"
     }
@@ -18,7 +18,7 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_hpx_curr_viz11",
+                  "datasetName": "ds_hpx_curr_11",
                   "fields": [
                     {
                       "name": "weekly_week_active",
@@ -26,7 +26,7 @@
                     },
                     {
                       "name": "avg_curr",
-                      "expression": "AVG(`Curr`)"
+                      "expression": "MEASURE(`Curr`)"
                     }
                   ],
                   "disaggregated": false
