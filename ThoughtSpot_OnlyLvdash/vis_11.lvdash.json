@@ -1,1 +1,78 @@
-{"datasets": [{"name": "HPX_CURR","displayName": "HPX CURR","queryLines": ["SELECT DATE_TRUNC('WEEK', `Week Active`) AS `week_active`, AVG(`Curr`) AS `avg_curr` FROM `HPX_CURR` GROUP BY DATE_TRUNC('WEEK', `Week Active`) ORDER BY `week_active`"]}],"pages": [{"name": "overview_page","displayName": "HPX CURR - Trendline","layout": [{"widget": {"name": "hpx_curr_trendline_chart","queries": [{"name": "main_query","query": {"datasetName": "HPX_CURR","fields": [{"name": "week_active","expression": "`week_active`"},{"name": "avg_curr","expression": "`avg_curr`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "line","encodings": {"x": {"fieldName": "week_active","displayName": "Week Active","scale": {"type": "temporal"}},"y": {"fieldName": "avg_curr","displayName": "Average CURR","scale": {"type": "quantitative"}}},"frame": {"title": "HPX CURR - Trendline","showTitle": true}}}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "ds_hpx_curr_viz11",
+      "displayName": "HPX CURR Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_curr"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_curr",
+      "displayName": "CURR",
+      "layout": [
+        {
+          "widget": {
+            "name": "line_chart_curr_trendline",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_hpx_curr_viz11",
+                  "fields": [
+                    {
+                      "name": "weekly_week_active",
+                      "expression": "DATE_TRUNC('WEEK', `Week Active`)"
+                    },
+                    {
+                      "name": "avg_curr",
+                      "expression": "AVG(`Curr`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "weekly_week_active",
+                  "displayName": "Week Active",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg_curr",
+                  "displayName": "CURR",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "HPX CURR - Trendline",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
