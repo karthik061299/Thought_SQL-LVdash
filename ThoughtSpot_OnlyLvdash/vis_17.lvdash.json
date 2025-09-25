@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "name": "ds_homepage_summary_17",
-      "displayName": "Homepage Summary Dataset",
+      "name": "ds_hpx_homepage_summary",
+      "displayName": "HPX Homepage Summary Dataset",
       "asset_name": "hive_metastore.default.mv_hpx_homepage_summary"
     }
   ],
@@ -18,15 +18,15 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_homepage_summary_17",
+                  "datasetName": "ds_hpx_homepage_summary",
                   "fields": [
                     {
                       "name": "home_tile",
                       "expression": "`Home Tile`"
                     },
                     {
-                      "name": "ctr_rate",
-                      "expression": "SUM(`Total Unique Tile Clicks`) / SUM(`Total Unique Tile Views`)"
+                      "name": "f_ctr",
+                      "expression": "MEASURE(`Total Unique Tile Clicks`) / MEASURE(`Total Unique Tile Views`)"
                     }
                   ],
                   "disaggregated": false
@@ -38,7 +38,7 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "ctr_rate",
+                  "fieldName": "f_ctr",
                   "displayName": "Home Tile CTR",
                   "scale": {
                     "type": "quantitative"
