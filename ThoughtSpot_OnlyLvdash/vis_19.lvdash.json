@@ -1,34 +1,32 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_homepage_summary_dataset",
-      "displayName": "HPX Events Model Homepage Summary Dataset",
-      "queryLines": [
-        "SELECT home_tile, unique_tile_views, unique_tile_clicks, unique_interstitial_views, unique_interstitial_primary_button_clicks, unique_interstitial_secondary_button_clicks, (SUM(unique_interstitial_secondary_button_clicks) / SUM(unique_interstitial_views)) AS f_ctr_cta0 FROM team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view GROUP BY home_tile, unique_tile_views, unique_tile_clicks, unique_interstitial_views, unique_interstitial_primary_button_clicks, unique_interstitial_secondary_button_clicks ORDER BY unique_tile_views DESC"
-      ]
+      "name": "ds_hpx_homepage_summary",
+      "displayName": "HPX Homepage Summary Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_homepage_summary"
     }
   ],
   "pages": [
     {
-      "name": "homepage_summary_page",
+      "name": "page_homepage_summary",
       "displayName": "Homepage Summary",
       "layout": [
         {
           "widget": {
-            "name": "home_tile_secondary_ctr_kpi",
+            "name": "kpi_home_tile_secondary_ctr",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_homepage_summary_dataset",
+                  "datasetName": "ds_hpx_homepage_summary",
                   "fields": [
                     {
                       "name": "home_tile",
-                      "expression": "`home_tile`"
+                      "expression": "`Home Tile`"
                     },
                     {
                       "name": "f_ctr_cta0",
-                      "expression": "`f_ctr_cta0`"
+                      "expression": "SUM(`Total Unique Interstitial Secondary Button Clicks`) / SUM(`Total Unique Interstitial Views`)"
                     }
                   ],
                   "disaggregated": false
