@@ -1,29 +1,33 @@
 {
   "datasets": [
     {
-      "name": "active_devices_by_appversion_dataset",
-      "displayName": "Active Devices by Appversion Dataset",
-      "queryLines": [
-        "SELECT app_version, SUM(active_devices) as total_active_devices, SUM(active_devices) / SUM(SUM(active_devices)) OVER () as pct_active_devices FROM hpx_events_model WHERE event_date_time >= '2023-05-01' AND app_version NOT IN ('not a store release', 'other non-releases') AND os_version IS NOT NULL GROUP BY app_version ORDER BY SUM(active_devices) / SUM(SUM(active_devices)) OVER () DESC"
-      ]
+      "name": "ds_hpx_events_model_21",
+      "displayName": "HPX Events Model - App Version Analysis",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "active_devices_by_appversion_page",
-      "displayName": "% Active Devices by Appversion",
+      "name": "page_homepage_summary",
+      "displayName": "Homepage Summary",
       "layout": [
         {
           "widget": {
-            "name": "active_devices_by_appversion_chart",
+            "name": "bar_active_devices_by_appversion",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "active_devices_by_appversion_dataset",
+                  "datasetName": "ds_hpx_events_model_21",
                   "fields": [
-                    { "name": "app_version", "expression": "`app_version`" },
-                    { "name": "pct_active_devices", "expression": "`pct_active_devices`" }
+                    {
+                      "name": "app_version",
+                      "expression": "`App Version`"
+                    },
+                    {
+                      "name": "pct_active_devices_by_appversion",
+                      "expression": "MEASURE(`Active Devices`) / SUM(MEASURE(`Active Devices`)) OVER ()"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -36,25 +40,30 @@
                 "x": {
                   "fieldName": "app_version",
                   "displayName": "App Version",
-                  "scale": { "type": "categorical" }
+                  "scale": {
+                    "type": "categorical"
+                  }
                 },
                 "y": {
-                  "fieldName": "pct_active_devices",
+                  "fieldName": "pct_active_devices_by_appversion",
                   "displayName": "% Active Devices By Appversion",
-                  "scale": { "type": "quantitative" },
-                  "format": { "type": "percent", "precision": 1 }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
                 "title": "% Active Devices by Appversion",
                 "showTitle": true
-              },
-              "options": {
-                "showDataLabels": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 6,
+            "y": 10,
+            "width": 6,
+            "height": 6
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
