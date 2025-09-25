@@ -1,30 +1,37 @@
 {
   "datasets": [
     {
-      "name": "active_devices_by_country_dataset",
-      "displayName": "Active Devices by Country Dataset",
-      "queryLines": [
-        "SELECT geo_country_code, (SUM(active_devices) * 100.0 / (SELECT SUM(active_devices) FROM hpx_events_model WHERE app_version NOT IN ('not a store release', 'other non-releases') AND os_version IS NOT NULL AND event_date_time >= '2023-05-01')) as pct_active_devices_by_country, SUM(active_devices) as mau FROM hpx_events_model WHERE app_version NOT IN ('not a store release', 'other non-releases') AND os_version IS NOT NULL AND event_date_time >= '2023-05-01' GROUP BY geo_country_code ORDER BY mau DESC LIMIT 10"
-      ]
+      "name": "ds_hpx_events_model_20",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "page_20",
-      "displayName": "% Active Devices by Country (Top 10)",
+      "name": "page_homepage_summary",
+      "displayName": "Homepage Summary",
       "layout": [
         {
           "widget": {
-            "name": "active_devices_by_country_bar_chart",
+            "name": "bar_active_devices_by_country",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "active_devices_by_country_dataset",
+                  "datasetName": "ds_hpx_events_model_20",
                   "fields": [
-                    { "name": "geo_country_code", "expression": "`geo_country_code`" },
-                    { "name": "pct_active_devices_by_country", "expression": "`pct_active_devices_by_country`" },
-                    { "name": "mau", "expression": "`mau`" }
+                    {
+                      "name": "geo_country_code",
+                      "expression": "`Geo Country Code`"
+                    },
+                    {
+                      "name": "pct_active_devices_by_country",
+                      "expression": "MEASURE(`Active Devices`) / SUM(MEASURE(`Active Devices`)) OVER ()"
+                    },
+                    {
+                      "name": "mau",
+                      "expression": "MEASURE(`Active Devices`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -37,12 +44,16 @@
                 "x": {
                   "fieldName": "geo_country_code",
                   "displayName": "Country",
-                  "scale": { "type": "categorical" }
+                  "scale": {
+                    "type": "categorical"
+                  }
                 },
                 "y": {
                   "fieldName": "pct_active_devices_by_country",
                   "displayName": "% Active Devices by Country",
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
@@ -51,7 +62,12 @@
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 6,
+            "height": 6
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
