@@ -1,31 +1,37 @@
 {
   "datasets": [
     {
-      "name": "paas_tracking_card_metric_view",
-      "displayName": "PaaS Tracking Card Metrics",
-      "queryLines": [
-        "SELECT `Month(Date)`, `Delivered`, `Onboarded`, `Support Cases` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`"
-      ]
+      "name": "ds_hpx_events_model_viz4",
+      "displayName": "HPX Events Model - Top On Press Events",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "page_4",
-      "displayName": "Delivered vs Onboarded and Support Cases",
+      "name": "page_executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "line_chart_delivered_onboarded_supportcases",
+            "name": "stacked_column_top_on_press_events",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "paas_tracking_card_metric_view",
+                  "datasetName": "ds_hpx_events_model_viz4",
                   "fields": [
-                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
-                    { "name": "Delivered", "expression": "`Delivered`" },
-                    { "name": "Onboarded", "expression": "`Onboarded`" },
-                    { "name": "Support Cases", "expression": "`Support Cases`" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
+                    },
+                    {
+                      "name": "control",
+                      "expression": "`Control`"
+                    },
+                    {
+                      "name": "total_clicks",
+                      "expression": "MEASURE(`Total Clicks`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -33,29 +39,42 @@
             ],
             "spec": {
               "version": 3,
-              "widgetType": "line",
+              "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "Month(Date)",
-                  "displayName": "Month",
-                  "scale": { "type": "temporal" }
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
-                  "fields": [
-                    { "fieldName": "Delivered", "displayName": "Delivered" },
-                    { "fieldName": "Onboarded", "displayName": "Onboarded" },
-                    { "fieldName": "Support Cases", "displayName": "Support Cases" }
-                  ],
-                  "scale": { "type": "quantitative" }
+                  "fieldName": "total_clicks",
+                  "displayName": "Total Clicks",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "control",
+                  "displayName": "Control",
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
-                "title": "Delivered vs Onboarded and Support Cases by Month",
+                "title": "Top On Press Events",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
