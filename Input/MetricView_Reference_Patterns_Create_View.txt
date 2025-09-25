@@ -1,0 +1,334 @@
+-- 1) Date defaults, hierarchy, safe divide
+CREATE OR REPLACE VIEW workspace.default.mv_orders_metrics_v2
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: |
+  SELECT
+    OrderID      AS order_id,
+    CustomerID   AS customer_id,
+    TRY_CAST(OrderDate   AS DATE)   AS order_date,
+    TRY_CAST(OrderAmount AS DOUBLE) AS order_amount
+  FROM workspace.default.orders_1
+
+filter: order_date >= DATE '2024-01-01'
+
+defaults:
+  time_dimension: order_date
+  time_granularity: month  # day | week | month | quarter | year
+
+dimensions:
+  - name: order_date
+    expr: order_date
+  - name: order_year
+    expr: DATE_TRUNC('YEAR', order_date)
+  - name: order_quarter
+    expr: DATE_TRUNC('QUARTER', order_date)
+  - name: order_month
+    expr: DATE_TRUNC('MONTH', order_date)
+
+measures:
+  - name: total_amount
+    expr: COALESCE(SUM(order_amount), 0)
+  - name: orders
+    expr: COUNT(DISTINCT order_id)
+  - name: customers
+    expr: COUNT(DISTINCT customer_id)
+  - name: avg_order_value
+    expr: COALESCE(SUM(order_amount) / NULLIF(COUNT(DISTINCT order_id), 0), 0)
+  - name: revenue_last_30d
+    expr: SUM(order_amount) FILTER (WHERE order_date >= CURRENT_DATE - INTERVAL '29 days')
+$$;
+
+-- 2) LEFT JOIN with composite keys + region dimension
+CREATE OR REPLACE VIEW workspace.default.mv_sales_metrics_join_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: workspace.default.sales_1
+
+joins:
+  - name: customers
+    source: workspace.default.customers_1
+    type: left
+    keys:
+      - sales_1.customer_id = customers.customer_id
+      - sales_1.tenant_id   = customers.tenant_id
+
+dimensions:
+  - name: txn_date
+    expr: DATE_TRUNC('DAY', sales_1.txn_ts)
+  - name: txn_month
+    expr: DATE_TRUNC('MONTH', sales_1.txn_ts)
+  - name: customer_region
+    expr: COALESCE(customers.region, 'Unknown')
+  - name: customer_tier
+    expr: COALESCE(customers.tier, 'Unspecified')
+
+measures:
+  - name: total_sales
+    expr: COALESCE(SUM(sales_1.amount), 0)
+  - name: txns
+    expr: COUNT(1)
+  - name: unique_buyers
+    expr: COUNT(DISTINCT sales_1.customer_id)
+  - name: sales_unknown_region
+    expr: SUM(sales_1.amount) FILTER (WHERE COALESCE(customers.region, 'Unknown') = 'Unknown')
+$$;
+
+-- 3) MoM / YoY and rolling window measures
+CREATE OR REPLACE VIEW workspace.default.mv_invoices_metrics_windows_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: |
+  SELECT
+    InvoiceID    AS invoice_id,
+    TRY_CAST(InvoiceDate AS DATE)   AS invoice_date,
+    TRY_CAST(Amount      AS DOUBLE) AS amount,
+    COALESCE(Paid, FALSE)           AS paid
+  FROM workspace.default.invoices_1
+
+dimensions:
+  - name: invoice_date
+    expr: invoice_date
+  - name: invoice_month
+    expr: DATE_TRUNC('MONTH', invoice_date)
+
+measures:
+  - name: invoice_count
+    expr: COUNT(1)
+
+  - name: total_amount
+    expr: COALESCE(SUM(amount), 0)
+
+  - name: mom_growth_pct
+    expr: COALESCE(
+      (
+        SUM(amount) FILTER (WHERE DATE_TRUNC('MONTH', invoice_date) = DATE_TRUNC('MONTH', CURRENT_DATE))
+        -
+        SUM(amount) FILTER (WHERE DATE_TRUNC('MONTH', invoice_date) = DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '1 month'))
+      )
+      /
+      NULLIF(
+        SUM(amount) FILTER (WHERE DATE_TRUNC('MONTH', invoice_date) = DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '1 month')),
+        0
+      ),
+      0
+    )
+
+  - name: yoy_growth_pct
+    expr: COALESCE(
+      (
+        SUM(amount) FILTER (WHERE DATE_TRUNC('YEAR', invoice_date) = DATE_TRUNC('YEAR', CURRENT_DATE))
+        -
+        SUM(amount) FILTER (WHERE DATE_TRUNC('YEAR', invoice_date) = DATE_TRUNC('YEAR', CURRENT_DATE - INTERVAL '1 year'))
+      )
+      /
+      NULLIF(
+        SUM(amount) FILTER (WHERE DATE_TRUNC('YEAR', invoice_date) = DATE_TRUNC('YEAR', CURRENT_DATE - INTERVAL '1 year')),
+        0
+      ),
+      0
+    )
+
+  - name: rolling_28d_amount
+    expr: SUM(amount) FILTER (WHERE invoice_date >= CURRENT_DATE - INTERVAL '27 days')
+$$;
+-- 4) Percentiles / median (requires engine support for PERCENTILE_CONT)
+CREATE OR REPLACE VIEW workspace.default.mv_transactions_metrics_percentiles_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: workspace.default.transactions_1
+
+dimensions:
+  - name: txn_day
+    expr: DATE_TRUNC('DAY', txn_ts)
+
+measures:
+  - name: median_amount
+    expr: PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY amount)
+  - name: p90_amount
+    expr: PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY amount)
+  - name: p95_amount
+    expr: PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY amount)
+$$;
+
+
+-- 5) Many-to-many via bridge table (orders ↔ tags)
+CREATE OR REPLACE VIEW workspace.default.mv_orders_bridge_tags_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: workspace.default.orders_1 o
+
+joins:
+  - name: order_tags
+    source: workspace.default.order_tag_bridge b
+    type: left
+    keys:
+      - o.order_id = b.order_id
+
+  - name: tags
+    source: workspace.default.tags t
+    type: left
+    keys:
+      - b.tag_id = t.tag_id
+
+dimensions:
+  - name: order_month
+    expr: DATE_TRUNC('MONTH', o.order_date)
+  - name: tag_name
+    expr: t.tag_name
+
+measures:
+  - name: orders_with_tag
+    expr: COUNT(DISTINCT o.order_id)
+  - name: revenue_by_tag
+    expr: COALESCE(SUM(o.order_amount), 0)
+$$;
+
+
+
+-- 6) Bucketing + null-handling + filtered measure
+CREATE OR REPLACE VIEW workspace.default.mv_revenue_by_bucket_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: |
+  SELECT
+    OrderID                        AS order_id,
+    TRY_CAST(OrderDate AS DATE)    AS order_date,
+    TRY_CAST(OrderAmount AS DOUBLE) AS order_amount,
+    COALESCE(Status, 'Unknown')     AS status
+  FROM workspace.default.orders_1
+
+dimensions:
+  - name: order_month
+    expr: DATE_TRUNC('MONTH', order_date)
+  - name: status
+    expr: status
+  - name: amount_bucket
+    expr: CASE
+      WHEN order_amount IS NULL THEN 'Unknown'
+      WHEN order_amount < 50 THEN '< 50'
+      WHEN order_amount < 200 THEN '50 – 199'
+      WHEN order_amount < 1000 THEN '200 – 999'
+      ELSE '>= 1000'
+      END
+
+measures:
+  - name: revenue
+    expr: COALESCE(SUM(order_amount), 0)
+  - name: revenue_paid
+    expr: SUM(order_amount) FILTER (WHERE status = 'Paid')
+  - name: orders
+    expr: COUNT(DISTINCT order_id)
+$$;
+
+
+-- 7) Source as a query (CTEs) + enrichment
+CREATE OR REPLACE VIEW workspace.default.mv_product_metrics_cte_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: |
+  WITH products AS (
+    SELECT
+      p.ProductID                         AS product_id,
+      p.Category                          AS category,
+      TRY_CAST(p.ListPrice AS DOUBLE)     AS list_price
+    FROM workspace.default.products_1 p
+  ),
+  sales AS (
+    SELECT
+      s.ProductID                         AS product_id,
+      TRY_CAST(s.SaleDate AS DATE)        AS sale_date,
+      TRY_CAST(s.SaleAmount AS DOUBLE)    AS sale_amount
+    FROM workspace.default.sales_1 s
+  ),
+  joined AS (
+    SELECT
+      s.product_id,
+      s.sale_date,
+      s.sale_amount,
+      products.category,
+      products.list_price,
+      DATE_TRUNC('MONTH', s.sale_date) AS sale_month
+    FROM sales s
+    LEFT JOIN products ON products.product_id = s.product_id
+  )
+  SELECT * FROM joined
+
+defaults:
+  time_dimension: sale_date
+  time_granularity: month
+
+dimensions:
+  - name: sale_month
+    expr: sale_month
+  - name: category
+    expr: COALESCE(category, 'Unknown')
+
+measures:
+  - name: sales
+    expr: COALESCE(SUM(sale_amount), 0)
+  - name: transactions
+    expr: COUNT(1)
+  - name: avg_list_price
+    expr: COALESCE(AVG(list_price), 0)
+$$;
+
+
+-- 8) Security-style filter (tenant/project), composite join, and AOV
+CREATE OR REPLACE VIEW workspace.default.mv_project_sales_v1
+WITH METRICS
+LANGUAGE YAML
+AS $$
+version: 0.1
+
+source: workspace.default.project_sales_1 ps
+
+filter: ps.is_active = TRUE  # example global filter
+
+joins:
+  - name: projects
+    source: workspace.default.projects_1 p
+    type: left
+    keys:
+      - ps.project_id = p.project_id
+      - ps.tenant_id  = p.tenant_id
+
+dimensions:
+  - name: sale_day
+    expr: DATE_TRUNC('DAY', ps.sale_ts)
+  - name: project_name
+    expr: COALESCE(p.project_name, 'Unknown')
+  - name: tenant_id
+    expr: ps.tenant_id
+
+measures:
+  - name: total_sales
+    expr: COALESCE(SUM(ps.amount), 0)
+  - name: orders
+    expr: COUNT(DISTINCT ps.order_id)
+  - name: aov
+    expr: COALESCE(SUM(ps.amount) / NULLIF(COUNT(DISTINCT ps.order_id), 0), 0)
+$$;
+
+
