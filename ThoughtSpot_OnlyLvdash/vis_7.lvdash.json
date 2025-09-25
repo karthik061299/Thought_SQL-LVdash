@@ -1,1 +1,78 @@
-{"datasets": [{"name": "hpx_events_model","displayName": "HPX Events Model","queryLines": ["SELECT `Control` AS `control`, SUM(`Clicks`) AS `total_clicks` FROM `hpx_events_model` WHERE `Control` NOT LIKE '%testid%' AND `Ui Action` = 'onpress' GROUP BY `Control` ORDER BY `total_clicks` DESC LIMIT 10"]}],"pages": [{"name": "overview_page","displayName": "Top On Press Events","layout": [{"widget": {"name": "top_on_press_events_chart","queries": [{"name": "main_query","query": {"datasetName": "hpx_events_model","fields": [{"name": "control","expression": "`control`"},{"name": "total_clicks","expression": "`total_clicks`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "bar","encodings": {"x": {"fieldName": "control","displayName": "Control","scale": {"type": "categorical"}},"y": {"fieldName": "total_clicks","displayName": "Total Clicks","scale": {"type": "quantitative"}}},"frame": {"title": "Top On Press Events","showTitle": true}}}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "ds_hpx_events_model_7",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_executive_summary",
+      "displayName": "Executive Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "bar_top_on_press_events",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_hpx_events_model_7",
+                  "fields": [
+                    {
+                      "name": "control",
+                      "expression": "`Control`"
+                    },
+                    {
+                      "name": "total_clicks",
+                      "expression": "MEASURE(`Total Clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "control",
+                  "displayName": "Control",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "total_clicks",
+                  "displayName": "Total Clicks",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top On Press Events",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
