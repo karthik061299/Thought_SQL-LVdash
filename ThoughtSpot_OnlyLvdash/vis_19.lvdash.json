@@ -25,8 +25,8 @@
                       "expression": "`Home Tile`"
                     },
                     {
-                      "name": "f_ctr_cta0",
-                      "expression": "SUM(`Total Unique Interstitial Secondary Button Clicks`) / SUM(`Total Unique Interstitial Views`)"
+                      "name": "secondary_ctr",
+                      "expression": "MEASURE(`Total Unique Interstitial Secondary Button Clicks`) / MEASURE(`Total Unique Interstitial Views`)"
                     }
                   ],
                   "disaggregated": false
@@ -38,7 +38,7 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "f_ctr_cta0",
+                  "fieldName": "secondary_ctr",
                   "displayName": "Home Tile Secondary CTR",
                   "scale": {
                     "type": "quantitative"
