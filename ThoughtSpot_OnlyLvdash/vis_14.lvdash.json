@@ -1,8 +1,8 @@
 {
   "datasets": [
     {
-      "name": "ds_homepage_summary",
-      "displayName": "Homepage Summary Dataset",
+      "name": "ds_hpx_homepage_summary",
+      "displayName": "HPX Homepage Summary Dataset",
       "asset_name": "hive_metastore.default.mv_hpx_homepage_summary"
     }
   ],
@@ -13,12 +13,12 @@
       "layout": [
         {
           "widget": {
-            "name": "home_tile_interactions_chart",
+            "name": "home_tile_interactions_widget",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_homepage_summary",
+                  "datasetName": "ds_hpx_homepage_summary",
                   "fields": [
                     {
                       "name": "home_tile",
@@ -81,10 +81,6 @@
                     {
                       "fieldName": "total_unique_interstitial_primary_button_clicks",
                       "displayName": "Total Unique Interstitial Primary Button Clicks"
-                    },
-                    {
-                      "fieldName": "total_unique_interstitial_secondary_button_clicks",
-                      "displayName": "Total Unique Interstitial Secondary Button Clicks"
                     }
                   ],
                   "scale": {
