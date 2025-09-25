@@ -25,7 +25,7 @@
                       "expression": "`Home Tile`"
                     },
                     {
-                      "name": "f_ctr",
+                      "name": "ctr_rate",
                       "expression": "SUM(`Total Unique Tile Clicks`) / SUM(`Total Unique Tile Views`)"
                     }
                   ],
@@ -38,7 +38,7 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "f_ctr",
+                  "fieldName": "ctr_rate",
                   "displayName": "Home Tile CTR",
                   "scale": {
                     "type": "quantitative"
