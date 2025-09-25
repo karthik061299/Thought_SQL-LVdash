@@ -1,1 +1,71 @@
-{"datasets": [{"name": "hpx_events_model","displayName": "HPX Events Model","queryLines": ["SELECT `Home Tile` AS `home_tile`, SUM(`Unique Tile Views`) AS `unique_tile_views`, SUM(`Unique Tile Clicks`) AS `unique_tile_clicks`, SUM(`Unique Interstitial Views`) AS `unique_interstitial_views`, SUM(`Unique Interstitial Primary Button Clicks`) AS `unique_interstitial_primary_clicks`, SUM(`Unique Interstitial Secondary Button Clicks`) AS `unique_interstitial_secondary_clicks`, SUM(`Unique Tile Clicks`) / SUM(`Unique Tile Views`) AS `percent_tile_clicked` FROM `hpx_events_model` GROUP BY `Home Tile` ORDER BY `percent_tile_clicked` DESC"]}],"pages": [{"name": "overview_page","displayName": "Home Tile Interactions CTR","layout": [{"widget": {"name": "home_tile_interactions_ctr_chart","queries": [{"name": "main_query","query": {"datasetName": "hpx_events_model","fields": [{"name": "home_tile","expression": "`home_tile`"},{"name": "unique_tile_views","expression": "`unique_tile_views`"},{"name": "unique_tile_clicks","expression": "`unique_tile_clicks`"},{"name": "unique_interstitial_views","expression": "`unique_interstitial_views`"},{"name": "unique_interstitial_primary_clicks","expression": "`unique_interstitial_primary_clicks`"},{"name": "unique_interstitial_secondary_clicks","expression": "`unique_interstitial_secondary_clicks`"},{"name": "percent_tile_clicked","expression": "`percent_tile_clicked`"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "table","encodings": {"columns": [{"fieldName": "home_tile","displayName": "Home Tile"},{"fieldName": "unique_tile_views","displayName": "Unique Tile Views"},{"fieldName": "unique_tile_clicks","displayName": "Unique Tile Clicks"},{"fieldName": "unique_interstitial_views","displayName": "Unique Interstitial Views"},{"fieldName": "unique_interstitial_primary_clicks","displayName": "Unique Interstitial Primary Button Clicks"},{"fieldName": "unique_interstitial_secondary_clicks","displayName": "Unique Interstitial Secondary Button Clicks"},{"fieldName": "percent_tile_clicked","displayName": "% Tile Clicked"}]},"frame": {"title": "Home Tile Interactions CTR","showTitle": true}}}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "ds_homepage_summary_17",
+      "displayName": "Homepage Summary Dataset",
+      "asset_name": "hive_metastore.default.mv_hpx_homepage_summary"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_homepage_summary",
+      "displayName": "Homepage Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "counter_home_tile_ctr",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_homepage_summary_17",
+                  "fields": [
+                    {
+                      "name": "home_tile",
+                      "expression": "`Home Tile`"
+                    },
+                    {
+                      "name": "f_ctr",
+                      "expression": "SUM(`Total Unique Tile Clicks`) / SUM(`Total Unique Tile Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "f_ctr",
+                  "displayName": "Home Tile CTR",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Home Tile Interactions CTR",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
