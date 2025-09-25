@@ -1,32 +1,37 @@
 {
   "datasets": [
     {
-      "name": "paas_tracking_card_metric_view",
-      "displayName": "PaaS Tracking Card Metric View",
-      "queryLines": [
-        "SELECT `Month(Date)`, `Order Confirmed - Pill`, `Processing - Pill`, `Shipped - Pill`, `Delivered - Pill` FROM hive_metastore.default.paas_tracking_card_metric_view ORDER BY `Month(Date)`"
-      ]
+      "name": "ds_hpx_events_model_viz5",
+      "displayName": "HPX Events Model - Screen Views",
+      "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "page_5",
-      "displayName": "Tracking Card Status Pill Clicks",
+      "name": "page_executive_summary",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "tracking_card_status_pill_clicks_widget",
+            "name": "viz_5_screen_views_stacked",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "paas_tracking_card_metric_view",
+                  "datasetName": "ds_hpx_events_model_viz5",
                   "fields": [
-                    { "name": "Month(Date)", "expression": "`Month(Date)`" },
-                    { "name": "Order Confirmed - Pill", "expression": "`Order Confirmed - Pill`" },
-                    { "name": "Processing - Pill", "expression": "`Processing - Pill`" },
-                    { "name": "Shipped - Pill", "expression": "`Shipped - Pill`" },
-                    { "name": "Delivered - Pill", "expression": "`Delivered - Pill`" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
+                    },
+                    {
+                      "name": "screen",
+                      "expression": "`Screen`"
+                    },
+                    {
+                      "name": "unique_screen_views",
+                      "expression": "MEASURE(`Unique Screen Views`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -37,27 +42,39 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "Month(Date)",
-                  "displayName": "Month(Date)",
-                  "scale": { "type": "temporal" }
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
-                  "fields": [
-                    { "fieldName": "Order Confirmed - Pill", "displayName": "Order Confirmed - Pill" },
-                    { "fieldName": "Processing - Pill", "displayName": "Processing - Pill" },
-                    { "fieldName": "Shipped - Pill", "displayName": "Shipped - Pill" },
-                    { "fieldName": "Delivered - Pill", "displayName": "Delivered - Pill" }
-                  ],
-                  "scale": { "type": "quantitative" }
+                  "fieldName": "unique_screen_views",
+                  "displayName": "Unique Screen Views",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "screen",
+                  "displayName": "Screen",
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
-                "title": "Tracking Card Status Pill Clicks",
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
                 "showTitle": true
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
