@@ -1,28 +1,28 @@
 {
   "datasets": [
     {
-      "name": "ds_hpx_events_model_viz1",
-      "displayName": "HPX Events Model - Active Devices",
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Dataset",
       "asset_name": "hive_metastore.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "page_executive_summary",
+      "name": "executive_summary_page",
       "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "line_chart_active_devices",
+            "name": "active_devices_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "ds_hpx_events_model_viz1",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
                     {
                       "name": "daily_event_date",
-                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
+                      "expression": "`Daily Event Date`"
                     },
                     {
                       "name": "active_devices",
@@ -53,16 +53,16 @@
                 }
               },
               "frame": {
-                "title": "Active Devices",
-                "showTitle": true
+                "showTitle": true,
+                "title": "Active Devices"
               }
             }
           },
           "position": {
             "x": 0,
             "y": 0,
-            "width": 12,
-            "height": 8
+            "width": 6,
+            "height": 4
           }
         }
       ],
