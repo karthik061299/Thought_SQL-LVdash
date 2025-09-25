@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "counter_home_tile_primary_ctr",
+            "name": "kpi_home_tile_primary_ctr",
             "queries": [
               {
                 "name": "main_query",
@@ -21,12 +21,8 @@
                   "datasetName": "ds_hpx_homepage_summary",
                   "fields": [
                     {
-                      "name": "home_tile",
-                      "expression": "`Home Tile`"
-                    },
-                    {
-                      "name": "f_ctr_cta1",
-                      "expression": "SUM(`Total Unique Interstitial Primary Button Clicks`) / SUM(`Total Unique Interstitial Views`)"
+                      "name": "primary_ctr",
+                      "expression": "MEASURE(`Total Unique Interstitial Primary Button Clicks`) / MEASURE(`Total Unique Interstitial Views`)"
                     }
                   ],
                   "disaggregated": false
@@ -38,11 +34,8 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "f_ctr_cta1",
-                  "displayName": "Primary Button CTR",
-                  "scale": {
-                    "type": "quantitative"
-                  }
+                  "fieldName": "primary_ctr",
+                  "displayName": "Primary Button CTR"
                 }
               },
               "frame": {
