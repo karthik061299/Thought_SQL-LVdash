@@ -1,277 +1,227 @@
 {
   "name": "global_filter_001",
   "displayName": "Global Filters",
-  "datasets": [
+  "layout": [
     {
-      "name": "hpx_events_dataset",
-      "displayName": "HPX Events Dataset",
-      "queryLines": [
-        "SELECT event_time, geo_market, geo_country, os_version, app_version, pc_type, pc_model_name, geo_country_code, event_date_time, home_tile FROM ex_schema.ex_hpx_events_table WHERE event_time >= '2023-05-01' AND geo_country_code IS NOT NULL AND app_version NOT IN ('Not a Store Release')"
-      ]
-    }
-  ],
-  "pages": [
-    {
-      "name": "global_filters_page",
-      "displayName": "Global Filters",
-      "layout": [
-        {
-          "widget": {
-            "name": "event_time_filter",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_events_dataset",
-                  "fields": [
-                    {
-                      "name": "event_time",
-                      "expression": "`event_time`"
-                    }
-                  ],
-                  "disaggregated": false
+      "widget": {
+        "name": "event_time_filter",
+        "queries": [
+          {
+            "name": "dashboards/hpx_dashboard/datasets/hpx_events_event_time",
+            "query": {
+              "datasetName": "hpx_events_dataset",
+              "fields": [
+                {
+                  "name": "Event Time",
+                  "expression": "`Event Time`"
+                },
+                {
+                  "name": "Event Time_associativity",
+                  "expression": "COUNT_IF(`associative_filter_predicate_group`)"
                 }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "filter-date-picker",
-              "encodings": {
-                "fields": [
-                  {
-                    "fieldName": "event_time",
-                    "displayName": "Event Time",
-                    "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_dataset_event_time"
-                  }
-                ]
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "Event Time Filter"
-              },
-              "selection": {
-                "defaultSelection": {
-                  "values": {
-                    "dataType": "DATETIME",
-                    "values": [
-                      {
-                        "value": "2023-05-01T00:00:00.000"
-                      }
-                    ]
-                  }
-                }
-              }
+              ],
+              "disaggregated": false
             }
-          },
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 3,
-            "height": 2
           }
-        },
-        {
-          "widget": {
-            "name": "geo_market_filter",
-            "queries": [
+        ],
+        "spec": {
+          "version": 2,
+          "widgetType": "filter-date-picker",
+          "encodings": {
+            "fields": [
               {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_events_dataset",
-                  "fields": [
-                    {
-                      "name": "geo_market",
-                      "expression": "`geo_market`"
-                    }
-                  ],
-                  "disaggregated": false
-                }
+                "fieldName": "Event Time",
+                "displayName": "Event Time",
+                "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_event_time"
               }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "filter-multi-select",
-              "encodings": {
-                "fields": [
+            ]
+          },
+          "selection": {
+            "defaultSelection": {
+              "values": {
+                "dataType": "DATETIME",
+                "values": [
                   {
-                    "fieldName": "geo_market",
-                    "displayName": "Geo Market",
-                    "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_dataset_geo_market"
+                    "value": "2023-05-01T00:00:00.000"
                   }
                 ]
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "Geo Market Filter"
-              },
-              "selection": {
-                "defaultSelection": {
-                  "values": {
-                    "dataType": "STRING",
-                    "values": [
-                      {"value": "GREATER ASIA"},
-                      {"value": "CENTRAL & EASTERN EUROPE"},
-                      {"value": "GREATER CHINA"},
-                      {"value": "INDIA SL & BL"},
-                      {"value": "LATIN AMERICA"},
-                      {"value": "NORTH AMERICA"},
-                      {"value": "NORTHWEST EUROPE"},
-                      {"value": "RUSSIA & BELARUS"},
-                      {"value": "SOUTHERN EUROPE, ME & AFRICA"}
-                    ]
-                  }
-                }
               }
             }
           },
-          "position": {
-            "x": 3,
-            "y": 0,
-            "width": 3,
-            "height": 2
-          }
-        },
-        {
-          "widget": {
-            "name": "geo_country_filter",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_events_dataset",
-                  "fields": [
-                    {
-                      "name": "geo_country",
-                      "expression": "`geo_country`"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "filter-multi-select",
-              "encodings": {
-                "fields": [
-                  {
-                    "fieldName": "geo_country",
-                    "displayName": "Geo Country",
-                    "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_dataset_geo_country"
-                  }
-                ]
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "Geo Country Filter"
-              }
-            }
-          },
-          "position": {
-            "x": 6,
-            "y": 0,
-            "width": 3,
-            "height": 2
-          }
-        },
-        {
-          "widget": {
-            "name": "app_version_filter",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "hpx_events_dataset",
-                  "fields": [
-                    {
-                      "name": "app_version",
-                      "expression": "`app_version`"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "filter-multi-select",
-              "encodings": {
-                "fields": [
-                  {
-                    "fieldName": "app_version",
-                    "displayName": "App Version",
-                    "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_dataset_app_version"
-                  }
-                ]
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "App Version Filter"
-              }
-            }
-          },
-          "position": {
-            "x": 9,
-            "y": 0,
-            "width": 3,
-            "height": 2
+          "frame": {
+            "showTitle": true,
+            "title": "Event Time Filter"
           }
         }
-      ],
-      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
-      "filters": [
-        {
-          "fieldName": "event_time",
-          "displayName": "Event Time",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "geo_market",
-          "displayName": "Geo Market",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "geo_country",
-          "displayName": "Geo Country",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "os_version",
-          "displayName": "OS Version",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "app_version",
-          "displayName": "App Version",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "pc_type",
-          "displayName": "PC Type",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
-        },
-        {
-          "fieldName": "pc_model_name",
-          "displayName": "PC Model Name",
-          "type": "FILTER",
-          "isMandatory": false,
-          "isSingleValue": false
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "widget": {
+        "name": "geo_market_filter",
+        "queries": [
+          {
+            "name": "dashboards/hpx_dashboard/datasets/hpx_events_geo_market",
+            "query": {
+              "datasetName": "hpx_events_dataset",
+              "fields": [
+                {
+                  "name": "Geo Market",
+                  "expression": "`Geo Market`"
+                },
+                {
+                  "name": "Geo Market_associativity",
+                  "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                }
+              ],
+              "disaggregated": false
+            }
+          }
+        ],
+        "spec": {
+          "version": 2,
+          "widgetType": "filter-multi-select",
+          "encodings": {
+            "fields": [
+              {
+                "fieldName": "Geo Market",
+                "displayName": "Geo Market",
+                "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_geo_market"
+              }
+            ]
+          },
+          "selection": {
+            "defaultSelection": {
+              "values": {
+                "dataType": "STRING",
+                "values": [
+                  {"value": "greater asia"},
+                  {"value": "CENTRAL & EASTERN EUROPE"},
+                  {"value": "GREATER CHINA"},
+                  {"value": "INDIA SL & BL"},
+                  {"value": "LATIN AMERICA"},
+                  {"value": "NORTH AMERICA"},
+                  {"value": "NORTHWEST EUROPE"},
+                  {"value": "RUSSIA & BELARUS"},
+                  {"value": "SOUTHERN EUROPE, ME & AFRICA"}
+                ]
+              }
+            }
+          },
+          "frame": {
+            "showTitle": true,
+            "title": "Geo Market Filter"
+          }
         }
-      ]
+      },
+      "position": {
+        "x": 2,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "widget": {
+        "name": "geo_country_filter",
+        "queries": [
+          {
+            "name": "dashboards/hpx_dashboard/datasets/hpx_events_geo_country",
+            "query": {
+              "datasetName": "hpx_events_dataset",
+              "fields": [
+                {
+                  "name": "Geo Country",
+                  "expression": "`Geo Country`"
+                },
+                {
+                  "name": "Geo Country_associativity",
+                  "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                }
+              ],
+              "disaggregated": false
+            }
+          }
+        ],
+        "spec": {
+          "version": 2,
+          "widgetType": "filter-single-select",
+          "encodings": {
+            "fields": [
+              {
+                "fieldName": "Geo Country",
+                "displayName": "Geo Country",
+                "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_geo_country"
+              }
+            ]
+          },
+          "frame": {
+            "showTitle": true,
+            "title": "Geo Country Filter"
+          }
+        }
+      },
+      "position": {
+        "x": 4,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "widget": {
+        "name": "app_version_filter",
+        "queries": [
+          {
+            "name": "dashboards/hpx_dashboard/datasets/hpx_events_app_version",
+            "query": {
+              "datasetName": "hpx_events_dataset",
+              "fields": [
+                {
+                  "name": "App Version",
+                  "expression": "`App Version`"
+                },
+                {
+                  "name": "App Version_associativity",
+                  "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                }
+              ],
+              "disaggregated": false
+            }
+          }
+        ],
+        "spec": {
+          "version": 2,
+          "widgetType": "filter-multi-select",
+          "encodings": {
+            "fields": [
+              {
+                "fieldName": "App Version",
+                "displayName": "App Version",
+                "queryName": "dashboards/hpx_dashboard/datasets/hpx_events_app_version"
+              }
+            ]
+          },
+          "frame": {
+            "showTitle": true,
+            "title": "App Version Filter"
+          }
+        }
+      },
+      "position": {
+        "x": 6,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
     }
   ],
+  "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
   "uiSettings": {
     "theme": {
       "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
