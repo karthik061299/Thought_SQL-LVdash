@@ -1,0 +1,63 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_model",
+      "displayName": "HPX Events Model",
+      "asset_name": "workspace.default.hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "viz_7_page",
+      "displayName": "Top On Press Events",
+      "layout": [
+        {
+          "widget": {
+            "name": "top_on_press_events_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model",
+                  "fields": [
+                    { "name": "control", "expression": "`Control`" },
+                    { "name": "total_clicks", "expression": "SUM(`Clicks`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "control",
+                  "displayName": "Control",
+                  "scale": { "type": "categorical" }
+                },
+                "y": {
+                  "fieldName": "total_clicks",
+                  "displayName": "Total Clicks",
+                  "scale": { "type": "quantitative" }
+                }
+              },
+              "frame": {
+                "title": "Top On Press Events",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
