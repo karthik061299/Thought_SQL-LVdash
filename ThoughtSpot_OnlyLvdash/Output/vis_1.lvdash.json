@@ -8,7 +8,7 @@
   ],
   "pages": [
     {
-      "name": "active_devices_page",
+      "name": "page_1",
       "displayName": "Active Devices",
       "layout": [
         {
