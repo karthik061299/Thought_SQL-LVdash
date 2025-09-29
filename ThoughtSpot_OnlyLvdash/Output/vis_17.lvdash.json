@@ -1,0 +1,180 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_homepage_summary_dataset",
+      "displayName": "HPX Homepage Summary Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "home_tile_ctr_page",
+      "displayName": "Home Tile Interactions CTR",
+      "layout": [
+        {
+          "widget": {
+            "name": "home_tile_ctr_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_homepage_summary_dataset",
+                  "fields": [
+                    {
+                      "name": "home_tile",
+                      "expression": "`home_tile`"
+                    },
+                    {
+                      "name": "ctr_rate",
+                      "expression": "MEASURE(`unique_tile_clicks`) / MEASURE(`unique_tile_views`)"
+                    },
+                    {
+                      "name": "total_tile_views",
+                      "expression": "MEASURE(`unique_tile_views`)"
+                    },
+                    {
+                      "name": "total_tile_clicks",
+                      "expression": "MEASURE(`unique_tile_clicks`)"
+                    },
+                    {
+                      "name": "primary_button_ctr",
+                      "expression": "MEASURE(`primary_button_clicked_vs_interstitial_displayed`)"
+                    },
+                    {
+                      "name": "secondary_button_ctr",
+                      "expression": "MEASURE(`secondary_button_clicked_vs_interstitial_displayed`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "ctr_rate",
+                  "displayName": "Home Tile CTR",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "fieldName": "home_tile",
+                  "displayName": "Home Tile",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Home Tile Interactions CTR"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "tile_views_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_homepage_summary_dataset",
+                  "fields": [
+                    {
+                      "name": "total_views",
+                      "expression": "MEASURE(`unique_tile_views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_views",
+                  "displayName": "Total Tile Views",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Unique Tile Views"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "tile_clicks_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_homepage_summary_dataset",
+                  "fields": [
+                    {
+                      "name": "total_clicks",
+                      "expression": "MEASURE(`unique_tile_clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_clicks",
+                  "displayName": "Total Tile Clicks",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Unique Tile Clicks"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
