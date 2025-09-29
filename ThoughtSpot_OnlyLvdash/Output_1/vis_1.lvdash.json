@@ -1,0 +1,78 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "workspace.default.mv_hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "executive_summary_page",
+      "displayName": "Executive Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "active_devices_line_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset",
+                  "fields": [
+                    {
+                      "name": "daily_event_date",
+                      "expression": "`Daily Event Date`"
+                    },
+                    {
+                      "name": "active_devices",
+                      "expression": "MEASURE(`Active Devices`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "active_devices",
+                  "displayName": "Active Devices",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Active Devices"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
