@@ -1,14 +1,14 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_2",
+      "name": "hpx_events_dataset",
       "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
   "pages": [
     {
-      "name": "page_2",
+      "name": "new_devices_page",
       "displayName": "New Devices",
       "layout": [
         {
@@ -18,7 +18,7 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_2",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
                     {
                       "name": "daily_event_date",
@@ -65,7 +65,7 @@
                 }
               },
               "frame": {
-                "title": "New Devices",
+                "title": "New Devices Over Time",
                 "showTitle": true
               }
             }
