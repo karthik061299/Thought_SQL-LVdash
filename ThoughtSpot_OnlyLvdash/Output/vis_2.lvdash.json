@@ -8,7 +8,7 @@
   ],
   "pages": [
     {
-      "name": "page_2",
+      "name": "new_devices_page",
       "displayName": "New Devices",
       "layout": [
         {
@@ -65,7 +65,7 @@
                 }
               },
               "frame": {
-                "title": "New Devices",
+                "title": "New Devices and Cumulative New Devices Over Time",
                 "showTitle": true
               }
             }
