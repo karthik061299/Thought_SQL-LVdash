@@ -1,28 +1,37 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "displayName": "HPX Events Model",
-      "asset_name": "workspace.default.hpx_events_model"
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "workspace.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "viz_2_page",
-      "displayName": "New Devices",
+      "name": "executive_summary_page",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "new_devices_chart",
+            "name": "new_devices_line_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
-                    { "name": "cumulative_new_devices", "expression": "`Cumulative New Devices`" },
-                    { "name": "daily_event_date", "expression": "DATE_TRUNC('DAY', `Event Date Time`)" },
-                    { "name": "new_devices", "expression": "`New Devices`" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "`Daily Event Date`"
+                    },
+                    {
+                      "name": "new_devices",
+                      "expression": "MEASURE(`New Devices`)"
+                    },
+                    {
+                      "name": "cumulative_new_devices",
+                      "expression": "SUM(MEASURE(`New Devices`)) OVER (ORDER BY `Daily Event Date` ROWS UNBOUNDED PRECEDING)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -35,7 +44,9 @@
                 "x": {
                   "fieldName": "daily_event_date",
                   "displayName": "Daily Event Date",
-                  "scale": { "type": "temporal" }
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
                   "fields": [
@@ -48,16 +59,23 @@
                       "displayName": "Cumulative New Devices"
                     }
                   ],
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
-                "title": "New Devices and Cumulative New Devices",
-                "showTitle": true
+                "showTitle": true,
+                "title": "New Devices"
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
