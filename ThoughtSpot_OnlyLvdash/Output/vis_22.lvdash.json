@@ -1,0 +1,93 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_dataset_22",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_22",
+      "displayName": "HPX New Version Adoption",
+      "layout": [
+        {
+          "widget": {
+            "name": "hpx_version_adoption_line_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset_22",
+                  "fields": [
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `event_date_time`)"
+                    },
+                    {
+                      "name": "app_version",
+                      "expression": "`app_version`"
+                    },
+                    {
+                      "name": "active_devices",
+                      "expression": "MEASURE(`active_devices_1`)"
+                    },
+                    {
+                      "name": "pct_active_devices",
+                      "expression": "MEASURE(`active_devices_1`) / SUM(MEASURE(`active_devices_1`)) OVER (PARTITION BY DATE_TRUNC('DAY', `event_date_time`))"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "pct_active_devices",
+                  "displayName": "% Active Devices",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "app_version",
+                  "displayName": "App Version",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "HPX New Version Adoption",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
