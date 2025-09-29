@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_7",
+      "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
@@ -13,12 +13,12 @@
       "layout": [
         {
           "widget": {
-            "name": "control_clicks_bar_chart",
+            "name": "top_onpress_events_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_7",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
                     {
                       "name": "control",
