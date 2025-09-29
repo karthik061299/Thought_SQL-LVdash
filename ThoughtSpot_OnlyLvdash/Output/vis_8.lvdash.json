@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "launch_type_active_devices_stacked_column",
+            "name": "launch_type_active_devices_stacked_bar",
             "queries": [
               {
                 "name": "main_query",
