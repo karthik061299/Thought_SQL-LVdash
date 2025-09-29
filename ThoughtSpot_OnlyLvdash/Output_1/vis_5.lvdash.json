@@ -1,28 +1,37 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "displayName": "HPX Events Model",
-      "asset_name": "workspace.default.hpx_events_model"
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "workspace.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "viz_5_page",
-      "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
+      "name": "executive_summary_page",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "unique_screen_views_chart",
+            "name": "top_unique_screen_views_stacked_bar",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
-                    { "name": "screen", "expression": "`Screen`" },
-                    { "name": "daily_event_date", "expression": "DATE_TRUNC('DAY', `Event Date Time`)" },
-                    { "name": "unique_screen_views", "expression": "SUM(`Unique Screen Views`)" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "`Daily Event Date`"
+                    },
+                    {
+                      "name": "screen",
+                      "expression": "`Screen`"
+                    },
+                    {
+                      "name": "unique_screen_views",
+                      "expression": "MEASURE(`Unique Screen Views`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -35,25 +44,37 @@
                 "x": {
                   "fieldName": "daily_event_date",
                   "displayName": "Daily Event Date",
-                  "scale": { "type": "temporal" }
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
                   "fieldName": "unique_screen_views",
                   "displayName": "Unique Screen Views",
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 "color": {
                   "fieldName": "screen",
-                  "displayName": "Screen"
+                  "displayName": "Screen",
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views (excl. Home/Welcome)",
-                "showTitle": true
+                "showTitle": true,
+                "title": "Top Unique Screen Views (excl. Home/Welcome)"
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
