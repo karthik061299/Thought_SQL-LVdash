@@ -1,0 +1,65 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_model",
+      "displayName": "HPX Events Model",
+      "asset_name": "workspace.default.hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "viz_14_page",
+      "displayName": "Home Tile Interactions",
+      "layout": [
+        {
+          "widget": {
+            "name": "home_tile_interactions_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_model",
+                  "fields": [
+                    { "name": "home_tile", "expression": "`Home Tile`" },
+                    { "name": "unique_tile_views", "expression": "MEASURE(`Total Unique Tile Views`)" },
+                    { "name": "unique_tile_clicks", "expression": "MEASURE(`Total Unique Tile Clicks`)" },
+                    { "name": "unique_interstitial_views", "expression": "MEASURE(`Total Unique Interstitial Views`)" },
+                    { "name": "unique_interstitial_primary_button_clicks", "expression": "MEASURE(`Total Unique Interstitial Primary Button Clicks`)" },
+                    { "name": "unique_interstitial_secondary_button_clicks", "expression": "MEASURE(`Total Unique Interstitial Secondary Button Clicks`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  { "fieldName": "home_tile", "displayName": "Home Tile" },
+                  { "fieldName": "unique_tile_views", "displayName": "Unique Tile Views" },
+                  { "fieldName": "unique_tile_clicks", "displayName": "Unique Tile Clicks" },
+                  { "fieldName": "unique_interstitial_views", "displayName": "Unique Interstitial Views" },
+                  { "fieldName": "unique_interstitial_primary_button_clicks", "displayName": "Unique Interstitial Primary Button Clicks" },
+                  { "fieldName": "unique_interstitial_secondary_button_clicks", "displayName": "Unique Interstitial Secondary Button Clicks" }
+                ]
+              },
+              "frame": {
+                "title": "Home Tile Interactions",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
