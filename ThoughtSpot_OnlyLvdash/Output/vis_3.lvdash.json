@@ -25,7 +25,7 @@
                       "expression": "`geo_country_code`"
                     },
                     {
-                      "name": "total_new_devices",
+                      "name": "new_devices_sum",
                       "expression": "SUM(MEASURE(`new_devices_1`))"
                     }
                   ],
@@ -38,7 +38,7 @@
               "widgetType": "pie",
               "encodings": {
                 "angle": {
-                  "fieldName": "total_new_devices",
+                  "fieldName": "new_devices_sum",
                   "displayName": "New Devices",
                   "scale": {
                     "type": "quantitative"
