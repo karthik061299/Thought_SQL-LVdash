@@ -71,6 +71,11 @@
       ]
     },
     {
+      "name": "hpx_homepage_summary_dataset",
+      "displayName": "HPX Homepage Summary Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_homepage_summary_metric_view"
+    },
+    {
       "name": "hpx_events_model_iide_dataset_8",
       "displayName": "HPX Events Model IIDE Dataset 8",
       "queryLines": [
@@ -1346,6 +1351,76 @@
             "y": 0,
             "width": 12,
             "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    },
+    {
+      "name": "home_tile_ctr_page",
+      "displayName": "Home Tile Secondary CTR",
+      "layout": [
+        {
+          "widget": {
+            "name": "home_tile_secondary_ctr_widget",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_homepage_summary_dataset",
+                  "fields": [
+                    {
+                      "name": "home_tile",
+                      "expression": "`home_tile`"
+                    },
+                    {
+                      "name": "secondary_ctr",
+                      "expression": "SUM(`unique_interstitial_secondary_button_clicks`) / SUM(`unique_interstitial_views`)"
+                    },
+                    {
+                      "name": "primary_ctr",
+                      "expression": "SUM(`unique_interstitial_primary_button_clicks`) / SUM(`unique_interstitial_views`)"
+                    },
+                    {
+                      "name": "tile_ctr",
+                      "expression": "SUM(`unique_tile_clicks`) / SUM(`unique_tile_views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "secondary_ctr",
+                  "displayName": "Secondary Button CTR",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "category": {
+                  "fieldName": "home_tile",
+                  "displayName": "Home Tile",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Home Tile Secondary CTR",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 4
           }
         }
       ],
