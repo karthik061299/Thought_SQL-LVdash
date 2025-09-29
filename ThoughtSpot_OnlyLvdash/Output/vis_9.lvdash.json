@@ -21,7 +21,7 @@
                   "datasetName": "hpx_retention_dataset_9",
                   "fields": [
                     {
-                      "name": "monthly_first_device_event",
+                      "name": "month_first_device_event_date_time",
                       "expression": "DATE_TRUNC('MONTH', `first_device_event_date_time`)"
                     },
                     {
@@ -47,7 +47,7 @@
               "encodings": {
                 "columns": [
                   {
-                    "fieldName": "monthly_first_device_event",
+                    "fieldName": "month_first_device_event_date_time",
                     "displayName": "Month(First Device Event Date Time)"
                   },
                   {
