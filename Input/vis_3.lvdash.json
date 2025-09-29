@@ -1,0 +1,70 @@
+{
+  "datasets": [
+    {
+      "name": "dataset_viz_3",
+      "displayName": "New Devices by Country Dataset",
+      "asset_name": "workspace.default.hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_viz_3",
+      "displayName": "New Devices by Top 10 Countries",
+      "layout": [
+        {
+          "widget": {
+            "name": "widget_viz_3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset_viz_3",
+                  "fields": [
+                    {
+                      "name": "geo_country_code",
+                      "expression": "`Geo Country Code`"
+                    },
+                    {
+                      "name": "new_devices",
+                      "expression": "MEASURE(`New Devices`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "sankey",
+              "encodings": {
+                "value": {
+                  "fieldName": "new_devices",
+                  "displayName": "New Devices"
+                },
+                "stages": [
+                  {
+                    "fieldName": "geo_country_code",
+                    "displayName": "Geo Country Code"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
