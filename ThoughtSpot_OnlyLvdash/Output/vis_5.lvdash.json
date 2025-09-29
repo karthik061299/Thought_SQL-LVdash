@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_unique_screen_views_stacked_bar",
+            "name": "top_unique_screen_views_stacked_column",
             "queries": [
               {
                 "name": "main_query",
@@ -43,7 +43,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
-                  "displayName": "Daily Event Date",
+                  "displayName": "Monthly Event Date",
                   "scale": {
                     "type": "temporal"
                   }
