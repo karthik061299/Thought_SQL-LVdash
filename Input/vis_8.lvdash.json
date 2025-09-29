@@ -1,0 +1,86 @@
+{
+  "datasets": [
+    {
+      "name": "dataset_viz_8",
+      "displayName": "Launch Type Active Devices Dataset",
+      "asset_name": "workspace.default.hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_viz_8",
+      "displayName": "Launch type Active Devices",
+      "layout": [
+        {
+          "widget": {
+            "name": "widget_viz_8",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset_viz_8",
+                  "fields": [
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `Event Date Time`)"
+                    },
+                    {
+                      "name": "launch_type",
+                      "expression": "`Launch Type`"
+                    },
+                    {
+                      "name": "active_devices",
+                      "expression": "MEASURE(`Active Devices`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily_event_date",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "Daily Event Date"
+                },
+                "y": {
+                  "fieldName": "active_devices",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Active Devices"
+                },
+                "color": {
+                  "fieldName": "launch_type",
+                  "displayName": "Launch Type"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Launch Type Active Devices"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
