@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_bar",
+            "name": "top_onpress_events_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -26,7 +26,7 @@
                     },
                     {
                       "name": "total_clicks",
-                      "expression": "SUM(`clicks`)"
+                      "expression": "MEASURE(`clicks`)"
                     }
                   ],
                   "disaggregated": false
