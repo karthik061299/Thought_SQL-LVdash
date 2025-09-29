@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_stacked_column",
+            "name": "top_onpress_events_stacked_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -64,7 +64,7 @@
                 }
               },
               "frame": {
-                "title": "Top On Press Events",
+                "title": "Top On Press Events by Control Over Time",
                 "showTitle": true
               }
             }
