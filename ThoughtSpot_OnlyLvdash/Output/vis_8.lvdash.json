@@ -1,24 +1,24 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_launch_type",
-      "displayName": "HPX Events Model Dataset for Launch Type",
+      "name": "hpx_events_dataset_8",
+      "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
   "pages": [
     {
-      "name": "launch_type_active_devices_page",
+      "name": "page_8",
       "displayName": "Launch type Active Devices",
       "layout": [
         {
           "widget": {
-            "name": "launch_type_active_devices_stacked_chart",
+            "name": "launch_type_active_devices_stacked_column",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_launch_type",
+                  "datasetName": "hpx_events_dataset_8",
                   "fields": [
                     {
                       "name": "daily_event_date",
@@ -29,7 +29,7 @@
                       "expression": "`launch_type`"
                     },
                     {
-                      "name": "total_percent_event_id",
+                      "name": "active_devices",
                       "expression": "MEASURE(`active_devices_1`)"
                     }
                   ],
@@ -49,7 +49,7 @@
                   }
                 },
                 "y": {
-                  "fieldName": "total_percent_event_id",
+                  "fieldName": "active_devices",
                   "displayName": "Total % Event ID",
                   "scale": {
                     "type": "quantitative"
