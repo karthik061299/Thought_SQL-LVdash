@@ -1,0 +1,63 @@
+{
+  "datasets": [
+    {
+      "name": "HPX_CURR",
+      "displayName": "HPX CURR",
+      "asset_name": "workspace.default.HPX_CURR"
+    }
+  ],
+  "pages": [
+    {
+      "name": "viz_12_page",
+      "displayName": "HPX CURR - Data Table",
+      "layout": [
+        {
+          "widget": {
+            "name": "hpx_curr_data_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "HPX_CURR",
+                  "fields": [
+                    { "name": "week_active", "expression": "DATE_TRUNC('WEEK', `Week Active`)" },
+                    { "name": "total_last_week_users_t7t13", "expression": "MEASURE(`Total Last Week Users T7t13`)" },
+                    { "name": "total_previous_week_users_t14t20", "expression": "MEASURE(`Total Previous Week Users T14t20`)" },
+                    { "name": "total_this_week_users_t0t6", "expression": "MEASURE(`Total This Week Users T0t6`)" },
+                    { "name": "f_curr", "expression": "MEASURE(`f_CURR`)" }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  { "fieldName": "week_active", "displayName": "Week Active" },
+                  { "fieldName": "total_last_week_users_t7t13", "displayName": "Last Week Users T7t13" },
+                  { "fieldName": "total_previous_week_users_t14t20", "displayName": "Previous Week Users T14t20" },
+                  { "fieldName": "total_this_week_users_t0t6", "displayName": "This Week Users T0t6" },
+                  { "fieldName": "f_curr", "displayName": "CURR" }
+                ]
+              },
+              "frame": {
+                "title": "HPX CURR - Data Table",
+                "showTitle": true
+              }
+            }
+          },
+          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
