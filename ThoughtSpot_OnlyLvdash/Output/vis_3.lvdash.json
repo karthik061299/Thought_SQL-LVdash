@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model_dataset",
+      "name": "hpx_events_dataset_3",
       "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
@@ -18,7 +18,7 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model_dataset",
+                  "datasetName": "hpx_events_dataset_3",
                   "fields": [
                     {
                       "name": "geo_country_code",
