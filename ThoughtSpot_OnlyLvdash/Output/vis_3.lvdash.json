@@ -26,7 +26,7 @@
                     },
                     {
                       "name": "new_devices_sum",
-                      "expression": "SUM(MEASURE(`new_devices_1`))"
+                      "expression": "MEASURE(`new_devices_1`)"
                     }
                   ],
                   "disaggregated": false
@@ -37,18 +37,18 @@
               "version": 3,
               "widgetType": "pie",
               "encodings": {
-                "color": {
-                  "fieldName": "geo_country_code",
-                  "displayName": "Geo Country Code",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
                 "angle": {
                   "fieldName": "new_devices_sum",
                   "displayName": "New Devices",
                   "scale": {
                     "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "geo_country_code",
+                  "displayName": "Geo Country Code",
+                  "scale": {
+                    "type": "categorical"
                   }
                 }
               },
