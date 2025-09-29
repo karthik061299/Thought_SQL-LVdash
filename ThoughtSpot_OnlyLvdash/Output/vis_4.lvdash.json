@@ -1,0 +1,89 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_dataset_4",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_4",
+      "displayName": "Top On Press Events",
+      "layout": [
+        {
+          "widget": {
+            "name": "top_onpress_events_stacked_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset_4",
+                  "fields": [
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `event_date_time`)"
+                    },
+                    {
+                      "name": "control",
+                      "expression": "`control`"
+                    },
+                    {
+                      "name": "total_clicks",
+                      "expression": "SUM(`clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "total_clicks",
+                  "displayName": "Total Clicks",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "control",
+                  "displayName": "Control",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top On Press Events",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
