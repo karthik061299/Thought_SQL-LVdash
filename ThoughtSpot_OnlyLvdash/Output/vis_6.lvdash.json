@@ -1,24 +1,24 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_6",
-      "displayName": "HPX Events Model Dataset",
+      "name": "hpx_events_dataset_bar_screen",
+      "displayName": "HPX Events Model Dataset for Screen Bar Chart",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
   "pages": [
     {
-      "name": "page_6",
+      "name": "top_unique_screen_views_bar_page",
       "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
       "layout": [
         {
           "widget": {
-            "name": "unique_screen_views_bar_chart",
+            "name": "top_unique_screen_views_bar_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_6",
+                  "datasetName": "hpx_events_dataset_bar_screen",
                   "fields": [
                     {
                       "name": "screen",
