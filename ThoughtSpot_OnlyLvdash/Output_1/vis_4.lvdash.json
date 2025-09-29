@@ -1,28 +1,37 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "displayName": "HPX Events Model",
-      "asset_name": "workspace.default.hpx_events_model"
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "workspace.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "viz_4_page",
-      "displayName": "Top On Press Events",
+      "name": "executive_summary_page",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_chart",
+            "name": "top_on_press_events_stacked_bar",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
-                    { "name": "control", "expression": "`Control`" },
-                    { "name": "daily_event_date", "expression": "DATE_TRUNC('DAY', `Event Date Time`)" },
-                    { "name": "total_clicks", "expression": "SUM(`Clicks`)" }
+                    {
+                      "name": "daily_event_date",
+                      "expression": "`Daily Event Date`"
+                    },
+                    {
+                      "name": "control",
+                      "expression": "`Control`"
+                    },
+                    {
+                      "name": "total_clicks",
+                      "expression": "MEASURE(`Total Clicks`)"
+                    }
                   ],
                   "disaggregated": false
                 }
@@ -35,25 +44,37 @@
                 "x": {
                   "fieldName": "daily_event_date",
                   "displayName": "Daily Event Date",
-                  "scale": { "type": "temporal" }
+                  "scale": {
+                    "type": "temporal"
+                  }
                 },
                 "y": {
                   "fieldName": "total_clicks",
                   "displayName": "Total Clicks",
-                  "scale": { "type": "quantitative" }
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 },
                 "color": {
                   "fieldName": "control",
-                  "displayName": "Control"
+                  "displayName": "Control",
+                  "scale": {
+                    "type": "categorical"
+                  }
                 }
               },
               "frame": {
-                "title": "Top On Press Events",
-                "showTitle": true
+                "showTitle": true,
+                "title": "Top On Press Events"
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
