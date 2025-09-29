@@ -1,1 +1,78 @@
-{"datasets": [{"name": "dataset_viz_7","displayName": "Top On Press Events Dataset","asset_name": "workspace.default.hpx_events_model"}],"pages": [{"name": "page_viz_7","displayName": "Top On Press Events","layout": [{"widget": {"name": "widget_viz_7","queries": [{"name": "main_query","query": {"datasetName": "dataset_viz_7","fields": [{"name": "control","expression": "`Control`"},{"name": "total_clicks","expression": "MEASURE(`Total Clicks`)"}],"disaggregated": false}}],"spec": {"version": 3,"widgetType": "bar","encodings": {"x": {"fieldName": "control","scale": {"type": "categorical"},"displayName": "Control"},"y": {"fieldName": "total_clicks","scale": {"type": "quantitative"},"displayName": "Total Clicks"}},"frame": {"showTitle": true,"title": "Top On Press Events"}}},"position": {"x": 0,"y": 0,"width": 12,"height": 8}}],"pageType": "PAGE_TYPE_CANVAS","filters": []}],"uiSettings": {"theme": {"widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"}}}
+{
+  "datasets": [
+    {
+      "name": "dataset_7",
+      "displayName": "Top On Press Events Dataset",
+      "asset_name": "workspace.default.hpx_events_model"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_7",
+      "displayName": "Top On Press Events",
+      "layout": [
+        {
+          "widget": {
+            "name": "widget_7",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dataset_7",
+                  "fields": [
+                    {
+                      "name": "control",
+                      "expression": "`Control`"
+                    },
+                    {
+                      "name": "total_clicks",
+                      "expression": "MEASURE(`Total Clicks`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "control",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Control"
+                },
+                "y": {
+                  "fieldName": "total_clicks",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Clicks"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Top On Press Events"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
