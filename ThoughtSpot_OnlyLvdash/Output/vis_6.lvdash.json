@@ -1,0 +1,78 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_dataset_6",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_6",
+      "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
+      "layout": [
+        {
+          "widget": {
+            "name": "unique_screen_views_bar_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset_6",
+                  "fields": [
+                    {
+                      "name": "screen",
+                      "expression": "`screen`"
+                    },
+                    {
+                      "name": "unique_screen_views",
+                      "expression": "MEASURE(`unique_screen_views_1`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "screen",
+                  "displayName": "Screen",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "unique_screen_views",
+                  "displayName": "Unique Screen Views",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
