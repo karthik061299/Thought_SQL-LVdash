@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_1",
+      "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
@@ -18,7 +18,7 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_1",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
                     {
                       "name": "daily_event_date",
@@ -53,7 +53,7 @@
                 }
               },
               "frame": {
-                "title": "Active Devices Over Time",
+                "title": "Active Devices",
                 "showTitle": true
               }
             }
