@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_stacked_chart",
+            "name": "top_onpress_events_chart",
             "queries": [
               {
                 "name": "main_query",
