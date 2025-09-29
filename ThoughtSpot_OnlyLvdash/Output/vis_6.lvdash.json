@@ -8,12 +8,12 @@
   ],
   "pages": [
     {
-      "name": "page_6",
+      "name": "unique_screen_views_bar_page",
       "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
       "layout": [
         {
           "widget": {
-            "name": "top_unique_screen_views_bar_chart",
+            "name": "unique_screen_views_bar_widget",
             "queries": [
               {
                 "name": "main_query",
