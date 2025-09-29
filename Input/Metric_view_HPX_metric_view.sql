@@ -2,13 +2,13 @@
 # Generated from ThoughtSpot artifacts
 
 # 1. HPX Events Model Metric View
-CREATE OR REPLACE VIEW hive_metastore.default.mv_hpx_events_model
+CREATE OR REPLACE VIEW workspace.default.mv_hpx_events_model
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 0.1
 
-source: hive_metastore.default.hpx_events_model_iide
+source: workspace.default.hpx_events_model_iide
 
 filter: event_date_time >= DATE '2023-05-01'
 
@@ -96,13 +96,13 @@ measures:
 $$;
 
 # 2. HPX CURR Metric View
-CREATE OR REPLACE VIEW hive_metastore.default.mv_hpx_curr
+CREATE OR REPLACE VIEW workspace.default.mv_hpx_curr
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 0.1
 
-source: hive_metastore.default.hpx_curr
+source: workspace.default.hpx_curr
 
 filter: week_active >= DATE '2023-05-01'
 
@@ -132,13 +132,13 @@ measures:
 $$;
 
 # 3. HPX Retention Metric View
-CREATE OR REPLACE VIEW hive_metastore.default.mv_hpx_retention
+CREATE OR REPLACE VIEW workspace.default.mv_hpx_retention
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 0.1
 
-source: hive_metastore.default.hpx_retention_good
+source: workspace.default.hpx_retention_good
 
 filter: first_device_event_date_time >= DATE '2023-05-01'
 
@@ -196,13 +196,13 @@ measures:
 $$;
 
 # 4. HPX First Use Behavior Flow Metric View
-CREATE OR REPLACE VIEW hive_metastore.default.mv_hpx_first_use_behavior_flow
+CREATE OR REPLACE VIEW workspace.default.mv_hpx_first_use_behavior_flow
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 0.1
 
-source: hive_metastore.default.hpx_first_use_behavior_flow
+source: workspace.default.hpx_first_use_behavior_flow
 
 filter: Date >= DATE '2023-05-01'
 
@@ -236,13 +236,13 @@ measures:
 $$;
 
 # 5. HPX Events Model Homepage Summary Metric View
-CREATE OR REPLACE VIEW hive_metastore.default.mv_hpx_homepage_summary
+CREATE OR REPLACE VIEW workspace.default.mv_hpx_homepage_summary
 WITH METRICS
 LANGUAGE YAML
 AS $$
 version: 0.1
 
-source: hive_metastore.default.hpx_events_model_homepage_summary
+source: workspace.default.hpx_events_model_homepage_summary
 
 dimensions:
   - name: Home Tile
@@ -279,4 +279,5 @@ measures:
     expr: SUM(primary_button_clicked_vs_interstitial_displayed)
   - name: Total Secondary Button Clicked Vs Interstitial Displayed
     expr: SUM(secondary_button_clicked_vs_interstitial_displayed)
+
 $$;
