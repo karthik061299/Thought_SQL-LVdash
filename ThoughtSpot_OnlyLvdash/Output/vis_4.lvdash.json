@@ -8,12 +8,12 @@
   ],
   "pages": [
     {
-      "name": "top_on_press_events_page",
+      "name": "page_4",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_on_press_events_bar_chart",
+            "name": "top_onpress_events_stacked_column",
             "queries": [
               {
                 "name": "main_query",
@@ -64,7 +64,7 @@
                 }
               },
               "frame": {
-                "title": "Top On Press Events",
+                "title": "Top On Press Events by Control",
                 "showTitle": true
               }
             }
