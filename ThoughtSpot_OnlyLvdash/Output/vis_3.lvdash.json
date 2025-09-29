@@ -1,0 +1,78 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_dataset_3",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_3",
+      "displayName": "New Devices by Top 10 Countries",
+      "layout": [
+        {
+          "widget": {
+            "name": "new_devices_by_country_pie_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset_3",
+                  "fields": [
+                    {
+                      "name": "geo_country_code",
+                      "expression": "`geo_country_code`"
+                    },
+                    {
+                      "name": "sum_new_devices",
+                      "expression": "SUM(MEASURE(`new_devices_1`))"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum_new_devices",
+                  "displayName": "New Devices",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "geo_country_code",
+                  "displayName": "Geo Country Code",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "New Devices by Top 10 Countries",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
