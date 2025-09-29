@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_unique_screen_views_stacked_column",
+            "name": "unique_screen_views_stacked_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -64,7 +64,7 @@
                 }
               },
               "frame": {
-                "title": "Top Unique Screen Views (excl. Home/Welcome)",
+                "title": "Top Unique Screen Views (excl. Home/Welcome) by Screen Over Time",
                 "showTitle": true
               }
             }
