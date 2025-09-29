@@ -1,7 +1,7 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_4",
+      "name": "hpx_events_model_dataset",
       "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
@@ -13,12 +13,12 @@
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_stacked_bar",
+            "name": "top_onpress_events_stacked_column",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_4",
+                  "datasetName": "hpx_events_model_dataset",
                   "fields": [
                     {
                       "name": "daily_event_date",
