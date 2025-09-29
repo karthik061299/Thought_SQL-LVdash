@@ -1,24 +1,24 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_stacked",
-      "displayName": "HPX Events Model Dataset for Controls",
+      "name": "hpx_events_dataset_4",
+      "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
   "pages": [
     {
-      "name": "top_onpress_events_page",
+      "name": "page_4",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_stacked_chart",
+            "name": "top_on_press_events_stacked_bar",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_stacked",
+                  "datasetName": "hpx_events_dataset_4",
                   "fields": [
                     {
                       "name": "daily_event_date",
