@@ -8,7 +8,7 @@
   ],
   "pages": [
     {
-      "name": "page_5",
+      "name": "unique_screen_views_page",
       "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
       "layout": [
         {
@@ -43,7 +43,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
-                  "displayName": "Monthly Event Date",
+                  "displayName": "Daily Event Date",
                   "scale": {
                     "type": "temporal"
                   }
