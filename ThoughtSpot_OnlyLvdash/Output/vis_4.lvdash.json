@@ -8,12 +8,12 @@
   ],
   "pages": [
     {
-      "name": "page_4",
+      "name": "top_on_press_events_page",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_bar_chart",
+            "name": "top_on_press_events_bar_chart",
             "queries": [
               {
                 "name": "main_query",
