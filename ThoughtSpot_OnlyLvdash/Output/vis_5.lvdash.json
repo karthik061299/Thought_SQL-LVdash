@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "top_unique_screen_views_stacked_bar",
+            "name": "unique_screen_views_chart",
             "queries": [
               {
                 "name": "main_query",
