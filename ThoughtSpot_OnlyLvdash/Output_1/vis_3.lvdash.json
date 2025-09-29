@@ -1,52 +1,69 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_model",
-      "displayName": "HPX Events Model",
-      "asset_name": "workspace.default.hpx_events_model"
+      "name": "hpx_events_dataset",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "workspace.default.mv_hpx_events_model"
     }
   ],
   "pages": [
     {
-      "name": "viz_3_page",
-      "displayName": "New Devices by Top 10 Countries",
+      "name": "executive_summary_page",
+      "displayName": "Executive Summary",
       "layout": [
         {
           "widget": {
-            "name": "new_devices_by_country_chart",
+            "name": "new_devices_by_country_pie_chart",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_model",
+                  "datasetName": "hpx_events_dataset",
                   "fields": [
-                    { "name": "geo_country_code", "expression": "`Geo Country Code`" },
-                    { "name": "new_devices", "expression": "SUM(`New Devices`)" }
+                    {
+                      "name": "geo_country_code",
+                      "expression": "`Geo Country Code`"
+                    },
+                    {
+                      "name": "new_devices_sum",
+                      "expression": "MEASURE(`New Devices`)"
+                    }
                   ],
                   "disaggregated": false
                 }
               }
             ],
             "spec": {
-              "version": 1,
+              "version": 3,
               "widgetType": "pie",
               "encodings": {
-                "angle": {
-                  "fieldName": "new_devices",
-                  "displayName": "New Devices"
-                },
                 "color": {
                   "fieldName": "geo_country_code",
-                  "displayName": "Geo Country Code"
+                  "displayName": "Geo Country Code",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "angle": {
+                  "fieldName": "new_devices_sum",
+                  "displayName": "New Devices",
+                  "scale": {
+                    "type": "quantitative"
+                  }
                 }
               },
               "frame": {
-                "title": "New Devices by Top 10 Countries",
-                "showTitle": true
+                "showTitle": true,
+                "title": "New Devices by Top 10 Countries"
               }
             }
           },
-          "position": { "x": 0, "y": 0, "width": 12, "height": 8 }
+          "position": {
+            "x": 6,
+            "y": 4,
+            "width": 6,
+            "height": 4
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
