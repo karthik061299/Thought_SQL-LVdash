@@ -1,24 +1,24 @@
 {
   "datasets": [
     {
-      "name": "hpx_events_dataset_control_clicks",
-      "displayName": "HPX Events Model Dataset for Control Clicks",
+      "name": "hpx_events_dataset_7",
+      "displayName": "HPX Events Model Dataset",
       "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
     }
   ],
   "pages": [
     {
-      "name": "top_onpress_events_bar_page",
+      "name": "page_7",
       "displayName": "Top On Press Events",
       "layout": [
         {
           "widget": {
-            "name": "top_onpress_events_control_bar_chart",
+            "name": "top_on_press_events_bar",
             "queries": [
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "hpx_events_dataset_control_clicks",
+                  "datasetName": "hpx_events_dataset_7",
                   "fields": [
                     {
                       "name": "control",
