@@ -33,8 +33,8 @@
                       "expression": "MEASURE(`active_devices`)"
                     },
                     {
-                      "name": "devices_returning_pct",
-                      "expression": "MEASURE(`active_devices`) / SUM(MEASURE(`active_devices`)) OVER (PARTITION BY DATE_TRUNC('MONTH', `first_device_event_date_time`))"
+                      "name": "devices_returning_percent",
+                      "expression": "MEASURE(`active_devices`) / SUM(MEASURE(`active_devices`)) OVER (PARTITION BY DATE_TRUNC('MONTH', `first_device_event_date_time`)) * 100"
                     }
                   ],
                   "disaggregated": false
@@ -59,7 +59,7 @@
                     "displayName": "Active Devices"
                   },
                   {
-                    "fieldName": "devices_returning_pct",
+                    "fieldName": "devices_returning_percent",
                     "displayName": "% Devices Returning"
                   }
                 ]
