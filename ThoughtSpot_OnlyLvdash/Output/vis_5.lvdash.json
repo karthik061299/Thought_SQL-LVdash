@@ -1,0 +1,89 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_events_dataset_5",
+      "displayName": "HPX Events Model Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_events_model_iide_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_5",
+      "displayName": "Top Unique Screen Views (excl. Home/Welcome)",
+      "layout": [
+        {
+          "widget": {
+            "name": "unique_screen_views_stacked_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_events_dataset_5",
+                  "fields": [
+                    {
+                      "name": "daily_event_date",
+                      "expression": "DATE_TRUNC('DAY', `event_date_time`)"
+                    },
+                    {
+                      "name": "screen",
+                      "expression": "`screen`"
+                    },
+                    {
+                      "name": "unique_screen_views",
+                      "expression": "MEASURE(`unique_screen_views_1`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily_event_date",
+                  "displayName": "Daily Event Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "unique_screen_views",
+                  "displayName": "Unique Screen Views",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "screen",
+                  "displayName": "Screen",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Top Unique Screen Views (excl. Home/Welcome)",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
