@@ -13,7 +13,7 @@
       "layout": [
         {
           "widget": {
-            "name": "new_devices_by_country_pie_chart",
+            "name": "new_devices_pie_chart",
             "queries": [
               {
                 "name": "main_query",
@@ -25,7 +25,7 @@
                       "expression": "`geo_country_code`"
                     },
                     {
-                      "name": "total_new_devices",
+                      "name": "new_devices_sum",
                       "expression": "SUM(MEASURE(`new_devices_1`))"
                     }
                   ],
@@ -37,18 +37,18 @@
               "version": 3,
               "widgetType": "pie",
               "encodings": {
+                "angle": {
+                  "fieldName": "new_devices_sum",
+                  "displayName": "New Devices",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
                 "color": {
                   "fieldName": "geo_country_code",
                   "displayName": "Geo Country Code",
                   "scale": {
                     "type": "categorical"
-                  }
-                },
-                "angle": {
-                  "fieldName": "total_new_devices",
-                  "displayName": "New Devices",
-                  "scale": {
-                    "type": "quantitative"
                   }
                 }
               },
