@@ -1,0 +1,78 @@
+{
+  "datasets": [
+    {
+      "name": "hpx_curr_dataset_11",
+      "displayName": "HPX CURR Dataset",
+      "asset_name": "team_css_analytics_prod.hpx_analytics.hpx_curr_metric_view"
+    }
+  ],
+  "pages": [
+    {
+      "name": "page_11",
+      "displayName": "HPX CURR - Trendline",
+      "layout": [
+        {
+          "widget": {
+            "name": "hpx_curr_trendline",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "hpx_curr_dataset_11",
+                  "fields": [
+                    {
+                      "name": "week_active",
+                      "expression": "DATE_TRUNC('WEEK', `week_active`)"
+                    },
+                    {
+                      "name": "curr_avg",
+                      "expression": "AVG(`curr`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "week_active",
+                  "displayName": "Week Active",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "curr_avg",
+                  "displayName": "CURR",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "HPX CURR - Trendline",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "filters": []
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
