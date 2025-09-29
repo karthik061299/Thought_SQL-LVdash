@@ -43,7 +43,7 @@
               "encodings": {
                 "x": {
                   "fieldName": "daily_event_date",
-                  "displayName": "Monthly Event Date",
+                  "displayName": "Daily Event Date",
                   "scale": {
                     "type": "temporal"
                   }
