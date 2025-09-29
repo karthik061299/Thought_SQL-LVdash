@@ -8,12 +8,12 @@
   ],
   "pages": [
     {
-      "name": "page_8",
+      "name": "launch_type_active_devices_page",
       "displayName": "Launch type Active Devices",
       "layout": [
         {
           "widget": {
-            "name": "launch_type_active_devices_stacked_column",
+            "name": "launch_type_active_devices_bar_chart",
             "queries": [
               {
                 "name": "main_query",
